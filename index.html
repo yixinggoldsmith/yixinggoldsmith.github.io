@@ -1,0 +1,2294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Yi Xing</title>
+<meta name="description" content="Yi Xing: beads and pipes in 916 gold, strung into thirteen designs. Boutiques in Malaysia and Singapore.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..500&family=Jost:wght@300;400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&display=swap&text=%E9%87%91%E7%8F%A0">
+<style>
+/* Layout: a quiet white gallery. One full-bleed teal moment (the hero film) and a teal footer bracket
+   generous white space; every piece sits on the brand teal; the bead codes (B01, P01) and the 916 hallmark are the recurring detail. */
+:root {
+  --paper: #FFFFFF;
+  --stone: #F3F2EE;
+  --stone-2: #E8E5DD;
+  --ink: #142021;
+  --muted: #5A6768;
+  --line: #E1E4E2;
+  --line-strong: #B9C1BF;
+  --teal: #026873;
+  --teal-deep: #06393E;
+  --amber: #FDA701;
+  --gold-ink: #845800;
+  --accent-text: #026873;
+  --btn-bg: #06393E;
+  --btn-fg: #FFFFFF;
+  --btn-hover: #026873;
+  --focus: #026873;
+  --logo-teal: #026873;
+  --logo-amber: #FDA701;
+  --dot-home: #026873;
+  --dot-near: #CDD3D1;
+  --pin: #FDA701;
+  --pin-ring: #FFFFFF;
+  --ok: #2B7A4B;
+  --closed: #9A4A3A;
+  --error: #A23B2A;
+  --shadow: 0 30px 80px -40px rgba(6, 57, 62, .45);
+  /* fixed brand colours, same in both themes */
+  --media-bg: #0B6670;
+  --pg-paper: #FBF9F4; --pg-ink: #152120; --pg-muted: #5B6766; --pg-gold: #845800; --pg-line: #E2DED5;
+  --band: #06393E;
+  --band-ink: #F4F0E6;
+  --band-muted: #A9C4C3;
+  --band-line: rgba(244, 240, 230, .2);
+  --band-scrim: rgba(3, 28, 31, .62);
+
+  --font-display: "Bodoni Moda", "Bodoni 72", Didot, "Times New Roman", serif;
+  --font-text: "Jost", "Futura", "Century Gothic", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --font-cjk: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+
+  --fs-hero: clamp(2.9rem, 1.7rem + 4.6vw, 5.6rem);
+  --fs-h1: clamp(2.3rem, 1.5rem + 3vw, 4rem);
+  --fs-h2: clamp(1.8rem, 1.3rem + 1.8vw, 2.8rem);
+  --fs-statement: clamp(1.9rem, 1.35rem + 2.1vw, 3.3rem);
+  --fs-lede: clamp(1.03rem, .98rem + .28vw, 1.18rem);
+  --fs-body: 1rem;
+  --fs-small: .875rem;
+  --fs-micro: .72rem;
+  --track: .22em;
+
+  --gutter: clamp(16px, 4vw, 56px);
+  --section: clamp(72px, 9vw, 140px);
+  --maxw: 1320px;
+  --header-h: 118px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0B1314; --stone: #141F21; --stone-2: #1C2A2C; --ink: #ECE8DF; --muted: #9DABAA;
+    --line: #23393B; --line-strong: #3D5557; --teal: #2C8C95; --teal-deep: #072B2F; --amber: #FDB12E;
+    --gold-ink: #F2B54A; --accent-text: #7CCAD0; --btn-bg: #ECE8DF; --btn-fg: #0B1314; --btn-hover: #FFFFFF;
+    --pg-paper: #E9E5DC; --pg-line: #D3CEC3; --focus: #7CCAD0; --logo-teal: #5CB8BF; --logo-amber: #FDB12E; --dot-home: #5CB8BF; --dot-near: #233436;
+    --pin: #FDB12E; --pin-ring: #0B1314; --ok: #6CC08F; --closed: #E39A86; --error: #F08C7A;
+    --shadow: 0 30px 80px -40px rgba(0, 0, 0, .7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0B1314; --stone: #141F21; --stone-2: #1C2A2C; --ink: #ECE8DF; --muted: #9DABAA;
+  --line: #23393B; --line-strong: #3D5557; --teal: #2C8C95; --teal-deep: #072B2F; --amber: #FDB12E;
+  --gold-ink: #F2B54A; --accent-text: #7CCAD0; --btn-bg: #ECE8DF; --btn-fg: #0B1314; --btn-hover: #FFFFFF;
+  --pg-paper: #E9E5DC; --pg-line: #D3CEC3; --focus: #7CCAD0; --logo-teal: #5CB8BF; --logo-amber: #FDB12E; --dot-home: #5CB8BF; --dot-near: #233436;
+  --pin: #FDB12E; --pin-ring: #0B1314; --ok: #6CC08F; --closed: #E39A86; --error: #F08C7A;
+  --shadow: 0 30px 80px -40px rgba(0, 0, 0, .7);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-text); font-size: var(--fs-body); line-height: 1.65; font-weight: 400;
+  -webkit-font-smoothing: antialiased; overflow-x: clip;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 45; background: var(--paper); }
+img, video { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+p { margin: 0; }
+h1, h2, h3, h4 { margin: 0; font-weight: 400; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+address { font-style: normal; }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+[id] { scroll-margin-top: calc(var(--header-h) + 24px); }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cjk { font-family: var(--font-cjk); font-weight: 400; letter-spacing: 0; font-style: normal; }
+.icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.skip { position: absolute; left: 16px; top: -60px; z-index: 100; background: var(--btn-bg); color: var(--btn-fg); padding: .6rem 1rem; }
+.skip:focus { top: calc(env(safe-area-inset-top, 0px) + 12px); }
+
+.wrap {
+  width: 100%; max-width: calc(var(--maxw) + 2 * var(--gutter)); margin-inline: auto;
+  padding-left: max(16px, var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(16px, var(--gutter), env(safe-area-inset-right, 0px));
+}
+.section { padding-block: var(--section); }
+.section--tight { padding-block: calc(var(--section) * .6); }
+
+/* type */
+.eyebrow {
+  display: flex; align-items: center; gap: .85em; margin-bottom: 1.1rem;
+  font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: var(--track); text-transform: uppercase; color: var(--muted);
+}
+.eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--amber); flex: none; }
+.eyebrow--band { color: var(--band-muted); }
+.h1 { font-family: var(--font-display); font-size: var(--fs-h1); line-height: 1.05; letter-spacing: -.012em; text-wrap: balance; }
+.h2 { font-family: var(--font-display); font-size: var(--fs-h2); line-height: 1.1; letter-spacing: -.01em; text-wrap: balance; }
+.h1 em, .h2 em, .statement em { font-style: italic; }
+.statement { font-family: var(--font-display); font-size: var(--fs-statement); line-height: 1.14; letter-spacing: -.01em; text-wrap: balance; }
+.lede { font-size: var(--fs-lede); color: var(--muted); max-width: 38rem; line-height: 1.65; }
+.body-copy { color: var(--muted); max-width: 34rem; }
+.body-copy + .body-copy { margin-top: 1rem; }
+.label { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+
+/* buttons & links */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .65em; min-height: 50px; padding: 0 1.8rem;
+  border: 1px solid transparent; border-radius: 0; cursor: pointer; text-decoration: none; white-space: nowrap;
+  font: 500 .72rem/1 var(--font-text); letter-spacing: .2em; text-transform: uppercase;
+  transition: background-color .25s, color .25s, border-color .25s;
+}
+.btn--solid { background: var(--btn-bg); color: var(--btn-fg); }
+.btn--solid:hover { background: var(--btn-hover); }
+.btn--line { border-color: var(--ink); color: var(--ink); background: transparent; }
+.btn--line:hover { background: var(--ink); color: var(--paper); }
+.btn--band { background: var(--band-ink); color: var(--band); }
+.btn--band:hover { background: #FFFFFF; }
+.btn--band-line { border-color: var(--band-line); color: var(--band-ink); background: transparent; }
+.btn--band-line:hover { border-color: var(--band-ink); }
+.btn-row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+.link-arrow {
+  display: inline-flex; align-items: center; gap: .7em; padding-block: .45em; text-decoration: none; cursor: pointer;
+  border: 0; background: none; color: var(--ink);
+  font: 500 .72rem/1 var(--font-text); letter-spacing: .2em; text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+}
+.link-arrow .icon { width: 16px; height: 16px; transition: transform .3s; }
+.link-arrow:hover .icon { transform: translateX(4px); }
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-width: 44px; height: 44px; padding: 0 .4rem;
+  border: 0; background: none; cursor: pointer; color: var(--ink); text-decoration: none;
+}
+.hallmark {
+  display: inline-flex; align-items: center; height: 20px; padding: 0 .55em; border: 1px solid currentColor; border-radius: 999px;
+  font: 500 .66rem/1 var(--font-text); letter-spacing: .08em; color: var(--gold-ink); font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* chips (filters + radio choices) */
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.chip { position: relative; }
+.chip-btn, .chip span {
+  display: inline-flex; align-items: center; gap: .5em; min-height: 40px; padding: 0 1rem; cursor: pointer;
+  border: 1px solid var(--line-strong); background: transparent; color: var(--ink);
+  font: 400 .84rem/1 var(--font-text); letter-spacing: .02em; transition: background-color .2s, color .2s, border-color .2s;
+}
+.chip-btn:hover, .chip span:hover { border-color: var(--ink); }
+.chip-btn[aria-pressed="true"], .chip input:checked + span { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.chip input:focus-visible + span { outline: 2px solid var(--focus); outline-offset: 2px; }
+.chip-btn .count { font-variant-numeric: tabular-nums; opacity: .6; font-size: .75rem; }
+
+/* header */
+.announce { background: var(--band); color: var(--band-ink); font-size: .74rem; letter-spacing: .1em; }
+.announce__in { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .35rem 1.25rem; padding-block: .55rem; text-align: center; }
+.announce a { color: var(--band-ink); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; background: var(--paper); border-bottom: 1px solid var(--line); }
+.header__bar { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 1rem; min-height: 72px; transition: min-height .3s; }
+.header__left { display: flex; align-items: center; gap: 1.6rem; }
+.header__right { display: flex; justify-content: flex-end; align-items: center; gap: .25rem; }
+.util-link { display: inline-flex; align-items: center; gap: .5em; text-decoration: none; font: 500 .7rem/1 var(--font-text); letter-spacing: .16em; text-transform: uppercase; padding-block: .8rem; }
+.util-link:hover { color: var(--accent-text); }
+.brand { display: block; text-decoration: none; padding: .35rem; }
+.logo { display: block; height: 30px; width: auto; transition: height .3s; --lt: var(--logo-teal); --la: var(--logo-amber); }
+.wish-count { font: 500 .72rem/1 var(--font-text); font-variant-numeric: tabular-nums; min-width: 1ch; }
+.menu-btn { display: none; }
+.nav { display: flex; justify-content: center; flex-wrap: wrap; column-gap: clamp(1.4rem, 3.2vw, 3rem); }
+.nav a { position: relative; text-decoration: none; padding: .55rem 0 1.05rem; font: 500 .72rem/1 var(--font-text); letter-spacing: .2em; text-transform: uppercase; }
+.nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: .55rem; height: 2px; background: var(--line-strong); transform: scaleX(0); transition: transform .3s; }
+.nav a:hover::after { transform: scaleX(1); }
+.nav a[aria-current="page"]::after { transform: scaleX(1); background: var(--amber); }
+.site-header.is-scrolled .header__bar { min-height: 58px; }
+.site-header.is-scrolled .logo { height: 24px; }
+@media (max-width: 899px) {
+  :root { --header-h: 64px; }
+  .menu-btn { display: inline-flex; }
+  .util-link, .nav { display: none; }
+  .header__left { gap: .25rem; }
+  .header__bar { min-height: 64px; }
+  .logo { height: 24px; }
+}
+.mmenu {
+  position: fixed; inset: 0; z-index: 80; background: var(--paper); overflow-y: auto;
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) max(16px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 32px) max(16px, env(safe-area-inset-left, 0px));
+  animation: fade .3s ease;
+}
+.mmenu__top { display: flex; justify-content: space-between; align-items: center; min-height: 52px; }
+.mmenu nav { margin-top: 2rem; }
+.mmenu nav a { display: block; padding: .7rem 0; border-bottom: 1px solid var(--line); text-decoration: none; font-family: var(--font-display); font-size: 2rem; line-height: 1.2; }
+.mmenu nav a[aria-current="page"] { color: var(--accent-text); }
+.mmenu__foot { margin-top: 2rem; display: grid; gap: .5rem; color: var(--muted); font-size: .9rem; }
+.mmenu__foot a { color: var(--ink); font-family: var(--font-display); font-size: 1.3rem; text-decoration: none; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* hero */
+.hero { position: relative; isolation: isolate; overflow: hidden; background: var(--band); color: var(--band-ink); height: max(560px, min(80vh, 50vw)); } /* never wider than about 2.2:1, so the film is not cropped too hard */
+.hero__media { position: absolute; inset: 0; z-index: -2; }
+.hero__video { width: 100%; height: 100%; object-fit: cover; object-position: 64% 50%; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, var(--band-scrim) 0%, transparent 52%); pointer-events: none; }
+.hero__content { height: 100%; display: flex; align-items: flex-end; padding-block: clamp(40px, 6vw, 88px); }
+.hero__text { max-width: 34rem; }
+.hero__title .amp { font-style: italic; color: var(--logo-amber); }
+.hero__title { font-family: var(--font-display); font-size: clamp(2.6rem, 1.5rem + 4vw, 5rem); line-height: .98; letter-spacing: -.015em; margin-bottom: 1.4rem; }
+.hero__title .cjk { font-size: .5em; margin-left: .18em; vertical-align: .4em; color: var(--logo-amber); }
+.hero__title em { display: block; margin-top: .12em; font-size: .56em; font-style: italic; letter-spacing: 0; color: var(--band-ink); }
+.hero__lede { color: var(--band-muted); font-size: var(--fs-lede); max-width: 27rem; margin-bottom: 2rem; }
+.hero__toggle {
+  position: absolute; bottom: clamp(20px, 3vw, 36px); right: max(16px, var(--gutter), env(safe-area-inset-right, 0px));
+  width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--band-line); background: rgba(3, 28, 31, .25);
+  color: var(--band-ink); display: grid; place-items: center; cursor: pointer;
+}
+.hero__toggle:hover { border-color: var(--band-ink); }
+@media (max-width: 899px) {
+  .hero { height: auto; display: flex; flex-direction: column; }
+  .hero__media { position: relative; inset: auto; aspect-ratio: 4 / 4.2; max-height: 70vh; width: 100%; }
+  .hero__video { object-position: 72% 50%; }
+  .hero::before { display: none; }
+  .hero__content { height: auto; padding-block: 8px 48px; }
+  .hero__toggle { top: 16px; bottom: auto; }
+}
+
+/* intro */
+.intro { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(2rem, 6vw, 7rem); align-items: end; }
+.intro__aside { display: grid; gap: 1.6rem; justify-items: start; }
+@media (max-width: 899px) { .intro { grid-template-columns: minmax(0, 1fr); } }
+
+/* section heads */
+.section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+.section-head > div { min-width: 0; }
+
+/* collection tiles */
+.collections { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 3vw, 44px) clamp(12px, 1.6vw, 24px); }
+.collection__count { margin-left: .7em; font: 500 var(--fs-micro)/1 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); vertical-align: .3em; white-space: nowrap; }
+.collection { display: flex; flex-direction: column; gap: 1rem; text-decoration: none; min-width: 0; }
+.collection__media { aspect-ratio: 4 / 5; background: var(--media-bg); overflow: hidden; }
+.collection__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+.collection:hover .collection__media img { transform: scale(1.045); }
+.collection__name { font-family: var(--font-display); font-size: 1.45rem; line-height: 1.2; }
+.collection__name .cjk { font-size: .78em; color: var(--muted); white-space: nowrap; margin-left: .25em; }
+.collection__desc { color: var(--muted); font-size: var(--fs-small); max-width: 26ch; }
+@media (max-width: 759px) { .collections { grid-template-columns: repeat(2, minmax(0, 1fr)); } .collection__count { display: block; margin: .45em 0 0; vertical-align: 0; } }
+
+/* feature */
+.feature { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+.feature__media { background: var(--media-bg); aspect-ratio: 1; overflow: hidden; }
+.feature__media img { width: 100%; height: 100%; object-fit: cover; }
+.feature--flip { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+.feature__media--paper { background: var(--stone); }
+.feature__text { display: grid; gap: 1.4rem; justify-items: start; }
+.feature__text > .body-copy + .body-copy { margin-top: -.4rem; }
+.price-line { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.price-line .price { font-size: 1.05rem; }
+.price-line .weight { color: var(--muted); font-size: var(--fs-small); }
+@media (max-width: 899px) { .feature, .feature--flip { grid-template-columns: minmax(0, 1fr); } .feature--flip .feature__media { order: -1; } }
+
+/* product cards, rail, grid */
+.card { position: relative; display: flex; flex-direction: column; gap: .85rem; min-width: 0; }
+.card__media {
+  position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 4 / 5; padding: 0; border: 0; cursor: pointer;
+  background: var(--media-bg); overflow: hidden;
+}
+.card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+.card__media:hover img { transform: scale(1.05); }
+.card__save { position: absolute; top: 6px; right: 6px; z-index: 1; color: var(--band-ink); }
+.card__save[aria-pressed="true"] .icon, .save-btn[aria-pressed="true"] .icon { fill: var(--amber); stroke: var(--amber); }
+.card__body { display: grid; gap: .35rem; justify-items: start; }
+.card__name { font: 500 .8rem/1.4 var(--font-text); letter-spacing: .14em; text-transform: uppercase; margin-top: .25rem; }
+.card__name button { all: unset; cursor: pointer; }
+.card__name button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.card__meta { color: var(--muted); font-size: .84rem; line-height: 1.45; }
+.card__price { font-size: .9rem; font-variant-numeric: tabular-nums; }
+.rail-wrap { position: relative; }
+.rail {
+  display: grid; grid-auto-flow: column; grid-auto-columns: clamp(220px, 23vw, 300px); gap: clamp(12px, 1.6vw, 24px);
+  overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1.25rem; scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent;
+}
+.rail > * { scroll-snap-align: start; }
+.rail-nav { display: flex; gap: .5rem; }
+.rail-nav button { width: 44px; height: 44px; border: 1px solid var(--line-strong); background: transparent; display: grid; place-items: center; cursor: pointer; color: var(--ink); }
+.rail-nav button:hover { border-color: var(--ink); }
+.rail-nav button:disabled { opacity: .35; cursor: default; }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(28px, 3vw, 48px) clamp(12px, 1.6vw, 24px); }
+@media (max-width: 899px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.card--extra .card__name a { text-decoration: none; }
+.card--extra .link-arrow { margin-top: .4rem; }
+
+/* services */
+.services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(2rem, 3vw, 3rem); }
+.service { display: grid; gap: .9rem; align-content: start; justify-items: start; padding-top: 1.6rem; border-top: 1px solid var(--line); min-width: 0; }
+.service .icon { width: 28px; height: 28px; color: var(--accent-text); stroke-width: 1.2; }
+.service h3 { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.2; }
+.service p { color: var(--muted); font-size: .92rem; }
+@media (max-width: 999px) { .services { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 559px) { .services { grid-template-columns: minmax(0, 1fr); } }
+
+/* map */
+.map { position: relative; width: 100%; aspect-ratio: 1200 / 430; }
+.map__layer { position: absolute; inset: 0; background: var(--dot-near);
+  -webkit-mask: url(media/map-near.svg) center / 100% 100% no-repeat; mask: url(media/map-near.svg) center / 100% 100% no-repeat; }
+.map__layer--home { background: var(--dot-home);
+  -webkit-mask-image: url(media/map-home.svg); mask-image: url(media/map-home.svg); }
+.pin {
+  position: absolute; left: var(--x); top: var(--y); transform: translate(-50%, -50%);
+  display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 0; background: none; cursor: pointer; z-index: 1;
+}
+.pin__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--pin); box-shadow: 0 0 0 2.5px var(--pin-ring); transition: transform .25s; }
+.pin__label {
+  position: absolute; left: 30px; top: 50%; transform: translateY(-50%); white-space: nowrap; pointer-events: none;
+  font: 500 .66rem/1 var(--font-text); letter-spacing: .14em; text-transform: uppercase; color: var(--ink);
+  background: var(--paper); padding: .45em .6em; border: 1px solid var(--line);
+}
+.pin__label b { font-weight: 500; color: var(--gold-ink); margin-left: .35em; font-variant-numeric: tabular-nums; }
+.pin--left .pin__label { left: auto; right: 30px; }
+.pin--below .pin__label { top: calc(50% + 14px); }
+.pin:hover .pin__dot, .pin[aria-pressed="true"] .pin__dot { transform: scale(1.35); }
+.pin[aria-pressed="true"] .pin__label { border-color: var(--ink); }
+.map--mini .pin__label { display: none; }
+@media (max-width: 759px) { .pin__label { display: none; } .pin__dot { width: 10px; height: 10px; } }
+
+.teaser { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.teaser__text { display: grid; gap: 1.4rem; justify-items: start; }
+@media (max-width: 899px) { .teaser { grid-template-columns: minmax(0, 1fr); } }
+
+/* page heads (sub pages) */
+.page-head { padding-block: clamp(56px, 8vw, 112px) clamp(36px, 4vw, 56px); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 1.5rem clamp(2rem, 6vw, 6rem); align-items: end; }
+.page-head .lede { justify-self: start; }
+@media (max-width: 899px) { .page-head { grid-template-columns: minmax(0, 1fr); } }
+.rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
+
+/* spotlight */
+.spotlight { background: var(--stone); overflow: hidden; }
+.spotlight__in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(1.5rem, 5vw, 5rem); }
+.spotlight__media { aspect-ratio: 1; overflow: hidden; background: var(--media-bg); }
+.spotlight__media img { width: 100%; height: 100%; object-fit: cover; }
+.spotlight__text { position: relative; display: grid; gap: 1.4rem; justify-items: start; padding-block: clamp(40px, 6vw, 80px); }
+.spotlight__cjk { position: absolute; right: 0; top: 50%; transform: translateY(-50%); font-family: var(--font-cjk); font-size: clamp(7rem, 15vw, 15rem); line-height: 1; color: var(--stone-2); pointer-events: none; z-index: 0; writing-mode: vertical-rl; white-space: nowrap; }
+.spotlight__text > *:not(.spotlight__cjk) { position: relative; z-index: 1; }
+@media (max-width: 899px) { .spotlight__in { grid-template-columns: minmax(0, 1fr); } .spotlight__text { padding-top: 0; } }
+
+/* shop toolbar */
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.5rem; padding-block: 1.25rem; border-block: 1px solid var(--line); margin-bottom: clamp(2rem, 3vw, 3rem); }
+.toolbar__right { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.result-count { color: var(--muted); font-size: .84rem; font-variant-numeric: tabular-nums; }
+.select { position: relative; display: inline-flex; align-items: center; gap: .5rem; font-size: .84rem; color: var(--muted); }
+.select select { appearance: none; border: 0; border-bottom: 1px solid var(--line-strong); background: transparent; color: var(--ink); font: inherit; padding: .5rem 1.6rem .5rem 0; cursor: pointer; border-radius: 0; }
+.select::after { content: ""; position: absolute; right: .25rem; top: 50%; width: 6px; height: 6px; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); transform: translateY(-75%) rotate(45deg); pointer-events: none; }
+.active-filter { display: inline-flex; align-items: center; gap: .5rem; padding: 0 .4rem 0 .9rem; min-height: 40px; border: 1px solid var(--amber); font-size: .84rem; }
+.active-filter button { width: 32px; height: 32px; border: 0; background: none; cursor: pointer; display: grid; place-items: center; color: var(--ink); }
+.empty { padding: 3rem 0; color: var(--muted); display: grid; gap: 1rem; justify-items: start; }
+
+/* bead library */
+.library { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(28px, 2.6vw, 40px) clamp(12px, 1.4vw, 20px); }
+.bead { display: grid; gap: .3rem; align-content: start; min-width: 0; text-decoration: none; color: inherit; }
+.bead__media { aspect-ratio: 1; background: var(--media-bg); overflow: hidden; margin-bottom: .55rem; }
+.bead__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+.bead:hover .bead__media img { transform: scale(1.06); }
+.bead__code { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); font-variant-numeric: tabular-nums; }
+.bead__name { font-family: var(--font-display); font-size: 1.4rem; line-height: 1.15; }
+.bead__what { color: var(--muted); font-size: .86rem; line-height: 1.45; }
+.bead__size { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums lining-nums; }
+.bead__in { font-size: .78rem; color: var(--muted); line-height: 1.45; }
+.bead__in b { font-weight: 500; color: var(--ink); }
+.bead--cta { background: var(--band); color: var(--band-ink); padding: clamp(18px, 2vw, 26px); align-content: end; gap: .8rem; min-height: 220px; }
+.bead--cta .bead__name { font-size: 1.6rem; }
+.bead--cta .bead__what { color: var(--band-muted); }
+.bead--cta .link-arrow { color: var(--band-ink); justify-self: start; letter-spacing: .14em; }
+@media (max-width: 1099px) { .library { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 759px) { .library { grid-template-columns: repeat(2, minmax(0, 1fr)); } .bead--cta { padding: 16px; } }
+
+/* colours */
+.colours { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
+.colour { margin: 0; display: grid; gap: 1rem; align-content: start; min-width: 0; }
+.colour img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--media-bg); }
+.colour figcaption { display: grid; gap: .35rem; }
+.colour__code { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); }
+.colour h3 { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; }
+.colour p { color: var(--muted); font-size: .94rem; }
+@media (max-width: 699px) { .colours { grid-template-columns: minmax(0, 1fr); } .colour { grid-template-columns: 112px minmax(0, 1fr); align-items: center; gap: 1.1rem; } }
+
+
+/* nav: highlights menu */
+.nav__group { position: relative; display: flex; }
+.nav__menu { position: absolute; left: 50%; top: calc(100% - .35rem); z-index: 50; min-width: 17rem; display: grid; padding: .5rem; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow);
+  opacity: 0; visibility: hidden; transform: translate(-50%, 6px); transition: opacity .2s, transform .2s, visibility 0s linear .2s; }
+.nav__group:hover .nav__menu, .nav__group:focus-within .nav__menu { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition-delay: 0s; }
+.nav .nav__menu a { display: grid; gap: .3rem; padding: .85rem 1rem; text-transform: none; letter-spacing: 0; font: 400 1.15rem/1.2 var(--font-display); }
+.nav .nav__menu a::after { display: none; }
+.nav .nav__menu a:hover, .nav .nav__menu a[aria-current="page"] { background: var(--stone); }
+.nav__menu small { font: 400 .8rem/1.4 var(--font-text); color: var(--muted); }
+.mmenu nav a.mmenu__parent { border-bottom: 0; padding-bottom: .1rem; }
+.mmenu__sub { display: flex; gap: 1.6rem; padding: .2rem 0 .8rem; border-bottom: 1px solid var(--line); }
+.mmenu nav .mmenu__sub a { border: 0; padding: .65rem 0; font: 500 .74rem/1 var(--font-text); letter-spacing: .18em; text-transform: uppercase; }
+
+/* highlights sub-navigation */
+.subnav { display: flex; gap: 2.2rem; border-bottom: 1px solid var(--line); margin-bottom: clamp(2rem, 4vw, 3.5rem); overflow-x: auto; }
+.subnav a { padding: 1rem 0; margin-bottom: -1px; border-bottom: 2px solid transparent; text-decoration: none; white-space: nowrap; font: 500 .74rem/1 var(--font-text); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.subnav a:hover { color: var(--ink); }
+.subnav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--amber); }
+
+/* editorial */
+.stories { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(40px, 4vw, 60px) clamp(16px, 2vw, 28px); }
+.story-card { display: grid; gap: .9rem; align-content: start; min-width: 0; text-decoration: none; color: inherit; }
+.story-card__media { aspect-ratio: 4 / 5; overflow: hidden; background: var(--media-bg); }
+.story-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+.story-card:hover .story-card__media img { transform: scale(1.04); }
+.story-card__text { display: grid; gap: .55rem; justify-items: start; min-width: 0; }
+.story-card__meta { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); }
+.story-card__title { font-family: var(--font-display); font-size: 1.6rem; line-height: 1.15; text-wrap: balance; }
+.story-card__title em, .story__head .h1 em { font-style: italic; }
+.story-card__dek { color: var(--muted); font-size: .94rem; line-height: 1.55; }
+.story-card--feature { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(1.5rem, 4vw, 4.5rem); align-items: center; }
+.story-card--feature .story-card__media { aspect-ratio: 16 / 10; }
+.story-card--feature .story-card__title { font-size: var(--fs-h2); }
+.story-card--feature .story-card__dek { font-size: var(--fs-lede); max-width: 30rem; }
+.story-card--feature .link-arrow { margin-top: .6rem; }
+@media (max-width: 899px) { .stories { grid-template-columns: repeat(2, minmax(0, 1fr)); } .story-card--feature { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 559px) { .stories { grid-template-columns: minmax(0, 1fr); } }
+
+/* story article */
+.story__head { display: grid; gap: 1.1rem; justify-items: start; padding-block: clamp(32px, 5vw, 72px) clamp(28px, 4vw, 48px); }
+.story__head .h1 { max-width: 18ch; }
+.story__head .lede { max-width: 40rem; }
+.link-back { display: inline-flex; align-items: center; gap: .45em; margin-bottom: .6rem; text-decoration: none; color: var(--muted); font: 500 .72rem/1 var(--font-text); letter-spacing: .2em; text-transform: uppercase; }
+.link-back:hover { color: var(--ink); }
+.link-back .icon { width: 16px; height: 16px; }
+.story__hero { margin: 0; }
+.story__hero img { width: 100%; aspect-ratio: 16 / 9; max-height: 76vh; object-fit: cover; background: var(--media-bg); }
+.story__body { display: grid; gap: 1.5rem; padding-block: clamp(40px, 6vw, 84px) clamp(16px, 3vw, 40px); }
+.story__body > * { width: min(100%, 40rem); margin-inline: auto; min-width: 0; }
+.story__body > p { font-size: 1.07rem; line-height: 1.85; }
+.story__body > p b { font-weight: 500; }
+.story__body > .story__wide { width: min(100%, 76rem); margin-block: 1.5rem; }
+.story__body > .story__fig--wide { width: min(100%, 60rem); }
+.story__h { font-family: var(--font-display); font-size: clamp(1.5rem, 1.3rem + .8vw, 2rem); line-height: 1.2; margin-top: 1.2rem; }
+.story__quote { border-left: 2px solid var(--amber); padding: .2rem 0 .2rem 1.5rem; margin-block: 1rem; }
+.story__quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.45rem, 1.15rem + 1.1vw, 2.15rem); line-height: 1.3; text-wrap: balance; }
+.story__fig { display: grid; gap: .75rem; margin: .8rem 0; }
+.story__fig img { width: 100%; background: var(--media-bg); }
+.story__fig figcaption { color: var(--muted); font-size: .84rem; }
+.story__cta { margin-top: 1rem; }
+.story__more { border-top: 1px solid var(--line); }
+.grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 899px) { .grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.story__wide .eyebrow { margin-bottom: 1.4rem; }
+
+/* e-brochure: shelf */
+.shelf { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 2vw, 28px); margin-top: 1rem; }
+.shelf__item { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 1.1rem; align-items: center; padding: 1rem; border: 1px solid var(--line); background: var(--paper); transition: border-color .2s, background .2s; min-width: 0; }
+.shelf__item:hover { border-color: var(--line-strong); }
+.shelf__item[aria-pressed="true"] { border-color: var(--ink); background: var(--stone); }
+.shelf__item:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.shelf__cover { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--media-bg); box-shadow: 0 14px 24px -14px rgba(6, 57, 62, .55); }
+.shelf__cover::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 7%; background: linear-gradient(90deg, rgba(0, 0, 0, .28), transparent); z-index: 1; }
+.shelf__cover img { width: 100%; height: 100%; object-fit: cover; }
+.shelf__text { display: grid; gap: .4rem; min-width: 0; }
+.shelf__name { font-family: var(--font-display); font-size: 1.3rem; line-height: 1.2; }
+.shelf__sub { color: var(--muted); font-size: .84rem; line-height: 1.45; }
+.shelf__pages { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); }
+@media (max-width: 999px) { .shelf { gap: 10px; } .shelf__item { grid-template-columns: minmax(0, 1fr); align-items: start; gap: .7rem; padding: .55rem; } .shelf__sub { display: none; } .shelf__name { font-size: 1.02rem; } .shelf__pages { font-size: .62rem; } }
+@media (max-width: 520px) { .shelf { gap: 8px; } .shelf__item { padding: .4rem; gap: .55rem; } .shelf__name { font-size: .9rem; line-height: 1.18; } .shelf__pages { font-size: .56rem; letter-spacing: .12em; } }
+@media (max-width: 380px) { .shelf { gap: 6px; } .shelf__item { padding: .35rem; } .shelf__name { font-size: .82rem; } }
+
+/* e-brochure: reader */
+.reader { display: grid; gap: 1.4rem; }
+.reader__bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1rem 2rem; }
+.reader__title { font-family: var(--font-display); font-size: clamp(1.5rem, 1.3rem + .8vw, 2rem); line-height: 1.15; }
+.reader__meta { color: var(--muted); font-size: .88rem; margin-top: .3rem; }
+.reader__tools { display: flex; align-items: center; gap: .4rem; }
+.reader__btn { border: 1px solid var(--line-strong); }
+.reader__btn:disabled { opacity: .35; cursor: default; }
+.reader__count { min-width: 9.5em; text-align: center; font: 500 .72rem/1 var(--font-text); letter-spacing: .16em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+.reader__full { margin-left: .6rem; }
+.book { position: relative; width: min(100%, calc((100svh - 250px) * 1.6)); min-width: min(100%, 560px); margin-inline: auto; touch-action: pan-y; outline: none; }
+.book:focus-visible { outline: 2px solid var(--focus); outline-offset: 8px; }
+.book__spread { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); perspective: 2600px; transition: transform .8s cubic-bezier(.35, .05, .2, 1); }
+.book[data-state="front"] .book__spread { transform: translateX(-25%); }
+.book[data-state="back"] .book__spread { transform: translateX(25%); }
+.book[data-state="single"] .book__spread { grid-template-columns: minmax(0, 1fr); }
+.book[data-state="single"] { width: min(100%, 520px); min-width: 0; }
+.book__page { position: relative; aspect-ratio: 4 / 5; min-width: 0; }
+.book__page:empty { visibility: hidden; }
+.book__page:not(:empty) { box-shadow: 0 22px 44px -26px rgba(6, 57, 62, .6); }
+.book__page--l .pg::after, .book__page--r .pg::after { content: ""; position: absolute; top: 0; bottom: 0; width: 9%; pointer-events: none; z-index: 5; }
+.book__page--l .pg::after { right: 0; background: linear-gradient(270deg, rgba(0, 0, 0, .14), transparent); }
+.book__page--r .pg::after { left: 0; background: linear-gradient(90deg, rgba(0, 0, 0, .12), transparent); }
+.leaf { position: absolute; top: 0; bottom: 0; width: 50%; z-index: 6; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.35, .05, .2, 1); }
+.leaf--next { left: 50%; transform-origin: 0 50%; }
+.leaf--next.is-turning { transform: rotateY(-180deg); }
+.leaf--prev { left: 0; transform-origin: 100% 50%; }
+.leaf--prev.is-turning { transform: rotateY(180deg); }
+.leaf__face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 22px 44px -26px rgba(6, 57, 62, .6); }
+.leaf__face--back { transform: rotateY(180deg); }
+.reader__dots { display: flex; flex-wrap: wrap; justify-content: center; gap: .35rem; }
+.reader__dots button { all: unset; cursor: pointer; width: 26px; height: 26px; display: grid; place-items: center; }
+.reader__dots button::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--line-strong); transition: background .2s, transform .2s; }
+.reader__dots button[aria-current="true"]::before { background: var(--amber); transform: scale(1.3); }
+.reader__dots button:focus-visible { outline: 2px solid var(--focus); }
+.reader:fullscreen { background: var(--paper); padding: 24px max(24px, env(safe-area-inset-right, 0px)) 24px max(24px, env(safe-area-inset-left, 0px)); align-content: center; overflow: auto; }
+.reader:fullscreen .book { width: min(100%, calc((100vh - 170px) * 1.6)); }
+
+/* e-brochure: printed pages (container-relative type, so a page scales like paper) */
+.book__page, .leaf__face { container-type: size; }
+.pg { position: absolute; inset: 0; overflow: hidden; background: var(--pg-paper); color: var(--pg-ink); font-family: var(--font-text);
+  padding: 8cqw 7.5cqw; display: flex; flex-direction: column; gap: 3cqw; text-align: left; }
+.pg--band { background: #06393E; color: #F4F0E6; }
+.pg__num { position: absolute; bottom: 3.6cqw; right: 7.5cqw; font: 500 2.1cqw/1 var(--font-text); letter-spacing: .12em; color: var(--pg-muted); }
+.book__page--l .pg__num { right: auto; left: 7.5cqw; }
+.pg--band .pg__num { color: rgba(244, 240, 230, .6); }
+.pg__kicker { font: 500 2.3cqw/1.4 var(--font-text); letter-spacing: .22em; text-transform: uppercase; color: var(--pg-gold); }
+.pg--band .pg__kicker { color: #FDA701; }
+.pg__title { font: 400 8.6cqw/1.06 var(--font-display); letter-spacing: -.01em; text-wrap: balance; }
+.pg__title em { font-style: italic; }
+.pg__title--s { font-size: 6.4cqw; }
+.pg__text { font-size: 3.05cqw; line-height: 1.62; color: var(--pg-muted); }
+.pg--band .pg__text { color: rgba(244, 240, 230, .78); }
+.pg__text + .pg__text { margin-top: -1.2cqw; }
+.pg__rule { width: 10cqw; height: 1px; margin: 0; background: #FDA701; border: 0; }
+.pg__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pg--cover { padding: 0; justify-content: flex-end; color: #FFFFFF; }
+.pg__cover { position: relative; z-index: 1; display: grid; gap: 2.2cqw; padding: 30cqw 8cqw 9cqw; background: linear-gradient(0deg, rgba(2, 34, 38, .82), rgba(2, 34, 38, 0)); }
+.pg__cover .pg__kicker { color: #FDA701; }
+.pg__cover .pg__title { font-size: 12cqw; }
+.pg__cover .pg__text { color: rgba(255, 255, 255, .85); font-size: 3.4cqw; }
+.pg__cover--light { background: linear-gradient(0deg, rgba(251, 249, 244, .94), rgba(251, 249, 244, 0)); color: #152120; }
+.pg__cover--light .pg__kicker { color: #845800; }
+.pg__cover--light .pg__text { color: #3E4B4A; }
+.pg__brand { position: absolute; z-index: 1; top: 7cqw; left: 8cqw; width: 30cqw; height: auto; --lt: #FFFFFF; --la: #FDA701; }
+.pg__brand--dark { --lt: #026873; --la: #FDA701; }
+.pg__img { width: 100%; object-fit: cover; background: #0B6670; display: block; }
+.pg__design { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 1.4cqw; align-content: start; min-width: 0; }
+.pg__design:focus-visible { outline: 2px solid #026873; outline-offset: 2px; }
+.pg__design:hover .pg__dname { text-decoration: underline; text-underline-offset: .3em; }
+.pg__dref { font: 500 2.1cqw/1.3 var(--font-text); letter-spacing: .16em; color: var(--pg-gold); }
+.pg__dname { font: 500 2.7cqw/1.3 var(--font-text); letter-spacing: .14em; text-transform: uppercase; }
+.pg__dmeta { font-size: 2.5cqw; line-height: 1.5; color: var(--pg-muted); }
+.pg__lead { display: grid; grid-template-columns: 54cqw minmax(0, 1fr); gap: 4cqw; align-items: end; margin-top: auto; }
+.pg__lead img { aspect-ratio: 4 / 5; }
+.pg__rows { display: grid; gap: 4cqw; margin-block: auto; }
+.pg__row { display: grid; grid-template-columns: 40cqw minmax(0, 1fr); gap: 4.5cqw; align-items: center; }
+.pg__row img { aspect-ratio: 4 / 5; }
+.pg__solo { display: grid; gap: 2cqw; margin-top: auto; }
+.pg__solo img { aspect-ratio: 1; }
+.pg__parts { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(0, 1fr)); gap: 3.2cqw 3cqw; align-content: start; }
+.pg__part { display: grid; gap: .9cqw; min-width: 0; }
+.pg__part img { width: 100%; aspect-ratio: 1; object-fit: cover; background: #0B6670; }
+.pg__pcode { font: 500 1.9cqw/1.3 var(--font-text); letter-spacing: .14em; color: var(--pg-gold); }
+.pg__pname { font: 400 3.4cqw/1.15 var(--font-display); }
+.pg__pwhat { font-size: 2.2cqw; line-height: 1.4; color: var(--pg-muted); }
+.pg__parts--dense { gap: 2.2cqw 2cqw; }
+.pg__parts--dense .pg__pname { font-size: 2.5cqw; }
+.pg__parts--dense .pg__pcode { font-size: 1.6cqw; }
+.pg__swatches { display: grid; gap: 3.4cqw; margin-block: auto; }
+.pg__swatch { display: grid; grid-template-columns: 24cqw minmax(0, 1fr); gap: 4cqw; align-items: center; }
+.pg__swatch img { aspect-ratio: 1; }
+.pg__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4cqw 4cqw; font-size: 2.6cqw; line-height: 1.4; }
+.pg__list b { display: block; font: 500 2cqw/1.4 var(--font-text); letter-spacing: .18em; text-transform: uppercase; color: var(--pg-gold); margin-bottom: .6cqw; }
+.pg--band .pg__list b { color: #FDA701; }
+.pg__links { display: flex; flex-wrap: wrap; gap: 2cqw 4cqw; margin-top: auto; }
+.pg__link { font: 500 2.3cqw/1 var(--font-text); letter-spacing: .2em; text-transform: uppercase; color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1cqw; }
+.pg__svc { display: grid; gap: 4cqw; margin-block: auto; }
+.pg__svc div { display: grid; gap: 1cqw; border-top: 1px solid var(--pg-line); padding-top: 3cqw; }
+.pg__svc h4 { font: 400 4.2cqw/1.2 var(--font-display); }
+.pg__back { margin: auto 0; display: grid; gap: 4cqw; justify-items: center; text-align: center; }
+.pg__back svg { width: 46cqw; height: auto; --lt: #F4F0E6; --la: #FDA701; }
+.pg__small { font-size: 2.3cqw; line-height: 1.6; color: rgba(244, 240, 230, .6); max-width: 60cqw; }
+
+
+/* Christmas 2026 brochure */
+.pg__toc { margin-top: auto; display: grid; gap: 1.4cqw; }
+.pg__toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-template-rows: repeat(var(--rows, 5), auto); grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 5cqw; }
+.pg__toc li { border-top: 1px solid rgba(244, 240, 230, .16); min-width: 0; }
+.pg__toc button { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 2cqw; padding: 1.6cqw 0; font: 400 2.55cqw/1.3 var(--font-text); color: rgba(244, 240, 230, .86); }
+.pg__toc button span:last-child { font: 400 3cqw/1 var(--font-display); color: #FDA701; }
+.pg__toc button:hover span:first-child { text-decoration: underline; text-underline-offset: .3em; }
+.pg__toc button:focus-visible { outline: 2px solid #FDA701; outline-offset: 2px; }
+.pg--xmas { background: #06393E url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23FDA701' stroke-linecap='round'%3E%3Cpath stroke-opacity='.26' stroke-width='1.1' d='M30 25v18M22.2 29.5l15.6 9M22.2 38.5l15.6-9M30 25l-2.4-2.4M30 25l2.4-2.4M30 43l-2.4 2.4M30 43l2.4 2.4'/%3E%3Cpath stroke-opacity='.16' stroke-width='1' d='M92 92v12M86.8 95l10.4 6M86.8 101l10.4-6'/%3E%3C/g%3E%3Cg fill='%23FDA701' fill-opacity='.32'%3E%3Ccircle cx='86' cy='20' r='1.2'/%3E%3Ccircle cx='70' cy='60' r='.9'/%3E%3Ccircle cx='16' cy='96' r='1.3'/%3E%3Ccircle cx='108' cy='58' r='.8'/%3E%3Ccircle cx='48' cy='84' r='.7'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 30cqw 30cqw repeat; }
+.pg--white { background: #FFFFFF; }
+.pg__cover--x { padding-top: 44cqw; }
+.pg__cover--x .pg__title { font-size: 11cqw; }
+.pg--xcover .pg__brand { --lt: #026873; }
+.pg__cap { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; padding: 20cqw 7.5cqw 9cqw; margin: 0; font: 500 2.3cqw/1.4 var(--font-text); letter-spacing: .18em; text-transform: uppercase; color: #FFFFFF; background: linear-gradient(0deg, rgba(2, 34, 38, .7), rgba(2, 34, 38, 0)); }
+.pg--cover .pg__num { color: rgba(255, 255, 255, .8); z-index: 2; }
+.pg__orns { position: absolute; left: 0; right: 0; top: 0; height: 84cqw; }
+.pg__orn { all: unset; position: absolute; top: 0; width: 18cqw; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+.pg__orn::before { content: ""; width: 1px; height: var(--t); background: linear-gradient(180deg, rgba(253, 167, 1, .9), rgba(253, 167, 1, .5)); }
+.pg__orn img { width: 100%; height: auto; margin-top: -.6cqw; filter: drop-shadow(0 2cqw 2.4cqw rgba(0, 0, 0, .35)); transition: transform .4s; transform-origin: 50% 0; }
+.pg__orn:hover img { transform: rotate(3deg); }
+.pg__orn:focus-visible { outline: 2px solid #FDA701; outline-offset: 2px; }
+.pg__ornText { margin-top: auto; display: grid; gap: 2cqw; position: relative; }
+.pg__xshot { justify-self: center; width: 70cqw; margin: -1cqw auto 0; }
+.pg__xshot img { aspect-ratio: 1; background: #FFFFFF; }
+.pg__xinfo { display: grid; gap: 1.6cqw; margin-top: auto; }
+.pg__xspec { display: flex; flex-wrap: wrap; gap: 1cqw 3cqw; font: 500 2.2cqw/1.3 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--pg-gold); }
+.pg__xspec span + span::before { content: "·"; margin-right: 3cqw; color: var(--pg-muted); }
+.pg__two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3cqw; margin-block: auto; }
+.pg__two figure { margin: 0; display: grid; gap: 1.6cqw; }
+.pg__two figcaption { font: 500 2.1cqw/1.3 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--pg-muted); }
+.pg__wlist { display: grid; margin-top: auto; border-top: 1px solid var(--pg-line); }
+.pg__wrow { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 11cqw minmax(0, 1fr) auto; gap: 3.5cqw; align-items: center; padding: 1.8cqw 0; border-bottom: 1px solid var(--pg-line); }
+.pg__wrow img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.pg__wrow > span:nth-child(2) { display: grid; gap: .8cqw; }
+.pg__wrow:hover .pg__dname { text-decoration: underline; text-underline-offset: .3em; }
+.pg__wrow:focus-visible { outline: 2px solid #026873; outline-offset: 2px; }
+.pg__wgt { font: 400 4.4cqw/1 var(--font-display); font-variant-numeric: lining-nums; }
+
+/* purity guide */
+.purity { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 4rem); }
+.purity__item { border-top: 1px solid var(--line-strong); padding-top: 1.6rem; display: grid; gap: .8rem; align-content: start; min-width: 0; }
+.purity__num { font-family: var(--font-display); font-size: clamp(3.2rem, 2rem + 4vw, 5.6rem); line-height: 1; letter-spacing: -.02em; font-variant-numeric: lining-nums; }
+.purity__num span { color: var(--amber); }
+.purity__item h3 { font: 500 .78rem/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; }
+.purity__item p { color: var(--muted); }
+@media (max-width: 799px) { .purity { grid-template-columns: minmax(0, 1fr); } }
+
+/* about */
+.mark-band { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+.mark-art { background: var(--stone); aspect-ratio: 1; display: grid; place-items: center; border: 0; padding: 0; cursor: pointer; width: 100%; }
+.mark-art svg { width: 58%; height: auto; overflow: visible; }
+.mark-art .mk-a, .mark-art .mk-t { transition: transform .8s cubic-bezier(.2, .7, .2, 1); }
+.mark-art .mk-a { fill: var(--logo-amber); }
+.mark-art .mk-t { fill: var(--logo-teal); }
+.mark-art[aria-pressed="true"] .mk-a, .mark-art:hover .mk-a { transform: translate(-14px, -14px); }
+.mark-art[aria-pressed="true"] .mk-t, .mark-art:hover .mk-t { transform: translate(14px, 14px); }
+.mark-caption { color: var(--muted); font-size: .8rem; margin-top: .75rem; }
+.principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 4rem); }
+.principle { border-top: 1px solid var(--line); padding-top: 1.6rem; display: grid; gap: .8rem; align-content: start; }
+.principle h3 { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; }
+.principle p { color: var(--muted); }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 24px); counter-reset: step; }
+.step { display: grid; gap: 1rem; align-content: start; min-width: 0; }
+.step__media { background: var(--media-bg); aspect-ratio: 1; overflow: hidden; }
+.step__media img { width: 100%; height: 100%; object-fit: cover; }
+.step__head { display: flex; align-items: baseline; gap: .9rem; }
+.step__num { font-family: var(--font-display); font-size: 1.1rem; color: var(--gold-ink); font-variant-numeric: lining-nums; }
+.step h3 { font-family: var(--font-display); font-size: 1.45rem; }
+.step p { color: var(--muted); font-size: .94rem; }
+@media (max-width: 899px) { .mark-band, .principles { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 699px) { .steps { grid-template-columns: minmax(0, 1fr); } .step__media { aspect-ratio: 4 / 3; } }
+
+.cta-band { background: var(--stone); }
+.cta-band__in { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 2rem; padding-block: clamp(56px, 7vw, 96px); }
+.cta-band__in > div { max-width: 40rem; display: grid; gap: 1rem; }
+
+/* stores */
+.store-tools { display: grid; gap: 1.25rem; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+.search { position: relative; max-width: 520px; }
+.search .icon { position: absolute; left: 0; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search input { width: 100%; border: 0; border-bottom: 1px solid var(--line-strong); background: transparent; color: var(--ink); font: inherit; font-size: 1.05rem; padding: .85rem 2.5rem .85rem 2rem; border-radius: 0; }
+.search input:focus { outline: none; border-bottom-color: var(--accent-text); }
+.search input:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+.search button { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+.map-panel { background: var(--stone); padding: clamp(16px, 3vw, 40px); margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+.stores { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 3vw, 3rem) clamp(1.5rem, 3vw, 3rem); }
+.store { border-top: 1px solid var(--line); padding-top: 1.4rem; display: grid; gap: .85rem; align-content: start; min-width: 0; }
+.store__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem .8rem; }
+.store h3 { font-family: var(--font-display); font-size: 1.4rem; line-height: 1.2; }
+.tag { font: 500 .62rem/1 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); border: 1px solid currentColor; padding: .4em .6em; }
+.store__city { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.status { display: inline-flex; align-items: center; gap: .55em; font-size: .86rem; }
+.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--closed); }
+.status.is-open::before { background: var(--ok); }
+.store address { color: var(--muted); font-size: .92rem; line-height: 1.55; }
+.copy-row { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+.copy-btn { border: 0; background: none; cursor: pointer; color: var(--accent-text); font: 500 .68rem/1 var(--font-text); letter-spacing: .16em; text-transform: uppercase; padding: .6rem .3rem; min-height: 36px; }
+.services-list { display: flex; flex-wrap: wrap; gap: .3rem .9rem; font-size: .8rem; color: var(--muted); }
+.services-list li { display: inline-flex; align-items: center; gap: .9rem; }
+.services-list li + li::before { content: ""; width: 3px; height: 3px; border-radius: 50%; background: var(--line-strong); margin-left: -.6rem; }
+.store__actions { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; align-items: center; margin-top: .3rem; }
+.note { color: var(--muted); font-size: .84rem; margin-top: clamp(2rem, 4vw, 3rem); }
+@media (max-width: 1099px) { .stores { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 679px) { .stores { grid-template-columns: minmax(0, 1fr); } }
+
+/* contact */
+.contact { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(2.5rem, 6vw, 7rem); align-items: start; }
+.channels { display: grid; gap: 1.6rem; }
+.channel { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .3rem 1rem; padding-bottom: 1.6rem; border-bottom: 1px solid var(--line); }
+.channel .icon { grid-row: span 3; width: 22px; height: 22px; color: var(--accent-text); margin-top: .1rem; }
+.channel__value { font-family: var(--font-display); font-size: 1.3rem; line-height: 1.3; word-break: break-word; font-variant-numeric: lining-nums; }
+.channel__hint { color: var(--muted); font-size: .84rem; }
+.form { display: grid; gap: 1.6rem; }
+.form legend { margin-bottom: .9rem; }
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6rem 1.5rem; }
+.field { display: grid; gap: .35rem; min-width: 0; }
+.field--full { grid-column: 1 / -1; }
+.field label { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.field input, .field select, .field textarea {
+  width: 100%; border: 0; border-bottom: 1px solid var(--line-strong); border-radius: 0; background: transparent; color: var(--ink);
+  font: inherit; padding: .7rem 0; appearance: none;
+}
+.field select { background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 9px) 55%, calc(100% - 4px) 55%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 1.5rem; cursor: pointer; }
+.field textarea { min-height: 128px; resize: vertical; line-height: 1.55; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-bottom-color: var(--accent-text); box-shadow: 0 1px 0 0 var(--accent-text); }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+.field.has-error input, .field.has-error select, .field.has-error textarea { border-bottom-color: var(--error); }
+.field__error { color: var(--error); font-size: .82rem; }
+.check { display: flex; gap: .8rem; align-items: flex-start; font-size: .88rem; color: var(--muted); cursor: pointer; }
+.check input { width: 18px; height: 18px; margin-top: .2rem; accent-color: var(--teal); flex: none; }
+.form__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+.form__note { color: var(--muted); font-size: .8rem; }
+.success { border: 1px solid var(--line); padding: clamp(1.5rem, 3vw, 2.5rem); display: grid; gap: 1rem; justify-items: start; background: var(--stone); }
+.success h3 { font-family: var(--font-display); font-size: 1.8rem; }
+.success p { color: var(--muted); max-width: 36rem; }
+.faq { max-width: 56rem; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: 1.3rem 0; font-family: var(--font-display); font-size: 1.25rem; line-height: 1.35; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary .icon { transition: transform .3s; }
+.faq details[open] summary .icon { transform: rotate(45deg); }
+.faq details p { color: var(--muted); padding-bottom: 1.4rem; max-width: 46rem; }
+@media (max-width: 899px) { .contact { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 599px) { .fields { grid-template-columns: minmax(0, 1fr); } }
+
+/* footer */
+.footer { background: var(--band); color: var(--band-ink); }
+.footer a { color: var(--band-ink); text-decoration: none; }
+.footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.footer__top { display: grid; grid-template-columns: minmax(0, 5fr) repeat(3, minmax(0, 2fr)); gap: 2.5rem clamp(2rem, 4vw, 4rem); padding-block: clamp(56px, 7vw, 96px) clamp(40px, 5vw, 64px); }
+.footer h2 { font-family: var(--font-display); font-size: 1.7rem; line-height: 1.2; margin-bottom: .6rem; }
+.footer__talk { display: grid; gap: .7rem; margin-top: 1.4rem; justify-items: start; }
+.footer__talk a { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--font-display); font-size: 1.25rem; line-height: 1.3; word-break: break-word; }
+.footer__talk .icon { width: 18px; height: 18px; flex: none; color: var(--logo-amber); }
+.visit-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); }
+.visit-grid > div { border-top: 1px solid var(--line); padding-top: 1.4rem; display: grid; gap: .6rem; align-content: start; min-width: 0; }
+.visit-grid h3 { font-family: var(--font-display); font-size: 1.4rem; line-height: 1.2; font-weight: 400; }
+.visit-grid p { color: var(--muted); }
+@media (max-width: 760px) { .visit-grid { grid-template-columns: minmax(0, 1fr); } }
+.form__foot .btn .icon { width: 16px; height: 16px; margin-right: .55rem; }
+.pg__wa { display: grid; gap: .6cqw; margin-top: 1cqw; }
+.pg__wa span { font: 500 2cqw/1.4 var(--font-text); letter-spacing: .18em; text-transform: uppercase; color: #FDA701; }
+.pg__wa b { font: 400 6.4cqw/1.1 var(--font-display); color: #F4F0E6; }
+.footer__col h3 { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .2em; text-transform: uppercase; color: var(--band-muted); margin-bottom: 1rem; }
+.footer__col ul { display: grid; gap: .55rem; font-size: .92rem; }
+.footer p { color: var(--band-muted); font-size: .92rem; }
+.news { display: flex; gap: 0; margin-top: 1.4rem; max-width: 30rem; border-bottom: 1px solid var(--band-line); }
+.news input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--band-ink); font: inherit; padding: .85rem 0; }
+.news input::placeholder { color: var(--band-muted); }
+.news input:focus { outline: none; }
+.news:focus-within { border-bottom-color: var(--band-ink); }
+.news button { border: 0; background: none; color: var(--band-ink); cursor: pointer; font: 500 .72rem/1 var(--font-text); letter-spacing: .2em; text-transform: uppercase; padding: 0 0 0 1rem; }
+.news-msg { margin-top: .8rem; font-size: .86rem; min-height: 1.4em; color: var(--band-muted); }
+.footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem 2rem; padding-block: 1.6rem calc(1.6rem + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--band-line); font-size: .8rem; color: var(--band-muted); }
+.footer__bottom .logo { --lt: var(--band-ink); --la: var(--logo-amber); height: 22px; }
+.footer__bottom ul { display: flex; flex-wrap: wrap; gap: .4rem 1.5rem; }
+@media (max-width: 899px) { .footer__top { grid-template-columns: repeat(2, minmax(0, 1fr)); } .footer__news { grid-column: 1 / -1; } }
+@media (max-width: 479px) { .footer__top { grid-template-columns: minmax(0, 1fr); } }
+
+/* saved drawer */
+.drawer { position: fixed; inset: 0; z-index: 90; }
+.drawer__backdrop { position: absolute; inset: 0; background: rgba(4, 24, 27, .45); animation: fade .3s ease; }
+.drawer__panel {
+  position: absolute; top: 0; right: 0; bottom: 0; width: min(440px, 100%); background: var(--paper); display: flex; flex-direction: column;
+  padding: calc(env(safe-area-inset-top, 0px) + 16px) max(24px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 24px) 24px;
+  box-shadow: var(--shadow); animation: slide .4s cubic-bezier(.2, .7, .2, 1);
+}
+@keyframes slide { from { transform: translateX(100%); } to { transform: none; } }
+.drawer__head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+.drawer__head h2 { font-family: var(--font-display); font-size: 1.6rem; }
+.drawer__list { flex: 1; overflow-y: auto; display: grid; align-content: start; gap: 1rem; padding-block: 1.25rem; }
+.saved { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; gap: 1rem; align-items: center; }
+.saved img { width: 84px; height: 84px; object-fit: cover; background: var(--media-bg); }
+.saved__name { font: 500 .76rem/1.4 var(--font-text); letter-spacing: .12em; text-transform: uppercase; }
+.saved__meta { color: var(--muted); font-size: .82rem; }
+.drawer__foot { display: grid; gap: .75rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.drawer__empty { color: var(--muted); padding-block: 2rem; }
+
+/* product dialog */
+.pdialog { width: min(1020px, calc(100% - 32px)); max-height: calc(100% - 32px); padding: 0; border: 0; background: var(--paper); color: var(--ink); box-shadow: var(--shadow); }
+.pdialog::backdrop { background: rgba(4, 24, 27, .55); }
+.pdialog[open] { animation: fade .3s ease; }
+.pdialog__in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.pdialog__media { background: var(--media-bg); min-height: 420px; overflow: hidden; }
+.pdialog__media img { width: 100%; height: 100%; object-fit: cover; }
+.pdialog__info { padding: clamp(24px, 4vw, 52px); display: grid; gap: 1.1rem; align-content: center; justify-items: start; }
+.pdialog__info h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.5rem); line-height: 1.1; }
+.pdialog__info p { color: var(--muted); }
+.pdialog__specs { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .5rem 1.25rem; font-size: .88rem; margin: .25rem 0; width: 100%; }
+.pdialog__specs dt { color: var(--muted); font: 500 var(--fs-micro)/1.9 var(--font-text); letter-spacing: .14em; text-transform: uppercase; }
+.pdialog__specs dd { margin: 0; font-variant-numeric: tabular-nums; }
+.pdialog__close { position: absolute; top: 8px; right: 8px; z-index: 2; background: var(--paper); }
+@media (max-width: 759px) {
+  .pdialog { width: 100%; max-width: 100%; height: 100%; max-height: 100%; margin: 0; }
+  .pdialog__in { grid-template-columns: minmax(0, 1fr); }
+  .pdialog__media { aspect-ratio: 5 / 4; }
+}
+
+.page { animation: none; }
+.page.is-entering { animation: fade .45s ease; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+</style>
+
+<link rel="canonical" href="https://yixinggoldsmith.github.io/">
+<meta name="theme-color" content="#06393E">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Yi Xing">
+<meta property="og:title" content="Yi Xing · Beads and pipes in 916 gold">
+<meta property="og:description" content="Yi Xing: beads and pipes in 916 gold, strung into thirteen designs. Boutiques in Malaysia and Singapore.">
+<meta property="og:url" content="https://yixinggoldsmith.github.io/">
+<meta property="og:image" content="https://yixinggoldsmith.github.io/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="logo" viewBox="112 421 807 231">
+      <path style="fill:var(--lt)" d="M199.6 651.8C199.3 651.7 198.9 651.3 198.6 651L198.1 650.4L198.1 617.7L198 585L198.5 583L199 581L199 568.8L199 556.6L198.5 555.4L198.1 554.1L182.1 530.1C173.3 516.9 165.8 505.6 165.5 505C165.2 504.4 162.7 500.6 160 496.5C157.3 492.4 154.8 488.6 154.5 488C153.8 486.6 143.7 471.5 142.5 470C141.3 468.5 139.2 465.4 138.5 464C138.2 463.4 132.4 454.5 125.5 444.3C112.1 424.2 112.2 424.4 112.2 423.3L112.2 422.5L112.9 421.8L113.5 421.1L148.7 421.1L183.9 421.1L184.6 421.6C185 421.8 185.6 422.6 186 423.2C186.9 424.7 189 428.2 190.3 430.2C190.8 431.1 191.6 432.4 191.9 433.1C192.3 433.8 193.2 435.1 193.8 436.2C194.5 437.2 195.5 438.9 196 440C196.5 441.1 197.5 442.8 198.2 443.8C198.8 444.9 199.7 446.3 200.2 447.1C200.6 447.9 201.4 449.1 201.8 449.9C202.3 450.7 203.2 452.1 203.8 453.1C204.5 454.2 205.2 455.5 205.5 456.1C205.8 456.6 206.5 457.7 207 458.5C207.5 459.3 208.6 461.3 209.5 463C210.4 464.7 211.5 466.7 212 467.5C212.5 468.3 213.2 469.4 213.5 469.9C213.8 470.5 214.5 471.8 215.2 472.8C215.8 473.9 216.7 475.2 217.1 475.9C217.4 476.6 218.2 477.9 218.7 478.8C219.3 479.6 220.3 481.3 221 482.5C221.7 483.7 222.7 485.4 223.3 486.2C223.8 487.1 224.6 488.4 224.9 489.1C225.3 489.8 226.1 491.1 226.8 492.1C227.4 493.1 228.5 494.9 229.1 496.2L230.3 498.5L231.2 499.2L232 500L233.1 500L234.2 500L235 499.2C235.4 498.8 236.1 497.9 236.4 497.2C236.8 496.5 237.5 495.3 238 494.5C238.5 493.7 239.2 492.6 239.5 492C239.8 491.4 240.5 490.3 241 489.5C241.5 488.7 242.4 487.2 243 486.1C243.5 485 244.5 483.2 245.2 482.2C245.8 481.1 246.7 479.8 247.1 479.1C247.4 478.4 248.2 477.1 248.7 476.2C249.3 475.4 250.3 473.7 251 472.5C251.7 471.3 252.7 469.6 253.3 468.8C253.8 467.9 254.6 466.6 254.9 465.9C255.3 465.2 256.2 463.9 256.8 462.8C257.5 461.8 258.7 459.6 259.5 457.9C260.4 456.3 261.9 453.6 263 452C264.1 450.4 265.4 448.1 266 447C266.6 445.8 267.5 444.3 268 443.5C268.5 442.7 269.2 441.6 269.5 441C269.8 440.4 270.5 439.3 271 438.5C271.5 437.7 272.6 435.7 273.5 434C274.4 432.3 275.5 430.3 276 429.5C276.5 428.7 277.5 427 278.2 425.6L279.5 423L280.4 422.3C280.9 421.9 281.7 421.4 282.2 421.3L283.2 421L317.3 421.1L351.4 421.1L352 421.6L352.6 422.1L352.4 423.3L352.3 424.5L347.2 432.2C344.4 436.5 341.8 440.4 341.5 441C341.2 441.6 336 449.5 330 458.5C324 467.5 318.8 475.4 318.5 476C318.2 476.6 313.9 483.1 309 490.5C304.1 497.9 299.8 504.5 299.4 505.2C299.1 505.8 298.3 507 297.7 507.8C296.3 509.5 292.2 515.5 291.4 517.1C291.1 517.8 290.2 519.1 289.5 520C288.8 520.9 287.9 522.2 287.6 522.8C287.2 523.5 282.9 530.1 277.9 537.6C273 545 268.8 551.5 268.5 552L268.1 552.9L268 601.7L267.9 650.5L267.2 651.2L266.5 651.9L233.3 651.9L200.1 652L199.6 651.8Z"/>
+      <path style="fill:var(--lt)" d="M366.5 651.6L365.6 651.1L365.5 650.2L365.5 649.3L368.2 645.2C369.7 642.9 371.2 640.6 371.5 640C371.8 639.4 375.2 634.2 379 628.5C382.8 622.8 386.2 617.6 386.5 617C386.8 616.4 391.5 609.2 397 601C402.5 592.8 407.2 585.6 407.5 585C408.3 583.5 416.3 571.4 417.7 569.8C418.3 569 419.1 567.8 419.4 567.2C419.8 566.5 424.5 559.2 430 551C440 536 441.3 533.9 441.6 532.2L441.8 531.3L441.4 530.1L441 528.9L439.6 527.1C438.8 526.2 437.9 524.8 437.6 524.1C437.2 523.5 435.2 520.3 433 517C430.8 513.8 428.8 510.6 428.5 510C428.2 509.4 426.2 506.2 424 503C421.8 499.8 419.8 496.6 419.5 496C419.2 495.4 414.9 488.9 410 481.5C405.1 474.1 400.8 467.6 400.5 467C400.2 466.4 398.2 463.2 396 460C393.8 456.8 391.8 453.6 391.5 453C391.2 452.4 386.8 445.8 381.8 438.2L372.7 424.5L372.6 423.3L372.4 422.1L373 421.6L373.6 421.1L408.1 421.1L442.6 421L443.7 421.4L444.7 421.8L445.7 423.2C446.3 424 447.3 425.6 447.9 426.9C448.6 428.1 449.5 429.7 450 430.5C450.5 431.3 451.4 432.8 452 434C452.6 435.2 453.5 436.7 454 437.5C454.5 438.3 455.2 439.4 455.5 440C455.8 440.6 456.5 441.7 457 442.5C457.5 443.3 458.4 444.8 459 446C459.6 447.2 460.5 448.7 461 449.5C461.5 450.3 462.4 451.8 463 453C463.6 454.2 464.5 455.7 465 456.5C465.5 457.3 466.6 459.3 467.5 461C468.4 462.7 469.5 464.7 470 465.5C470.5 466.3 471.4 467.8 472 469C472.6 470.2 473.5 471.7 474 472.5C474.5 473.3 475.4 474.8 476 476C476.6 477.2 477.5 478.7 478 479.5C478.5 480.3 479.4 481.8 480 483C480.6 484.2 481.5 485.7 482 486.5C482.5 487.3 483.3 488.7 483.8 489.6C484.8 491.6 485.6 492.4 486.7 492.7L487.5 493L488.3 492.7C489.5 492.4 490.2 491.6 491.7 488.6C492.4 487.1 493.5 485.3 494 484.5C494.5 483.7 495.6 481.7 496.5 480C497.4 478.3 498.5 476.3 499 475.5C499.5 474.7 500.6 472.7 501.5 471C502.4 469.3 503.5 467.3 504 466.5C504.5 465.7 505.6 463.8 506.5 462.1C507.3 460.4 508.4 458.4 508.8 457.7C509.3 457 509.8 456 510 455.5C510.2 455 510.7 454 511.2 453.3C511.6 452.6 512.5 451.1 513 449.9C513.6 448.8 514.5 447.3 515 446.5C515.5 445.7 516.6 443.7 517.5 442C518.4 440.3 519.5 438.3 520 437.5C520.5 436.7 521.4 435.2 522 434C522.6 432.8 523.5 431.3 524 430.5C524.5 429.7 525.7 427.6 526.6 425.8L528.3 422.5L529 421.9L529.8 421.3L530.8 421.1C531.4 421 546.9 421 565.2 421.1L598.5 421.1L599.1 421.8L599.8 422.5L599.7 423.3L599.7 424.1L598.6 426.2C597.9 427.4 596.4 429.8 595.2 431.6C594 433.5 592.8 435.5 592.5 436C592.2 436.6 590.2 439.8 588 443C585.8 446.2 583.8 449.4 583.5 450C583.2 450.6 580.7 454.4 578 458.5C575.3 462.6 572.8 466.4 572.5 467C572.2 467.6 570.2 470.8 568 474C565.8 477.2 563.8 480.4 563.5 481C563.2 481.6 561.6 484.1 560 486.5C558.4 488.9 556.8 491.4 556.5 492C556.2 492.6 554.2 495.8 552 499C549.8 502.2 547.8 505.4 547.5 506C547.2 506.6 546.1 508.4 545 510C543.9 511.6 542.8 513.4 542.5 514C542.2 514.6 540.6 517.1 539 519.5C537.4 521.9 535.8 524.4 535.5 525C535.2 525.6 534.5 526.8 533.9 527.6C532.1 530.3 531.7 532.1 532.4 534.4L532.8 535.7L533.9 537.2C535.5 539.2 539.8 545.7 540.5 547C540.8 547.6 544.6 553.4 549 560C553.4 566.6 557.2 572.4 557.5 573C557.8 573.6 560.7 578.1 564 583C567.3 587.9 570.2 592.4 570.5 593C570.8 593.6 575.1 600.1 580 607.5C584.9 614.9 589.2 621.4 589.5 622C589.8 622.6 592.3 626.4 595 630.5C597.7 634.6 600.2 638.4 600.5 639C600.8 639.6 602.2 641.7 603.5 643.7C606.4 648.1 606.8 648.7 606.8 649.7L606.8 650.5L606.1 651.2L605.5 651.9L570.7 651.9C551.6 652 535.4 652 534.8 651.9L533.8 651.7L533 651.1L532.3 650.5L531.1 648.2C530.5 646.9 529.5 645.3 529 644.5C528.5 643.7 527.8 642.6 527.5 642.1C527.2 641.5 526 639.5 524.8 637.6C523.6 635.8 522.3 633.7 521.8 632.9C519.8 629.4 519.3 628.6 518.2 626.9C517.5 625.8 516.8 624.5 516.5 623.9C516.2 623.4 515.1 621.6 514 620C512.9 618.4 511.8 616.6 511.5 616.1C511.2 615.5 510 613.5 508.8 611.6C507.6 609.8 506.3 607.8 505.9 607.1C505.6 606.4 504.8 605.1 504.3 604.2C503.7 603.4 502.7 601.7 502 600.5C501.3 599.3 500.3 597.6 499.7 596.8C499.2 595.9 498.4 594.6 498.1 593.9C497.7 593.2 496.4 591.2 495.2 589.3C494 587.5 492.5 585.1 492 583.9C490.7 581.4 488.7 578.5 487.9 577.8L487.2 577.2L486.1 577.2C484.2 577.2 482.9 578.3 481.6 580.8C481.3 581.4 480.5 582.8 479.8 583.9C479.2 584.9 478.3 586.3 477.8 587C477.4 587.8 476.7 589 476.2 589.8C475.8 590.6 474.3 593 473 595C471.7 597 470.3 599.3 469.8 600.1C469.4 600.9 468.6 602.1 468.2 602.9C467.7 603.7 466.3 605.9 465 608C463.7 610 462.3 612.2 461.9 612.9C461.6 613.6 460.8 614.9 460.3 615.8C459.7 616.6 458.7 618.3 458 619.5C457.3 620.7 456.3 622.4 455.7 623.2C455.2 624.1 454.4 625.4 454.1 626.1C453.7 626.8 452.4 628.8 451.2 630.6C450 632.5 448.8 634.5 448.5 635.1C448.2 635.6 447.5 636.7 447 637.5C446.5 638.3 445.6 639.8 445 641C444.4 642.2 443.5 643.7 443 644.5C442.5 645.3 441.8 646.4 441.4 647.1C441.1 647.8 440.3 649 439.7 649.8L438.7 651.2L437.7 651.6L436.7 652L402.1 652L367.4 652L366.5 651.6Z"/>
+      <path style="fill:var(--lt)" d="M662.6 651.8C661 651.1 661.1 653.4 661.1 622.9C661.1 593 661.1 594.5 662.5 593.6C663.1 593.2 664.8 593.1 687.6 593C709.8 592.9 712.3 592.8 713.5 592.4C714.7 592.1 716.3 592 726.5 592C737.2 592 738.3 592 740 591.5C741.4 591.1 742.7 591 745 591C747.3 591 748.6 590.9 750 590.5C751.4 590.1 752.7 590 755.5 590C758.3 590 759.6 589.9 761 589.5C762.4 589.1 763.7 589 766 589C768.3 589 769.6 588.9 771 588.5C772.1 588.2 773.7 588 775 588C776.3 588 777.9 587.8 779 587.5C780 587.2 781.3 587 781.9 587C783.9 587 801.5 582.7 804.6 581.4C810 579.2 811.7 578.4 813 577.6C813.8 577.2 814.9 576.6 815.4 576.3C816 576 817.9 574.5 819.5 573.1C821.1 571.6 822.8 570.1 823.3 569.7C824.3 568.9 826.3 566.4 828.7 562.9C831.1 559.4 833 553.1 833 548.5C833 546.7 833.2 545.3 833.5 544C833.9 542.6 834 541.3 834 538.5C834 535.7 834.1 534.4 834.5 533C834.8 532 835 530.6 835 530C835 529.4 834.8 528 834.5 527C833.9 524.7 833.9 523.3 834.4 521.5C834.7 520.4 834.9 518.6 835 512.8C835.1 505.5 835.1 505.5 835.8 504.8C836.9 503.7 916.1 503.7 917.2 504.8C918.1 505.8 918.4 518.5 917.5 522C917.1 523.8 917 524.7 917 531.5C917 538.3 916.9 539.3 916.5 541C916.1 542.4 916 543.7 916 546.5C916 549.3 915.9 550.6 915.5 552C915.2 553.1 915 554.7 915 556C915 557.3 914.8 558.9 914.5 560C914.2 561 914 562.5 914 563.4C914 564.2 913.6 566.7 913 569.1C911.9 574.1 911.1 577.7 910.9 579.2C910.7 580.8 907.3 590.6 906.1 593.4C903.3 599.4 901 604.1 900.1 605.4C899.5 606.2 898.8 607.4 898.5 608C896.8 611.4 893.3 616 888.5 621.3C883.3 626.9 882.9 627.3 880.1 629.4C879.2 630.1 877.7 631.2 876.9 631.9C865.6 640.5 852.2 646.3 836 649.5C834.6 649.8 832.4 650.2 831.1 650.5C829.7 650.8 827.9 651 826.4 651C824.7 651 823.3 651.2 822 651.5C820 652 663.9 652.3 662.6 651.8Z"/>
+      <path style="fill:var(--la)" d="M663.6 573.8C662.2 573.2 662.1 572.8 662 567.8C662 563.7 662 562.8 662.5 561.1C662.9 559.3 663 558.3 663 553C663 547.7 663.1 546.6 663.5 545C663.9 543.5 664 542.3 664 538.5C664 534.7 664.1 533.5 664.5 532C664.8 530.7 665 529.3 665 527.5C665 525.7 665.2 524.3 665.5 523C665.8 522 666 520.4 666 519.5C666 518.6 666.2 517 666.5 516C666.8 515 667 513.7 667 513.1C667 509.6 672.5 489 674.4 485.2C674.9 484.2 675.6 482.6 676 481.5C678 476.1 684.5 465.5 688.5 461C689.5 459.8 690.8 458.4 691.2 457.8C692.1 456.4 695.7 452.8 697 452C697.5 451.7 698.8 450.5 700 449.5C706.3 443.8 721.3 435.6 730 433C731.3 432.6 732.9 432.1 733.6 431.8C736.3 430.7 746.4 428 748 428C748.6 428 750 427.8 751 427.5C752 427.2 753.6 427 754.5 427C755.4 427 757 426.8 758 426.5C759.1 426.2 760.7 426 762 426C763.2 426 764.8 425.8 766 425.5C768.9 424.8 916.4 424.8 917.5 425.6C918.9 426.5 918.9 425 918.9 454.9C918.9 482.5 918.9 482.5 918.2 483.2C917.5 483.9 917.5 483.9 900.2 484C884.9 484.1 882.7 484.2 881.5 484.6C880.3 484.9 878.7 485 869 485C858.8 485 857.7 485 856 485.5C854.3 485.9 853.3 486 846 486C838.7 486 837.7 486.1 836 486.5C834.5 486.9 833.3 487 830 487C826.7 487 825.5 487.1 824 487.5C822.7 487.8 821.3 488 819.5 488C817.7 488 816.3 488.2 815 488.5C814 488.8 812.4 489 811.5 489C810.6 489 809 489.2 808 489.5C807 489.8 805.4 490 804.5 490C803.6 490 802 490.2 801 490.5C800 490.8 798.7 491 798.1 491C797.6 491 796.1 491.2 794.8 491.5C793.4 491.8 791.4 492.2 790.1 492.5C773.2 496.2 759.5 503.8 753.5 512.8C750.7 516.9 748 523.3 748 525.9C748 526.6 747.8 528 747.5 529C747.2 530.3 747 531.7 747 533.5C747 535.3 746.8 536.7 746.5 538C746.1 539.7 746 540.7 746 547.5C746 553.9 745.9 555.4 745.6 556.5C745.3 557.6 745.1 559.4 745 565.2C744.9 572.5 744.9 572.5 744.2 573.2C743.5 573.9 743.5 573.9 703.8 573.9C682 573.9 663.9 573.9 663.6 573.8Z"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5.5h16v10.5H9.5L5.5 19.5v-3.5H4z"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.1A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 7.5 2.3C19.5 15.4 12 20 12 20z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3.5 7.5h17M3.5 12h17M3.5 16.5h17"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M14 7l5 5-5 5"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M14.5 6l-6 6 6 6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 6.5v11M15 6.5v11"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8.5 6.2v11.6L18 12z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 3.8l2.6.4 1.2 4-1.9 1.4a11 11 0 0 0 5.9 5.9l1.4-1.9 4 1.2.4 2.6c-.2 1.3-1.3 2.3-2.7 2.3A15.6 15.6 0 0 1 4.3 6.5c0-1.4 1-2.5 2.3-2.7z"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M4.5 19.5l1.2-3.9A8 8 0 1 1 8.6 18.4z"/><path d="M9.2 8.6c.2 2.9 2.7 5.6 5.9 6.1l1-1.3-1.8-1-1 .6a5 5 0 0 1-2.4-2.4l.6-1-1-1.8z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13"/><path d="M3.8 6l8.2 6.6L20.2 6"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M5 20.5V4.5h10v16M15 9.5h4v11M3 20.5h18M8 8h4M8 11.5h4M8 15h4"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="15"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4.5 19.5l1.2-4.5L15.5 5.2a2.1 2.1 0 0 1 3 3L8.7 18z"/><path d="M13.5 7.2l3 3"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 7h14M5 7l-2.5 6a2.8 2.8 0 0 0 5 0zM19 7l-2.5 6a2.8 2.8 0 0 0 5 0z"/></symbol>
+    <symbol id="i-ruler" viewBox="0 0 24 24"><rect x="2.5" y="8" width="19" height="8" rx="1"/><path d="M6.5 8v3M10 8v4.5M13.5 8v3M17 8v4.5"/></symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.5l1.7 5.1 5.3 1.9-5.3 1.9L12 17.5l-1.7-5.1L5 10.5l5.3-1.9zM18.5 15.5l.7 1.9 1.8.6-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.6z"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#main" data-skip>Skip to content</a>
+
+<div class="announce">
+  <div class="wrap announce__in">
+    <span>Christmas 2026: five new charms in 916 gold</span>
+    <a href="#e-brochure" data-brochure="christmas" data-scroll="reader">Flip through the e-Brochure</a>
+  </div>
+</div>
+
+<header class="site-header" id="top">
+  <div class="wrap header__bar">
+    <div class="header__left">
+      <button class="icon-btn menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu" data-menu-open>
+        <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+      <a class="util-link" href="#stores"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>Visit us</a>
+      <a class="util-link" href="#contact"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>Contact us</a>
+    </div>
+    <a class="brand" href="#home" aria-label="Yi Xing, home">
+      <svg class="logo" viewBox="0 0 807 231" role="img" aria-hidden="true"><use href="#logo" width="807" height="231"/></svg>
+    </a>
+    <div class="header__right">
+      <button class="icon-btn" type="button" data-drawer-open aria-haspopup="dialog" aria-label="Saved pieces">
+        <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><span class="wish-count" data-wish-count>0</span>
+      </button>
+    </div>
+  </div>
+  <nav class="wrap nav" aria-label="Main">
+    <a href="#home" data-route-link="home">Home</a>
+    <div class="nav__group">
+      <a href="#editorial" data-route-link="highlights">Highlights</a>
+      <div class="nav__menu">
+        <a href="#editorial" data-sub-link="editorial"><span>Editorial</span><small>Stories from the atelier</small></a>
+        <a href="#e-brochure" data-sub-link="e-brochure"><span>e-Brochure</span><small>Turn the pages of our brochures</small></a>
+      </div>
+    </div>
+    <a href="#about" data-route-link="about">About us</a>
+    <a href="#stores" data-route-link="stores">Visit us</a>
+    <a href="#contact" data-route-link="contact">Contact us</a>
+  </nav>
+</header>
+
+<div class="mmenu" id="mmenu" hidden role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mmenu__top">
+    <svg class="logo" viewBox="0 0 807 231" aria-hidden="true"><use href="#logo" width="807" height="231"/></svg>
+    <button class="icon-btn" type="button" aria-label="Close menu" data-menu-close><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+  </div>
+  <nav aria-label="Mobile">
+    <a href="#home" data-route-link="home">Home</a>
+    <a href="#editorial" data-route-link="highlights" class="mmenu__parent">Highlights</a>
+    <div class="mmenu__sub">
+      <a href="#editorial" data-sub-link="editorial">Editorial</a>
+      <a href="#e-brochure" data-sub-link="e-brochure">e-Brochure</a>
+    </div>
+    <a href="#about" data-route-link="about">About us</a>
+    <a href="#stores" data-route-link="stores">Visit us</a>
+    <a href="#contact" data-route-link="contact">Contact us</a>
+  </nav>
+  <div class="mmenu__foot">
+    <span>Client care on WhatsApp</span>
+    <a href="https://wa.me/60129969280" target="_blank" rel="noopener" data-wa="">+60 12-996 9280</a>
+  </div>
+</div>
+
+<main id="main" tabindex="-1">
+
+<!-- ============ HOME ============ -->
+<div class="page" data-page="home">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__media">
+      <video class="hero__video" muted loop playsinline preload="auto" poster="media/v4/hero-poster.webp" aria-hidden="true">
+        <source src="media/v4/hero.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="wrap hero__content">
+      <div class="hero__text">
+        <p class="eyebrow eyebrow--band">The Yi Xing signature</p>
+        <h1 class="hero__title" id="hero-title">Beads <span class="amp">&amp;</span> pipes<em>cut to catch the light</em></h1>
+        <p class="hero__lede">Nineteen named beads, pipes and links in 916 gold, strung into thirteen designs.</p>
+        <div class="btn-row">
+          <a class="btn btn--band" href="#e-brochure" data-brochure="collection" data-scroll="reader">Discover the collection</a>
+          <a class="btn btn--band-line" href="#story-alphabet">The bead library</a>
+        </div>
+      </div>
+    </div>
+    <button class="hero__toggle" type="button" aria-label="Pause video" data-video-toggle>
+      <svg class="icon" aria-hidden="true"><use href="#i-pause"/></svg>
+    </button>
+  </section>
+
+  <section class="section wrap">
+    <div class="intro">
+      <div>
+        <p class="eyebrow">Yi Xing · Goldsmith and jeweller</p>
+        <h2 class="statement">Every design starts with a single <em>bead</em>.</h2>
+      </div>
+      <div class="intro__aside">
+        <p class="body-copy">We cut our beads and pipes in 916 gold: moon-cut, pineapple-cut, fluted and granulated. Each one has a name, and each design is named after its signature bead.</p>
+        <a class="link-arrow" href="#story-alphabet">Meet the bead library <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="col-title">
+    <div class="section-head">
+      <div><p class="eyebrow">The collections</p><h2 class="h2" id="col-title">Five collections, one alphabet</h2></div>
+      <a class="link-arrow" href="#e-brochure" data-scroll="shop">View all thirteen designs <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="collections">
+      <a class="collection" href="#e-brochure" data-brochure="collection" data-brochure-at="colonne" data-scroll="reader">
+        <div class="collection__media"><img src="media/v4/d-3945.webp" alt="3945 Colonne bracelet on a teal backdrop" width="900" height="1125" loading="lazy"></div>
+        <h3 class="collection__name">Colonne<span class="collection__count">3 designs</span></h3>
+        <p class="collection__desc">Architectural tubes: fluted, spindle and octagonal pipes.</p>
+      </a>
+      <a class="collection" href="#e-brochure" data-brochure="collection" data-brochure-at="grain" data-scroll="reader">
+        <div class="collection__media"><img src="media/v4/d-3946.webp" alt="3946 Grain bracelet on a teal backdrop" width="900" height="1125" loading="lazy"></div>
+        <h3 class="collection__name">Grain<span class="collection__count">2 designs</span></h3>
+        <p class="collection__desc">Granulation: clusters of fine gold grains between the beads.</p>
+      </a>
+      <a class="collection" href="#e-brochure" data-brochure="collection" data-brochure-at="eclat" data-scroll="reader">
+        <div class="collection__media"><img src="media/v4/d-3990.webp" alt="3990 Éclat bracelet on a teal backdrop" width="900" height="1125" loading="lazy"></div>
+        <h3 class="collection__name">Éclat<span class="collection__count">3 designs</span></h3>
+        <p class="collection__desc">Light-catching spheres, sparkle-cut and moon-cut.</p>
+      </a>
+      <a class="collection" href="#e-brochure" data-brochure="collection" data-brochure-at="liaison" data-scroll="reader">
+        <div class="collection__media"><img src="media/v4/d-3339.webp" alt="3339 Allongé Cluster bracelet on a teal backdrop" width="900" height="1125" loading="lazy"></div>
+        <h3 class="collection__name">Liaison<span class="collection__count">3 designs</span></h3>
+        <p class="collection__desc">Links and lines: paperclip links, slim tubes and coils.</p>
+      </a>
+      <a class="collection" href="#e-brochure" data-brochure="collection" data-brochure-at="atelier" data-scroll="reader">
+        <div class="collection__media"><img src="media/v4/d-3998.webp" alt="3998 Maille bracelet on a teal backdrop" width="900" height="1125" loading="lazy"></div>
+        <h3 class="collection__name">Atelier<span class="collection__count">2 designs</span></h3>
+        <p class="collection__desc">Statement openwork, built bead by bead.</p>
+      </a>
+      <a class="collection" href="#e-brochure" data-brochure="library" data-scroll="reader">
+        <div class="collection__media"><img src="media/v4/tray.webp" alt="Six Yi Xing components laid out on teal: Éclat, Fuseau, Grappe, Colonne, Étoile and Couronne" width="900" height="1125" loading="lazy"></div>
+        <h3 class="collection__name">The bead library<span class="collection__count">19 parts</span></h3>
+        <p class="collection__desc">Nineteen beads, pipes and links, each with a name.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="feature-title">
+    <div class="feature">
+      <div class="feature__media"><img src="media/v4/colonne-macro.webp" alt="Close view of the 3945 Colonne bracelet: fluted gold pipes and moon-cut beads" width="1000" height="1000" loading="lazy"></div>
+      <div class="feature__text">
+        <p class="eyebrow">Colonne · Ref. 3945</p>
+        <h2 class="h2" id="feature-title">Fluted columns, <em>moon-cut</em> beads</h2>
+        <p class="body-copy">Fluted Colonne pipes run between moon-cut Lune beads, each parted by a thin Disque spacer. Shown here in yellow 916 gold; also made in tri-tone.</p>
+        <div class="price-line"><span class="hallmark">916</span><span class="price">Priced by weight</span><span class="weight">approx. 6.45 g in tri-tone</span></div>
+        <div class="btn-row">
+          <button class="btn btn--solid" type="button" data-open-product="3945">View the design</button>
+          <button class="btn btn--line save-btn" type="button" data-save="3945" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><span>Save</span></button>
+        </div>
+        <a class="link-arrow" href="#story-colonne">Read the Colonne story <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="gift-title">
+    <div class="section-head">
+      <div><p class="eyebrow">Gift ideas</p><h2 class="h2" id="gift-title">For the season of giving</h2></div>
+      <div class="rail-nav">
+        <button type="button" aria-label="Scroll back" data-rail="-1"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button>
+        <button type="button" aria-label="Scroll forward" data-rail="1"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button>
+      </div>
+    </div>
+    <div class="rail" id="gift-rail" tabindex="0" aria-label="Gift ideas"></div>
+  </section>
+
+  <section class="section wrap" id="box" aria-labelledby="box-title">
+    <div class="feature feature--flip">
+      <div class="feature__text">
+        <p class="eyebrow">The Yi Xing box</p>
+        <h2 class="h2" id="box-title">Tied by hand in <em>amber</em></h2>
+        <p class="body-copy">Every bracelet leaves our boutiques in a hinged teal box lined in ivory velvet, with our mark in gold foil inside the lid. Gifts are tied by hand with an amber satin ribbon.</p>
+        <p class="body-copy">Gift wrapping and a handwritten card are complimentary at every boutique.</p>
+        <div class="btn-row">
+          <a class="btn btn--solid" href="#e-brochure" data-brochure="gift" data-scroll="reader">The Gift Edit</a>
+          <a class="link-arrow" href="#contact" data-enquiry="general" data-message="I’d like to arrange gift wrapping and a card.">Arrange gift wrapping <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+      <div class="feature__media feature__media--paper"><img src="media/v4/yixing-box.webp" alt="A teal Yi Xing gift box tied with an amber satin ribbon, beside an open teal box holding the 3945 Colonne bracelet" width="1200" height="1200" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="svc-title" style="padding-top:0">
+    <div class="section-head">
+      <div><p class="eyebrow">Services</p><h2 class="h2" id="svc-title">At every boutique</h2></div>
+    </div>
+    <div class="services">
+      <div class="service">
+        <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
+        <h3>Private appointments</h3>
+        <p>A quiet room, an advisor, and the designs you asked to see, ready when you arrive.</p>
+        <a class="link-arrow" href="#contact" data-enquiry="appointment">Book a visit <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="service">
+        <svg class="icon" aria-hidden="true"><use href="#i-ruler"/></svg>
+        <h3>Sized to your wrist</h3>
+        <p>We add or remove beads and pipes so each bracelet sits right, while you wait.</p>
+        <a class="link-arrow" href="#contact" data-enquiry="general" data-message="I’d like to ask about sizing a bracelet.">Ask about sizing <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="service">
+        <svg class="icon" aria-hidden="true"><use href="#i-scale"/></svg>
+        <h3>Gold trade-in</h3>
+        <p>Bring old gold to be weighed and tested. We quote at the day's rate, in front of you.</p>
+        <a class="link-arrow" href="#contact" data-scroll="faq">How trade-in works <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="service">
+        <svg class="icon" aria-hidden="true"><use href="#i-sparkle"/></svg>
+        <h3>Care and restringing</h3>
+        <p>Cleaning, polishing and restringing for every piece we have sold, for life.</p>
+        <a class="link-arrow" href="#contact" data-enquiry="care">Arrange care <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--tight wrap" aria-labelledby="teaser-title" style="padding-top:0">
+    <div class="teaser map-panel">
+      <div class="teaser__text">
+        <p class="eyebrow">Boutiques</p>
+        <h2 class="h2" id="teaser-title">Visit us in Malaysia and Singapore</h2>
+        <p class="body-copy">Every boutique weighs and tests gold on site, and sizes bracelets while you wait. Message us and we will point you to the one nearest you.</p>
+        <div class="btn-row"><a class="btn btn--solid" href="https://wa.me/60129969280" target="_blank" rel="noopener" data-wa="Hello Yi Xing, which boutique is nearest to me? I am in ">WhatsApp us</a><a class="btn btn--line" href="#contact" data-enquiry="appointment">Book an appointment</a></div>
+      </div>
+      <div class="map map--mini" aria-hidden="true"><div class="map__layer"></div><div class="map__layer map__layer--home"></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ HIGHLIGHTS: EDITORIAL ============ -->
+<div class="page" data-page="editorial" hidden>
+  <header class="wrap page-head">
+    <div><p class="eyebrow">Highlights</p><h1 class="h1">Editorial</h1></div>
+    <p class="lede">Stories from our atelier: how our beads are cut, what the colour codes on our labels mean, and how to choose, size and give a Yi Xing bracelet.</p>
+  </header>
+  <div class="wrap"><nav class="subnav" aria-label="Highlights">
+    <a href="#editorial" data-sub-link="editorial">Editorial</a>
+    <a href="#e-brochure" data-sub-link="e-brochure">e-Brochure</a>
+  </nav></div>
+  <section class="wrap" aria-label="Featured story" data-story-feature></section>
+  <section class="section wrap" aria-labelledby="stories-title">
+    <div class="section-head">
+      <div><p class="eyebrow">All stories</p><h2 class="h2" id="stories-title">From the atelier</h2></div>
+      <div class="chips" role="group" aria-label="Filter stories" data-story-chips></div>
+    </div>
+    <div class="stories" data-stories></div>
+  </section>
+  <section class="cta-band" aria-labelledby="ed-cta-title">
+    <div class="wrap cta-band__in">
+      <div>
+        <p class="eyebrow">e-Brochure</p>
+        <h2 class="h2" id="ed-cta-title">See every design, page by page</h2>
+      </div>
+      <a class="btn btn--solid" href="#e-brochure" data-brochure="collection" data-scroll="reader">Open the e-Brochure</a>
+    </div>
+  </section>
+</div>
+
+<!-- ============ HIGHLIGHTS: E-BROCHURE ============ -->
+<div class="page" data-page="e-brochure" hidden>
+  <header class="wrap page-head">
+    <div><p class="eyebrow">Highlights</p><h1 class="h1">e-Brochure</h1></div>
+    <p class="lede">Turn the pages of the brochures you will find at our counters. Tap any design to see its details, save it or send an enquiry.</p>
+  </header>
+  <div class="wrap"><nav class="subnav" aria-label="Highlights">
+    <a href="#editorial" data-sub-link="editorial">Editorial</a>
+    <a href="#e-brochure" data-sub-link="e-brochure">e-Brochure</a>
+  </nav></div>
+  <section class="wrap" aria-labelledby="shelf-title">
+    <h2 class="label" id="shelf-title">Choose a brochure</h2>
+    <div class="shelf" data-shelf></div>
+  </section>
+  <section class="section--tight wrap" id="reader" aria-label="Brochure reader">
+    <div class="reader" data-reader>
+      <div class="reader__bar">
+        <div>
+          <p class="reader__title" data-reader-title></p>
+          <p class="reader__meta" data-reader-meta></p>
+        </div>
+        <div class="reader__tools">
+          <button class="icon-btn reader__btn" type="button" data-flip="-1" aria-label="Previous page"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button>
+          <span class="reader__count" data-reader-count aria-live="polite"></span>
+          <button class="icon-btn reader__btn" type="button" data-flip="1" aria-label="Next page"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button>
+          <button class="copy-btn reader__full" type="button" data-fullscreen hidden>Full screen</button>
+        </div>
+      </div>
+      <div class="book" data-book tabindex="0" role="region" aria-roledescription="brochure" aria-label="Brochure pages. Use the arrow keys to turn the pages.">
+        <div class="book__spread" data-spread></div>
+      </div>
+      <div class="reader__dots" data-dots></div>
+    </div>
+  </section>
+  <section class="section wrap" id="shop" aria-labelledby="shop-title">
+    <div class="section-head">
+      <div><p class="eyebrow">The Collection 2026</p><h2 class="h2" id="shop-title">Browse the designs</h2></div>
+      <p class="body-copy" style="max-width:26rem">The same thirteen designs as the brochure, by collection. Save the ones you like and bring the list to any boutique.</p>
+    </div>
+    <div class="toolbar">
+      <div class="chips" role="group" aria-label="Filter by collection" data-cat-chips></div>
+      <div class="toolbar__right"><span class="result-count" data-result-count aria-live="polite"></span></div>
+    </div>
+    <div class="grid" data-grid></div>
+  </section>
+</div>
+
+<!-- ============ HIGHLIGHTS: STORY ============ -->
+<div class="page" data-page="story" hidden>
+  <article class="story" data-story></article>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<div class="page" data-page="about" hidden>
+  <header class="wrap page-head">
+    <div><p class="eyebrow">About us</p><h1 class="h1">We weigh every piece <em>in front of you</em>.</h1></div>
+    <p class="lede">Yi Xing is a goldsmith and jeweller from Malaysia. We make bracelets from our own alphabet of 916 gold beads and pipes, and sell them by weight and purity, with both printed on the receipt.</p>
+  </header>
+
+  <section class="wrap section--tight" aria-labelledby="mark-title" style="padding-top:0">
+    <div class="mark-band">
+      <div>
+        <button class="mark-art" type="button" aria-pressed="false" data-mark aria-label="Show the two halves of the mark">
+          <svg viewBox="656 420 267 237" aria-hidden="true">
+            <path class="mk-t" d="M662.6 651.8C661 651.1 661.1 653.4 661.1 622.9C661.1 593 661.1 594.5 662.5 593.6C663.1 593.2 664.8 593.1 687.6 593C709.8 592.9 712.3 592.8 713.5 592.4C714.7 592.1 716.3 592 726.5 592C737.2 592 738.3 592 740 591.5C741.4 591.1 742.7 591 745 591C747.3 591 748.6 590.9 750 590.5C751.4 590.1 752.7 590 755.5 590C758.3 590 759.6 589.9 761 589.5C762.4 589.1 763.7 589 766 589C768.3 589 769.6 588.9 771 588.5C772.1 588.2 773.7 588 775 588C776.3 588 777.9 587.8 779 587.5C780 587.2 781.3 587 781.9 587C783.9 587 801.5 582.7 804.6 581.4C810 579.2 811.7 578.4 813 577.6C813.8 577.2 814.9 576.6 815.4 576.3C816 576 817.9 574.5 819.5 573.1C821.1 571.6 822.8 570.1 823.3 569.7C824.3 568.9 826.3 566.4 828.7 562.9C831.1 559.4 833 553.1 833 548.5C833 546.7 833.2 545.3 833.5 544C833.9 542.6 834 541.3 834 538.5C834 535.7 834.1 534.4 834.5 533C834.8 532 835 530.6 835 530C835 529.4 834.8 528 834.5 527C833.9 524.7 833.9 523.3 834.4 521.5C834.7 520.4 834.9 518.6 835 512.8C835.1 505.5 835.1 505.5 835.8 504.8C836.9 503.7 916.1 503.7 917.2 504.8C918.1 505.8 918.4 518.5 917.5 522C917.1 523.8 917 524.7 917 531.5C917 538.3 916.9 539.3 916.5 541C916.1 542.4 916 543.7 916 546.5C916 549.3 915.9 550.6 915.5 552C915.2 553.1 915 554.7 915 556C915 557.3 914.8 558.9 914.5 560C914.2 561 914 562.5 914 563.4C914 564.2 913.6 566.7 913 569.1C911.9 574.1 911.1 577.7 910.9 579.2C910.7 580.8 907.3 590.6 906.1 593.4C903.3 599.4 901 604.1 900.1 605.4C899.5 606.2 898.8 607.4 898.5 608C896.8 611.4 893.3 616 888.5 621.3C883.3 626.9 882.9 627.3 880.1 629.4C879.2 630.1 877.7 631.2 876.9 631.9C865.6 640.5 852.2 646.3 836 649.5C834.6 649.8 832.4 650.2 831.1 650.5C829.7 650.8 827.9 651 826.4 651C824.7 651 823.3 651.2 822 651.5C820 652 663.9 652.3 662.6 651.8Z"/>
+            <path class="mk-a" d="M663.6 573.8C662.2 573.2 662.1 572.8 662 567.8C662 563.7 662 562.8 662.5 561.1C662.9 559.3 663 558.3 663 553C663 547.7 663.1 546.6 663.5 545C663.9 543.5 664 542.3 664 538.5C664 534.7 664.1 533.5 664.5 532C664.8 530.7 665 529.3 665 527.5C665 525.7 665.2 524.3 665.5 523C665.8 522 666 520.4 666 519.5C666 518.6 666.2 517 666.5 516C666.8 515 667 513.7 667 513.1C667 509.6 672.5 489 674.4 485.2C674.9 484.2 675.6 482.6 676 481.5C678 476.1 684.5 465.5 688.5 461C689.5 459.8 690.8 458.4 691.2 457.8C692.1 456.4 695.7 452.8 697 452C697.5 451.7 698.8 450.5 700 449.5C706.3 443.8 721.3 435.6 730 433C731.3 432.6 732.9 432.1 733.6 431.8C736.3 430.7 746.4 428 748 428C748.6 428 750 427.8 751 427.5C752 427.2 753.6 427 754.5 427C755.4 427 757 426.8 758 426.5C759.1 426.2 760.7 426 762 426C763.2 426 764.8 425.8 766 425.5C768.9 424.8 916.4 424.8 917.5 425.6C918.9 426.5 918.9 425 918.9 454.9C918.9 482.5 918.9 482.5 918.2 483.2C917.5 483.9 917.5 483.9 900.2 484C884.9 484.1 882.7 484.2 881.5 484.6C880.3 484.9 878.7 485 869 485C858.8 485 857.7 485 856 485.5C854.3 485.9 853.3 486 846 486C838.7 486 837.7 486.1 836 486.5C834.5 486.9 833.3 487 830 487C826.7 487 825.5 487.1 824 487.5C822.7 487.8 821.3 488 819.5 488C817.7 488 816.3 488.2 815 488.5C814 488.8 812.4 489 811.5 489C810.6 489 809 489.2 808 489.5C807 489.8 805.4 490 804.5 490C803.6 490 802 490.2 801 490.5C800 490.8 798.7 491 798.1 491C797.6 491 796.1 491.2 794.8 491.5C793.4 491.8 791.4 492.2 790.1 492.5C773.2 496.2 759.5 503.8 753.5 512.8C750.7 516.9 748 523.3 748 525.9C748 526.6 747.8 528 747.5 529C747.2 530.3 747 531.7 747 533.5C747 535.3 746.8 536.7 746.5 538C746.1 539.7 746 540.7 746 547.5C746 553.9 745.9 555.4 745.6 556.5C745.3 557.6 745.1 559.4 745 565.2C744.9 572.5 744.9 572.5 744.2 573.2C743.5 573.9 743.5 573.9 703.8 573.9C682 573.9 663.9 573.9 663.6 573.8Z"/>
+          </svg>
+        </button>
+        <p class="mark-caption">Hover or tap the mark to see its two halves.</p>
+      </div>
+      <div class="feature__text">
+        <p class="eyebrow">Our mark</p>
+        <h2 class="h2" id="mark-title">Two strokes of <em>one circle</em></h2>
+        <p class="body-copy">Gold for the metal we work. Teal for the people we make it for. Neither half closes the circle alone.</p>
+        <p class="body-copy">The same two colours dress every Yi Xing box: teal outside, and our mark in gold foil inside the lid.</p>
+        <a class="link-arrow" href="#home" data-scroll="box">See the Yi Xing box <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="prom-title">
+    <div class="section-head"><div><p class="eyebrow">How we work</p><h2 class="h2" id="prom-title">Three promises at the counter</h2></div></div>
+    <div class="principles">
+      <div class="principle">
+        <h3>Weighed in front of you</h3>
+        <p>Gold is priced by weight at the day's rate. Your receipt lists the weight in grams, the purity and the workmanship fee, line by line.</p>
+      </div>
+      <div class="principle">
+        <h3>Hallmarked and tested</h3>
+        <p>Every bead and pipe is 916 gold, and every batch of alloy is tested by X-ray fluorescence before it reaches the counter.</p>
+      </div>
+      <div class="principle">
+        <h3>Looked after for life</h3>
+        <p>Bring any Yi Xing bracelet back for cleaning, restringing or sizing. We keep a record of every piece we sell.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="steps-title" style="padding-bottom:var(--section)">
+    <div class="section-head"><div><p class="eyebrow">From sketch to gold</p><h2 class="h2" id="steps-title">How a bead becomes a bracelet</h2></div></div>
+    <ol class="steps">
+      <li class="step">
+        <div class="step__media"><img src="media/v4/strand-sketch.webp" alt="Amber line drawing of Lune beads, Disque spacers and Colonne pipes" width="1000" height="1000" loading="lazy"></div>
+        <div class="step__head"><span class="step__num">01</span><h3>Sketch</h3></div>
+        <p>Every bead and pipe starts as a drawing, with its cut worked out facet by facet.</p>
+      </li>
+      <li class="step">
+        <div class="step__media"><img src="media/v4/strand-wire.webp" alt="Wireframe model of the same strand" width="1000" height="1000" loading="lazy"></div>
+        <div class="step__head"><span class="step__num">02</span><h3>Model</h3></div>
+        <p>We model each part to a fraction of a millimetre, so beads, pipes and spacers sit flush once strung.</p>
+      </li>
+      <li class="step">
+        <div class="step__media"><img src="media/v4/strand-final.webp" alt="The finished strand in 916 gold: Lune beads, Disque spacers and Colonne pipes" width="1000" height="1000" loading="lazy"></div>
+        <div class="step__head"><span class="step__num">03</span><h3>Finish</h3></div>
+        <p>Made in 916 gold, then cut, polished and strung into the finished design.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="cta-band" aria-labelledby="visit-title">
+    <div class="wrap cta-band__in">
+      <div>
+        <p class="eyebrow">Visit us</p>
+        <h2 class="h2" id="visit-title">Come and see the designs in person</h2>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--solid" href="#stores">Visit us</a>
+        <a class="btn btn--line" href="#contact" data-enquiry="appointment">Book an appointment</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ VISIT US ============ -->
+<div class="page" data-page="stores" hidden>
+  <header class="wrap page-head">
+    <div><p class="eyebrow">Visit us</p><h1 class="h1">Our boutiques</h1></div>
+    <p class="lede">We have boutiques in Malaysia and Singapore. Tell us where you are and we will point you to the nearest one, or book a private appointment.</p>
+  </header>
+  <section class="wrap" aria-labelledby="near-title" style="padding-bottom:var(--section)">
+    <div class="teaser map-panel">
+      <div class="teaser__text">
+        <p class="eyebrow">Find your nearest boutique</p>
+        <h2 class="h2" id="near-title">Ask us on WhatsApp</h2>
+        <p class="body-copy">Send us your area and the designs you would like to see. We will tell you where to find them and have them ready for you.</p>
+        <div class="btn-row"><a class="btn btn--solid" href="https://wa.me/60129969280" target="_blank" rel="noopener" data-wa="Hello Yi Xing, which boutique is nearest to me? I am in ">WhatsApp us</a><a class="btn btn--line" href="#contact" data-enquiry="appointment">Book an appointment</a></div>
+      </div>
+      <div class="map" aria-hidden="true"><div class="map__layer"></div><div class="map__layer map__layer--home"></div></div>
+    </div>
+    <div class="visit-grid">
+      <div><h3>Weighed in front of you</h3><p>Every boutique weighs and tests gold on site. Your receipt shows the weight, purity and workmanship fee.</p></div>
+      <div><h3>Sized while you wait</h3><p>We add or remove beads and pipes to fit your wrist, at no charge.</p></div>
+      <div><h3>Private appointments</h3><p>A quiet room and a client advisor, with the designs you asked to see.</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ CONTACT ============ -->
+<div class="page" data-page="contact" hidden>
+  <header class="wrap page-head">
+    <div><p class="eyebrow">Contact us</p><h1 class="h1">How can we help?</h1></div>
+    <p class="lede">Our client advisors answer on WhatsApp and by email. Send us a message, or book a private appointment at one of our boutiques.</p>
+  </header>
+  <section class="wrap" aria-label="Contact details and enquiry form" style="padding-bottom:var(--section)">
+    <div class="contact">
+      <div class="channels">
+        <div class="channel">
+          <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+          <span class="label">WhatsApp</span>
+          <div class="copy-row"><span class="channel__value" data-copy-src>+60 12-996 9280</span><button class="copy-btn" type="button" data-copy>Copy</button></div>
+          <a class="channel__hint link-arrow" href="https://wa.me/60129969280" target="_blank" rel="noopener" data-wa="Hello Yi Xing, ">Open a chat <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="channel">
+          <svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>
+          <span class="label">Email</span>
+          <div class="copy-row"><span class="channel__value" data-copy-src>support@yixinggoldsmith.com</span><button class="copy-btn" type="button" data-copy>Copy</button></div>
+          <span class="channel__hint">For enquiries, appointments and trade-in</span>
+        </div>
+        <div class="channel">
+          <svg class="icon" aria-hidden="true"><use href="#i-building"/></svg>
+          <span class="label">Boutiques</span>
+          <span class="channel__value">Malaysia and Singapore</span>
+          <a class="channel__hint link-arrow" href="#stores">Find your nearest boutique <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+
+      <div id="enquiry">
+        <form class="form" data-form novalidate>
+          <fieldset>
+            <legend class="label">Type of enquiry</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="type" value="general" id="type-general" checked><span>General enquiry</span></label>
+              <label class="chip"><input type="radio" name="type" value="appointment" id="type-appointment"><span>Book an appointment</span></label>
+              <label class="chip"><input type="radio" name="type" value="design" id="type-design"><span>Design your own</span></label>
+              <label class="chip"><input type="radio" name="type" value="tradein" id="type-tradein"><span>Gold trade-in</span></label>
+              <label class="chip"><input type="radio" name="type" value="care" id="type-care"><span>Care and restringing</span></label>
+            </div>
+          </fieldset>
+          <div class="fields">
+            <div class="field"><label for="f-name">Full name</label><input id="f-name" name="name" autocomplete="name" required><span class="field__error" hidden></span></div>
+            <div class="field"><label for="f-email">Email (optional)</label><input id="f-email" name="email" type="email" autocomplete="email"><span class="field__error" hidden></span></div>
+            <div class="field"><label for="f-phone">Phone (optional)</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"><span class="field__error" hidden></span></div>
+            <div class="field"><label for="f-area">Your area (optional)</label><input id="f-area" name="area" autocomplete="address-level2" placeholder="For example Petaling Jaya or Singapore"><span class="field__error" hidden></span></div>
+            <div class="field" data-when-visit hidden><label for="f-date">Preferred date</label><input id="f-date" name="date" type="date"><span class="field__error" hidden></span></div>
+            <div class="field" data-when-visit hidden><label for="f-time">Preferred time</label><select id="f-time" name="time"><option>Morning, 10:00 to 13:00</option><option>Afternoon, 13:00 to 17:00</option><option>Evening, 17:00 to 21:00</option></select></div>
+            <div class="field field--full"><label for="f-msg">Message</label><textarea id="f-msg" name="message" required></textarea><span class="field__error" hidden></span></div>
+          </div>
+          <label class="check"><input type="checkbox" id="f-consent" name="consent" required><span>I agree that Yi Xing may contact me about this enquiry.</span></label>
+          <span class="field__error" data-consent-error hidden>Please tick the box so we can reply to you.</span>
+          <div class="form__foot">
+            <button class="btn btn--solid" type="submit" data-send="email"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Send by email</button>
+            <button class="btn btn--line" type="submit" data-send="whatsapp"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>Send on WhatsApp</button>
+            <span class="form__note">Your enquiry opens in your email app or WhatsApp, ready to send. Required: name and message.</span>
+          </div>
+        </form>
+        <div class="success" data-success hidden tabindex="-1">
+          <p class="eyebrow">Almost done</p>
+          <h3 data-success-title>Thank you.</h3>
+          <p data-success-text></p>
+          <button class="btn btn--line" type="button" data-form-reset>Write another enquiry</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="faq" aria-labelledby="faq-title" style="padding-bottom:var(--section)">
+    <div class="section-head"><div><p class="eyebrow">Questions</p><h2 class="h2" id="faq-title">Frequently asked</h2></div></div>
+    <div class="faq">
+      <details open><summary>How is the price of a bracelet worked out?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+        <p>Our bracelets are priced by weight: the weight in grams times the day's gold rate, plus a workmanship fee for the design. Your receipt shows each part.</p></details>
+      <details><summary>What do 1C, 2C and 3C mean?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+        <p>They are our colour codes. 1C is all yellow gold, 2C is two-tone with white gold, and 3C is tri-tone with white and rose gold. All three are 916 gold.</p></details>
+      <details><summary>Can you resize a bracelet?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+        <p>Yes. We add or remove beads and pipes to fit your wrist, usually while you wait, at no charge.</p></details>
+      <details><summary>Can I trade in old gold?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+        <p>Yes, at any boutique. We weigh and test it in front of you and quote at the day's buy-back rate. You can take the value in cash or put it towards a new piece.</p></details>
+      <details><summary>Can I reserve a design and collect it at another boutique?<svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></summary>
+        <p>Yes. Ask a client advisor to reserve it, and we will move it to the boutique you choose, in Malaysia or Singapore, within three working days.</p></details>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__top">
+    <div class="footer__news">
+      <h2>Talk to us</h2>
+      <p>Questions about a design, sizing or a gift? Our client advisors reply on WhatsApp and by email.</p>
+      <div class="footer__talk">
+        <a href="https://wa.me/60129969280" target="_blank" rel="noopener" data-wa="Hello Yi Xing, "><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>+60 12-996 9280</a>
+        <a href="mailto:support@yixinggoldsmith.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>support@yixinggoldsmith.com</a>
+      </div>
+    </div>
+    <div class="footer__col">
+      <h3>Client care</h3>
+      <ul>
+        <li><a href="#contact">Contact us</a></li>
+        <li><a href="#contact" data-enquiry="appointment">Book an appointment</a></li>
+        <li><a href="#contact" data-scroll="faq">Frequently asked</a></li>
+        <li><a href="#contact" data-enquiry="tradein">Gold trade-in</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h3>The house</h3>
+      <ul>
+        <li><a href="#about">About us</a></li>
+        <li><a href="#editorial">Editorial</a></li>
+        <li><a href="#e-brochure">e-Brochure</a></li>
+        <li><a href="#story-alphabet">The bead library</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h3>Visit us</h3>
+      <ul>
+        <li><a href="#stores">Our boutiques</a></li>
+        <li><a href="https://wa.me/60129969280" target="_blank" rel="noopener" data-wa="Hello Yi Xing, ">WhatsApp us</a></li>
+        <li><a href="mailto:support@yixinggoldsmith.com">Email us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer__bottom">
+    <svg class="logo" viewBox="0 0 807 231" role="img" aria-label="Yi Xing"><use href="#logo" width="807" height="231"/></svg>
+    <ul>
+      <li>© 2026 Yi Xing. All rights reserved.</li>
+      <li>Malaysia · English</li>
+    </ul>
+  </div>
+</footer>
+
+<div class="drawer" id="saved-drawer" hidden role="dialog" aria-modal="true" aria-labelledby="saved-title">
+  <div class="drawer__backdrop" data-drawer-close></div>
+  <div class="drawer__panel">
+    <div class="drawer__head">
+      <h2 id="saved-title">Saved pieces</h2>
+      <button class="icon-btn" type="button" aria-label="Close saved pieces" data-drawer-close><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="drawer__list" data-saved-list></div>
+    <div class="drawer__foot">
+      <a class="btn btn--solid" href="#contact" data-enquire-saved>Enquire about these pieces</a>
+      <a class="btn btn--line" href="https://wa.me/60129969280" target="_blank" rel="noopener" data-wa-saved>Send the list on WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<dialog class="pdialog" data-pdialog aria-labelledby="pd-name">
+  <button class="icon-btn pdialog__close" type="button" aria-label="Close" data-pdialog-close><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+  <div class="pdialog__in">
+    <div class="pdialog__media"><img data-pd-img src="media/v4/d-3945.webp" alt="" width="900" height="1125"></div>
+    <div class="pdialog__info">
+      <p class="eyebrow" data-pd-col></p>
+      <h2 id="pd-name" data-pd-name></h2>
+      <div class="price-line"><span class="hallmark" data-pd-hall></span><span class="price" data-pd-price></span></div>
+      <p data-pd-desc></p>
+      <dl class="pdialog__specs">
+        <dt>Made of</dt><dd data-pd-mat></dd>
+        <dt>Gold</dt><dd data-pd-gold></dd>
+        <dt>Weight</dt><dd data-pd-weight></dd>
+        <dt>Ref.</dt><dd data-pd-ref></dd>
+      </dl>
+      <div class="btn-row">
+        <a class="btn btn--solid" href="#contact" data-pd-enquire>Enquire about this piece</a>
+        <button class="btn btn--line save-btn" type="button" data-pd-save aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><span>Save</span></button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+  /* ---------- data: designs and components from the Yi Xing bead library ---------- */
+  const COLLECTIONS = {
+    colonne: { name: 'Colonne', idea: 'Architectural tubes' },
+    grain: { name: 'Grain', idea: 'Granulation' },
+    eclat: { name: 'Éclat', idea: 'Light-catching spheres' },
+    liaison: { name: 'Liaison', idea: 'Links and lines' },
+    atelier: { name: 'Atelier', idea: 'Statement openwork' },
+    christmas: { name: 'Christmas 2026', idea: 'Seasonal charms' }
+  };
+  const PRODUCTS = [
+    { id: '3945', name: 'Colonne', col: 'colonne', made: ['Colonne', 'Lune', 'Disque'], weight: 'approx. 6.45 g in tri-tone (3C)', desc: 'Fluted Colonne pipes run between moon-cut Lune beads, each parted by a thin Disque spacer.' },
+    { id: '3947', name: 'Fuseau', col: 'colonne', made: ['Fuseau', 'Halo', 'Pavé'], desc: 'Pairs of fluted Fuseau spindles, framed by Halo rondelles around a pineapple-cut Pavé sphere.' },
+    { id: '4023', name: 'Octave', col: 'colonne', made: ['Octave', 'Étoile', 'Disque'], desc: 'Octagonal Octave batons between star-cut Étoile cubes and thin Disque spacers.' },
+    { id: '3946', name: 'Grain', col: 'grain', made: ['Colonne', 'Lune', 'Grappe'], desc: 'Granulated Grappe clusters and moon-cut Lune beads, with a fluted Colonne pipe between each group.' },
+    { id: '4003', name: 'Étoile Torsade', col: 'grain', made: ['Étoile', 'Torsade', 'Halo'], desc: 'Three swirl-cut Torsade beads, then three star-cut Étoile cubes, each set framed by Halo rondelles.' },
+    { id: '3990', name: 'Éclat', col: 'eclat', made: ['Éclat', 'Couronne'], desc: 'Sparkle-cut Éclat spheres, each parted from the next by a Couronne crown spacer.' },
+    { id: '4082', name: 'Ciselé', col: 'eclat', made: ['Lune', 'Ciselé'], desc: 'Moon-cut Lune beads in two sizes, linked by chased Ciselé twist rings.' },
+    { id: '4037', name: 'Anneau', col: 'eclat', made: ['Anneau', 'Lune'], gold: 'Two-tone: yellow and white 916 gold', desc: 'Moon-cut Lune beads between round Anneau rings, in yellow and white gold.' },
+    { id: '3339', name: 'Allongé Cluster', col: 'liaison', made: ['Allongé', 'Lune'], desc: 'Elongated Allongé paperclip links, gathered by clusters of small moon-cut Lune beads.' },
+    { id: '4150', name: 'Ligne', col: 'liaison', made: ['Ligne', 'Étoile', 'Pavé'], gold: 'Two-tone: yellow and white 916 gold', desc: 'Slim polished Ligne tubes, gathered by star-cut Étoile cubes and pineapple-cut Pavé spheres.' },
+    { id: '4047', name: 'Spirale', col: 'liaison', made: ['Olive', 'Spirale'], desc: 'Fluted Olive beads and Spirale coil tubes in one supple line.' },
+    { id: '3952', name: 'Treillis', col: 'atelier', made: ['Colonne', 'Pavé', 'Perlée', 'Olive'], desc: 'An openwork lattice of Colonne pipes, Pavé spheres, Olive beads and faceted Perlée micro balls.' },
+    { id: '3998', name: 'Maille', col: 'atelier', made: ['Olive', 'Perlée'], desc: 'A wide mesh band woven from Olive beads and hundreds of faceted Perlée micro balls.' }
+  ];
+  // Christmas 2026 charms: names are descriptive; references and weights come from the photo files
+  const XMAS = [
+    { id: 'P3843-A', name: 'Snowflake Bauble', col: 'christmas', kind: 'charm', made: ['Openwork bauble', 'Snowflake', 'Bow'], gold: 'Yellow 916 gold (1C)', weight: '2.05 g', desc: 'An openwork bauble traced with a six-point snowflake and tied with a bow.' },
+    { id: 'P3843-B', name: 'Christmas Tree', col: 'christmas', kind: 'charm', made: ['Filigree tree', 'Star'], gold: 'Yellow 916 gold (1C)', weight: '2.05 g', desc: 'A filigree tree crowned with a star, each branch tipped with a tiny gold bead.' },
+    { id: 'P3843-C', name: 'Candy Cane', col: 'christmas', kind: 'charm', made: ['Diamond-cut cane', 'Bow'], gold: 'Yellow 916 gold (1C)', weight: '1.15 g', desc: 'A diamond-cut candy cane, tied with a bow.' },
+    { id: 'P3843-D', name: 'Snowflake', col: 'christmas', kind: 'charm', made: ['Snowflake', 'Diamond-cut ring', 'Bow'], gold: 'Yellow 916 gold (1C)', weight: '1.65 g', desc: 'A snowflake set in a diamond-cut ring, with a bow at the top.' },
+    { id: 'P4112', name: 'Santa', col: 'christmas', kind: 'charm', made: ['Red and white enamel', 'Filigree bail'], gold: 'Yellow 916 gold (1C) with enamel', weight: '1.76 g', desc: 'Santa with his sack of gifts, in red and white enamel on 916 gold. The reverse is patterned with small hearts.' }
+  ];
+  const BY_ID = Object.fromEntries(PRODUCTS.concat(XMAS).map(p => [p.id, p]));
+  const GIFTS = ['P3843-A', 'P4112', 'P3843-B', 'P3843-D', 'P3843-C', '3990', '4082', '4037'];
+  const LIBRARY = [
+    { code: 'B01', type: 'Bead', name: 'Lune', what: 'Moon-cut sphere', size: '4 mm' },
+    { code: 'B02', type: 'Bead', name: 'Pavé', what: 'Pineapple-cut sphere', size: '5 mm' },
+    { code: 'B03', type: 'Bead', name: 'Éclat', what: 'Sparkle-cut sphere', size: '8 mm' },
+    { code: 'B04', type: 'Bead', name: 'Torsade', what: 'Swirl-cut sphere', size: '3.6 mm' },
+    { code: 'B05', type: 'Bead', name: 'Olive', what: 'Fluted oval bead', size: '2.8 × 3.4 mm' },
+    { code: 'B06', type: 'Bead', name: 'Étoile', what: 'Star-cut cushion cube', size: '3.2 mm' },
+    { code: 'B07', type: 'Bead', name: 'Grappe', what: 'Granulated cluster bead', size: '4.2 mm' },
+    { code: 'B08', type: 'Bead', name: 'Halo', what: 'Granule rondelle spacer', size: '3.4 mm' },
+    { code: 'P01', type: 'Pipe', name: 'Colonne', what: 'Fluted column tube', size: '2.6 × 5.6 mm' },
+    { code: 'P02', type: 'Pipe', name: 'Fuseau', what: 'Fluted spindle tube', size: '3 × 6.6 mm' },
+    { code: 'P03', type: 'Pipe', name: 'Octave', what: 'Octagonal baton tube', size: '3 × 6.4 mm' },
+    { code: 'P04', type: 'Pipe', name: 'Ligne', what: 'Slim polished tube', size: '1.4 × 16 mm' },
+    { code: 'P05', type: 'Pipe', name: 'Spirale', what: 'Coil tube', size: '2 mm' },
+    { code: 'L01', type: 'Link', name: 'Allongé', what: 'Elongated paperclip link', size: '9 mm' },
+    { code: 'L02', type: 'Link', name: 'Anneau', what: 'Round jump ring', size: '4.4 mm' },
+    { code: 'L03', type: 'Link', name: 'Ciselé', what: 'Chased twist ring', size: '5.6 mm' },
+    { code: 'L04', type: 'Link', name: 'Perlée', what: 'Faceted micro ball', size: '1.15 mm' },
+    { code: 'S01', type: 'Spacer', name: 'Disque', what: 'Disc spacer', size: '3 mm' },
+    { code: 'S02', type: 'Spacer', name: 'Couronne', what: 'Crown spacer', size: '3.8 mm' }
+  ];
+  const EXTRAS = [
+    { tag: 'Library', title: 'The bead library', text: 'Nineteen beads, pipes and links, each with a name.', img: 'tray', href: '#story-alphabet', attrs: '', cta: 'Meet the library' },
+    { tag: 'Bespoke', title: 'Design your own', text: 'Choose your beads and pipes, and we string them to your wrist.', img: 'strand-sketch', href: '#contact', attrs: 'data-enquiry="design"', cta: 'Start a design' },
+    { tag: 'Visit', title: 'Try them on', text: 'Book a quiet appointment at one of our boutiques.', img: 'yixing-box', href: '#contact', attrs: 'data-enquiry="appointment"', cta: 'Book a visit' }
+  ];
+
+  // client care: filled in at build time from contact.json
+  const WA = '60129969280', EMAIL = 'support@yixinggoldsmith.com';
+  const waLink = text => `https://wa.me/${WA}${text ? '?text=' + encodeURIComponent(text) : ''}`;
+
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const icon = (id, cls = 'icon') => `<svg class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
+  const img = id => `media/v4/d-${id}.webp`;
+
+  /* ---------- saved pieces (per-viewer convenience) ---------- */
+  const KEY = 'yixing-saved';
+  let saved = [];
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '[]').filter(id => BY_ID[id]); } catch (e) { saved = []; }
+  const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* storage unavailable */ } };
+  const isSaved = id => saved.includes(id);
+  function toggleSave(id) {
+    saved = isSaved(id) ? saved.filter(x => x !== id) : [...saved, id];
+    persist(); syncSaved();
+  }
+  function syncSaved() {
+    const ws = $('[data-wa-saved]'); if (ws) ws.href = waLink(saved.length ? 'Hello Yi Xing, I am interested in these designs: ' + saved.map(id => `${id} ${BY_ID[id].name}`).join(', ') + '.' : 'Hello Yi Xing, ');
+    $$('[data-wish-count]').forEach(el => { el.textContent = saved.length; });
+    $$('[data-drawer-open]').forEach(b => b.setAttribute('aria-label', `Saved pieces, ${saved.length}`));
+    $$('[data-save]').forEach(b => {
+      const on = isSaved(b.dataset.save);
+      b.setAttribute('aria-pressed', on);
+      const label = b.querySelector('span');
+      if (label) label.textContent = on ? 'Saved' : 'Save';
+      if (b.classList.contains('card__save')) b.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${BY_ID[b.dataset.save].name}`);
+    });
+    const list = $('[data-saved-list]');
+    list.innerHTML = saved.length ? saved.map(id => {
+      const p = BY_ID[id];
+      return `<div class="saved"><img src="${img(p.id)}" alt="" width="84" height="84">
+        <div><p class="saved__name">${esc(p.name)}</p><p class="saved__meta">916 · Ref. ${esc(p.id)}</p></div>
+        <button class="icon-btn" type="button" data-unsave="${p.id}" aria-label="Remove ${esc(p.name)}">${icon('i-close')}</button></div>`;
+    }).join('') : '<p class="drawer__empty">Tap the heart on any design to keep it here. Saved designs stay on this device.</p>';
+    $('.drawer__foot').hidden = !saved.length;
+    const pd = $('[data-pd-save]');
+    if (pd.dataset.id) { pd.setAttribute('aria-pressed', isSaved(pd.dataset.id)); pd.querySelector('span').textContent = isSaved(pd.dataset.id) ? 'Saved' : 'Save'; }
+  }
+
+  /* ---------- design cards ---------- */
+  function card(p) {
+    return `<article class="card">
+      <button class="card__media" type="button" data-open-product="${p.id}" aria-label="View ${esc(p.id)} ${esc(p.name)}">
+        <img src="${img(p.id)}" alt="${esc(p.id)} ${esc(p.name)} ${p.kind || 'bracelet'}: ${esc(p.made.join(', '))}" width="900" height="1125" loading="lazy">
+      </button>
+      <button class="icon-btn card__save" type="button" data-save="${p.id}" aria-pressed="false" aria-label="Save ${esc(p.name)}">${icon('i-heart')}</button>
+      <div class="card__body">
+        <span class="hallmark">916</span>
+        <h3 class="card__name"><button type="button" data-open-product="${p.id}">${esc(p.name)}</button></h3>
+        <p class="card__meta">${esc(p.made.join(' · '))}</p>
+        <p class="card__price">Ref. ${esc(p.id)}</p>
+      </div>
+    </article>`;
+  }
+  function extraCard(x) {
+    return `<article class="card card--extra">
+      <a class="card__media" href="${x.href}" ${x.attrs} tabindex="-1" aria-hidden="true"><img src="media/v4/${x.img}.webp" alt="" width="900" height="1125" loading="lazy"></a>
+      <div class="card__body">
+        <span class="hallmark">${esc(x.tag)}</span>
+        <h3 class="card__name"><a href="${x.href}" ${x.attrs}>${esc(x.title)}</a></h3>
+        <p class="card__meta">${esc(x.text)}</p>
+        <a class="link-arrow" href="${x.href}" ${x.attrs} tabindex="-1">${esc(x.cta)} ${icon('i-arrow')}</a>
+      </div>
+    </article>`;
+  }
+  $('#gift-rail').innerHTML = GIFTS.map(id => card(BY_ID[id])).join('');
+
+  const shop = { col: 'all' };
+  function renderShop() {
+    const items = PRODUCTS.filter(p => shop.col === 'all' || p.col === shop.col);
+    const pad = (4 - items.length % 4) % 4; // fill the last row with editorial tiles, so no design sits alone
+    $('[data-grid]').innerHTML = items.map(card).join('') + EXTRAS.slice(0, pad).map(extraCard).join('');
+    $('[data-result-count]').textContent = `${items.length} ${items.length === 1 ? 'design' : 'designs'}`;
+    $('[data-cat-chips]').innerHTML = [['all', 'All']].concat(Object.entries(COLLECTIONS).filter(([k]) => PRODUCTS.some(p => p.col === k)).map(([k, c]) => [k, c.name])).map(([k, label]) => {
+      const n = PRODUCTS.filter(p => k === 'all' || p.col === k).length;
+      return `<button class="chip-btn" type="button" data-cat="${k}" aria-pressed="${shop.col === k}">${esc(label)}<span class="count">${n}</span></button>`;
+    }).join('');
+    syncSaved();
+  }
+  function libraryHTML() {
+    return LIBRARY.map(c => {
+      const used = PRODUCTS.filter(p => p.made.includes(c.name)).map(p => p.name);
+      return `<article class="bead">
+        <div class="bead__media"><img src="media/v4/c-${c.code}.webp" alt="${esc(c.name)}, ${esc(c.what.toLowerCase())}, in 916 gold" width="600" height="600" loading="lazy"></div>
+        <p class="bead__code">${esc(c.type)} · ${esc(c.code)}</p>
+        <h3 class="bead__name">${esc(c.name)}</h3>
+        <p class="bead__what">${esc(c.what)}, approx. ${esc(c.size)}</p>
+        <p class="bead__in">In <b>${used.map(esc).join(', ')}</b></p>
+      </article>`;
+    }).join('') + `<a class="bead bead--cta" href="#contact" data-enquiry="design">
+        <span class="bead__name">Combine them your way</span>
+        <span class="bead__what">Pick your beads, pipes and spacers, and we will string a design to your wrist.</span>
+        <span class="link-arrow">Design yours ${icon('i-arrow')}</span>
+      </a>`;
+  }
+
+  /* ---------- shared media helpers ---------- */
+  const media = n => `media/v4/${n}.webp`;
+  const DIMS = n => n.startsWith('d-') || n === 'tray' ? [900, 1125] : n.startsWith('xmas-') ? [1080, 1350] : (n.startsWith('c-') || n.startsWith('gold-')) ? [600, 600] : n.startsWith('ed-') ? [1600, 1000] : n === 'yixing-box' ? [1200, 1200] : [1000, 1000];
+  const wh = n => { const [w, h] = DIMS(n); return `width="${w}" height="${h}"`; };
+  const plain = h => String(h).replace(/<[^>]+>/g, '');
+  const motionOK = () => !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  /* ---------- editorial: stories written from the bead library ---------- */
+  const STORIES = [
+    { slug: 'alphabet', cat: 'Craft', read: 4, img: 'ed-alphabet', title: 'An alphabet in <em>gold</em>',
+      dek: 'Nineteen beads, pipes and links, each with a name. Every Yi Xing design is spelled from them.',
+      alt: 'All nineteen Yi Xing beads, pipes, links and spacers laid out in rows on teal suede',
+      body: [
+        ['p', 'Most jewellers name a bracelet after a season or a muse. We name ours after a bead. Every design in our collection is built from the same nineteen parts, cut in 916 gold, and each part has a name and a code you can ask for at the counter.'],
+        ['h', 'Eight beads'],
+        ['p', 'The beads carry most of the light. <b>Lune</b> is a moon-cut sphere of about 4 mm, faceted so it glints as it turns. <b>Pavé</b> is pineapple-cut, and <b>Éclat</b>, at about 8 mm, is the largest and brightest. <b>Torsade</b> is swirl-cut, <b>Olive</b> a fluted oval, <b>Étoile</b> a star-cut cushion cube and <b>Grappe</b> a cluster of fine gold grains. <b>Halo</b>, a rondelle edged with granules, frames the others.'],
+        ['h', 'Five pipes'],
+        ['p', 'The pipes set a design’s rhythm. <b>Colonne</b> is a fluted column, <b>Fuseau</b> a fluted spindle and <b>Octave</b> an eight-sided baton. <b>Ligne</b> is a slim polished tube about 16 mm long, and <b>Spirale</b> a coil.'],
+        ['h', 'Four links and two spacers'],
+        ['p', '<b>Allongé</b>, <b>Anneau</b>, <b>Ciselé</b> and <b>Perlée</b> join the parts, from an elongated paperclip link to a faceted ball barely more than a millimetre across. <b>Disque</b> and <b>Couronne</b>, a thin disc and a crown, sit between beads to give each one room.'],
+        ['library'],
+        ['quote', 'Each design takes the name of its signature bead: Colonne for its pipes, Éclat for its spheres.'],
+        ['p', 'Because every design shares one alphabet, any bracelet can be lengthened, shortened or re-spelled. Bring yours to a boutique and we will add or remove parts to fit your wrist.'],
+        ['cta', [['#e-brochure', 'Flip through the bead library', 'solid', 'data-brochure="library" data-scroll="reader"'], ['#contact', 'Start your own design', 'line', 'data-enquiry="design"']]]
+      ] },
+    { slug: 'eclat', cat: 'Craft', read: 3, img: 'eclat-macro', title: 'Cut to catch the <em>light</em>',
+      dek: 'How the Éclat bead is faceted, and why it throws light from every side.',
+      alt: 'An Éclat sparkle-cut sphere in 916 gold resting on teal suede',
+      body: [
+        ['p', 'Éclat begins as a smooth sphere of 916 gold, about eight millimetres across. It is then cut all over with small, flat facets. Each facet is a tiny mirror set at its own angle, so wherever the light comes from, some part of the bead sends it back to you.'],
+        ['p', 'A polished sphere shows one bright point. A faceted one shows dozens, and they move as your wrist turns. That shimmer is what we mean by cut to catch the light.'],
+        ['h', 'Room to shine'],
+        ['p', 'In 3990 Éclat, each sphere is parted from the next by a Couronne crown spacer. The spacer lifts the beads apart so light reaches every facet, and the points of the crown add a second, finer sparkle between them.'],
+        ['img', 'd-3990', { alt: 'The 3990 Éclat bracelet on teal suede', cap: '3990 Éclat: Éclat spheres parted by Couronne crown spacers.' }],
+        ['designs', 'The Éclat collection', ['3990', '4082', '4037']],
+        ['cta', [['#contact', 'Book an appointment', 'solid', 'data-enquiry="appointment"']]]
+      ] },
+    { slug: 'colonne', cat: 'Collections', read: 3, img: 'colonne-macro', title: 'Fluted columns, <em>moon-cut</em> beads',
+      dek: 'Inside the Colonne collection: three designs built on architectural pipes.',
+      alt: 'Close view of the 3945 Colonne bracelet: fluted pipes between moon-cut beads',
+      body: [
+        ['p', 'Colonne takes its name from the column. Its pipes are fluted like classical stone, with fine grooves that run their whole length and catch the light in parallel lines.'],
+        ['p', 'In <b>3945 Colonne</b>, the pipes alternate with moon-cut Lune beads, each parted by a thin Disque spacer. <b>3947 Fuseau</b> swaps the columns for spindles, with Halo rondelles framing a pineapple-cut Pavé sphere. <b>4023 Octave</b> sets eight-sided batons between star-cut Étoile cubes.'],
+        ['designs', 'The Colonne collection', ['3945', '3947', '4023']],
+        ['p', 'All three are made in yellow 916 gold first. 3945 is also made in tri-tone, with white and rose gold among the yellow; in tri-tone it weighs about 6.45 g.'],
+        ['cta', [['#e-brochure', 'See Colonne in the e-Brochure', 'solid', 'data-brochure="collection" data-brochure-at="colonne" data-scroll="reader"']]]
+      ] },
+    { slug: 'colours', cat: 'Guides', read: 2, img: 'ed-colours', title: 'One gold, three <em>colours</em>',
+      dek: 'What 1C, 2C and 3C mean on our labels, and how to choose between them.',
+      alt: 'Three Pavé beads in yellow, white and rose 916 gold on teal suede',
+      body: [
+        ['p', 'Every bead and pipe we make is 916 gold. What changes is its colour, and on our labels you will see one of three codes.'],
+        ['colours'],
+        ['h', 'Which to choose'],
+        ['p', 'Yellow (1C) is the classic, and the warmest against the skin. Two-tone (2C) adds white gold, finished in rhodium, for contrast; it sits well beside a steel watch. Tri-tone (3C) mixes yellow, white and rose gold for the most movement.'],
+        ['p', 'Not every design is made in every colour. Ask at any boutique which colours are available for the design you like.'],
+        ['designs', 'Two-tone and tri-tone designs', ['4037', '4150', '3945']],
+        ['cta', [['#contact', 'Ask about colours', 'solid', 'data-enquiry="general" data-message="I’d like to know which colours a design comes in."']]]
+      ] },
+    { slug: 'sketch', cat: 'Craft', read: 3, img: 'strand-sketch', title: 'From sketch to <em>gold</em>',
+      dek: 'How a bead becomes a bracelet, in three steps.',
+      alt: 'Amber line drawing of a strand of Lune beads, Disque spacers and Colonne pipes',
+      body: [
+        ['p', 'Every part in our library started as a drawing. Before a bead is cut, we draw it facet by facet, so we know how it will catch the light and how it will sit against its neighbours.'],
+        ['steps'],
+        ['p', 'The drawing becomes a precise model, checked to a fraction of a millimetre so that beads, pipes and spacers sit flush once strung. Only then is the part made in 916 gold, cut, polished and strung into a design.'],
+        ['quote', 'A bead that is a hair too wide shows as a gap on the wrist.'],
+        ['p', 'The same care goes into the designs you create with us. Choose your parts from the library, and we will draw, model and string them into a bracelet sized to your wrist.'],
+        ['cta', [['#contact', 'Start a design', 'solid', 'data-enquiry="design"']]]
+      ] },
+    { slug: 'gifting', cat: 'Gifting', read: 2, img: 'yixing-box', title: 'Tied by hand in <em>amber</em>',
+      dek: 'Six designs to give this season, and how we wrap them.',
+      alt: 'A teal Yi Xing gift box tied with amber satin ribbon beside an open bracelet box',
+      body: [
+        ['p', 'Every Yi Xing bracelet leaves our boutiques in a hinged teal box lined in ivory velvet, with our mark in gold foil inside the lid. For gifts, we tie the box by hand with amber satin ribbon and add a card written in the boutique.'],
+        ['p', 'Gift wrapping and the card are complimentary. If you are not sure of the wrist size, choose the design and it can be resized later at any of our boutiques.'],
+        ['designs', 'Six designs to give', ['3990', '4082', '4037', '4023', '3947', '4047']],
+        ['cta', [['#e-brochure', 'Flip through the Gift Edit', 'solid', 'data-brochure="gift" data-scroll="reader"'], ['#contact', 'Arrange gift wrapping', 'line', 'data-enquiry="general" data-message="I’d like to arrange gift wrapping and a card."']]]
+      ] },
+    { slug: 'sizing', cat: 'Guides', read: 2, img: 'ed-sizing', title: 'Sized to your <em>wrist</em>',
+      dek: 'How we fit a beaded bracelet, one bead at a time.',
+      alt: 'The 4082 Ciselé bracelet beside loose Lune beads and a Ciselé twist ring on teal suede',
+      body: [
+        ['p', 'A beaded bracelet should move on the wrist without sliding over the hand. Because ours are strung from separate parts, we can fit each one closely.'],
+        ['h', 'How we measure'],
+        ['p', 'We measure your wrist with a soft tape just above the wrist bone, then add a little room so the bracelet can turn. Most people like about a centimetre of ease; some prefer a closer fit.'],
+        ['h', 'Adding or removing parts'],
+        ['p', 'To lengthen a bracelet, we add beads or pipes from the same design; to shorten it, we take them out, keeping the pattern even. It usually takes a few minutes while you wait, and there is no charge.'],
+        ['cta', [['#contact', 'Ask about sizing', 'solid', 'data-enquiry="general" data-message="I’d like to ask about sizing a bracelet."'], ['#stores', 'Visit us', 'line', '']]]
+      ] }
+  ];
+  const STORY_BY = Object.fromEntries(STORIES.map(x => [x.slug, x]));
+  const STORY_CATS = ['All', 'Craft', 'Collections', 'Guides', 'Gifting'];
+  const ed = { cat: 'All' };
+  const CTA = (href, label, kind, attrs) => `<a class="btn btn--${kind}" href="${href}" ${attrs || ''}>${esc(label)}</a>`;
+
+  function storyCard(x, feature = false) {
+    return `<a class="story-card${feature ? ' story-card--feature' : ''}" href="#story-${x.slug}">
+      <div class="story-card__media"><img src="${media(x.img)}" alt="" ${wh(x.img)} loading="lazy"></div>
+      <div class="story-card__text">
+        <p class="story-card__meta">${esc(x.cat)} · ${x.read} min read</p>
+        <h3 class="story-card__title">${x.title}</h3>
+        <p class="story-card__dek">${esc(x.dek)}</p>
+        ${feature ? `<span class="link-arrow">Read the story ${icon('i-arrow')}</span>` : ''}
+      </div>
+    </a>`;
+  }
+  function renderEditorial() {
+    $('[data-story-feature]').innerHTML = storyCard(STORIES[0], true);
+    $('[data-story-chips]').innerHTML = STORY_CATS.map(c => {
+      const n = STORIES.slice(1).filter(x => c === 'All' || x.cat === c).length;
+      return `<button class="chip-btn" type="button" data-story-cat="${c}" aria-pressed="${ed.cat === c}">${c}<span class="count">${n}</span></button>`;
+    }).join('');
+    $('[data-stories]').innerHTML = STORIES.slice(1).filter(x => ed.cat === 'All' || x.cat === ed.cat).map(x => storyCard(x)).join('');
+  }
+  const coloursHTML = () => `<div class="colours">${[
+      ['yellow', '1C', 'Yellow', 'All yellow 916 gold. Every design is made this way first.'],
+      ['white', '2C', 'Two-tone', 'Yellow with white 916 gold, finished in rhodium.'],
+      ['rose', '3C', 'Tri-tone', 'Yellow, white and rose 916 gold together in one design.']
+    ].map(([c, code, name, text]) => `<figure class="colour"><img src="${media('gold-' + c)}" alt="Pavé bead in ${c} 916 gold" width="600" height="600" loading="lazy"><figcaption><span class="colour__code">${code}</span><h3>${name}</h3><p>${text}</p></figcaption></figure>`).join('')}</div>`;
+  const stepsHTML = () => `<ol class="steps">${[
+      ['strand-sketch', '01', 'Sketch', 'Every bead and pipe starts as a drawing, with its cut worked out facet by facet.'],
+      ['strand-wire', '02', 'Model', 'We model each part to a fraction of a millimetre, so beads, pipes and spacers sit flush once strung.'],
+      ['strand-final', '03', 'Finish', 'Made in 916 gold, then cut, polished and strung into the finished design.']
+    ].map(([im, n, h, t]) => `<li class="step"><div class="step__media"><img src="${media(im)}" alt="" width="1000" height="1000" loading="lazy"></div><div class="step__head"><span class="step__num">${n}</span><h3>${h}</h3></div><p>${t}</p></li>`).join('')}</ol>`;
+  function block(b) {
+    const [t, a, c] = b;
+    if (t === 'p') return `<p>${a}</p>`;
+    if (t === 'h') return `<h2 class="story__h">${a}</h2>`;
+    if (t === 'quote') return `<blockquote class="story__quote"><p>${a}</p></blockquote>`;
+    if (t === 'img') return `<figure class="story__fig"><img src="${media(a)}" alt="${esc(c.alt)}" ${wh(a)} loading="lazy" style="aspect-ratio:1;object-fit:cover"><figcaption>${c.cap}</figcaption></figure>`;
+    if (t === 'designs') return `<div class="story__wide"><p class="eyebrow">${a}</p><div class="grid grid--3">${c.map(id => card(BY_ID[id])).join('')}</div></div>`;
+    if (t === 'library') return `<div class="story__wide"><div class="library">${libraryHTML()}</div></div>`;
+    if (t === 'colours') return `<div class="story__wide">${coloursHTML()}</div>`;
+    if (t === 'steps') return `<div class="story__wide">${stepsHTML()}</div>`;
+    if (t === 'cta') return `<div class="btn-row story__cta">${a.map(x => CTA(...x)).join('')}</div>`;
+    return '';
+  }
+  function renderStory(slug) {
+    const x = STORY_BY[slug], i = STORIES.indexOf(x);
+    const more = [1, 2, 3].map(k => STORIES[(i + k) % STORIES.length]);
+    $('[data-story]').innerHTML = `
+      <header class="wrap story__head">
+        <a class="link-back" href="#editorial">${icon('i-left')}Editorial</a>
+        <p class="eyebrow">${esc(x.cat)} · ${x.read} min read</p>
+        <h1 class="h1">${x.title}</h1>
+        <p class="lede">${esc(x.dek)}</p>
+      </header>
+      <figure class="wrap story__hero"><img src="${media(x.img)}" alt="${esc(x.alt)}" ${wh(x.img)}></figure>
+      <div class="wrap story__body">${x.body.map(block).join('')}</div>
+      <section class="section wrap story__more" aria-labelledby="more-title">
+        <div class="section-head">
+          <div><p class="eyebrow">Editorial</p><h2 class="h2" id="more-title">More stories</h2></div>
+          <a class="link-arrow" href="#editorial">All stories ${icon('i-arrow')}</a>
+        </div>
+        <div class="stories">${more.map(m => storyCard(m)).join('')}</div>
+      </section>`;
+    syncSaved();
+  }
+
+  /* ---------- e-brochure ---------- */
+  const COL_TEXT = {
+    colonne: 'Fluted, spindle and octagonal pipes set a steady rhythm between moon-cut and star-cut beads.',
+    grain: 'Clusters of fine gold grains between the beads, for texture that catches the light softly.',
+    eclat: 'Faceted spheres, sparkle-cut and moon-cut, made to throw light from every side.',
+    liaison: 'Paperclip links, slim tubes and coils: the lightest designs in the collection.',
+    atelier: 'Statement openwork and mesh, built bead by bead from the finest parts in the library.'
+  };
+  const LIB_BY = Object.fromEntries(LIBRARY.map(c => [c.code, c]));
+  const BROCHURES = [
+    { id: 'christmas', title: 'Christmas 2026', sub: 'Five new charms in 916 gold', cover: 'xmas-cover', pages: [
+      { t: 'xcover', img: 'xmas-cover', kicker: 'Yi Xing · Christmas 2026', title: 'The Christmas <em>Edit</em>', sub: 'Five new charms in 916 gold, to give and to keep' },
+      { t: 'text', xmas: true, kicker: 'Christmas 2026', title: 'A season in <em>gold</em>', text: [
+        'This Christmas, five new charms join our counters: four ornaments in openwork and diamond-cut 916 gold, and Santa in red and white enamel.',
+        'Wear one on a fine chain, or ask us to add it to a bracelet. Every piece is weighed in front of you and priced at the day’s gold rate.'],
+        toc: [[3, 'The four ornaments'], [4, 'Snowflake Bauble'], [5, 'Christmas Tree'], [6, 'Candy Cane'], [7, 'Snowflake'],
+          [9, 'Santa'], [10, 'Two ways to wear him'], [11, 'Choose by weight'], [12, 'Gift wrapping'], [13, 'Our boutiques']] },
+      { t: 'ornaments', band: true },
+      { t: 'xproduct', id: 'P3843-A' }, { t: 'xproduct', id: 'P3843-B' },
+      { t: 'xproduct', id: 'P3843-C' }, { t: 'xproduct', id: 'P3843-D' },
+      { t: 'xphoto', img: 'xmas-necklace', cap: 'P4112 Santa, on a fine chain' }, { t: 'xproduct', id: 'P4112' },
+      { t: 'xtwo' }, { t: 'xweights' },
+      { t: 'xwrap' }, { t: 'visit', band: true },
+      { t: 'back', band: true, xmas: true }
+    ] },
+    { id: 'collection', title: 'The Collection 2026', sub: 'Thirteen designs in five collections', cover: 'ed-flatlay', pages: [
+      { t: 'cover', img: 'ed-flatlay', kicker: 'Yi Xing · 2026', title: 'The Collection', sub: 'Beads &amp; pipes in 916 gold' },
+      { t: 'text', kicker: 'Welcome', title: 'Every design starts with a single <em>bead</em>.', img: 'tray', ratio: '16 / 11', text: [
+        'We cut nineteen beads, pipes and links in 916 gold, and name every design after its signature bead. In these pages are thirteen designs in five collections.',
+        'Every design is priced by weight at the day’s gold rate, and sized to your wrist at no charge.'] },
+      { t: 'colA', col: 'colonne', lead: '3945' }, { t: 'colB', col: 'colonne', ids: ['3947', '4023'] },
+      { t: 'colA', col: 'grain', lead: '3946' }, { t: 'colB', col: 'grain', ids: ['4003'] },
+      { t: 'colA', col: 'eclat', lead: '3990' }, { t: 'colB', col: 'eclat', ids: ['4082', '4037'] },
+      { t: 'colA', col: 'liaison', lead: '3339' }, { t: 'colB', col: 'liaison', ids: ['4150', '4047'] },
+      { t: 'colA', col: 'atelier', lead: '3998' }, { t: 'colB', col: 'atelier', ids: ['3952'] },
+      { t: 'colours' },
+      { t: 'parts', kicker: 'The bead library', title: 'Nineteen parts', codes: LIBRARY.map(c => c.code), cols: 5, dense: true },
+      { t: 'visit', band: true },
+      { t: 'back', band: true }
+    ] },
+    { id: 'gift', title: 'The Gift Edit', sub: 'Six designs to give, tied by hand', cover: 'yixing-box', pages: [
+      { t: 'cover', img: 'yixing-box', light: true, kicker: 'Festive 2026', title: 'The Gift Edit', sub: 'Six designs to give, tied by hand' },
+      { t: 'text', band: true, kicker: 'The Yi Xing box', title: 'Tied by hand in <em>amber</em>', text: [
+        'Every bracelet leaves our boutiques in a hinged teal box lined in ivory velvet, with our mark in gold foil inside the lid.',
+        'For gifts we tie it with amber satin ribbon and add a card written in the boutique. Both are complimentary.'] },
+      { t: 'colB', kicker: 'To give', ids: ['3990', '4082'] }, { t: 'colB', kicker: 'To give', ids: ['4037', '4023'] },
+      { t: 'colB', kicker: 'To give', ids: ['3947', '4047'] },
+      { t: 'services' },
+      { t: 'visit', band: true },
+      { t: 'back', band: true }
+    ] },
+    { id: 'library', title: 'The Bead Library', sub: 'Nineteen beads, pipes and links', cover: 'ed-alphabet', pages: [
+      { t: 'cover', img: 'ed-alphabet', kicker: 'Reference', title: 'The Bead Library', sub: 'Nineteen beads, pipes and links in 916 gold' },
+      { t: 'text', kicker: 'An alphabet in gold', title: 'Every part has a <em>name</em>', img: 'c-B03', ratio: '16 / 12', text: [
+        'Every Yi Xing design is built from these nineteen parts. Each has a name and a code, so you can ask for it by name at the counter.',
+        'Sizes are approximate. Parts are shown larger than life.'] },
+      { t: 'parts', kicker: 'Beads', title: 'Lune to Torsade', codes: ['B01', 'B02', 'B03', 'B04'], cols: 2, ar: '7 / 5' },
+      { t: 'parts', kicker: 'Beads', title: 'Olive to Halo', codes: ['B05', 'B06', 'B07', 'B08'], cols: 2, ar: '7 / 5' },
+      { t: 'parts', kicker: 'Pipes', title: 'Colonne to Spirale', codes: ['P01', 'P02', 'P03', 'P04', 'P05'], cols: 3 },
+      { t: 'parts', kicker: 'Links and spacers', title: 'Allongé to Couronne', codes: ['L01', 'L02', 'L03', 'L04', 'S01', 'S02'], cols: 3 },
+      { t: 'combine', band: true },
+      { t: 'back', band: true }
+    ] }
+  ];
+  const BR_BY = Object.fromEntries(BROCHURES.map(b => [b.id, b]));
+  const reader = { b: 'christmas', v: 0, page: 0 };
+  const wideMQ = window.matchMedia ? window.matchMedia('(min-width: 900px)') : { matches: true, addEventListener() {} };
+  const spreadMode = () => wideMQ.matches;
+
+  const pgImg = (n, ar) => `<img class="pg__img" src="${media(n)}" alt="" ${wh(n)}${ar ? ` style="aspect-ratio:${ar}"` : ''}>`;
+  const pgInfo = (p, desc) => `<span class="pg__info" style="display:grid;gap:1.2cqw"><span class="pg__dref">Ref. ${p.id}</span><span class="pg__dname">${esc(p.name)}</span><span class="pg__dmeta">${esc(p.made.join(' · '))}</span>${desc ? `<span class="pg__dmeta">${esc(p.desc)}</span>` : ''}</span>`;
+  const pgDesign = (p, cls, ar, desc) => `<button class="pg__design ${cls}" type="button" data-open-product="${p.id}" aria-label="View ${p.id} ${esc(p.name)}">${pgImg('d-' + p.id, ar)}${pgInfo(p, desc)}</button>`;
+  const pgPart = (c, dense, ar) => `<div class="pg__part"><img src="${media('c-' + c.code)}" alt="${esc(c.name)}" width="600" height="600"${ar ? ` style="aspect-ratio:${ar}"` : ''}>${dense
+      ? `<span><span class="pg__pcode">${c.code}</span> <span class="pg__pname">${esc(c.name)}</span></span>`
+      : `<span class="pg__pcode">${c.type} · ${c.code}</span><span class="pg__pname">${esc(c.name)}</span><span class="pg__pwhat">${esc(c.what)}, approx. ${esc(c.size)}</span>`}</div>`;
+  const pgBrand = dark => `<svg class="pg__brand${dark ? ' pg__brand--dark' : ''}" viewBox="0 0 807 231" aria-hidden="true"><use href="#logo" width="807" height="231"/></svg>`;
+
+  function pageHTML(b, i) {
+    const pg = b.pages[i], n = b.pages.length;
+    const num = i > 0 && i < n - 1 ? `<span class="pg__num">${i + 1}</span>` : '';
+    let h = '';
+    if (pg.t === 'xcover') {
+      return `<div class="pg pg--cover pg--xcover"><img class="pg__bg" src="${media(pg.img)}" alt="" width="1080" height="1350">${pgBrand(true)}
+        <div class="pg__cover pg__cover--x"><p class="pg__kicker">${pg.kicker}</p><h3 class="pg__title">${pg.title}</h3><p class="pg__text">${pg.sub}</p></div></div>`;
+    }
+    if (pg.t === 'xphoto') {
+      return `<div class="pg pg--cover"><img class="pg__bg" src="${media(pg.img)}" alt="" width="1080" height="1350"><p class="pg__cap">${esc(pg.cap)}</p>${num}</div>`;
+    }
+    if (pg.t === 'cover') {
+      return `<div class="pg pg--cover"><img class="pg__bg" src="${media(pg.img)}" alt="" ${wh(pg.img)}>${pgBrand(pg.light)}
+        <div class="pg__cover${pg.light ? ' pg__cover--light' : ''}"><p class="pg__kicker">${pg.kicker}</p><h3 class="pg__title">${pg.title}</h3><p class="pg__text">${pg.sub}</p></div></div>`;
+    }
+    if (pg.t === 'text') {
+      h = `<p class="pg__kicker">${pg.kicker}</p><h3 class="pg__title">${pg.title}</h3><hr class="pg__rule">${pg.text.map(t => `<p class="pg__text">${t}</p>`).join('')}${pg.img ? `<div style="margin-top:auto">${pgImg(pg.img, pg.ratio)}</div>` : ''}${pg.toc ? `<nav class="pg__toc" aria-label="In this brochure"><p class="pg__kicker">In this edition</p><ol style="--rows:${Math.ceil(pg.toc.length / 2)}">${pg.toc.map(([n, label]) => `<li><button type="button" data-goto-page="${n - 1}"><span>${esc(label)}</span><span>${n}</span></button></li>`).join('')}</ol></nav>` : ''}`;
+    } else if (pg.t === 'colA') {
+      const c = COLLECTIONS[pg.col], p = BY_ID[pg.lead];
+      h = `<p class="pg__kicker">Collection · ${esc(c.idea)}</p><h3 class="pg__title">${esc(c.name)}</h3><p class="pg__text">${COL_TEXT[pg.col]}</p>${pgDesign(p, 'pg__lead', '4 / 5', false)}`;
+    } else if (pg.t === 'colB') {
+      const ps = pg.ids.map(id => BY_ID[id]);
+      const kick = pg.kicker || COLLECTIONS[pg.col].name;
+      h = `<p class="pg__kicker">${esc(kick)}</p>` + (ps.length === 1
+        ? `<div class="pg__solo">${pgDesign(ps[0], '', '1.15', true)}</div>`
+        : `<div class="pg__rows">${ps.map(p => pgDesign(p, 'pg__row', '4 / 5', true)).join('')}</div>`);
+    } else if (pg.t === 'colours') {
+      h = `<p class="pg__kicker">Colour</p><h3 class="pg__title pg__title--s">One gold, three colours</h3><div class="pg__swatches">${[
+          ['yellow', '1C', 'Yellow', 'All yellow 916 gold. Every design is made this way first.'],
+          ['white', '2C', 'Two-tone', 'Yellow with white 916 gold, finished in rhodium.'],
+          ['rose', '3C', 'Tri-tone', 'Yellow, white and rose 916 gold in one design.']
+        ].map(([c, code, name, t]) => `<div class="pg__swatch">${pgImg('gold-' + c)}<div style="display:grid;gap:1cqw"><span class="pg__pcode">${code}</span><span class="pg__pname" style="font-size:4.4cqw">${name}</span><span class="pg__pwhat" style="font-size:2.6cqw">${t}</span></div></div>`).join('')}</div>`;
+    } else if (pg.t === 'parts') {
+      h = `<p class="pg__kicker">${pg.kicker}</p><h3 class="pg__title pg__title--s">${pg.title}</h3><div class="pg__parts${pg.dense ? ' pg__parts--dense' : ''}" style="--cols:${pg.cols}">${pg.codes.map(code => pgPart(LIB_BY[code], pg.dense, pg.ar)).join('')}</div>`;
+    } else if (pg.t === 'visit') {
+      h = `<p class="pg__kicker">Visit us</p><h3 class="pg__title pg__title--s">Boutiques in Malaysia and Singapore</h3>
+        <p class="pg__text">Every boutique weighs and tests gold on site, and sizes bracelets while you wait.</p>
+        <p class="pg__text">Message us with your area and we will point you to the nearest boutique, with your designs ready.</p>
+        <p class="pg__wa"><span>WhatsApp</span><b>+60 12-996 9280</b></p>
+        <div class="pg__links"><a class="pg__link" href="${waLink('Hello Yi Xing, which boutique is nearest to me? I am in ')}" target="_blank" rel="noopener">WhatsApp us</a><a class="pg__link" href="#contact" data-enquiry="appointment">Book an appointment</a></div>`;
+    } else if (pg.t === 'services') {
+      h = `<p class="pg__kicker">At every boutique</p><h3 class="pg__title pg__title--s">With every gift</h3><div class="pg__svc">${[
+          ['Wrapping and a card', 'Tied by hand with amber satin ribbon, with a card written in the boutique.'],
+          ['Sized now or later', 'We add or remove beads to fit, while you wait, at no charge.'],
+          ['Weighed in front of you', 'The weight, purity and workmanship fee are printed on the receipt.'],
+          ['Cleaning and restringing', 'For every piece we have sold, at any of our boutiques.']
+        ].map(([t, d]) => `<div><h4>${t}</h4><p class="pg__text" style="font-size:2.7cqw">${d}</p></div>`).join('')}</div>`;
+    } else if (pg.t === 'combine') {
+      h = `<p class="pg__kicker">Design your own</p><h3 class="pg__title">Combine them your <em>way</em></h3><hr class="pg__rule">
+        <p class="pg__text">Choose beads, pipes and spacers from the library, and we will string them into a bracelet sized to your wrist. Bring a sketch, or start from one of our thirteen designs.</p>
+        <div class="pg__links"><a class="pg__link" href="#contact" data-enquiry="design">Start a design</a><a class="pg__link" href="#story-alphabet">Read the story</a></div>`;
+    } else if (pg.t === 'ornaments') {
+      const orn = [['P3843-A', 6, 15], ['P3843-B', 29, 30], ['P3843-C', 53, 9], ['P3843-D', 76, 24]];
+      h = `<div class="pg__orns">${orn.map(([id, x, t]) => `<button class="pg__orn" type="button" data-open-product="${id}" style="left:${x}cqw;--t:${t}cqw" aria-label="View ${id} ${esc(BY_ID[id].name)}"><img src="${media('orn-' + id)}" alt=""></button>`).join('')}</div>
+        <div class="pg__ornText"><p class="pg__kicker">P3843 · Four ornaments</p><h3 class="pg__title pg__title--s">Hung like <em>ornaments</em></h3>
+        <p class="pg__text">${['P3843-A', 'P3843-B', 'P3843-C', 'P3843-D'].map(id => esc(BY_ID[id].name)).join(' · ')}</p></div>`;
+    } else if (pg.t === 'xproduct') {
+      const x = BY_ID[pg.id];
+      h = `<button class="pg__design pg__xshot" type="button" data-open-product="${x.id}" aria-label="View ${x.id} ${esc(x.name)}"><img class="pg__img" src="${media('x-' + x.id)}" alt="${esc(x.name)}, front and back" width="1000" height="1000"></button>
+        <div class="pg__xinfo"><p class="pg__kicker">Ref. ${x.id}</p><h3 class="pg__title pg__title--s">${esc(x.name)}</h3>
+        <p class="pg__xspec"><span>916 gold</span><span>${x.id === 'P4112' ? 'Yellow (1C), enamel' : 'Yellow (1C)'}</span><span>${x.weight}</span></p>
+        <p class="pg__text">${esc(x.desc)} Shown front and back.</p></div>`;
+    } else if (pg.t === 'xtwo') {
+      h = `<p class="pg__kicker">P4112 · Santa</p><h3 class="pg__title pg__title--s">Two ways to <em>wear</em> him</h3>
+        <div class="pg__two"><figure>${pgImg('xmas-bracelet', '4 / 5')}<figcaption>On a bracelet</figcaption></figure><figure>${pgImg('xmas-worn', '4 / 5')}<figcaption>On a fine chain</figcaption></figure></div>
+        <p class="pg__text">The filigree bail slides onto a chain or a bracelet. Ask at any boutique and we will fit it for you.</p>`;
+    } else if (pg.t === 'xweights') {
+      const list = XMAS.slice().sort((a, b) => parseFloat(a.weight) - parseFloat(b.weight) || a.id.localeCompare(b.id));
+      h = `<p class="pg__kicker">Gifts by weight</p><h3 class="pg__title pg__title--s">Choose by <em>weight</em></h3>
+        <p class="pg__text">Gold is priced by weight, so the lighter the charm, the gentler the price. Weights are of the pieces photographed.</p>
+        <div class="pg__wlist">${list.map(x => `<button class="pg__wrow" type="button" data-open-product="${x.id}"><img src="${media('x-' + x.id)}" alt="" width="1000" height="1000"><span><span class="pg__dname">${esc(x.name)}</span><span class="pg__dref">Ref. ${x.id}</span></span><span class="pg__wgt">${x.weight}</span></button>`).join('')}</div>`;
+    } else if (pg.t === 'xwrap') {
+      h = `<p class="pg__kicker">Wrapped for Christmas</p><h3 class="pg__title pg__title--s">Tied by hand in <em>amber</em></h3><hr class="pg__rule">
+        <p class="pg__text">Every charm leaves the boutique in our teal box, tied with amber satin ribbon, with a card written for you. Both are complimentary.</p>
+        <div style="margin-top:auto">${pgImg('yixing-box', '1 / 0.82')}</div>`;
+    } else if (pg.t === 'back') {
+      h = pg.xmas
+        ? `<div class="pg__back"><svg viewBox="0 0 807 231" aria-hidden="true"><use href="#logo" width="807" height="231"/></svg>
+          <p class="pg__title pg__title--s">Merry Christmas from <em>Yi Xing</em></p>
+          <p class="pg__small">Weights shown are of the pieces photographed. Every piece is weighed at the counter and priced at the day’s gold rate.</p></div>`
+        : `<div class="pg__back"><svg viewBox="0 0 807 231" aria-hidden="true"><use href="#logo" width="807" height="231"/></svg>
+        <p class="pg__text">Goldsmith and jeweller · Malaysia and Singapore</p>
+        <p class="pg__small">Designs are priced by weight at the day’s gold rate. Colours and availability vary by boutique.</p></div>`;
+    }
+    const cls = (pg.band || pg.xmas ? ' pg--band' : '') + (pg.xmas || pg.t === 'ornaments' ? ' pg--xmas' : '') + (pg.t === 'xproduct' || pg.t === 'xweights' || pg.t === 'xtwo' ? ' pg--white' : '');
+    return `<div class="pg${cls}">${h}${num}</div>`;
+  }
+
+  const viewCount = b => spreadMode() ? Math.floor(b.pages.length / 2) + 1 : b.pages.length;
+  const pagesOf = v => spreadMode() ? [2 * v - 1, 2 * v] : [v];
+  const viewOfPage = i => spreadMode() ? Math.floor((i + 1) / 2) : i;
+  const slot = (b, i) => i >= 0 && i < b.pages.length ? pageHTML(b, i) : '';
+  const viewLabel = (b, v) => { const ps = pagesOf(v).filter(i => i >= 0 && i < b.pages.length).map(i => i + 1); return ps.length > 1 ? `Pages ${ps[0]}–${ps[1]}` : `Page ${ps[0]}`; };
+  let turning = false;
+
+  function renderShelf() {
+    $('[data-shelf]').innerHTML = BROCHURES.map(b => `<button class="shelf__item" type="button" data-brochure-open="${b.id}" aria-pressed="${b.id === reader.b}">
+        <span class="shelf__cover"><img src="${media(b.cover)}" alt="" ${wh(b.cover)} loading="lazy"></span>
+        <span class="shelf__text"><span class="shelf__pages">${b.pages.length} pages</span><span class="shelf__name">${esc(b.title)}</span><span class="shelf__sub">${esc(b.sub)}</span></span>
+      </button>`).join('');
+  }
+  function renderReader() {
+    const b = BR_BY[reader.b], V = viewCount(b), sp = spreadMode();
+    reader.v = Math.max(0, Math.min(reader.v, V - 1));
+    const [l, r] = pagesOf(reader.v);
+    reader.page = sp ? (l >= 0 ? l : r) : l;
+    const book = $('[data-book]');
+    book.dataset.state = !sp ? 'single' : reader.v === 0 ? 'front' : reader.v === V - 1 ? 'back' : 'open';
+    $('[data-spread]').innerHTML = sp
+      ? `<div class="book__page book__page--l">${slot(b, l)}</div><div class="book__page book__page--r">${slot(b, r)}</div>`
+      : `<div class="book__page book__page--r">${slot(b, l)}</div>`;
+    $('[data-reader-title]').textContent = b.title;
+    $('[data-reader-meta]').textContent = `${b.pages.length} pages · ${b.sub}`;
+    $('[data-reader-count]').textContent = `${viewLabel(b, reader.v)} of ${b.pages.length}`;
+    $('[data-flip="-1"]').disabled = reader.v === 0;
+    $('[data-flip="1"]').disabled = reader.v === V - 1;
+    $('[data-dots]').innerHTML = Array.from({ length: V }, (_, k) => `<button type="button" data-view="${k}" aria-label="${viewLabel(b, k)}" aria-current="${k === reader.v}"></button>`).join('');
+    $$('[data-brochure-open]').forEach(x => x.setAttribute('aria-pressed', x.dataset.brochureOpen === reader.b));
+    // warm the next spread's images, so a turn never shows an empty page
+    pagesOf(reader.v + 1).forEach(i => { const pg = b.pages[i]; if (!pg) return; (pg.ids || [pg.lead, pg.img, pg.id && 'x-' + pg.id].filter(Boolean)).forEach(x => { const im = new Image(); im.src = media(/^\d+$/.test(x) ? 'd-' + x : x); }); });
+  }
+  function openBrochure(id, at) {
+    if (!BR_BY[id]) return;
+    reader.b = id; reader.v = 0;
+    if (at) { const i = BR_BY[id].pages.findIndex(pg => pg.t === 'colA' && pg.col === at); if (i >= 0) reader.v = viewOfPage(i); }
+    turning = false;
+    renderReader();
+  }
+  function goView(v) { if (turning) return; reader.v = v; renderReader(); }
+  function flip(dir) {
+    if (turning) return;
+    const b = BR_BY[reader.b], V = viewCount(b), to = reader.v + dir;
+    if (to < 0 || to >= V) return;
+    if (!spreadMode() || !motionOK()) { reader.v = to; renderReader(); return; }
+    turning = true;
+    const v = reader.v, L = k => 2 * k - 1, R = k => 2 * k;
+    const under = dir > 0 ? [slot(b, L(v)), slot(b, R(to))] : [slot(b, L(to)), slot(b, R(v))];
+    const front = dir > 0 ? slot(b, R(v)) : slot(b, L(v));
+    const back = dir > 0 ? slot(b, L(to)) : slot(b, R(to));
+    const el = $('[data-spread]');
+    el.innerHTML = `<div class="book__page book__page--l">${under[0]}</div><div class="book__page book__page--r">${under[1]}</div>
+      <div class="leaf leaf--${dir > 0 ? 'next' : 'prev'}"><div class="leaf__face book__page--${dir > 0 ? 'r' : 'l'}">${front}</div><div class="leaf__face leaf__face--back book__page--${dir > 0 ? 'l' : 'r'}">${back}</div></div>`;
+    $('[data-book]').dataset.state = to === 0 ? 'front' : to === V - 1 ? 'back' : 'open';
+    const leaf = $('.leaf', el);
+    let done = false;
+    const finish = () => { if (done) return; done = true; turning = false; reader.v = to; renderReader(); };
+    leaf.addEventListener('transitionend', e => { if (e.target === leaf) finish(); });
+    setTimeout(finish, 1300);
+    requestAnimationFrame(() => requestAnimationFrame(() => leaf.classList.add('is-turning')));
+  }
+  function toggleFullscreen() {
+    const rd = $('[data-reader]');
+    if (document.fullscreenElement) { document.exitFullscreen().catch(() => {}); return; }
+    try { const pr = rd.requestFullscreen(); if (pr && pr.catch) pr.catch(() => {}); } catch (err) { /* not allowed here */ }
+  }
+  (() => {
+    const book = $('[data-book]'), rd = $('[data-reader]');
+    if (document.fullscreenEnabled && rd.requestFullscreen) $('[data-fullscreen]').hidden = false;
+    document.addEventListener('fullscreenchange', () => { $('[data-fullscreen]').textContent = document.fullscreenElement ? 'Exit full screen' : 'Full screen'; });
+    book.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); flip(1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); flip(-1); }
+    });
+    let sx = null, sy = 0;
+    book.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') { sx = e.clientX; sy = e.clientY; } });
+    book.addEventListener('pointerup', e => {
+      if (sx === null) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.3) flip(dx < 0 ? 1 : -1);
+    });
+    book.addEventListener('pointercancel', () => { sx = null; });
+    // a click on the blank part of a page turns it, like lifting a corner
+    book.addEventListener('click', e => {
+      if (!spreadMode() || e.target.closest('button, a')) return;
+      const pgEl = e.target.closest('.book__page');
+      if (pgEl) flip(pgEl.classList.contains('book__page--l') ? -1 : 1);
+    });
+    const onMode = () => { const b = BR_BY[reader.b]; turning = false; reader.v = viewOfPage(reader.page); if (b) renderReader(); };
+    if (wideMQ.addEventListener) wideMQ.addEventListener('change', onMode); else if (wideMQ.addListener) wideMQ.addListener(onMode);
+  })();
+
+
+  /* ---------- design dialog ---------- */
+  const dlg = $('[data-pdialog]');
+  let lastFocus = null;
+  function openProduct(id) {
+    const p = BY_ID[id]; if (!p) return;
+    lastFocus = document.activeElement;
+    $('[data-pd-img]').src = img(p.id);
+    $('[data-pd-img]').alt = `${p.id} ${p.name} ${p.kind || 'bracelet'} in 916 gold`;
+    $('[data-pd-col]').textContent = `${COLLECTIONS[p.col].name} · ${COLLECTIONS[p.col].idea}`;
+    $('[data-pd-name]').textContent = p.name;
+    $('[data-pd-hall]').textContent = '916';
+    $('[data-pd-price]').textContent = 'Priced by weight';
+    $('[data-pd-desc]').textContent = p.desc;
+    $('[data-pd-mat]').textContent = p.made.join(' · ');
+    $('[data-pd-gold]').textContent = p.gold || 'Yellow 916 gold; ask about two-tone and tri-tone';
+    $('[data-pd-weight]').textContent = p.weight || 'Weighed at the counter';
+    $('[data-pd-ref]').textContent = p.id;
+    const s = $('[data-pd-save]'); s.dataset.id = p.id;
+    $('[data-pd-enquire]').dataset.product = p.id;
+    syncSaved();
+    if (typeof dlg.showModal === 'function') { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', '');
+  }
+  function closeProduct() { if (dlg.open) { dlg.close ? dlg.close() : dlg.removeAttribute('open'); } }
+  dlg.addEventListener('close', () => { if (lastFocus && lastFocus.focus) lastFocus.focus(); });
+  dlg.addEventListener('click', e => { if (e.target === dlg) closeProduct(); });
+
+  /* ---------- contact form ---------- */
+  const form = $('[data-form]');
+  const TYPE_LABEL = { general: 'General enquiry', appointment: 'Appointment', design: 'Design your own', tradein: 'Gold trade-in', care: 'Care and restringing' };
+  let sendVia = 'email';
+  $$('[data-send]').forEach(b => b.addEventListener('click', () => { sendVia = b.dataset.send; }));
+  const todayMY = (() => { try { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kuala_Lumpur' }).format(new Date()); } catch (e) { return new Date().toISOString().slice(0, 10); } })();
+  $('#f-date').min = todayMY;
+  const PROMPTS = {
+    general: 'How can we help?',
+    appointment: 'Tell us which pieces you would like to see, and anything we should prepare.',
+    design: 'The beads and pipes you have in mind, your wrist size if you know it, and any design you would like to start from.',
+    tradein: 'Roughly what you would like to trade in, for example two 916 bangles, about 30 g.',
+    care: 'Which piece needs care, and what you would like done.'
+  };
+  function setType(type) {
+    const r = $(`#type-${type}`); if (!r) return;
+    r.checked = true; syncType();
+  }
+  function syncType() {
+    const type = (form.querySelector('input[name="type"]:checked') || {}).value || 'general';
+    const visit = type === 'appointment' || type === 'design';
+    $$('[data-when-visit]').forEach(el => { el.hidden = !visit; });
+    $('#f-msg').placeholder = PROMPTS[type];
+  }
+  form.addEventListener('change', e => { if (e.target.name === 'type') syncType(); });
+  function fieldError(input, msg) {
+    const f = input.closest('.field'); if (!f) return;
+    const err = f.querySelector('.field__error');
+    f.classList.toggle('has-error', !!msg);
+    input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    if (err) { err.hidden = !msg; err.textContent = msg || ''; if (msg) { err.id = err.id || input.id + '-err'; input.setAttribute('aria-describedby', err.id); } }
+  }
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const via = (e.submitter && e.submitter.dataset.send) || sendVia;
+    const name = $('#f-name'), email = $('#f-email'), msg = $('#f-msg'), consent = $('#f-consent');
+    const checks = [
+      [name, name.value.trim() ? '' : 'Please enter your name.'],
+      [email, !email.value.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim()) ? '' : 'Please check the email address, for example name@example.com.'],
+      [msg, msg.value.trim() ? '' : 'Please add a short message.']
+    ];
+    const type = form.querySelector('input[name="type"]:checked').value;
+    const visit = type === 'appointment' || type === 'design';
+    if (visit) checks.push([$('#f-date'), $('#f-date').value ? ($('#f-date').value < todayMY ? 'Please choose today or a later date.' : '') : 'Please choose a date.']);
+    checks.forEach(([el, m]) => fieldError(el, m));
+    $('[data-consent-error]').hidden = consent.checked;
+    const first = checks.find(([, m]) => m);
+    if (first) { first[0].focus(); return; }
+    if (!consent.checked) { consent.focus(); return; }
+    const fullName = name.value.trim().replace(/\s+/g, ' ');
+    const v = id => $(id).value.trim();
+    const details = [`Name: ${fullName}`, v('#f-email') && `Email: ${v('#f-email')}`, v('#f-phone') && `Phone: ${v('#f-phone')}`,
+      v('#f-area') && `Area: ${v('#f-area')}`, visit && `Preferred date: ${v('#f-date')}, ${$('#f-time').value}`].filter(Boolean);
+    const text = [TYPE_LABEL[type], msg.value.trim(), details.join('\n')].join('\n\n');
+    if (via === 'whatsapp') {
+      const url = waLink('Hello Yi Xing,\n\n' + text);
+      const w = window.open(url, '_blank');
+      if (w) w.opener = null; else location.href = url;
+    } else {
+      location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(`Yi Xing enquiry: ${TYPE_LABEL[type]} (${fullName})`)}&body=${encodeURIComponent(text)}`;
+    }
+    $('[data-success-title]').textContent = `Thank you, ${fullName}.`;
+    $('[data-success-text]').textContent = via === 'whatsapp'
+      ? `WhatsApp should now open with your enquiry written out. Press send there to reach us. If it did not open, message us at +60 12-996 9280.`
+      : `Your email app should now open with your enquiry written out. Press send there to reach us. If it did not open, email us at ${EMAIL}.`;
+    form.hidden = true;
+    const ok = $('[data-success]'); ok.hidden = false; ok.focus();
+  });
+  $('[data-form-reset]').addEventListener('click', () => {
+    form.reset(); $$('.field', form).forEach(f => f.classList.remove('has-error')); $$('.field__error', form).forEach(x => { x.hidden = true; });
+    syncType(); $('[data-success]').hidden = true; form.hidden = false; $('#f-name').focus();
+  });
+  function freshForm() {
+    if ($('[data-success]').hidden) return;
+    form.reset(); $$('.field', form).forEach(f => f.classList.remove('has-error')); $$('.field__error', form).forEach(x => { x.hidden = true; });
+    $('[data-success]').hidden = true; form.hidden = false; syncType();
+  }
+  function prefill(text) { const m = $('#f-msg'); if (text && !m.value.includes(text)) m.value = (m.value ? m.value.trim() + '\n' : '') + text; }
+
+  // WhatsApp links carry a first line of text, ready to send
+  $$('[data-wa]').forEach(a => { a.href = waLink(a.dataset.wa); });
+
+  /* ---------- router ---------- */
+  const TITLES = { home: 'Yi Xing', editorial: 'Editorial · Yi Xing', 'e-brochure': 'e-Brochure · Yi Xing', about: 'About us · Yi Xing', stores: 'Visit us · Yi Xing', contact: 'Contact us · Yi Xing' };
+  const NAV_KEY = { editorial: 'highlights', 'e-brochure': 'highlights', story: 'highlights' };
+  // a hash names a page, a story (#story-slug) or the old #highlights; anything else is not a route
+  function resolve(h) {
+    if (h === 'highlights') return { page: 'editorial', key: 'editorial' };
+    if (h.startsWith('story-') && STORY_BY[h.slice(6)]) return { page: 'story', key: h, slug: h.slice(6) };
+    return TITLES[h] ? { page: h, key: h } : null;
+  }
+  let current = null, pendingScroll = null, firstShow = true;
+  function show(hash) {
+    const r = resolve(hash) || resolve('home');
+    const route = r.page;
+    const changed = r.key !== current;
+    current = r.key;
+    if (route === 'story' && changed) renderStory(r.slug);
+    $$('[data-page]').forEach(p => {
+      const on = p.dataset.page === route;
+      p.hidden = !on;
+      if (on && changed && !firstShow) { p.classList.remove('is-entering'); void p.offsetWidth; p.classList.add('is-entering'); }
+    });
+    const navKey = NAV_KEY[route] || route, subKey = route === 'story' ? 'editorial' : route;
+    $$('[data-route-link]').forEach(a => { if (a.dataset.routeLink === navKey) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    $$('[data-sub-link]').forEach(a => { if (a.dataset.subLink === subKey) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    document.title = route === 'story' ? `${plain(STORY_BY[r.slug].title)} · Yi Xing` : TITLES[route];
+    if (route === 'e-brochure') renderReader();
+    closeMenu(); closeDrawer(); closeProduct();
+    const target = pendingScroll && document.getElementById(pendingScroll);
+    pendingScroll = null;
+    if (target) requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+    else if (!firstShow) window.scrollTo(0, 0);
+    firstShow = false;
+    syncVideo();
+  }
+  window.addEventListener('hashchange', () => {
+    const h = location.hash.slice(1);
+    if (!h || resolve(h)) show(h || 'home');
+  });
+
+  /* ---------- clicks ---------- */
+  document.addEventListener('click', e => {
+    const t = e.target;
+    const skip = t.closest('[data-skip]');
+    if (skip) { e.preventDefault(); $('#main').focus(); return; }
+
+    const save = t.closest('[data-save]'); if (save) { toggleSave(save.dataset.save); return; }
+    const unsave = t.closest('[data-unsave]'); if (unsave) { toggleSave(unsave.dataset.unsave); return; }
+    const pdSave = t.closest('[data-pd-save]'); if (pdSave) { toggleSave(pdSave.dataset.id); return; }
+    const op = t.closest('[data-open-product]'); if (op) { openProduct(op.dataset.openProduct); return; }
+    if (t.closest('[data-pdialog-close]')) { closeProduct(); return; }
+
+    const cat = t.closest('[data-cat]'); if (cat) { shop.col = cat.dataset.cat; renderShop(); return; }
+    const scat = t.closest('[data-story-cat]'); if (scat) { ed.cat = scat.dataset.storyCat; renderEditorial(); return; }
+    const bopen = t.closest('[data-brochure-open]'); if (bopen) { openBrochure(bopen.dataset.brochureOpen); $('#reader').scrollIntoView({ block: 'start' }); return; }
+    const flipBtn = t.closest('[data-flip]'); if (flipBtn) { flip(+flipBtn.dataset.flip); return; }
+    const dot = t.closest('[data-view]'); if (dot) { goView(+dot.dataset.view); return; }
+    const toPage = t.closest('[data-goto-page]'); if (toPage) { goView(viewOfPage(+toPage.dataset.gotoPage)); return; }
+    if (t.closest('[data-fullscreen]')) { toggleFullscreen(); return; }
+
+    const copy = t.closest('[data-copy]');
+    if (copy) {
+      const src = copy.parentElement.querySelector('[data-copy-src]'); const text = src.textContent.trim();
+      const done = label => { copy.textContent = label; setTimeout(() => { copy.textContent = 'Copy'; }, 1600); };
+      const fallback = () => { const r = document.createRange(); r.selectNodeContents(src); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done('Selected'); };
+      try { navigator.clipboard.writeText(text).then(() => done('Copied'), fallback); } catch (err) { fallback(); }
+      return;
+    }
+    const rail = t.closest('[data-rail]');
+    if (rail) { const r = $('#gift-rail'); r.scrollBy({ left: +rail.dataset.rail * r.clientWidth * .8, behavior: 'smooth' }); return; }
+    const mark = t.closest('[data-mark]'); if (mark) { mark.setAttribute('aria-pressed', mark.getAttribute('aria-pressed') !== 'true'); return; }
+
+    if (t.closest('[data-menu-open]')) { openMenu(); return; }
+    if (t.closest('[data-menu-close]')) { closeMenu(); return; }
+    if (t.closest('[data-drawer-open]')) { openDrawer(); return; }
+    if (t.closest('[data-drawer-close]')) { closeDrawer(); return; }
+    if (t.closest('[data-video-toggle]')) { userPaused = !userPaused; syncVideo(); return; }
+
+    const a = t.closest('a[href^="#"]');
+    if (!a) return;
+    const hash = a.getAttribute('href').slice(1);
+    const rr = resolve(hash);
+    if (!rr) return;
+    const route = rr.page;
+    if (route === 'e-brochure' && a.dataset.scroll === 'shop') { shop.col = a.dataset.collection || 'all'; renderShop(); }
+    if (a.dataset.brochure) openBrochure(a.dataset.brochure, a.dataset.brochureAt);
+    if (route === 'contact') freshForm();
+    if (a.dataset.enquiry) setType(a.dataset.enquiry);
+    if (a.dataset.message) prefill(a.dataset.message);
+    if (a.hasAttribute('data-pd-enquire')) { const p = BY_ID[a.dataset.product]; if (p) { setType('general'); prefill(`I’m interested in ${p.id} ${p.name}.`); } }
+    if (a.hasAttribute('data-enquire-saved')) { setType('general'); prefill('I’m interested in these designs: ' + saved.map(id => `${id} ${BY_ID[id].name}`).join(', ') + '.'); }
+    if (a.dataset.scroll) pendingScroll = a.dataset.scroll;
+    else if (route === 'contact' && (a.dataset.enquiry || a.dataset.message || a.hasAttribute('data-pd-enquire') || a.hasAttribute('data-enquire-saved'))) pendingScroll = 'enquiry';
+    if (location.hash === '#' + hash) { e.preventDefault(); current = null; show(hash); }
+  });
+
+  /* ---------- menu & drawer ---------- */
+  const menu = $('#mmenu'), drawer = $('#saved-drawer');
+  let menuReturn = null, drawerReturn = null;
+  function openMenu() { menuReturn = document.activeElement; menu.hidden = false; $('[data-menu-open]').setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; $('[data-menu-close]').focus(); }
+  function closeMenu() { if (menu.hidden) return; menu.hidden = true; $('[data-menu-open]').setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; if (menuReturn && menuReturn.focus) menuReturn.focus(); }
+  function openDrawer() { drawerReturn = document.activeElement; syncSaved(); drawer.hidden = false; document.body.style.overflow = 'hidden'; $('.drawer__head [data-drawer-close]').focus(); }
+  function closeDrawer() { if (drawer.hidden) return; drawer.hidden = true; document.body.style.overflow = ''; if (drawerReturn && drawerReturn.focus) drawerReturn.focus(); }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); closeDrawer(); } });
+
+  /* ---------- header + hero film ---------- */
+  const header = $('.site-header');
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 60);
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  const video = $('.hero__video'), vbtn = $('[data-video-toggle]');
+  const reduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  let userPaused = reduce.matches, heroInView = true;
+  video.muted = true;
+  function syncVideo() {
+    const play = current === 'home' && !userPaused && heroInView;
+    if (play) { const pr = video.play(); if (pr && pr.catch) pr.catch(() => {}); } else video.pause();
+    vbtn.setAttribute('aria-label', userPaused ? 'Play video' : 'Pause video');
+    vbtn.innerHTML = icon(userPaused ? 'i-play' : 'i-pause');
+  }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([en]) => { heroInView = en.isIntersecting; syncVideo(); }, { threshold: .15 }).observe($('.hero'));
+  }
+
+  /* ---------- rail arrows ---------- */
+  const railEl = $('#gift-rail');
+  const syncRail = () => {
+    const [prev, next] = $$('[data-rail]');
+    prev.disabled = railEl.scrollLeft < 8;
+    next.disabled = railEl.scrollLeft + railEl.clientWidth > railEl.scrollWidth - 8;
+  };
+  railEl.addEventListener('scroll', syncRail, { passive: true }); window.addEventListener('resize', syncRail);
+
+  /* ---------- boot ---------- */
+  renderShop(); renderEditorial(); renderShelf(); syncType(); syncSaved(); syncRail();
+  show((location.hash || '#home').slice(1));
+})();
+</script>
+
+</body>
+</html>
