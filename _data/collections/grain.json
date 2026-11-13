@@ -1,0 +1,9 @@
+{
+  "id": "grain",
+  "name": "Grain",
+  "idea": "Granulation",
+  "text": "Granulation: clusters of fine gold grains between the beads.",
+  "image": "media/v4/d-3946.webp",
+  "order": 2,
+  "show_on_home": true
+}
