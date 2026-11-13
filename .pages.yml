@@ -11,6 +11,7 @@ content:
     label: Campaigns
     description: The home page for a season. The live campaign whose dates include today is shown.
     type: collection
+    subfolders: false
     path: _data/campaigns
     format: json
     filename: "{fields.slug}.json"
@@ -149,6 +150,7 @@ content:
     label: Products
     description: Every piece on the site, with its images and video.
     type: collection
+    subfolders: false
     path: _data/products
     format: json
     filename: "{fields.id}.json"
@@ -203,6 +205,7 @@ content:
     label: Collections
     description: The collection names and the tiles under Shop by collection.
     type: collection
+    subfolders: false
     path: _data/collections
     format: json
     filename: "{fields.id}.json"
@@ -228,6 +231,7 @@ content:
     label: Editorial
     description: Stories under Highlights → Editorial.
     type: collection
+    subfolders: false
     path: _data/editorial
     format: json
     filename: "{fields.slug}.json"
@@ -330,6 +334,7 @@ content:
     label: e-Brochures
     description: Brochures made from page images. They appear on the shelf before the designed ones.
     type: collection
+    subfolders: false
     path: _data/brochures
     format: json
     filename: "{fields.slug}.json"
