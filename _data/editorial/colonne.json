@@ -1,0 +1,45 @@
+{
+  "slug": "colonne",
+  "title": "Fluted columns, *moon-cut* beads",
+  "category": "Collections",
+  "read": 3,
+  "date": "2026-11-01",
+  "hero": "media/v4/colonne-macro.webp",
+  "hero_alt": "Close view of the 3945 Colonne bracelet: fluted pipes between moon-cut beads",
+  "dek": "Inside the Colonne collection: three designs built on architectural pipes.",
+  "order": 3,
+  "show": true,
+  "body": [
+    {
+      "type": "text",
+      "html": "<p>Colonne takes its name from the column. Its pipes are fluted like classical stone, with fine grooves that run their whole length and catch the light in parallel lines.</p>"
+    },
+    {
+      "type": "text",
+      "html": "<p>In <b>3945 Colonne</b>, the pipes alternate with moon-cut Lune beads, each parted by a thin Disque spacer. <b>3947 Fuseau</b> swaps the columns for spindles, with Halo rondelles framing a pineapple-cut Pavé sphere. <b>4023 Octave</b> sets eight-sided batons between star-cut Étoile cubes.</p>"
+    },
+    {
+      "type": "products",
+      "title": "The Colonne collection",
+      "items": [
+        "3945",
+        "3947",
+        "4023"
+      ]
+    },
+    {
+      "type": "text",
+      "html": "<p>All three are made in yellow 916 gold first. 3945 is also made in tri-tone, with white and rose gold among the yellow; in tri-tone it weighs about 6.45 g.</p>"
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "See Colonne in the e-Brochure",
+          "link": "#brochure-collection--colonne",
+          "style": "solid"
+        }
+      ]
+    }
+  ]
+}

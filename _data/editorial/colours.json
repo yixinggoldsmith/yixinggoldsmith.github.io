@@ -1,0 +1,53 @@
+{
+  "slug": "colours",
+  "title": "One gold, three *colours*",
+  "category": "Guides",
+  "read": 2,
+  "date": "2026-11-01",
+  "hero": "media/v4/ed-colours.webp",
+  "hero_alt": "Three Pavé beads in yellow, white and rose 916 gold on teal suede",
+  "dek": "What 1C, 2C and 3C mean on our labels, and how to choose between them.",
+  "order": 4,
+  "show": true,
+  "body": [
+    {
+      "type": "text",
+      "html": "<p>Every bead and pipe we make is 916 gold. What changes is its colour, and on our labels you will see one of three codes.</p>"
+    },
+    {
+      "type": "component",
+      "name": "colours"
+    },
+    {
+      "type": "heading",
+      "text": "Which to choose"
+    },
+    {
+      "type": "text",
+      "html": "<p>Yellow (1C) is the classic, and the warmest against the skin. Two-tone (2C) adds white gold, finished in rhodium, for contrast; it sits well beside a steel watch. Tri-tone (3C) mixes yellow, white and rose gold for the most movement.</p>"
+    },
+    {
+      "type": "text",
+      "html": "<p>Not every design is made in every colour. Ask at any boutique which colours are available for the design you like.</p>"
+    },
+    {
+      "type": "products",
+      "title": "Two-tone and tri-tone designs",
+      "items": [
+        "4037",
+        "4150",
+        "3945"
+      ]
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "Ask about colours",
+          "link": "#enquiry-general",
+          "style": "solid"
+        }
+      ]
+    }
+  ]
+}

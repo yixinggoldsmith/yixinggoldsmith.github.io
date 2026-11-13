@@ -1,0 +1,49 @@
+{
+  "slug": "gifting",
+  "title": "Tied by hand in *amber*",
+  "category": "Gifting",
+  "read": 2,
+  "date": "2026-11-01",
+  "hero": "media/v4/yixing-box.webp",
+  "hero_alt": "A teal Yi Xing gift box tied with amber satin ribbon beside an open bracelet box",
+  "dek": "Six designs to give this season, and how we wrap them.",
+  "order": 6,
+  "show": true,
+  "body": [
+    {
+      "type": "text",
+      "html": "<p>Every Yi Xing bracelet leaves our boutiques in a hinged teal box lined in ivory velvet, with our mark in gold foil inside the lid. For gifts, we tie the box by hand with amber satin ribbon and add a card written in the boutique.</p>"
+    },
+    {
+      "type": "text",
+      "html": "<p>Gift wrapping and the card are complimentary. If you are not sure of the wrist size, choose the design and it can be resized later at any of our boutiques.</p>"
+    },
+    {
+      "type": "products",
+      "title": "Six designs to give",
+      "items": [
+        "3990",
+        "4082",
+        "4037",
+        "4023",
+        "3947",
+        "4047"
+      ]
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "Flip through the Gift Edit",
+          "link": "#brochure-gift",
+          "style": "solid"
+        },
+        {
+          "label": "Arrange gift wrapping",
+          "link": "#enquiry-general",
+          "style": "line"
+        }
+      ]
+    }
+  ]
+}

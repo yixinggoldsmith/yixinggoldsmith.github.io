@@ -1,0 +1,55 @@
+{
+  "slug": "eclat",
+  "title": "Cut to catch the *light*",
+  "category": "Craft",
+  "read": 3,
+  "date": "2026-11-01",
+  "hero": "media/v4/eclat-macro.webp",
+  "hero_alt": "An Éclat sparkle-cut sphere in 916 gold resting on teal suede",
+  "dek": "How the Éclat bead is faceted, and why it throws light from every side.",
+  "order": 2,
+  "show": true,
+  "body": [
+    {
+      "type": "text",
+      "html": "<p>Éclat begins as a smooth sphere of 916 gold, about eight millimetres across. It is then cut all over with small, flat facets. Each facet is a tiny mirror set at its own angle, so wherever the light comes from, some part of the bead sends it back to you.</p>"
+    },
+    {
+      "type": "text",
+      "html": "<p>A polished sphere shows one bright point. A faceted one shows dozens, and they move as your wrist turns. That shimmer is what we mean by cut to catch the light.</p>"
+    },
+    {
+      "type": "heading",
+      "text": "Room to shine"
+    },
+    {
+      "type": "text",
+      "html": "<p>In 3990 Éclat, each sphere is parted from the next by a Couronne crown spacer. The spacer lifts the beads apart so light reaches every facet, and the points of the crown add a second, finer sparkle between them.</p>"
+    },
+    {
+      "type": "image",
+      "image": "media/v4/d-3990.webp",
+      "alt": "The 3990 Éclat bracelet on teal suede",
+      "caption": "3990 Éclat: Éclat spheres parted by Couronne crown spacers."
+    },
+    {
+      "type": "products",
+      "title": "The Éclat collection",
+      "items": [
+        "3990",
+        "4082",
+        "4037"
+      ]
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "Book an appointment",
+          "link": "#enquiry-appointment",
+          "style": "solid"
+        }
+      ]
+    }
+  ]
+}

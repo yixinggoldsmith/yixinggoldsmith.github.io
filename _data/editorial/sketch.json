@@ -1,0 +1,44 @@
+{
+  "slug": "sketch",
+  "title": "From sketch to *gold*",
+  "category": "Craft",
+  "read": 3,
+  "date": "2026-11-01",
+  "hero": "media/v4/strand-sketch.webp",
+  "hero_alt": "Amber line drawing of a strand of Lune beads, Disque spacers and Colonne pipes",
+  "dek": "How a bead becomes a bracelet, in three steps.",
+  "order": 5,
+  "show": true,
+  "body": [
+    {
+      "type": "text",
+      "html": "<p>Every part in our library started as a drawing. Before a bead is cut, we draw it facet by facet, so we know how it will catch the light and how it will sit against its neighbours.</p>"
+    },
+    {
+      "type": "component",
+      "name": "steps"
+    },
+    {
+      "type": "text",
+      "html": "<p>The drawing becomes a precise model, checked to a fraction of a millimetre so that beads, pipes and spacers sit flush once strung. Only then is the part made in 916 gold, cut, polished and strung into a design.</p>"
+    },
+    {
+      "type": "quote",
+      "text": "A bead that is a hair too wide shows as a gap on the wrist."
+    },
+    {
+      "type": "text",
+      "html": "<p>The same care goes into the designs you create with us. Choose your parts from the library, and we will draw, model and string them into a bracelet sized to your wrist.</p>"
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "Start a design",
+          "link": "#enquiry-design",
+          "style": "solid"
+        }
+      ]
+    }
+  ]
+}

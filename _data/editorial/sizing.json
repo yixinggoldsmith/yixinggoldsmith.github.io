@@ -1,0 +1,49 @@
+{
+  "slug": "sizing",
+  "title": "Sized to your *wrist*",
+  "category": "Guides",
+  "read": 2,
+  "date": "2026-11-01",
+  "hero": "media/v4/ed-sizing.webp",
+  "hero_alt": "The 4082 Ciselé bracelet beside loose Lune beads and a Ciselé twist ring on teal suede",
+  "dek": "How we fit a beaded bracelet, one bead at a time.",
+  "order": 7,
+  "show": true,
+  "body": [
+    {
+      "type": "text",
+      "html": "<p>A beaded bracelet should move on the wrist without sliding over the hand. Because ours are strung from separate parts, we can fit each one closely.</p>"
+    },
+    {
+      "type": "heading",
+      "text": "How we measure"
+    },
+    {
+      "type": "text",
+      "html": "<p>We measure your wrist with a soft tape just above the wrist bone, then add a little room so the bracelet can turn. Most people like about a centimetre of ease; some prefer a closer fit.</p>"
+    },
+    {
+      "type": "heading",
+      "text": "Adding or removing parts"
+    },
+    {
+      "type": "text",
+      "html": "<p>To lengthen a bracelet, we add beads or pipes from the same design; to shorten it, we take them out, keeping the pattern even. It usually takes a few minutes while you wait, and there is no charge.</p>"
+    },
+    {
+      "type": "buttons",
+      "items": [
+        {
+          "label": "Ask about sizing",
+          "link": "#enquiry-general",
+          "style": "solid"
+        },
+        {
+          "label": "Visit us",
+          "link": "#stores",
+          "style": "line"
+        }
+      ]
+    }
+  ]
+}
