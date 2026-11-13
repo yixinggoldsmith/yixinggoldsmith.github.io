@@ -1,0 +1,78 @@
+{
+  "slug": "christmas-2026",
+  "title": "Christmas 2026",
+  "active": true,
+  "start": "2026-11-01",
+  "end": "2027-01-05",
+  "announcements": [
+    {
+      "text": "Christmas 2026: five new charms in 916 gold",
+      "link_label": "Flip through the e-Brochure",
+      "link": "#brochure-christmas"
+    },
+    {
+      "text": "Gift wrapping and a handwritten card with every piece",
+      "link_label": "The Gift Edit",
+      "link": "#brochure-gift"
+    },
+    {
+      "text": "Talk to a client advisor on WhatsApp",
+      "link_label": "Message us",
+      "link": "whatsapp"
+    }
+  ],
+  "hero": {
+    "media": "video",
+    "video": "media/v4/hero.mp4",
+    "image": "media/v4/hero-poster.webp",
+    "mobile_image": "",
+    "title": "The Christmas Edit",
+    "subtitle": "Five new charms in 916 gold, to give and to keep",
+    "button_label": "Explore now",
+    "button_link": "#brochure-christmas",
+    "text": "light",
+    "focus": "right"
+  },
+  "products": {
+    "title": "Christmas 2026",
+    "items": [
+      "P3843-A",
+      "P3843-B",
+      "P3843-C",
+      "P3843-D",
+      "P4112",
+      "3990",
+      "4082",
+      "4037",
+      "3945",
+      "4023"
+    ]
+  },
+  "promos": [
+    {
+      "image": "media/v4/xmas-worn.webp",
+      "title": "Gifts for her",
+      "link_label": "Shop now",
+      "link": "#collection-christmas"
+    },
+    {
+      "image": "media/v4/xmas-bracelet.webp",
+      "title": "Charms for her bracelet",
+      "link_label": "Discover",
+      "link": "#brochure-christmas--xtwo"
+    },
+    {
+      "image": "media/v4/yixing-box.webp",
+      "title": "Wrapped in teal and amber",
+      "link_label": "The Gift Edit",
+      "link": "#brochure-gift"
+    }
+  ],
+  "editorial": {
+    "story": "gifting",
+    "title": "The art of gifting",
+    "text": "Every piece leaves our boutiques in a teal box, tied by hand with amber satin ribbon and a card written for you.",
+    "link_label": "Read the story",
+    "image": ""
+  }
+}
