@@ -189,6 +189,8 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 
 /* header */
 .announce { background: var(--band); color: var(--band-ink); font-size: .74rem; letter-spacing: .1em; }
+.preview-pill { position: fixed; z-index: 95; left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: inline-flex; gap: .9rem; align-items: center; padding: .7rem 1.1rem; border-radius: 999px; background: #142021; color: #F4F0E6; text-decoration: none; font: 500 .8rem/1.2 var(--font-text); letter-spacing: .04em; box-shadow: 0 12px 30px -12px rgba(0, 0, 0, .5); max-width: calc(100vw - 32px); }
+.preview-pill b { font-weight: 500; color: #FDA701; letter-spacing: .14em; text-transform: uppercase; font-size: .7rem; }
 .announce__in { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .5rem; padding-block: .2rem; text-align: center; }
 .announce__msg { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .2rem 1rem; min-height: 2.2em; margin: 0; }
 .announce__msg.is-in { animation: annIn .5s var(--ease, ease) both; }
@@ -1479,7 +1481,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
   /* ---------- data: everything editable comes from the editor (Pages CMS -> _data/*.json), embedded at build time ---------- */
-  let COLLECTIONS = {}, PRODUCTS = [], BY_ID = {}, STORIES = [], STORY_BY = {}, HOME = {}, CAMPAIGN = null, BROCHURES = [], BR_BY = {};
+  let COLLECTIONS = {}, PRODUCTS = [], BY_ID = {}, STORIES = [], STORY_BY = {}, HOME = {}, CAMPAIGN = null, BROCHURES = [], BR_BY = {}, PREVIEWING = '';
   // the bead library itself stays in code: it is the reference every design is spelled from
   const LIBRARY = [
     { code: 'B01', type: 'Bead', name: 'Lune', what: 'Moon-cut sphere', size: '4 mm' },
@@ -2195,7 +2197,11 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     STORY_BY = Object.fromEntries(STORIES.map(x => [x.slug, x]));
     HOME = d.home && typeof d.home === 'object' ? d.home : {};
     const live = vals(d.campaigns).filter(c => c && (c.active === true || c.active === 'true') && (!c.start || String(c.start) <= todayMY) && (!c.end || String(c.end) >= todayMY));
-    CAMPAIGN = live.sort((a, b) => String(b.start || '').localeCompare(String(a.start || '')))[0] || null;
+    // ?campaign=<short name> previews any saved campaign (used by Yi Xing Studio's Preview button)
+    const want = (() => { try { return new URLSearchParams(location.search).get('campaign') || ''; } catch (e) { return ''; } })();
+    const forced = want ? vals(d.campaigns).find(c => c && String(c.slug) === want) : null;
+    CAMPAIGN = forced || live.sort((a, b) => String(b.start || '').localeCompare(String(a.start || '')))[0] || null;
+    PREVIEWING = forced ? String(forced.title || forced.slug) : '';
     const shown = vals(HOME.builtin_brochures).length ? vals(HOME.builtin_brochures) : BUILTIN_BROCHURES.map(b => b.id);
     BROCHURES = vals(d.brochures).filter(b => b && b.slug && b.show !== false).sort(byOrder).map(cmsBrochure).filter(b => b.pages.length > 2)
       .concat(BUILTIN_BROCHURES.filter(b => shown.includes(b.id)));
@@ -2354,6 +2360,12 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
   let DATA = {};
   try { DATA = JSON.parse($('#site-data').textContent); } catch (e) { DATA = {}; }
   applyContent(DATA);
+  if (PREVIEWING) {
+    const pill = document.createElement('a');
+    pill.className = 'preview-pill'; pill.href = location.pathname;
+    pill.innerHTML = `<span>Preview: ${esc(PREVIEWING)}</span><b>Exit</b>`;
+    document.body.appendChild(pill);
+  }
   renderHome(); renderShop(); renderEditorial(); renderShelf(); syncType(); syncSaved();
   show((location.hash || '#home').slice(1));
 })();
