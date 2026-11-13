@@ -1,0 +1,2 @@
+# GitHub Pages builds the site with Jekyll so the editor's _data is embedded into index.html.
+exclude: [README.md, LICENSE]
