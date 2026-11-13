@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!doctype html>
 <html lang="en">
 <head>
@@ -186,9 +189,33 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 
 /* header */
 .announce { background: var(--band); color: var(--band-ink); font-size: .74rem; letter-spacing: .1em; }
-.announce__in { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .35rem 1.25rem; padding-block: .55rem; text-align: center; }
+.announce__in { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .5rem; padding-block: .2rem; text-align: center; }
+.announce__msg { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: .2rem 1rem; min-height: 2.2em; margin: 0; }
+.announce__msg.is-in { animation: annIn .5s var(--ease, ease) both; }
+@keyframes annIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.announce__arrow { border: 0; background: none; color: inherit; width: 34px; height: 34px; display: grid; place-items: center; cursor: pointer; opacity: .75; }
+.announce__arrow:hover { opacity: 1; }
+.announce__arrow .icon { width: 14px; height: 14px; }
+.announce.is-single .announce__arrow { visibility: hidden; }
+.announce__msg a { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: .2rem 1rem; text-decoration: none; }
+.announce__msg a .announce__cta { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+@media (max-width: 599px) {
+  .announce { font-size: .7rem; letter-spacing: .06em; }
+  .announce__msg a .announce__cta { display: none; }
+  .announce__msg a span:first-child { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .announce__msg span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .announce__msg { min-width: 0; flex-wrap: nowrap; }
+  .announce__msg a { min-width: 0; max-width: 100%; flex-wrap: nowrap; }
+}
 .announce a { color: var(--band-ink); text-underline-offset: 3px; text-decoration-thickness: 1px; }
-.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; background: var(--paper); border-bottom: 1px solid var(--line); }
+.site-header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 40; background: var(--paper); border-bottom: 1px solid var(--line); transition: background-color .35s, color .35s, border-color .35s; }
+/* over the home banner the header is transparent until the visitor scrolls, hovers or tabs into it */
+body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-within) { background: transparent; border-bottom-color: transparent; color: #FFFFFF; }
+body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-within) .logo { --lt: #FFFFFF; --la: #FFFFFF; }
+body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-within) .icon-btn { color: inherit; }
+body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-within) .nav a[aria-current="page"]::after { background: #FFFFFF; }
+body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-within) { color: var(--ink); }
+body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-within) .logo { --lt: var(--logo-teal); --la: var(--logo-amber); }
 .header__bar { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 1rem; min-height: 72px; transition: min-height .3s; }
 .header__left { display: flex; align-items: center; gap: 1.6rem; }
 .header__right { display: flex; justify-content: flex-end; align-items: center; gap: .25rem; }
@@ -227,31 +254,35 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
 /* hero */
-.hero { position: relative; isolation: isolate; overflow: hidden; background: var(--band); color: var(--band-ink); height: max(560px, min(80vh, 50vw)); } /* never wider than about 2.2:1, so the film is not cropped too hard */
-.hero__media { position: absolute; inset: 0; z-index: -2; }
-.hero__video { width: 100%; height: 100%; object-fit: cover; object-position: 64% 50%; }
-.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, var(--band-scrim) 0%, transparent 52%); pointer-events: none; }
-.hero__content { height: 100%; display: flex; align-items: flex-end; padding-block: clamp(40px, 6vw, 88px); }
-.hero__text { max-width: 34rem; }
-.hero__title .amp { font-style: italic; color: var(--logo-amber); }
-.hero__title { font-family: var(--font-display); font-size: clamp(2.6rem, 1.5rem + 4vw, 5rem); line-height: .98; letter-spacing: -.015em; margin-bottom: 1.4rem; }
-.hero__title .cjk { font-size: .5em; margin-left: .18em; vertical-align: .4em; color: var(--logo-amber); }
-.hero__title em { display: block; margin-top: .12em; font-size: .56em; font-style: italic; letter-spacing: 0; color: var(--band-ink); }
-.hero__lede { color: var(--band-muted); font-size: var(--fs-lede); max-width: 27rem; margin-bottom: 2rem; }
+.hero { position: relative; isolation: isolate; overflow: hidden; background: var(--band); color: #FFFFFF; height: clamp(520px, calc(100svh - 34px), 980px); margin-top: calc(-1 * var(--hdr-h, 0px)); }
+.hero__media, .hero__pics, .hero__pics picture { position: absolute; inset: 0; z-index: -2; }
+.hero__video, .hero__pics img { width: 100%; height: 100%; object-fit: cover; object-position: var(--hero-x, 50%) 50%; display: block; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(3, 28, 31, .55) 0%, rgba(3, 28, 31, 0) 26%), linear-gradient(0deg, rgba(3, 28, 31, .62) 0%, rgba(3, 28, 31, 0) 50%); }
+.hero--dark { color: #0E1A1B; }
+.hero--dark::before { background: linear-gradient(180deg, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, 0) 24%), linear-gradient(0deg, rgba(255, 255, 255, .6) 0%, rgba(255, 255, 255, 0) 44%); }
+.hero__content { position: absolute; left: 0; right: 0; bottom: clamp(44px, 8vh, 92px); display: grid; justify-items: center; gap: 1.1rem; text-align: center;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.hero__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.3rem, 1.3rem + 3.4vw, 4.3rem); line-height: 1.02; letter-spacing: -.01em; text-wrap: balance; }
+.hero__title em { font-style: italic; color: var(--logo-amber); }
+.hero__sub { font-size: var(--fs-lede); max-width: 36rem; opacity: .92; text-wrap: balance; }
+.btn--hero { background: #FFFFFF; color: #0E1A1B; border: 1px solid #FFFFFF; margin-top: .5rem; }
+.btn--hero:hover { background: transparent; color: #FFFFFF; }
+.hero--dark .btn--hero { background: #0E1A1B; color: #FFFFFF; border-color: #0E1A1B; }
+.hero--dark .btn--hero:hover { background: transparent; color: #0E1A1B; }
+.hero__pics .hero__pic--m { display: none; }
+@media (max-width: 699px) {
+  .hero { height: clamp(460px, 76svh, 720px); }
+  .hero--mimg .hero__video { display: none; }
+  .hero--mimg .hero__pics .hero__pic--m { display: block; }
+  .hero--mimg .hero__pics .hero__pic--d { display: none; }
+}
 .hero__toggle {
   position: absolute; bottom: clamp(20px, 3vw, 36px); right: max(16px, var(--gutter), env(safe-area-inset-right, 0px));
   width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--band-line); background: rgba(3, 28, 31, .25);
   color: var(--band-ink); display: grid; place-items: center; cursor: pointer;
 }
 .hero__toggle:hover { border-color: var(--band-ink); }
-@media (max-width: 899px) {
-  .hero { height: auto; display: flex; flex-direction: column; }
-  .hero__media { position: relative; inset: auto; aspect-ratio: 4 / 4.2; max-height: 70vh; width: 100%; }
-  .hero__video { object-position: 72% 50%; }
-  .hero::before { display: none; }
-  .hero__content { height: auto; padding-block: 8px 48px; }
-  .hero__toggle { top: 16px; bottom: auto; }
-}
 
 /* intro */
 .intro { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(2rem, 6vw, 7rem); align-items: end; }
@@ -599,6 +630,84 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .pg__small { font-size: 2.3cqw; line-height: 1.6; color: rgba(244, 240, 230, .6); max-width: 60cqw; }
 
 
+/* ---------- home sections ---------- */
+.ulink { display: inline-block; font: 500 .7rem/1.2 var(--font-text); letter-spacing: .18em; text-transform: uppercase; text-decoration: none; color: inherit; padding-bottom: .4rem; border-bottom: 1px solid var(--accent-text); transition: border-color .25s; }
+.ulink:hover, a:hover > .ulink { border-bottom-color: var(--amber); }
+.pcar { padding-block: clamp(56px, 7vw, 104px) clamp(48px, 6vw, 88px); }
+.pcar__title { text-align: center; margin-bottom: clamp(1.6rem, 3vw, 2.6rem); }
+.pcar__track { --per: 5; --gap: clamp(12px, 2vw, 28px); display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - (var(--per) - 1) * var(--gap)) / var(--per)); gap: var(--gap);
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain; padding-bottom: 2px; }
+.pcar__track::-webkit-scrollbar { display: none; }
+@media (max-width: 1199px) { .pcar__track { --per: 4; } }
+@media (max-width: 899px) { .pcar__track { --per: 3; } }
+@media (max-width: 599px) { .pcar__track { --per: 1.65; } }
+.ptile { position: relative; scroll-snap-align: start; display: grid; gap: .3rem; align-content: start; text-align: center; min-width: 0; }
+.ptile__media { display: block; border: 0; padding: 0; cursor: pointer; background: var(--media-bg); aspect-ratio: 4 / 5; overflow: hidden; margin-bottom: .9rem; }
+.ptile__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2, .7, .2, 1); }
+.ptile__media:hover img { transform: scale(1.035); }
+.ptile__name { font: 400 1.14rem/1.25 var(--font-display); }
+.ptile__name button { all: unset; cursor: pointer; }
+.ptile__name button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.ptile__kind { font-size: .84rem; }
+.ptile__price { font-size: .84rem; color: var(--muted); font-variant-numeric: tabular-nums lining-nums; }
+.pcar__nav { display: flex; justify-content: center; align-items: center; gap: clamp(1rem, 3vw, 2rem); margin-top: clamp(1.6rem, 3vw, 2.6rem); }
+.pcar__nav button { border: 0; background: none; color: var(--ink); width: 40px; height: 40px; display: grid; place-items: center; cursor: pointer; }
+.pcar__nav button:disabled { opacity: .28; cursor: default; }
+.pcar__bar { position: relative; width: min(300px, 46vw); height: 1px; background: var(--line); }
+.pcar__bar span { position: absolute; left: 0; top: -.5px; height: 2px; width: 30%; background: var(--ink); transition: left .35s, width .35s; }
+.promos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 24px); padding-bottom: clamp(64px, 8vw, 120px); }
+.promo { display: grid; justify-items: center; gap: 1.1rem; text-align: center; text-decoration: none; color: inherit; min-width: 0; }
+.promo__media { width: 100%; aspect-ratio: 1.4; overflow: hidden; background: var(--media-bg); }
+.promo__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+.promo:hover .promo__media img { transform: scale(1.03); }
+.promo__title { font: 400 clamp(1.35rem, 1.1rem + .7vw, 1.75rem)/1.2 var(--font-display); margin-top: .7rem; text-wrap: balance; }
+.promo__title em { font-style: italic; }
+@media (max-width: 699px) { .promos { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 84%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; } .promo { scroll-snap-align: start; } }
+.edsplit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: center; padding-bottom: clamp(64px, 8vw, 120px); }
+.edsplit__text { display: grid; justify-items: center; gap: 1.3rem; text-align: center; max-width: 30rem; justify-self: center; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: clamp(16px, 3vw, 48px); }
+.edsplit__text .h2 em { font-style: italic; color: var(--accent-text); }
+.edsplit__media { display: block; aspect-ratio: 16 / 10.5; overflow: hidden; background: var(--media-bg); }
+.edsplit__media img { width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 899px) { .edsplit { grid-template-columns: minmax(0, 1fr); gap: 2rem; } .edsplit__media { order: -1; } .edsplit__text { padding-right: max(16px, env(safe-area-inset-right, 0px)); } }
+.cats { padding-bottom: clamp(64px, 8vw, 120px); }
+.cats > .h2, .exp > .h2 { text-align: center; margin-bottom: clamp(1.6rem, 3.4vw, 2.8rem); }
+.cats__grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(10px, 1.4vw, 20px); max-width: 1320px; margin-inline: auto; }
+.cat { display: grid; justify-items: center; gap: 1rem; text-decoration: none; color: inherit; min-width: 0; text-align: center; }
+.cat__media { width: 100%; aspect-ratio: 1; overflow: hidden; background: var(--media-bg); }
+.cat__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2, .7, .2, 1); }
+.cat:hover .cat__media img { transform: scale(1.04); }
+@media (max-width: 899px) { .cats__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 1.8rem; } }
+@media (max-width: 479px) { .cats__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.appt { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; padding-bottom: clamp(64px, 8vw, 120px); }
+.appt__media { aspect-ratio: 4 / 4.6; max-height: 92svh; overflow: hidden; background: var(--media-bg); }
+.appt__media img { width: 100%; height: 100%; object-fit: cover; }
+.appt__text { display: grid; justify-items: center; gap: 1.4rem; text-align: center; max-width: 34rem; justify-self: center; padding: clamp(32px, 4vw, 64px) max(16px, env(safe-area-inset-right, 0px)) clamp(32px, 4vw, 64px) clamp(16px, 4vw, 64px); }
+.appt__text .h2 { font-size: clamp(2rem, 1.3rem + 2.2vw, 3.3rem); }
+.appt__text .h2 em { font-style: italic; color: var(--accent-text); }
+@media (max-width: 899px) { .appt { grid-template-columns: minmax(0, 1fr); } .appt__media { aspect-ratio: 4 / 3.6; max-height: none; } .appt__text { padding-left: max(16px, env(safe-area-inset-left, 0px)); } }
+.exp { padding-bottom: clamp(72px, 9vw, 136px); }
+.exp__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1.6rem, 3vw, 3rem); }
+.xp { display: grid; justify-items: center; align-content: start; gap: .85rem; text-align: center; min-width: 0; }
+.xp__icon { width: 64px; height: 64px; color: var(--accent-text); margin-bottom: .7rem; }
+.xp h3 { font: 400 1.3rem/1.25 var(--font-display); }
+.xp p { color: var(--muted); font-size: .92rem; max-width: 21rem; }
+.xp .ulink { margin-top: .4rem; }
+@media (max-width: 899px) { .exp__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.6rem; } }
+@media (max-width: 359px) { .exp__grid { grid-template-columns: minmax(0, 1fr); } }
+.pdialog__media { position: relative; }
+.pdialog__media video { width: 100%; height: 100%; object-fit: cover; background: #000; }
+.pdialog__thumbs { position: absolute; left: 10px; bottom: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+.pdialog__thumbs:empty { display: none; }
+.pdialog__thumbs button { width: 48px; height: 48px; padding: 0; border: 1px solid rgba(255, 255, 255, .7); background: rgba(14, 26, 27, .55); color: #FFFFFF; cursor: pointer; display: grid; place-items: center; overflow: hidden; }
+.pdialog__thumbs button[aria-pressed="true"] { border: 2px solid var(--amber); }
+.pdialog__thumbs img { width: 100%; height: 100%; object-fit: cover; }
+.pdialog__thumbs .icon { width: 16px; height: 16px; }
+.pg--image { padding: 0; background: #FFFFFF; }
+.pg__full { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.pg__imgbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.2cqw 3cqw; padding: 2.6cqw 4.5cqw 6.5cqw; background: linear-gradient(0deg, rgba(255, 255, 255, .96) 55%, rgba(255, 255, 255, 0)); color: #0E1A1B; font-size: 2.6cqw; }
+.pg--image .pg__link { color: #0E1A1B; }
+.pg--image .pg__num { color: #5B6A6B; z-index: 2; }
+
 /* Christmas 2026 brochure */
 .pg__toc { margin-top: auto; display: grid; gap: 1.4cqw; }
 .pg__toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-template-rows: repeat(var(--rows, 5), auto); grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 5cqw; }
@@ -868,16 +977,23 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4.5 19.5l1.2-4.5L15.5 5.2a2.1 2.1 0 0 1 3 3L8.7 18z"/><path d="M13.5 7.2l3 3"/></symbol>
     <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 7h14M5 7l-2.5 6a2.8 2.8 0 0 0 5 0zM19 7l-2.5 6a2.8 2.8 0 0 0 5 0z"/></symbol>
     <symbol id="i-ruler" viewBox="0 0 24 24"><rect x="2.5" y="8" width="19" height="8" rx="1"/><path d="M6.5 8v3M10 8v4.5M13.5 8v3M17 8v4.5"/></symbol>
+    <symbol id="x-scale" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 10v44M20 54h24M12 18h40"/><circle cx="32" cy="10" r="2.2"/><path d="M12 18 5 34h14zM52 18l-7 16h14z"/><path d="M5 34a7 4 0 0 0 14 0M45 34a7 4 0 0 0 14 0"/></symbol>
+    <symbol id="x-ruler" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="26" r="15"/><circle cx="32" cy="11" r="2.4"/><circle cx="45" cy="18.5" r="2.4"/><circle cx="45" cy="33.5" r="2.4"/><circle cx="32" cy="41" r="2.4"/><circle cx="19" cy="33.5" r="2.4"/><circle cx="19" cy="18.5" r="2.4"/><path d="M8 52h48v6H8zM14 52v3M20 52v4M26 52v3M32 52v4M38 52v3M44 52v4M50 52v3"/></symbol>
+    <symbol id="x-gift" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 26h40v28H12zM9 19h46v7H9zM32 19v35"/><path d="M32 19c-3-8-13-11-14-5s10 5 14 5zM32 19c3-8 13-11 14-5s-10 5-14 5z"/></symbol>
+    <symbol id="x-chat" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14h44v28H30l-10 9v-9H10z"/><circle cx="23" cy="28" r="1.4"/><circle cx="32" cy="28" r="1.4"/><circle cx="41" cy="28" r="1.4"/></symbol>
+    <symbol id="x-calendar" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14h44v40H10zM10 24h44M22 8v10M42 8v10"/><path d="M26 39l5 5 9-10"/></symbol>
+    <symbol id="x-sparkle" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M28 8c2 12 6 16 18 18-12 2-16 6-18 18-2-12-6-16-18-18 12-2 16-6 18-18zM48 38c1 6 3 8 9 9-6 1-8 3-9 9-1-6-3-8-9-9 6-1 8-3 9-9z"/></symbol>
     <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.5l1.7 5.1 5.3 1.9-5.3 1.9L12 17.5l-1.7-5.1L5 10.5l5.3-1.9zM18.5 15.5l.7 1.9 1.8.6-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.6z"/></symbol>
   </defs>
 </svg>
 
 <a class="skip" href="#main" data-skip>Skip to content</a>
 
-<div class="announce">
+<div class="announce" data-announce>
   <div class="wrap announce__in">
-    <span>Christmas 2026: five new charms in 916 gold</span>
-    <a href="#e-brochure" data-brochure="christmas" data-scroll="reader">Flip through the e-Brochure</a>
+    <button class="announce__arrow" type="button" aria-label="Previous message" data-announce-step="-1"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button>
+    <p class="announce__msg" aria-live="polite" data-announce-msg><span>Beads and pipes in 916 gold</span></p>
+    <button class="announce__arrow" type="button" aria-label="Next message" data-announce-step="1"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button>
   </div>
 </div>
 
@@ -902,6 +1018,10 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   <nav class="wrap nav" aria-label="Main">
     <a href="#home" data-route-link="home">Home</a>
     <div class="nav__group">
+      <a href="#collection-all" data-route-link="collections">Collections</a>
+      <div class="nav__menu" data-nav-collections></div>
+    </div>
+    <div class="nav__group">
       <a href="#editorial" data-route-link="highlights">Highlights</a>
       <div class="nav__menu">
         <a href="#editorial" data-sub-link="editorial"><span>Editorial</span><small>Stories from the atelier</small></a>
@@ -921,6 +1041,8 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   </div>
   <nav aria-label="Mobile">
     <a href="#home" data-route-link="home">Home</a>
+    <a href="#collection-all" data-route-link="collections" class="mmenu__parent">Collections</a>
+    <div class="mmenu__sub" data-mnav-collections></div>
     <a href="#editorial" data-route-link="highlights" class="mmenu__parent">Highlights</a>
     <div class="mmenu__sub">
       <a href="#editorial" data-sub-link="editorial">Editorial</a>
@@ -940,166 +1062,47 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 
 <!-- ============ HOME ============ -->
 <div class="page" data-page="home">
-  <section class="hero" aria-labelledby="hero-title">
+  <section class="hero" aria-labelledby="hero-title" data-hero>
     <div class="hero__media">
-      <video class="hero__video" muted loop playsinline preload="auto" poster="media/v4/hero-poster.webp" aria-hidden="true">
+      <video class="hero__video" muted loop playsinline preload="auto" poster="media/v4/hero-poster.webp" aria-hidden="true" data-hero-video>
         <source src="media/v4/hero.mp4" type="video/mp4">
       </video>
+      <div class="hero__pics" data-hero-pics></div>
     </div>
-    <div class="wrap hero__content">
-      <div class="hero__text">
-        <p class="eyebrow eyebrow--band">The Yi Xing signature</p>
-        <h1 class="hero__title" id="hero-title">Beads <span class="amp">&amp;</span> pipes<em>cut to catch the light</em></h1>
-        <p class="hero__lede">Nineteen named beads, pipes and links in 916 gold, strung into thirteen designs.</p>
-        <div class="btn-row">
-          <a class="btn btn--band" href="#e-brochure" data-brochure="collection" data-scroll="reader">Discover the collection</a>
-          <a class="btn btn--band-line" href="#story-alphabet">The bead library</a>
-        </div>
-      </div>
+    <div class="hero__content" data-hero-content>
+      <h1 class="hero__title" id="hero-title">Beads &amp; pipes</h1>
     </div>
     <button class="hero__toggle" type="button" aria-label="Pause video" data-video-toggle>
       <svg class="icon" aria-hidden="true"><use href="#i-pause"/></svg>
     </button>
   </section>
 
-  <section class="section wrap">
-    <div class="intro">
-      <div>
-        <p class="eyebrow">Yi Xing · Goldsmith and jeweller</p>
-        <h2 class="statement">Every design starts with a single <em>bead</em>.</h2>
-      </div>
-      <div class="intro__aside">
-        <p class="body-copy">We cut our beads and pipes in 916 gold: moon-cut, pineapple-cut, fluted and granulated. Each one has a name, and each design is named after its signature bead.</p>
-        <a class="link-arrow" href="#story-alphabet">Meet the bead library <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="wrap" aria-labelledby="col-title">
-    <div class="section-head">
-      <div><p class="eyebrow">The collections</p><h2 class="h2" id="col-title">Five collections, one alphabet</h2></div>
-      <a class="link-arrow" href="#e-brochure" data-scroll="shop">View all thirteen designs <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    </div>
-    <div class="collections">
-      <a class="collection" href="#e-brochure" data-brochure="collection" data-brochure-at="colonne" data-scroll="reader">
-        <div class="collection__media"><img src="media/v4/d-3945.webp" alt="3945 Colonne bracelet on a teal backdrop" width="900" height="1125" loading="lazy"></div>
-        <h3 class="collection__name">Colonne<span class="collection__count">3 designs</span></h3>
-        <p class="collection__desc">Architectural tubes: fluted, spindle and octagonal pipes.</p>
-      </a>
-      <a class="collection" href="#e-brochure" data-brochure="collection" data-brochure-at="grain" data-scroll="reader">
-        <div class="collection__media"><img src="media/v4/d-3946.webp" alt="3946 Grain bracelet on a teal backdrop" width="900" height="1125" loading="lazy"></div>
-        <h3 class="collection__name">Grain<span class="collection__count">2 designs</span></h3>
-        <p class="collection__desc">Granulation: clusters of fine gold grains between the beads.</p>
-      </a>
-      <a class="collection" href="#e-brochure" data-brochure="collection" data-brochure-at="eclat" data-scroll="reader">
-        <div class="collection__media"><img src="media/v4/d-3990.webp" alt="3990 Éclat bracelet on a teal backdrop" width="900" height="1125" loading="lazy"></div>
-        <h3 class="collection__name">Éclat<span class="collection__count">3 designs</span></h3>
-        <p class="collection__desc">Light-catching spheres, sparkle-cut and moon-cut.</p>
-      </a>
-      <a class="collection" href="#e-brochure" data-brochure="collection" data-brochure-at="liaison" data-scroll="reader">
-        <div class="collection__media"><img src="media/v4/d-3339.webp" alt="3339 Allongé Cluster bracelet on a teal backdrop" width="900" height="1125" loading="lazy"></div>
-        <h3 class="collection__name">Liaison<span class="collection__count">3 designs</span></h3>
-        <p class="collection__desc">Links and lines: paperclip links, slim tubes and coils.</p>
-      </a>
-      <a class="collection" href="#e-brochure" data-brochure="collection" data-brochure-at="atelier" data-scroll="reader">
-        <div class="collection__media"><img src="media/v4/d-3998.webp" alt="3998 Maille bracelet on a teal backdrop" width="900" height="1125" loading="lazy"></div>
-        <h3 class="collection__name">Atelier<span class="collection__count">2 designs</span></h3>
-        <p class="collection__desc">Statement openwork, built bead by bead.</p>
-      </a>
-      <a class="collection" href="#e-brochure" data-brochure="library" data-scroll="reader">
-        <div class="collection__media"><img src="media/v4/tray.webp" alt="Six Yi Xing components laid out on teal: Éclat, Fuseau, Grappe, Colonne, Étoile and Couronne" width="900" height="1125" loading="lazy"></div>
-        <h3 class="collection__name">The bead library<span class="collection__count">19 parts</span></h3>
-        <p class="collection__desc">Nineteen beads, pipes and links, each with a name.</p>
-      </a>
-    </div>
-  </section>
-
-  <section class="section wrap" aria-labelledby="feature-title">
-    <div class="feature">
-      <div class="feature__media"><img src="media/v4/colonne-macro.webp" alt="Close view of the 3945 Colonne bracelet: fluted gold pipes and moon-cut beads" width="1000" height="1000" loading="lazy"></div>
-      <div class="feature__text">
-        <p class="eyebrow">Colonne · Ref. 3945</p>
-        <h2 class="h2" id="feature-title">Fluted columns, <em>moon-cut</em> beads</h2>
-        <p class="body-copy">Fluted Colonne pipes run between moon-cut Lune beads, each parted by a thin Disque spacer. Shown here in yellow 916 gold; also made in tri-tone.</p>
-        <div class="price-line"><span class="hallmark">916</span><span class="price">Priced by weight</span><span class="weight">approx. 6.45 g in tri-tone</span></div>
-        <div class="btn-row">
-          <button class="btn btn--solid" type="button" data-open-product="3945">View the design</button>
-          <button class="btn btn--line save-btn" type="button" data-save="3945" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><span>Save</span></button>
-        </div>
-        <a class="link-arrow" href="#story-colonne">Read the Colonne story <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <section class="pcar" aria-labelledby="pcar-title">
+    <div class="wrap">
+      <h2 class="h2 pcar__title" id="pcar-title" data-pcar-title>Featured pieces</h2>
+      <div class="pcar__track" data-pcar tabindex="0" aria-label="Featured pieces"></div>
+      <div class="pcar__nav">
+        <button type="button" aria-label="Previous pieces" data-pcar-step="-1"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button>
+        <span class="pcar__bar" aria-hidden="true"><span data-pcar-bar></span></span>
+        <button type="button" aria-label="Next pieces" data-pcar-step="1"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button>
       </div>
     </div>
   </section>
 
-  <section class="wrap" aria-labelledby="gift-title">
-    <div class="section-head">
-      <div><p class="eyebrow">Gift ideas</p><h2 class="h2" id="gift-title">For the season of giving</h2></div>
-      <div class="rail-nav">
-        <button type="button" aria-label="Scroll back" data-rail="-1"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button>
-        <button type="button" aria-label="Scroll forward" data-rail="1"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button>
-      </div>
-    </div>
-    <div class="rail" id="gift-rail" tabindex="0" aria-label="Gift ideas"></div>
+  <section class="wrap promos" aria-label="Gift ideas" data-promos></section>
+
+  <section class="edsplit" aria-labelledby="edsplit-title" data-edsplit></section>
+
+  <section class="wrap cats" aria-labelledby="cats-title">
+    <h2 class="h2" id="cats-title" data-cats-title>Shop by collection</h2>
+    <div class="cats__grid" data-cats></div>
   </section>
 
-  <section class="section wrap" id="box" aria-labelledby="box-title">
-    <div class="feature feature--flip">
-      <div class="feature__text">
-        <p class="eyebrow">The Yi Xing box</p>
-        <h2 class="h2" id="box-title">Tied by hand in <em>amber</em></h2>
-        <p class="body-copy">Every bracelet leaves our boutiques in a hinged teal box lined in ivory velvet, with our mark in gold foil inside the lid. Gifts are tied by hand with an amber satin ribbon.</p>
-        <p class="body-copy">Gift wrapping and a handwritten card are complimentary at every boutique.</p>
-        <div class="btn-row">
-          <a class="btn btn--solid" href="#e-brochure" data-brochure="gift" data-scroll="reader">The Gift Edit</a>
-          <a class="link-arrow" href="#contact" data-enquiry="general" data-message="I’d like to arrange gift wrapping and a card.">Arrange gift wrapping <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </div>
-      </div>
-      <div class="feature__media feature__media--paper"><img src="media/v4/yixing-box.webp" alt="A teal Yi Xing gift box tied with an amber satin ribbon, beside an open teal box holding the 3945 Colonne bracelet" width="1200" height="1200" loading="lazy"></div>
-    </div>
-  </section>
+  <section class="appt" aria-labelledby="appt-title" data-appt></section>
 
-  <section class="section wrap" aria-labelledby="svc-title" style="padding-top:0">
-    <div class="section-head">
-      <div><p class="eyebrow">Services</p><h2 class="h2" id="svc-title">At every boutique</h2></div>
-    </div>
-    <div class="services">
-      <div class="service">
-        <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
-        <h3>Private appointments</h3>
-        <p>A quiet room, an advisor, and the designs you asked to see, ready when you arrive.</p>
-        <a class="link-arrow" href="#contact" data-enquiry="appointment">Book a visit <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      </div>
-      <div class="service">
-        <svg class="icon" aria-hidden="true"><use href="#i-ruler"/></svg>
-        <h3>Sized to your wrist</h3>
-        <p>We add or remove beads and pipes so each bracelet sits right, while you wait.</p>
-        <a class="link-arrow" href="#contact" data-enquiry="general" data-message="I’d like to ask about sizing a bracelet.">Ask about sizing <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      </div>
-      <div class="service">
-        <svg class="icon" aria-hidden="true"><use href="#i-scale"/></svg>
-        <h3>Gold trade-in</h3>
-        <p>Bring old gold to be weighed and tested. We quote at the day's rate, in front of you.</p>
-        <a class="link-arrow" href="#contact" data-scroll="faq">How trade-in works <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      </div>
-      <div class="service">
-        <svg class="icon" aria-hidden="true"><use href="#i-sparkle"/></svg>
-        <h3>Care and restringing</h3>
-        <p>Cleaning, polishing and restringing for every piece we have sold, for life.</p>
-        <a class="link-arrow" href="#contact" data-enquiry="care">Arrange care <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section--tight wrap" aria-labelledby="teaser-title" style="padding-top:0">
-    <div class="teaser map-panel">
-      <div class="teaser__text">
-        <p class="eyebrow">Boutiques</p>
-        <h2 class="h2" id="teaser-title">Visit us in Malaysia and Singapore</h2>
-        <p class="body-copy">Every boutique weighs and tests gold on site, and sizes bracelets while you wait. Message us and we will point you to the one nearest you.</p>
-        <div class="btn-row"><a class="btn btn--solid" href="https://wa.me/60129969280" target="_blank" rel="noopener" data-wa="Hello Yi Xing, which boutique is nearest to me? I am in ">WhatsApp us</a><a class="btn btn--line" href="#contact" data-enquiry="appointment">Book an appointment</a></div>
-      </div>
-      <div class="map map--mini" aria-hidden="true"><div class="map__layer"></div><div class="map__layer map__layer--home"></div></div>
-    </div>
+  <section class="wrap exp" aria-labelledby="exp-title">
+    <h2 class="h2" id="exp-title" data-exp-title>The Yi Xing experience</h2>
+    <div class="exp__grid" data-exp></div>
   </section>
 </div>
 
@@ -1168,8 +1171,8 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   </section>
   <section class="section wrap" id="shop" aria-labelledby="shop-title">
     <div class="section-head">
-      <div><p class="eyebrow">The Collection 2026</p><h2 class="h2" id="shop-title">Browse the designs</h2></div>
-      <p class="body-copy" style="max-width:26rem">The same thirteen designs as the brochure, by collection. Save the ones you like and bring the list to any boutique.</p>
+      <div><p class="eyebrow">The collections</p><h2 class="h2" id="shop-title">Browse the pieces</h2></div>
+      <p class="body-copy" style="max-width:26rem">Every piece in 916 gold, by collection. Save the ones you like and bring the list to any boutique.</p>
     </div>
     <div class="toolbar">
       <div class="chips" role="group" aria-label="Filter by collection" data-cat-chips></div>
@@ -1207,7 +1210,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
         <h2 class="h2" id="mark-title">Two strokes of <em>one circle</em></h2>
         <p class="body-copy">Gold for the metal we work. Teal for the people we make it for. Neither half closes the circle alone.</p>
         <p class="body-copy">The same two colours dress every Yi Xing box: teal outside, and our mark in gold foil inside the lid.</p>
-        <a class="link-arrow" href="#home" data-scroll="box">See the Yi Xing box <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="link-arrow" href="#brochure-gift">See the Gift Edit <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
   </section>
@@ -1416,7 +1419,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   <div class="wrap footer__bottom">
     <svg class="logo" viewBox="0 0 807 231" role="img" aria-label="Yi Xing"><use href="#logo" width="807" height="231"/></svg>
     <ul>
-      <li>© 2026 Yi Xing. All rights reserved.</li>
+      <li>© 2026 Yi Xing. All rights reserved.</li><li><a href="admin/">Staff sign-in</a></li>
       <li>Malaysia · English</li>
     </ul>
   </div>
@@ -1440,7 +1443,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 <dialog class="pdialog" data-pdialog aria-labelledby="pd-name">
   <button class="icon-btn pdialog__close" type="button" aria-label="Close" data-pdialog-close><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
   <div class="pdialog__in">
-    <div class="pdialog__media"><img data-pd-img src="media/v4/d-3945.webp" alt="" width="900" height="1125"></div>
+    <div class="pdialog__media"><img data-pd-img src="media/v4/d-3945.webp" alt="" width="900" height="1125"><video data-pd-video muted loop playsinline controls hidden></video><div class="pdialog__thumbs" data-pd-thumbs></div></div>
     <div class="pdialog__info">
       <p class="eyebrow" data-pd-col></p>
       <h2 id="pd-name" data-pd-name></h2>
@@ -1460,46 +1463,16 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   </div>
 </dialog>
 
+<script type="application/json" id="site-data">{{ site.data | jsonify | replace: '</', '<\/' }}</script>
 <script>
 (() => {
   'use strict';
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
-  /* ---------- data: designs and components from the Yi Xing bead library ---------- */
-  const COLLECTIONS = {
-    colonne: { name: 'Colonne', idea: 'Architectural tubes' },
-    grain: { name: 'Grain', idea: 'Granulation' },
-    eclat: { name: 'Éclat', idea: 'Light-catching spheres' },
-    liaison: { name: 'Liaison', idea: 'Links and lines' },
-    atelier: { name: 'Atelier', idea: 'Statement openwork' },
-    christmas: { name: 'Christmas 2026', idea: 'Seasonal charms' }
-  };
-  const PRODUCTS = [
-    { id: '3945', name: 'Colonne', col: 'colonne', made: ['Colonne', 'Lune', 'Disque'], weight: 'approx. 6.45 g in tri-tone (3C)', desc: 'Fluted Colonne pipes run between moon-cut Lune beads, each parted by a thin Disque spacer.' },
-    { id: '3947', name: 'Fuseau', col: 'colonne', made: ['Fuseau', 'Halo', 'Pavé'], desc: 'Pairs of fluted Fuseau spindles, framed by Halo rondelles around a pineapple-cut Pavé sphere.' },
-    { id: '4023', name: 'Octave', col: 'colonne', made: ['Octave', 'Étoile', 'Disque'], desc: 'Octagonal Octave batons between star-cut Étoile cubes and thin Disque spacers.' },
-    { id: '3946', name: 'Grain', col: 'grain', made: ['Colonne', 'Lune', 'Grappe'], desc: 'Granulated Grappe clusters and moon-cut Lune beads, with a fluted Colonne pipe between each group.' },
-    { id: '4003', name: 'Étoile Torsade', col: 'grain', made: ['Étoile', 'Torsade', 'Halo'], desc: 'Three swirl-cut Torsade beads, then three star-cut Étoile cubes, each set framed by Halo rondelles.' },
-    { id: '3990', name: 'Éclat', col: 'eclat', made: ['Éclat', 'Couronne'], desc: 'Sparkle-cut Éclat spheres, each parted from the next by a Couronne crown spacer.' },
-    { id: '4082', name: 'Ciselé', col: 'eclat', made: ['Lune', 'Ciselé'], desc: 'Moon-cut Lune beads in two sizes, linked by chased Ciselé twist rings.' },
-    { id: '4037', name: 'Anneau', col: 'eclat', made: ['Anneau', 'Lune'], gold: 'Two-tone: yellow and white 916 gold', desc: 'Moon-cut Lune beads between round Anneau rings, in yellow and white gold.' },
-    { id: '3339', name: 'Allongé Cluster', col: 'liaison', made: ['Allongé', 'Lune'], desc: 'Elongated Allongé paperclip links, gathered by clusters of small moon-cut Lune beads.' },
-    { id: '4150', name: 'Ligne', col: 'liaison', made: ['Ligne', 'Étoile', 'Pavé'], gold: 'Two-tone: yellow and white 916 gold', desc: 'Slim polished Ligne tubes, gathered by star-cut Étoile cubes and pineapple-cut Pavé spheres.' },
-    { id: '4047', name: 'Spirale', col: 'liaison', made: ['Olive', 'Spirale'], desc: 'Fluted Olive beads and Spirale coil tubes in one supple line.' },
-    { id: '3952', name: 'Treillis', col: 'atelier', made: ['Colonne', 'Pavé', 'Perlée', 'Olive'], desc: 'An openwork lattice of Colonne pipes, Pavé spheres, Olive beads and faceted Perlée micro balls.' },
-    { id: '3998', name: 'Maille', col: 'atelier', made: ['Olive', 'Perlée'], desc: 'A wide mesh band woven from Olive beads and hundreds of faceted Perlée micro balls.' }
-  ];
-  // Christmas 2026 charms: names are descriptive; references and weights come from the photo files
-  const XMAS = [
-    { id: 'P3843-A', name: 'Snowflake Bauble', col: 'christmas', kind: 'charm', made: ['Openwork bauble', 'Snowflake', 'Bow'], gold: 'Yellow 916 gold (1C)', weight: '2.05 g', desc: 'An openwork bauble traced with a six-point snowflake and tied with a bow.' },
-    { id: 'P3843-B', name: 'Christmas Tree', col: 'christmas', kind: 'charm', made: ['Filigree tree', 'Star'], gold: 'Yellow 916 gold (1C)', weight: '2.05 g', desc: 'A filigree tree crowned with a star, each branch tipped with a tiny gold bead.' },
-    { id: 'P3843-C', name: 'Candy Cane', col: 'christmas', kind: 'charm', made: ['Diamond-cut cane', 'Bow'], gold: 'Yellow 916 gold (1C)', weight: '1.15 g', desc: 'A diamond-cut candy cane, tied with a bow.' },
-    { id: 'P3843-D', name: 'Snowflake', col: 'christmas', kind: 'charm', made: ['Snowflake', 'Diamond-cut ring', 'Bow'], gold: 'Yellow 916 gold (1C)', weight: '1.65 g', desc: 'A snowflake set in a diamond-cut ring, with a bow at the top.' },
-    { id: 'P4112', name: 'Santa', col: 'christmas', kind: 'charm', made: ['Red and white enamel', 'Filigree bail'], gold: 'Yellow 916 gold (1C) with enamel', weight: '1.76 g', desc: 'Santa with his sack of gifts, in red and white enamel on 916 gold. The reverse is patterned with small hearts.' }
-  ];
-  const BY_ID = Object.fromEntries(PRODUCTS.concat(XMAS).map(p => [p.id, p]));
-  const GIFTS = ['P3843-A', 'P4112', 'P3843-B', 'P3843-D', 'P3843-C', '3990', '4082', '4037'];
+  /* ---------- data: everything editable comes from the editor (Pages CMS -> _data/*.json), embedded at build time ---------- */
+  let COLLECTIONS = {}, PRODUCTS = [], BY_ID = {}, STORIES = [], STORY_BY = {}, HOME = {}, CAMPAIGN = null, BROCHURES = [], BR_BY = {};
+  // the bead library itself stays in code: it is the reference every design is spelled from
   const LIBRARY = [
     { code: 'B01', type: 'Bead', name: 'Lune', what: 'Moon-cut sphere', size: '4 mm' },
     { code: 'B02', type: 'Bead', name: 'Pavé', what: 'Pineapple-cut sphere', size: '5 mm' },
@@ -1533,12 +1506,12 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const icon = (id, cls = 'icon') => `<svg class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
-  const img = id => `media/v4/d-${id}.webp`;
+  const img = id => { const p = BY_ID[id]; return (p && p.images[0]) ? media(p.images[0]) : `media/v4/d-${id}.webp`; };
 
   /* ---------- saved pieces (per-viewer convenience) ---------- */
   const KEY = 'yixing-saved';
   let saved = [];
-  try { saved = JSON.parse(localStorage.getItem(KEY) || '[]').filter(id => BY_ID[id]); } catch (e) { saved = []; }
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '[]'); if (!Array.isArray(saved)) saved = []; } catch (e) { saved = []; }
   const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) { /* storage unavailable */ } };
   const isSaved = id => saved.includes(id);
   function toggleSave(id) {
@@ -1594,14 +1567,13 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
       </div>
     </article>`;
   }
-  $('#gift-rail').innerHTML = GIFTS.map(id => card(BY_ID[id])).join('');
 
   const shop = { col: 'all' };
   function renderShop() {
     const items = PRODUCTS.filter(p => shop.col === 'all' || p.col === shop.col);
     const pad = (4 - items.length % 4) % 4; // fill the last row with editorial tiles, so no design sits alone
     $('[data-grid]').innerHTML = items.map(card).join('') + EXTRAS.slice(0, pad).map(extraCard).join('');
-    $('[data-result-count]').textContent = `${items.length} ${items.length === 1 ? 'design' : 'designs'}`;
+    $('[data-result-count]').textContent = `${items.length} ${items.length === 1 ? 'piece' : 'pieces'}`;
     $('[data-cat-chips]').innerHTML = [['all', 'All']].concat(Object.entries(COLLECTIONS).filter(([k]) => PRODUCTS.some(p => p.col === k)).map(([k, c]) => [k, c.name])).map(([k, label]) => {
       const n = PRODUCTS.filter(p => k === 'all' || p.col === k).length;
       return `<button class="chip-btn" type="button" data-cat="${k}" aria-pressed="${shop.col === k}">${esc(label)}<span class="count">${n}</span></button>`;
@@ -1626,97 +1598,33 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   }
 
   /* ---------- shared media helpers ---------- */
-  const media = n => `media/v4/${n}.webp`;
+  const media = n => !n ? '' : /[/]|\.[a-z0-9]{2,5}$/i.test(n) ? n : `media/v4/${n}.webp`;
   const DIMS = n => n.startsWith('d-') || n === 'tray' ? [900, 1125] : n.startsWith('xmas-') ? [1080, 1350] : (n.startsWith('c-') || n.startsWith('gold-')) ? [600, 600] : n.startsWith('ed-') ? [1600, 1000] : n === 'yixing-box' ? [1200, 1200] : [1000, 1000];
-  const wh = n => { const [w, h] = DIMS(n); return `width="${w}" height="${h}"`; };
+  const wh = n => { const m = /^media\/v4\/([^/]+)\.webp$/.exec(n || ''); const k = m ? m[1] : (/[/.]/.test(n || '') ? '' : n); if (!k) return ''; const [w, h] = DIMS(k); return `width="${w}" height="${h}"`; };
   const plain = h => String(h).replace(/<[^>]+>/g, '');
   const motionOK = () => !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   /* ---------- editorial: stories written from the bead library ---------- */
-  const STORIES = [
-    { slug: 'alphabet', cat: 'Craft', read: 4, img: 'ed-alphabet', title: 'An alphabet in <em>gold</em>',
-      dek: 'Nineteen beads, pipes and links, each with a name. Every Yi Xing design is spelled from them.',
-      alt: 'All nineteen Yi Xing beads, pipes, links and spacers laid out in rows on teal suede',
-      body: [
-        ['p', 'Most jewellers name a bracelet after a season or a muse. We name ours after a bead. Every design in our collection is built from the same nineteen parts, cut in 916 gold, and each part has a name and a code you can ask for at the counter.'],
-        ['h', 'Eight beads'],
-        ['p', 'The beads carry most of the light. <b>Lune</b> is a moon-cut sphere of about 4 mm, faceted so it glints as it turns. <b>Pavé</b> is pineapple-cut, and <b>Éclat</b>, at about 8 mm, is the largest and brightest. <b>Torsade</b> is swirl-cut, <b>Olive</b> a fluted oval, <b>Étoile</b> a star-cut cushion cube and <b>Grappe</b> a cluster of fine gold grains. <b>Halo</b>, a rondelle edged with granules, frames the others.'],
-        ['h', 'Five pipes'],
-        ['p', 'The pipes set a design’s rhythm. <b>Colonne</b> is a fluted column, <b>Fuseau</b> a fluted spindle and <b>Octave</b> an eight-sided baton. <b>Ligne</b> is a slim polished tube about 16 mm long, and <b>Spirale</b> a coil.'],
-        ['h', 'Four links and two spacers'],
-        ['p', '<b>Allongé</b>, <b>Anneau</b>, <b>Ciselé</b> and <b>Perlée</b> join the parts, from an elongated paperclip link to a faceted ball barely more than a millimetre across. <b>Disque</b> and <b>Couronne</b>, a thin disc and a crown, sit between beads to give each one room.'],
-        ['library'],
-        ['quote', 'Each design takes the name of its signature bead: Colonne for its pipes, Éclat for its spheres.'],
-        ['p', 'Because every design shares one alphabet, any bracelet can be lengthened, shortened or re-spelled. Bring yours to a boutique and we will add or remove parts to fit your wrist.'],
-        ['cta', [['#e-brochure', 'Flip through the bead library', 'solid', 'data-brochure="library" data-scroll="reader"'], ['#contact', 'Start your own design', 'line', 'data-enquiry="design"']]]
-      ] },
-    { slug: 'eclat', cat: 'Craft', read: 3, img: 'eclat-macro', title: 'Cut to catch the <em>light</em>',
-      dek: 'How the Éclat bead is faceted, and why it throws light from every side.',
-      alt: 'An Éclat sparkle-cut sphere in 916 gold resting on teal suede',
-      body: [
-        ['p', 'Éclat begins as a smooth sphere of 916 gold, about eight millimetres across. It is then cut all over with small, flat facets. Each facet is a tiny mirror set at its own angle, so wherever the light comes from, some part of the bead sends it back to you.'],
-        ['p', 'A polished sphere shows one bright point. A faceted one shows dozens, and they move as your wrist turns. That shimmer is what we mean by cut to catch the light.'],
-        ['h', 'Room to shine'],
-        ['p', 'In 3990 Éclat, each sphere is parted from the next by a Couronne crown spacer. The spacer lifts the beads apart so light reaches every facet, and the points of the crown add a second, finer sparkle between them.'],
-        ['img', 'd-3990', { alt: 'The 3990 Éclat bracelet on teal suede', cap: '3990 Éclat: Éclat spheres parted by Couronne crown spacers.' }],
-        ['designs', 'The Éclat collection', ['3990', '4082', '4037']],
-        ['cta', [['#contact', 'Book an appointment', 'solid', 'data-enquiry="appointment"']]]
-      ] },
-    { slug: 'colonne', cat: 'Collections', read: 3, img: 'colonne-macro', title: 'Fluted columns, <em>moon-cut</em> beads',
-      dek: 'Inside the Colonne collection: three designs built on architectural pipes.',
-      alt: 'Close view of the 3945 Colonne bracelet: fluted pipes between moon-cut beads',
-      body: [
-        ['p', 'Colonne takes its name from the column. Its pipes are fluted like classical stone, with fine grooves that run their whole length and catch the light in parallel lines.'],
-        ['p', 'In <b>3945 Colonne</b>, the pipes alternate with moon-cut Lune beads, each parted by a thin Disque spacer. <b>3947 Fuseau</b> swaps the columns for spindles, with Halo rondelles framing a pineapple-cut Pavé sphere. <b>4023 Octave</b> sets eight-sided batons between star-cut Étoile cubes.'],
-        ['designs', 'The Colonne collection', ['3945', '3947', '4023']],
-        ['p', 'All three are made in yellow 916 gold first. 3945 is also made in tri-tone, with white and rose gold among the yellow; in tri-tone it weighs about 6.45 g.'],
-        ['cta', [['#e-brochure', 'See Colonne in the e-Brochure', 'solid', 'data-brochure="collection" data-brochure-at="colonne" data-scroll="reader"']]]
-      ] },
-    { slug: 'colours', cat: 'Guides', read: 2, img: 'ed-colours', title: 'One gold, three <em>colours</em>',
-      dek: 'What 1C, 2C and 3C mean on our labels, and how to choose between them.',
-      alt: 'Three Pavé beads in yellow, white and rose 916 gold on teal suede',
-      body: [
-        ['p', 'Every bead and pipe we make is 916 gold. What changes is its colour, and on our labels you will see one of three codes.'],
-        ['colours'],
-        ['h', 'Which to choose'],
-        ['p', 'Yellow (1C) is the classic, and the warmest against the skin. Two-tone (2C) adds white gold, finished in rhodium, for contrast; it sits well beside a steel watch. Tri-tone (3C) mixes yellow, white and rose gold for the most movement.'],
-        ['p', 'Not every design is made in every colour. Ask at any boutique which colours are available for the design you like.'],
-        ['designs', 'Two-tone and tri-tone designs', ['4037', '4150', '3945']],
-        ['cta', [['#contact', 'Ask about colours', 'solid', 'data-enquiry="general" data-message="I’d like to know which colours a design comes in."']]]
-      ] },
-    { slug: 'sketch', cat: 'Craft', read: 3, img: 'strand-sketch', title: 'From sketch to <em>gold</em>',
-      dek: 'How a bead becomes a bracelet, in three steps.',
-      alt: 'Amber line drawing of a strand of Lune beads, Disque spacers and Colonne pipes',
-      body: [
-        ['p', 'Every part in our library started as a drawing. Before a bead is cut, we draw it facet by facet, so we know how it will catch the light and how it will sit against its neighbours.'],
-        ['steps'],
-        ['p', 'The drawing becomes a precise model, checked to a fraction of a millimetre so that beads, pipes and spacers sit flush once strung. Only then is the part made in 916 gold, cut, polished and strung into a design.'],
-        ['quote', 'A bead that is a hair too wide shows as a gap on the wrist.'],
-        ['p', 'The same care goes into the designs you create with us. Choose your parts from the library, and we will draw, model and string them into a bracelet sized to your wrist.'],
-        ['cta', [['#contact', 'Start a design', 'solid', 'data-enquiry="design"']]]
-      ] },
-    { slug: 'gifting', cat: 'Gifting', read: 2, img: 'yixing-box', title: 'Tied by hand in <em>amber</em>',
-      dek: 'Six designs to give this season, and how we wrap them.',
-      alt: 'A teal Yi Xing gift box tied with amber satin ribbon beside an open bracelet box',
-      body: [
-        ['p', 'Every Yi Xing bracelet leaves our boutiques in a hinged teal box lined in ivory velvet, with our mark in gold foil inside the lid. For gifts, we tie the box by hand with amber satin ribbon and add a card written in the boutique.'],
-        ['p', 'Gift wrapping and the card are complimentary. If you are not sure of the wrist size, choose the design and it can be resized later at any of our boutiques.'],
-        ['designs', 'Six designs to give', ['3990', '4082', '4037', '4023', '3947', '4047']],
-        ['cta', [['#e-brochure', 'Flip through the Gift Edit', 'solid', 'data-brochure="gift" data-scroll="reader"'], ['#contact', 'Arrange gift wrapping', 'line', 'data-enquiry="general" data-message="I’d like to arrange gift wrapping and a card."']]]
-      ] },
-    { slug: 'sizing', cat: 'Guides', read: 2, img: 'ed-sizing', title: 'Sized to your <em>wrist</em>',
-      dek: 'How we fit a beaded bracelet, one bead at a time.',
-      alt: 'The 4082 Ciselé bracelet beside loose Lune beads and a Ciselé twist ring on teal suede',
-      body: [
-        ['p', 'A beaded bracelet should move on the wrist without sliding over the hand. Because ours are strung from separate parts, we can fit each one closely.'],
-        ['h', 'How we measure'],
-        ['p', 'We measure your wrist with a soft tape just above the wrist bone, then add a little room so the bracelet can turn. Most people like about a centimetre of ease; some prefer a closer fit.'],
-        ['h', 'Adding or removing parts'],
-        ['p', 'To lengthen a bracelet, we add beads or pipes from the same design; to shorten it, we take them out, keeping the pattern even. It usually takes a few minutes while you wait, and there is no charge.'],
-        ['cta', [['#contact', 'Ask about sizing', 'solid', 'data-enquiry="general" data-message="I’d like to ask about sizing a bracelet."'], ['#stores', 'Visit us', 'line', '']]]
-      ] }
-  ];
-  const STORY_BY = Object.fromEntries(STORIES.map(x => [x.slug, x]));
+  // values written by the editor: lists may arrive as arrays or keyed objects, references as ids or file paths
+  const vals = o => Array.isArray(o) ? o : (o && typeof o === 'object') ? Object.values(o) : [];
+  const refId = v => String(v == null ? '' : v).split('/').pop().replace(/\.json$/i, '');
+  const byOrder = (a, b) => ((+a.order || 999) - (+b.order || 999));
+  const emph = t => esc(t || '').replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  const richText = h => {
+    const x = String(h || '').trim(); if (!x) return '';
+    if (/<[a-z][\s\S]*>/i.test(x)) return x;
+    return x.split(/\n{2,}/).map(par => `<p>${esc(par).replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/\*([^*]+)\*/g, '<em>$1</em>').replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2">$1</a>').replace(/\n/g, '<br>')}</p>`).join('');
+  };
+  // links typed in the editor: #routes, "whatsapp", or full addresses
+  const linkAttr = (link, text) => {
+    const l = String(link || '').trim();
+    if (!l) return 'href="#home"';
+    if (/^whatsapp/i.test(l)) return `href="${esc(waLink(text || 'Hello Yi Xing, '))}" target="_blank" rel="noopener"`;
+    if (/^https?:\/\//i.test(l)) return `href="${esc(l)}" target="_blank" rel="noopener"`;
+    if (/^(mailto|tel):/i.test(l)) return `href="${esc(l)}"`;
+    return `href="${esc(l.startsWith('#') ? l : '#' + l)}"`;
+  };
+  const prod = id => BY_ID[id] || { id, name: id, made: [], desc: '', weight: '', gold: '', images: [], kind: 'piece' };
   const STORY_CATS = ['All', 'Craft', 'Collections', 'Guides', 'Gifting'];
   const ed = { cat: 'All' };
   const CTA = (href, label, kind, attrs) => `<a class="btn btn--${kind}" href="${href}" ${attrs || ''}>${esc(label)}</a>`;
@@ -1751,16 +1659,15 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
       ['strand-final', '03', 'Finish', 'Made in 916 gold, then cut, polished and strung into the finished design.']
     ].map(([im, n, h, t]) => `<li class="step"><div class="step__media"><img src="${media(im)}" alt="" width="1000" height="1000" loading="lazy"></div><div class="step__head"><span class="step__num">${n}</span><h3>${h}</h3></div><p>${t}</p></li>`).join('')}</ol>`;
   function block(b) {
-    const [t, a, c] = b;
-    if (t === 'p') return `<p>${a}</p>`;
-    if (t === 'h') return `<h2 class="story__h">${a}</h2>`;
-    if (t === 'quote') return `<blockquote class="story__quote"><p>${a}</p></blockquote>`;
-    if (t === 'img') return `<figure class="story__fig"><img src="${media(a)}" alt="${esc(c.alt)}" ${wh(a)} loading="lazy" style="aspect-ratio:1;object-fit:cover"><figcaption>${c.cap}</figcaption></figure>`;
-    if (t === 'designs') return `<div class="story__wide"><p class="eyebrow">${a}</p><div class="grid grid--3">${c.map(id => card(BY_ID[id])).join('')}</div></div>`;
-    if (t === 'library') return `<div class="story__wide"><div class="library">${libraryHTML()}</div></div>`;
-    if (t === 'colours') return `<div class="story__wide">${coloursHTML()}</div>`;
-    if (t === 'steps') return `<div class="story__wide">${stepsHTML()}</div>`;
-    if (t === 'cta') return `<div class="btn-row story__cta">${a.map(x => CTA(...x)).join('')}</div>`;
+    if (!b || typeof b !== 'object') return '';
+    const t = b.type || b._block;
+    if (t === 'heading') return b.text ? `<h2 class="story__h">${esc(b.text)}</h2>` : '';
+    if (t === 'text') return richText(b.html);
+    if (t === 'quote') return b.text ? `<blockquote class="story__quote"><p>${esc(b.text)}</p></blockquote>` : '';
+    if (t === 'image') return b.image ? `<figure class="story__fig"><img src="${esc(media(b.image))}" alt="${esc(b.alt || '')}" ${wh(b.image)} loading="lazy" style="aspect-ratio:1;object-fit:cover">${b.caption ? `<figcaption>${esc(b.caption)}</figcaption>` : ''}</figure>` : '';
+    if (t === 'products') { const ps = vals(b.items).map(refId).filter(id => BY_ID[id]).map(id => BY_ID[id]); return ps.length ? `<div class="story__wide">${b.title ? `<p class="eyebrow">${esc(b.title)}</p>` : ''}<div class="grid grid--3">${ps.map(card).join('')}</div></div>` : ''; }
+    if (t === 'component') return b.name === 'library' ? `<div class="story__wide"><div class="library">${libraryHTML()}</div></div>` : b.name === 'colours' ? `<div class="story__wide">${coloursHTML()}</div>` : b.name === 'steps' ? `<div class="story__wide">${stepsHTML()}</div>` : '';
+    if (t === 'buttons') { const xs = vals(b.items).filter(x => x && x.label); return xs.length ? `<div class="btn-row story__cta">${xs.map(x => `<a class="btn btn--${x.style === 'line' ? 'line' : 'solid'}" ${linkAttr(x.link)}>${esc(x.label)}</a>`).join('')}</div>` : ''; }
     return '';
   }
   function renderStory(slug) {
@@ -1794,7 +1701,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     atelier: 'Statement openwork and mesh, built bead by bead from the finest parts in the library.'
   };
   const LIB_BY = Object.fromEntries(LIBRARY.map(c => [c.code, c]));
-  const BROCHURES = [
+  const BUILTIN_BROCHURES = [
     { id: 'christmas', title: 'Christmas 2026', sub: 'Five new charms in 916 gold', cover: 'xmas-cover', pages: [
       { t: 'xcover', img: 'xmas-cover', kicker: 'Yi Xing · Christmas 2026', title: 'The Christmas <em>Edit</em>', sub: 'Five new charms in 916 gold, to give and to keep' },
       { t: 'text', xmas: true, kicker: 'Christmas 2026', title: 'A season in <em>gold</em>', text: [
@@ -1849,7 +1756,14 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
       { t: 'back', band: true }
     ] }
   ];
-  const BR_BY = Object.fromEntries(BROCHURES.map(b => [b.id, b]));
+  // a brochure made in the editor: a cover and page images, closed with the house back cover
+  const cmsBrochure = b => {
+    const pages = [{ t: 'image', img: b.cover || ((vals(b.pages)[0] || {}).image) || '', cover: true }]
+      .concat(vals(b.pages).filter(x => x && x.image).map(x => ({ t: 'image', img: x.image, cap: x.caption || '', product: refId(x.product) })));
+    if (pages.length % 2 === 0) pages.push({ t: 'blank', band: true });
+    pages.push({ t: 'back', band: true });
+    return { id: String(b.slug), title: b.title || '', sub: b.subtitle || '', cover: pages[0].img, pages, cms: true };
+  };
   const reader = { b: 'christmas', v: 0, page: 0 };
   const wideMQ = window.matchMedia ? window.matchMedia('(min-width: 900px)') : { matches: true, addEventListener() {} };
   const spreadMode = () => wideMQ.matches;
@@ -1866,6 +1780,12 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     const pg = b.pages[i], n = b.pages.length;
     const num = i > 0 && i < n - 1 ? `<span class="pg__num">${i + 1}</span>` : '';
     let h = '';
+    if (pg.t === 'image') {
+      const pp = pg.product && BY_ID[pg.product];
+      const bar = pg.cap || pp ? `<div class="pg__imgbar">${pg.cap ? `<span>${esc(pg.cap)}</span>` : '<span></span>'}${pp ? `<button class="pg__link" type="button" data-open-product="${pp.id}">View ${esc(pp.name)}</button>` : ''}</div>` : '';
+      return `<div class="pg pg--image"><img class="pg__full" src="${esc(media(pg.img))}" alt="${esc(pg.cap || (pg.cover ? b.title : ''))}" loading="lazy">${bar}${pg.cover ? '' : num}</div>`;
+    }
+    if (pg.t === 'blank') return `<div class="pg pg--band"><div class="pg__back"><svg viewBox="0 0 807 231" aria-hidden="true"><use href="#logo" width="807" height="231"/></svg></div></div>`;
     if (pg.t === 'xcover') {
       return `<div class="pg pg--cover pg--xcover"><img class="pg__bg" src="${media(pg.img)}" alt="" width="1080" height="1350">${pgBrand(true)}
         <div class="pg__cover pg__cover--x"><p class="pg__kicker">${pg.kicker}</p><h3 class="pg__title">${pg.title}</h3><p class="pg__text">${pg.sub}</p></div></div>`;
@@ -1880,11 +1800,11 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     if (pg.t === 'text') {
       h = `<p class="pg__kicker">${pg.kicker}</p><h3 class="pg__title">${pg.title}</h3><hr class="pg__rule">${pg.text.map(t => `<p class="pg__text">${t}</p>`).join('')}${pg.img ? `<div style="margin-top:auto">${pgImg(pg.img, pg.ratio)}</div>` : ''}${pg.toc ? `<nav class="pg__toc" aria-label="In this brochure"><p class="pg__kicker">In this edition</p><ol style="--rows:${Math.ceil(pg.toc.length / 2)}">${pg.toc.map(([n, label]) => `<li><button type="button" data-goto-page="${n - 1}"><span>${esc(label)}</span><span>${n}</span></button></li>`).join('')}</ol></nav>` : ''}`;
     } else if (pg.t === 'colA') {
-      const c = COLLECTIONS[pg.col], p = BY_ID[pg.lead];
+      const c = COLLECTIONS[pg.col] || { name: pg.col, idea: '' }, p = prod(pg.lead);
       h = `<p class="pg__kicker">Collection · ${esc(c.idea)}</p><h3 class="pg__title">${esc(c.name)}</h3><p class="pg__text">${COL_TEXT[pg.col]}</p>${pgDesign(p, 'pg__lead', '4 / 5', false)}`;
     } else if (pg.t === 'colB') {
-      const ps = pg.ids.map(id => BY_ID[id]);
-      const kick = pg.kicker || COLLECTIONS[pg.col].name;
+      const ps = pg.ids.map(prod);
+      const kick = pg.kicker || (COLLECTIONS[pg.col] || {}).name || '';
       h = `<p class="pg__kicker">${esc(kick)}</p>` + (ps.length === 1
         ? `<div class="pg__solo">${pgDesign(ps[0], '', '1.15', true)}</div>`
         : `<div class="pg__rows">${ps.map(p => pgDesign(p, 'pg__row', '4 / 5', true)).join('')}</div>`);
@@ -1915,11 +1835,11 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
         <div class="pg__links"><a class="pg__link" href="#contact" data-enquiry="design">Start a design</a><a class="pg__link" href="#story-alphabet">Read the story</a></div>`;
     } else if (pg.t === 'ornaments') {
       const orn = [['P3843-A', 6, 15], ['P3843-B', 29, 30], ['P3843-C', 53, 9], ['P3843-D', 76, 24]];
-      h = `<div class="pg__orns">${orn.map(([id, x, t]) => `<button class="pg__orn" type="button" data-open-product="${id}" style="left:${x}cqw;--t:${t}cqw" aria-label="View ${id} ${esc(BY_ID[id].name)}"><img src="${media('orn-' + id)}" alt=""></button>`).join('')}</div>
+      h = `<div class="pg__orns">${orn.map(([id, x, t]) => `<button class="pg__orn" type="button" data-open-product="${id}" style="left:${x}cqw;--t:${t}cqw" aria-label="View ${id} ${esc(prod(id).name)}"><img src="${media('orn-' + id)}" alt=""></button>`).join('')}</div>
         <div class="pg__ornText"><p class="pg__kicker">P3843 · Four ornaments</p><h3 class="pg__title pg__title--s">Hung like <em>ornaments</em></h3>
-        <p class="pg__text">${['P3843-A', 'P3843-B', 'P3843-C', 'P3843-D'].map(id => esc(BY_ID[id].name)).join(' · ')}</p></div>`;
+        <p class="pg__text">${['P3843-A', 'P3843-B', 'P3843-C', 'P3843-D'].map(id => esc(prod(id).name)).join(' · ')}</p></div>`;
     } else if (pg.t === 'xproduct') {
-      const x = BY_ID[pg.id];
+      const x = prod(pg.id);
       h = `<button class="pg__design pg__xshot" type="button" data-open-product="${x.id}" aria-label="View ${x.id} ${esc(x.name)}"><img class="pg__img" src="${media('x-' + x.id)}" alt="${esc(x.name)}, front and back" width="1000" height="1000"></button>
         <div class="pg__xinfo"><p class="pg__kicker">Ref. ${x.id}</p><h3 class="pg__title pg__title--s">${esc(x.name)}</h3>
         <p class="pg__xspec"><span>916 gold</span><span>${x.id === 'P4112' ? 'Yellow (1C), enamel' : 'Yellow (1C)'}</span><span>${x.weight}</span></p>
@@ -1929,7 +1849,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
         <div class="pg__two"><figure>${pgImg('xmas-bracelet', '4 / 5')}<figcaption>On a bracelet</figcaption></figure><figure>${pgImg('xmas-worn', '4 / 5')}<figcaption>On a fine chain</figcaption></figure></div>
         <p class="pg__text">The filigree bail slides onto a chain or a bracelet. Ask at any boutique and we will fit it for you.</p>`;
     } else if (pg.t === 'xweights') {
-      const list = XMAS.slice().sort((a, b) => parseFloat(a.weight) - parseFloat(b.weight) || a.id.localeCompare(b.id));
+      const list = ['P3843-A', 'P3843-B', 'P3843-C', 'P3843-D', 'P4112'].map(prod).sort((a, b) => parseFloat(a.weight) - parseFloat(b.weight) || a.id.localeCompare(b.id));
       h = `<p class="pg__kicker">Gifts by weight</p><h3 class="pg__title pg__title--s">Choose by <em>weight</em></h3>
         <p class="pg__text">Gold is priced by weight, so the lighter the charm, the gentler the price. Weights are of the pieces photographed.</p>
         <div class="pg__wlist">${list.map(x => `<button class="pg__wrow" type="button" data-open-product="${x.id}"><img src="${media('x-' + x.id)}" alt="" width="1000" height="1000"><span><span class="pg__dname">${esc(x.name)}</span><span class="pg__dref">Ref. ${x.id}</span></span><span class="pg__wgt">${x.weight}</span></button>`).join('')}</div>`;
@@ -1981,12 +1901,12 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     $('[data-dots]').innerHTML = Array.from({ length: V }, (_, k) => `<button type="button" data-view="${k}" aria-label="${viewLabel(b, k)}" aria-current="${k === reader.v}"></button>`).join('');
     $$('[data-brochure-open]').forEach(x => x.setAttribute('aria-pressed', x.dataset.brochureOpen === reader.b));
     // warm the next spread's images, so a turn never shows an empty page
-    pagesOf(reader.v + 1).forEach(i => { const pg = b.pages[i]; if (!pg) return; (pg.ids || [pg.lead, pg.img, pg.id && 'x-' + pg.id].filter(Boolean)).forEach(x => { const im = new Image(); im.src = media(/^\d+$/.test(x) ? 'd-' + x : x); }); });
+    pagesOf(reader.v + 1).forEach(i => { const pg = b.pages[i]; if (!pg) return; (pg.ids || [pg.lead, pg.img, pg.id && 'x-' + pg.id].filter(Boolean)).forEach(x => { const im = new Image(); im.src = /^\d+$/.test(x) ? img(x) : media(x); }); });
   }
   function openBrochure(id, at) {
     if (!BR_BY[id]) return;
     reader.b = id; reader.v = 0;
-    if (at) { const i = BR_BY[id].pages.findIndex(pg => pg.t === 'colA' && pg.col === at); if (i >= 0) reader.v = viewOfPage(i); }
+    if (at) { const i = BR_BY[id].pages.findIndex(pg => (pg.t === 'colA' && pg.col === at) || pg.t === at || pg.id === at); if (i >= 0) reader.v = viewOfPage(i); }
     turning = false;
     renderReader();
   }
@@ -2047,28 +1967,128 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   /* ---------- design dialog ---------- */
   const dlg = $('[data-pdialog]');
   let lastFocus = null;
+  let PD_MEDIA = [];
+  function showPdMedia(i) {
+    const m = PD_MEDIA[i]; if (!m) return;
+    const im = $('[data-pd-img]'), vd = $('[data-pd-video]');
+    if (m.k === 'video') { im.hidden = true; vd.hidden = false; if (vd.dataset.src !== m.s) { vd.dataset.src = m.s; vd.src = media(m.s); } const pr = vd.play(); if (pr && pr.catch) pr.catch(() => {}); }
+    else { vd.pause(); vd.hidden = true; im.hidden = false; im.src = media(m.s); }
+    $$('[data-pd-thumb]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.pdThumb === i));
+  }
   function openProduct(id) {
     const p = BY_ID[id]; if (!p) return;
     lastFocus = document.activeElement;
-    $('[data-pd-img]').src = img(p.id);
+    const col = COLLECTIONS[p.col] || { name: '', idea: '' };
+    PD_MEDIA = (p.images.length ? p.images : [img(p.id)]).map(x => ({ s: x, k: 'img' })).concat(p.video ? [{ s: p.video, k: 'video' }] : []);
+    $('[data-pd-thumbs]').innerHTML = PD_MEDIA.length > 1 ? PD_MEDIA.map((m, k) => `<button type="button" data-pd-thumb="${k}" aria-label="${m.k === 'video' ? 'Play the video' : 'Image ' + (k + 1)}" aria-pressed="${k === 0}">${m.k === 'video' ? icon('i-play') : `<img src="${esc(media(m.s))}" alt="">`}</button>`).join('') : '';
+    showPdMedia(0);
     $('[data-pd-img]').alt = `${p.id} ${p.name} ${p.kind || 'bracelet'} in 916 gold`;
-    $('[data-pd-col]').textContent = `${COLLECTIONS[p.col].name} · ${COLLECTIONS[p.col].idea}`;
+    $('[data-pd-col]').textContent = [col.name, col.idea].filter(Boolean).join(' · ');
     $('[data-pd-name]').textContent = p.name;
     $('[data-pd-hall]').textContent = '916';
-    $('[data-pd-price]').textContent = 'Priced by weight';
+    $('[data-pd-price]').textContent = p.price || 'Priced by weight';
     $('[data-pd-desc]').textContent = p.desc;
-    $('[data-pd-mat]').textContent = p.made.join(' · ');
+    $('[data-pd-mat]').textContent = p.made.join(' · ') || '916 gold';
     $('[data-pd-gold]').textContent = p.gold || 'Yellow 916 gold; ask about two-tone and tri-tone';
     $('[data-pd-weight]').textContent = p.weight || 'Weighed at the counter';
     $('[data-pd-ref]').textContent = p.id;
-    const s = $('[data-pd-save]'); s.dataset.id = p.id;
+    const sv = $('[data-pd-save]'); sv.dataset.id = p.id;
     $('[data-pd-enquire]').dataset.product = p.id;
     syncSaved();
     if (typeof dlg.showModal === 'function') { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', '');
   }
   function closeProduct() { if (dlg.open) { dlg.close ? dlg.close() : dlg.removeAttribute('open'); } }
-  dlg.addEventListener('close', () => { if (lastFocus && lastFocus.focus) lastFocus.focus(); });
+  dlg.addEventListener('close', () => { const vd = $('[data-pd-video]'); vd.pause(); if (/^#product-/.test(location.hash) && history.replaceState) history.replaceState(null, '', '#' + (current || 'home')); if (lastFocus && lastFocus.focus) lastFocus.focus(); });
   dlg.addEventListener('click', e => { if (e.target === dlg) closeProduct(); });
+
+  /* ---------- home page: campaign banner, carousel, promos, editorial, collections, appointment, services ---------- */
+  const FOCUS = { left: '22%', centre: '50%', center: '50%', right: '74%' };
+  let ANN = [], annI = 0, annTimer = null;
+  function renderAnnounce(dir) {
+    const m = ANN[annI]; const box = $('[data-announce-msg]');
+    $('[data-announce]').classList.toggle('is-single', ANN.length < 2);
+    if (!m) { box.innerHTML = '<span>Beads and pipes in 916 gold</span>'; return; }
+    box.innerHTML = m.link ? `<a ${linkAttr(m.link, 'Hello Yi Xing, ')}><span>${esc(m.text)}</span>${m.link_label ? `<span class="announce__cta">${esc(m.link_label)}</span>` : ''}</a>` : `<span>${esc(m.text)}</span>`;
+    if (dir) { box.classList.remove('is-in'); void box.offsetWidth; box.classList.add('is-in'); }
+  }
+  function stepAnnounce(d) { if (ANN.length < 2) return; annI = (annI + d + ANN.length) % ANN.length; renderAnnounce(d); }
+  function startAnnounce() {
+    clearInterval(annTimer);
+    if (ANN.length > 1 && motionOK()) annTimer = setInterval(() => { const a = $('[data-announce]'); if (!a.matches(':hover') && !a.contains(document.activeElement)) stepAnnounce(1); }, 6000);
+  }
+  const ptile = p => `<article class="ptile">
+      <button class="ptile__media" type="button" data-open-product="${p.id}" aria-label="View ${esc(p.id)} ${esc(p.name)}"><img src="${esc(img(p.id))}" alt="${esc(p.name)}, ${esc(p.kind)} in 916 gold" loading="lazy"></button>
+      <button class="icon-btn card__save" type="button" data-save="${p.id}" aria-pressed="false" aria-label="Save ${esc(p.name)}">${icon('i-heart')}</button>
+      <h3 class="ptile__name"><button type="button" data-open-product="${p.id}">${esc(p.name)}</button></h3>
+      <p class="ptile__kind">${esc(p.kind.charAt(0).toUpperCase() + p.kind.slice(1))} in ${esc(/white|rose|two|tri/i.test(p.gold) ? '916 gold' : 'yellow 916 gold')}</p>
+      <p class="ptile__price">${esc([p.weight, p.price || 'Priced by weight'].filter(Boolean).join(' · '))}</p>
+    </article>`;
+  function syncPcar() {
+    const t = $('[data-pcar]'), max = t.scrollWidth - t.clientWidth;
+    const [prev, next] = $$('[data-pcar-step]');
+    prev.disabled = t.scrollLeft < 8; next.disabled = t.scrollLeft > max - 8;
+    const w = t.scrollWidth ? Math.min(100, t.clientWidth / t.scrollWidth * 100) : 100;
+    const bar = $('[data-pcar-bar]'); bar.style.width = w + '%'; bar.style.left = (max > 0 ? t.scrollLeft / max * (100 - w) : 0) + '%';
+    $('.pcar__nav').hidden = max <= 8;
+  }
+  function renderHome() {
+    const H = HOME || {}, C = CAMPAIGN || {};
+    const hero = C.hero && (C.hero.video || C.hero.image) ? C.hero : (H.hero || {});
+    const sec = $('[data-hero]'), vid = $('[data-hero-video]');
+    const useVideo = hero.media !== 'image' && !!hero.video;
+    sec.classList.toggle('hero--dark', hero.text === 'dark');
+    document.body.classList.toggle('hero-dark', hero.text === 'dark');
+    sec.style.setProperty('--hero-x', FOCUS[hero.focus] || '50%');
+    sec.classList.toggle('hero--mimg', !!hero.mobile_image);
+    if (useVideo) {
+      if (vid.dataset.src !== hero.video) { vid.dataset.src = hero.video; vid.poster = hero.image ? media(hero.image) : ''; vid.innerHTML = `<source src="${esc(media(hero.video))}" type="video/${/\.webm$/i.test(hero.video) ? 'webm' : 'mp4'}">`; vid.load(); }
+      vid.hidden = false;
+    } else { vid.pause(); vid.hidden = true; }
+    $('[data-hero-pics]').innerHTML = (!useVideo && hero.image ? `<img class="hero__pic--d" src="${esc(media(hero.image))}" alt="" fetchpriority="high">` : '')
+      + (hero.mobile_image ? `<img class="hero__pic--m" src="${esc(media(hero.mobile_image))}" alt="">` : '');
+    $('[data-video-toggle]').hidden = !useVideo;
+    $('[data-hero-content]').innerHTML = `<h1 class="hero__title" id="hero-title">${emph(hero.title || 'Beads & pipes')}</h1>${hero.subtitle ? `<p class="hero__sub">${esc(hero.subtitle)}</p>` : ''}${hero.button_label ? `<a class="btn btn--hero" ${linkAttr(hero.button_link)}>${esc(hero.button_label)}</a>` : ''}`;
+
+    ANN = vals(C.announcements).filter(m => m && m.text);
+    if (!ANN.length) ANN = vals(H.announcements).filter(m => m && m.text);
+    annI = 0; renderAnnounce(); startAnnounce();
+
+    const pc = C.products || {};
+    let ids = vals(pc.items).map(refId).filter(id => BY_ID[id]);
+    if (!ids.length) ids = PRODUCTS.slice(0, 10).map(x => x.id);
+    $('[data-pcar-title]').textContent = pc.title || 'Featured pieces';
+    $('[data-pcar]').setAttribute('aria-label', pc.title || 'Featured pieces');
+    $('[data-pcar]').innerHTML = ids.map(id => ptile(BY_ID[id])).join('');
+    requestAnimationFrame(syncPcar);
+
+    const promos = vals(C.promos).filter(x => x && x.image).slice(0, 3);
+    $('[data-promos]').hidden = !promos.length;
+    $('[data-promos]').innerHTML = promos.map(x => `<a class="promo" ${linkAttr(x.link)}><span class="promo__media"><img src="${esc(media(x.image))}" alt="" loading="lazy"></span><span class="promo__title">${emph(x.title)}</span>${x.link_label ? `<span class="ulink">${esc(x.link_label)}</span>` : ''}</a>`).join('');
+
+    const e = C.editorial || {}; const st = STORY_BY[refId(e.story)] || STORIES[0];
+    $('[data-edsplit]').hidden = !st;
+    if (st) $('[data-edsplit]').innerHTML = `<div class="edsplit__text"><h2 class="h2" id="edsplit-title">${e.title ? emph(e.title) : st.title}</h2><p class="body-copy">${esc(e.text || st.dek)}</p><a class="ulink" href="#story-${esc(st.slug)}">${esc(e.link_label || 'Read the story')}</a></div>
+      <a class="edsplit__media" href="#story-${esc(st.slug)}" tabindex="-1" aria-hidden="true"><img src="${esc(media(e.image || st.img))}" alt="" loading="lazy"></a>`;
+
+    $('[data-cats-title]').textContent = H.collections_title || 'Shop by collection';
+    $('[data-cats]').innerHTML = Object.values(COLLECTIONS).filter(c => c.show_on_home !== false).map(c => {
+      const pic = c.image || img((PRODUCTS.find(x => x.col === c.id) || {}).id || '');
+      return `<a class="cat" href="#collection-${esc(c.id)}"><span class="cat__media"><img src="${esc(media(pic))}" alt="" loading="lazy"></span><span class="ulink">${esc(c.name)}</span></a>`;
+    }).join('');
+
+    const ap = H.appointment || {};
+    $('[data-appt]').innerHTML = `<div class="appt__media"><img src="${esc(media(ap.image || 'yixing-box'))}" alt="" loading="lazy"></div>
+      <div class="appt__text"><h2 class="h2" id="appt-title">${emph(ap.title || 'Book an appointment')}</h2>${ap.text ? `<p class="body-copy">${esc(ap.text)}</p>` : ''}<a class="btn btn--line" ${linkAttr(ap.button_link || '#enquiry-appointment')}>${esc(ap.button_label || 'Book an appointment')}</a></div>`;
+
+    $('[data-exp-title]').textContent = H.experience_title || 'The Yi Xing experience';
+    $('[data-exp]').innerHTML = vals(H.experience).filter(x => x && x.title).slice(0, 4).map(x => `<div class="xp">${icon('x-' + (x.icon || 'sparkle'), 'xp__icon')}<h3>${esc(x.title)}</h3>${x.text ? `<p>${esc(x.text)}</p>` : ''}${x.link_label ? `<a class="ulink" ${linkAttr(x.link)}>${esc(x.link_label)}</a>` : ''}</div>`).join('');
+
+    const cols = Object.values(COLLECTIONS);
+    $('[data-nav-collections]').innerHTML = cols.map(c => `<a href="#collection-${esc(c.id)}"><span>${esc(c.name)}</span><small>${esc(c.idea || '')}</small></a>`).join('')
+      + `<a href="#collection-all"><span>All pieces</span><small>${PRODUCTS.length} pieces in 916 gold</small></a>`;
+    $('[data-mnav-collections]').innerHTML = cols.map(c => `<a href="#collection-${esc(c.id)}">${esc(c.name)}</a>`).join('') + '<a href="#collection-all">All pieces</a>';
+    syncSaved();
+  }
 
   /* ---------- contact form ---------- */
   const form = $('[data-form]');
@@ -2152,13 +2172,44 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   // WhatsApp links carry a first line of text, ready to send
   $$('[data-wa]').forEach(a => { a.href = waLink(a.dataset.wa); });
 
+  /* ---------- content: the editor's data, embedded in the page when the site is built ---------- */
+  function applyContent(d) {
+    d = d && typeof d === 'object' ? d : {};
+    COLLECTIONS = Object.fromEntries(vals(d.collections).filter(c => c && c.id).sort(byOrder).map(c => [String(c.id), Object.assign({}, c, { id: String(c.id), name: c.name || String(c.id), idea: c.idea || '' })]));
+    PRODUCTS = vals(d.products).filter(x => x && x.id && x.show !== false).sort(byOrder).map(x => ({
+      id: String(x.id), name: x.name || String(x.id), col: refId(x.collection), kind: String(x.kind || 'Bracelet').toLowerCase(),
+      made: vals(x.parts).filter(Boolean).map(String), gold: x.gold || '', weight: x.weight || '', price: x.price || '', desc: x.description || '',
+      images: vals(x.images).filter(Boolean), video: x.video || '' }));
+    BY_ID = Object.fromEntries(PRODUCTS.map(x => [x.id, x]));
+    STORIES = vals(d.editorial).filter(x => x && x.slug && x.show !== false).sort(byOrder).map(x => ({
+      slug: String(x.slug), cat: x.category || 'Craft', read: x.read || 2, img: x.hero || '', alt: x.hero_alt || '',
+      title: emph(x.title), dek: x.dek || '', body: vals(x.body) }));
+    STORY_BY = Object.fromEntries(STORIES.map(x => [x.slug, x]));
+    HOME = d.home && typeof d.home === 'object' ? d.home : {};
+    const live = vals(d.campaigns).filter(c => c && (c.active === true || c.active === 'true') && (!c.start || String(c.start) <= todayMY) && (!c.end || String(c.end) >= todayMY));
+    CAMPAIGN = live.sort((a, b) => String(b.start || '').localeCompare(String(a.start || '')))[0] || null;
+    const shown = vals(HOME.builtin_brochures).length ? vals(HOME.builtin_brochures) : BUILTIN_BROCHURES.map(b => b.id);
+    BROCHURES = vals(d.brochures).filter(b => b && b.slug && b.show !== false).sort(byOrder).map(cmsBrochure).filter(b => b.pages.length > 2)
+      .concat(BUILTIN_BROCHURES.filter(b => shown.includes(b.id)));
+    BR_BY = Object.fromEntries(BROCHURES.map(b => [b.id, b]));
+    if (!BR_BY[reader.b] && BROCHURES[0]) reader.b = BROCHURES[0].id;
+    saved = saved.filter(id => BY_ID[id]);
+  }
+
   /* ---------- router ---------- */
   const TITLES = { home: 'Yi Xing', editorial: 'Editorial · Yi Xing', 'e-brochure': 'e-Brochure · Yi Xing', about: 'About us · Yi Xing', stores: 'Visit us · Yi Xing', contact: 'Contact us · Yi Xing' };
   const NAV_KEY = { editorial: 'highlights', 'e-brochure': 'highlights', story: 'highlights' };
   // a hash names a page, a story (#story-slug) or the old #highlights; anything else is not a route
   function resolve(h) {
+    if (!h) return null;
     if (h === 'highlights') return { page: 'editorial', key: 'editorial' };
     if (h.startsWith('story-') && STORY_BY[h.slice(6)]) return { page: 'story', key: h, slug: h.slice(6) };
+    let m;
+    if ((m = /^brochure-(.+?)(?:--(.+))?$/.exec(h)) && BR_BY[m[1]]) return { page: 'e-brochure', key: 'e-brochure', brochure: m[1], at: m[2], scroll: 'reader' };
+    if ((m = /^collection-(.+)$/.exec(h)) && (m[1] === 'all' || COLLECTIONS[m[1]])) return { page: 'e-brochure', key: 'e-brochure', collection: m[1], scroll: 'shop' };
+    if ((m = /^enquiry-(.+)$/.exec(h)) && TYPE_LABEL[m[1]]) return { page: 'contact', key: 'contact', enquiry: m[1], scroll: 'enquiry' };
+    if (h === 'faq') return { page: 'contact', key: 'contact', scroll: 'faq' };
+    if ((m = /^product-(.+)$/.exec(h)) && BY_ID[m[1]]) { const cur = current && !/^product-/.test(current) ? resolve(current) : null; return Object.assign({}, cur || { page: 'home', key: 'home' }, { product: m[1], scroll: null }); }
     return TITLES[h] ? { page: h, key: h } : null;
   }
   let current = null, pendingScroll = null, firstShow = true;
@@ -2167,6 +2218,11 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     const route = r.page;
     const changed = r.key !== current;
     current = r.key;
+    document.body.dataset.route = route;
+    if (r.brochure) openBrochure(r.brochure, r.at);
+    if (r.collection) { shop.col = r.collection; renderShop(); }
+    if (r.enquiry) { freshForm(); setType(r.enquiry); }
+    if (r.scroll) pendingScroll = pendingScroll || r.scroll;
     if (route === 'story' && changed) renderStory(r.slug);
     $$('[data-page]').forEach(p => {
       const on = p.dataset.page === route;
@@ -2178,13 +2234,14 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     $$('[data-sub-link]').forEach(a => { if (a.dataset.subLink === subKey) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     document.title = route === 'story' ? `${plain(STORY_BY[r.slug].title)} · Yi Xing` : TITLES[route];
     if (route === 'e-brochure') renderReader();
-    closeMenu(); closeDrawer(); closeProduct();
+    closeMenu(); closeDrawer(); if (!r.product) closeProduct();
     const target = pendingScroll && document.getElementById(pendingScroll);
     pendingScroll = null;
     if (target) requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
-    else if (!firstShow) window.scrollTo(0, 0);
+    else if (!firstShow && changed) window.scrollTo(0, 0);
     firstShow = false;
     syncVideo();
+    if (r.product) requestAnimationFrame(() => openProduct(r.product));
   }
   window.addEventListener('hashchange', () => {
     const h = location.hash.slice(1);
@@ -2219,8 +2276,10 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
       try { navigator.clipboard.writeText(text).then(() => done('Copied'), fallback); } catch (err) { fallback(); }
       return;
     }
-    const rail = t.closest('[data-rail]');
-    if (rail) { const r = $('#gift-rail'); r.scrollBy({ left: +rail.dataset.rail * r.clientWidth * .8, behavior: 'smooth' }); return; }
+    const pstep = t.closest('[data-pcar-step]');
+    if (pstep) { const r = $('[data-pcar]'); r.scrollBy({ left: +pstep.dataset.pcarStep * r.clientWidth * .9, behavior: motionOK() ? 'smooth' : 'auto' }); return; }
+    const astep = t.closest('[data-announce-step]'); if (astep) { stepAnnounce(+astep.dataset.announceStep); startAnnounce(); return; }
+    const thumb = t.closest('[data-pd-thumb]'); if (thumb) { showPdMedia(+thumb.dataset.pdThumb); return; }
     const mark = t.closest('[data-mark]'); if (mark) { mark.setAttribute('aria-pressed', mark.getAttribute('aria-pressed') !== 'true'); return; }
 
     if (t.closest('[data-menu-open]')) { openMenu(); return; }
@@ -2258,15 +2317,19 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 
   /* ---------- header + hero film ---------- */
   const header = $('.site-header');
-  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 60);
-  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  // the home banner slides up under the header; measure the header at its full (unscrolled) height
+  const measureHeader = () => { if (!header.classList.contains('is-scrolled')) document.documentElement.style.setProperty('--hdr-h', header.offsetHeight + 'px'); };
+  const onScroll = () => { header.classList.toggle('is-scrolled', window.scrollY > 60); };
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll(); measureHeader();
+  window.addEventListener('resize', measureHeader);
+  if ('ResizeObserver' in window) new ResizeObserver(measureHeader).observe(header);
 
   const video = $('.hero__video'), vbtn = $('[data-video-toggle]');
   const reduce = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   let userPaused = reduce.matches, heroInView = true;
   video.muted = true;
   function syncVideo() {
-    const play = current === 'home' && !userPaused && heroInView;
+    const play = current === 'home' && !userPaused && heroInView && !video.hidden;
     if (play) { const pr = video.play(); if (pr && pr.catch) pr.catch(() => {}); } else video.pause();
     vbtn.setAttribute('aria-label', userPaused ? 'Play video' : 'Pause video');
     vbtn.innerHTML = icon(userPaused ? 'i-play' : 'i-pause');
@@ -2275,17 +2338,15 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     new IntersectionObserver(([en]) => { heroInView = en.isIntersecting; syncVideo(); }, { threshold: .15 }).observe($('.hero'));
   }
 
-  /* ---------- rail arrows ---------- */
-  const railEl = $('#gift-rail');
-  const syncRail = () => {
-    const [prev, next] = $$('[data-rail]');
-    prev.disabled = railEl.scrollLeft < 8;
-    next.disabled = railEl.scrollLeft + railEl.clientWidth > railEl.scrollWidth - 8;
-  };
-  railEl.addEventListener('scroll', syncRail, { passive: true }); window.addEventListener('resize', syncRail);
+  /* ---------- product carousel ---------- */
+  $('[data-pcar]').addEventListener('scroll', syncPcar, { passive: true });
+  window.addEventListener('resize', syncPcar);
 
   /* ---------- boot ---------- */
-  renderShop(); renderEditorial(); renderShelf(); syncType(); syncSaved(); syncRail();
+  let DATA = {};
+  try { DATA = JSON.parse($('#site-data').textContent); } catch (e) { DATA = {}; }
+  applyContent(DATA);
+  renderHome(); renderShop(); renderEditorial(); renderShelf(); syncType(); syncSaved();
   show((location.hash || '#home').slice(1));
 })();
 </script>
