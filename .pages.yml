@@ -9,6 +9,7 @@ content:
   # ---------------------------------------------------------------- campaigns
   - name: campaigns
     label: Campaigns
+    description: The home page for a season. The live campaign whose dates include today is shown.
     type: collection
     path: _data/campaigns
     format: json
@@ -41,7 +42,8 @@ content:
         label: Announcement bar messages
         description: Shown one at a time in the bar above the menu.
         type: object
-        list: true
+        list:
+          collapsible: { collapsed: true, summary: "{fields.text}" }
         fields:
           - { name: text, label: Message, type: string }
           - { name: link_label, label: Link text, type: string }
@@ -105,11 +107,13 @@ content:
               multiple: true
               value: "{fields.id}"
               label: "{fields.name} ({fields.id})"
+              search: "primary,name"
       - name: promos
         label: Three promo tiles
         type: object
         list:
           max: 3
+          collapsible: { collapsed: true, summary: "{fields.title}" }
         fields:
           - name: image
             label: Image
@@ -131,6 +135,7 @@ content:
               collection: editorial
               value: "{fields.slug}"
               label: "{fields.title}"
+              search: "primary,name"
           - { name: title, label: Heading (empty uses the story title), type: string }
           - { name: text, label: Short text, type: text }
           - { name: link_label, label: Link text, type: string }
@@ -143,6 +148,7 @@ content:
   # ---------------------------------------------------------------- products
   - name: products
     label: Products
+    description: Every piece on the site, with its images and video.
     type: collection
     path: _data/products
     format: json
@@ -164,6 +170,7 @@ content:
           collection: collections
           value: "{fields.id}"
           label: "{fields.name}"
+          search: "primary,name"
       - name: kind
         label: Type
         type: select
@@ -195,6 +202,7 @@ content:
   # ---------------------------------------------------------------- collections
   - name: collections
     label: Collections
+    description: The collection names and the tiles under Shop by collection.
     type: collection
     path: _data/collections
     format: json
@@ -219,6 +227,7 @@ content:
   # ---------------------------------------------------------------- editorial
   - name: editorial
     label: Editorial
+    description: Stories under Highlights → Editorial.
     type: collection
     path: _data/editorial
     format: json
@@ -252,17 +261,22 @@ content:
       - { name: show, label: Show on the site, type: boolean, default: true }
       - name: body
         label: Story
+        description: Add blocks in reading order. Drag to reorder.
         type: block
-        list: true
+        list:
+          collapsible: { collapsed: true, summary: "{index}. {fields.type} {fields.text}{fields.title}{fields.caption}{fields.name}" }
         blockKey: type
         blocks:
           - name: heading
+            label: Heading
             fields:
               - { name: text, label: Heading, type: string }
           - name: text
+            label: Text
             fields:
-              - { name: html, label: Text, type: rich-text }
+              - { name: html, label: Text, type: rich-text, options: { format: html } }
           - name: image
+            label: Image
             fields:
               - name: image
                 label: Image
@@ -272,9 +286,11 @@ content:
               - { name: alt, label: Describe the image, type: string }
               - { name: caption, label: Caption, type: string }
           - name: quote
+            label: Quote
             fields:
               - { name: text, label: Quote, type: text }
           - name: products
+            label: Products
             fields:
               - { name: title, label: Heading, type: string }
               - name: items
@@ -285,7 +301,9 @@ content:
                   multiple: true
                   value: "{fields.id}"
                   label: "{fields.name} ({fields.id})"
+                  search: "primary,name"
           - name: component
+            label: Built-in section
             fields:
               - name: name
                 label: Built-in section
@@ -293,11 +311,13 @@ content:
                 options:
                   values: [library, colours, steps]
           - name: buttons
+            label: Buttons
             fields:
               - name: items
                 label: Buttons
                 type: object
-                list: true
+                list:
+                  collapsible: { collapsed: true, summary: "{fields.label}" }
                 fields:
                   - { name: label, label: Button text, type: string }
                   - { name: link, label: Link, type: string }
@@ -310,6 +330,7 @@ content:
   # ---------------------------------------------------------------- e-brochures
   - name: brochures
     label: e-Brochures
+    description: Brochures made from page images. They appear on the shelf before the designed ones.
     type: collection
     path: _data/brochures
     format: json
@@ -330,7 +351,8 @@ content:
       - name: pages
         label: Pages, in order
         type: object
-        list: true
+        list:
+          collapsible: { collapsed: true, summary: "Page {index} {fields.caption}" }
         fields:
           - name: image
             label: Page image
@@ -347,6 +369,7 @@ content:
               collection: products
               value: "{fields.id}"
               label: "{fields.name} ({fields.id})"
+              search: "primary,name"
       - { name: order, label: Order on the shelf, description: Lower numbers come first., type: number }
       - { name: show, label: Show on the site, type: boolean, default: true }
 
@@ -399,7 +422,8 @@ content:
       - name: announcements
         label: Announcement bar when no campaign is live
         type: object
-        list: true
+        list:
+          collapsible: { collapsed: true, summary: "{fields.text}" }
         fields:
           - { name: text, label: Message, type: string }
           - { name: link_label, label: Link text, type: string }
@@ -425,6 +449,7 @@ content:
         type: object
         list:
           max: 4
+          collapsible: { collapsed: true, summary: "{fields.title}" }
         fields:
           - name: icon
             label: Icon
