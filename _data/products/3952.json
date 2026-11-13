@@ -1,0 +1,22 @@
+{
+  "id": "3952",
+  "name": "Treillis",
+  "collection": "atelier",
+  "kind": "Bracelet",
+  "parts": [
+    "Colonne",
+    "Pavé",
+    "Perlée",
+    "Olive"
+  ],
+  "gold": "",
+  "weight": "",
+  "price": "",
+  "description": "An openwork lattice of Colonne pipes, Pavé spheres, Olive beads and faceted Perlée micro balls.",
+  "images": [
+    "media/v4/d-3952.webp"
+  ],
+  "video": "",
+  "order": 12,
+  "show": true
+}

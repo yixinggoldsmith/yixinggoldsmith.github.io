@@ -1,0 +1,21 @@
+{
+  "id": "P3843-C",
+  "name": "Candy Cane",
+  "collection": "christmas",
+  "kind": "Charm",
+  "parts": [
+    "Diamond-cut cane",
+    "Bow"
+  ],
+  "gold": "Yellow 916 gold (1C)",
+  "weight": "1.15 g",
+  "price": "",
+  "description": "A diamond-cut candy cane, tied with a bow.",
+  "images": [
+    "media/v4/d-P3843-C.webp",
+    "media/v4/x-P3843-C.webp"
+  ],
+  "video": "",
+  "order": 16,
+  "show": true
+}

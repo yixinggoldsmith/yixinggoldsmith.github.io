@@ -1,0 +1,22 @@
+{
+  "id": "P3843-A",
+  "name": "Snowflake Bauble",
+  "collection": "christmas",
+  "kind": "Charm",
+  "parts": [
+    "Openwork bauble",
+    "Snowflake",
+    "Bow"
+  ],
+  "gold": "Yellow 916 gold (1C)",
+  "weight": "2.05 g",
+  "price": "",
+  "description": "An openwork bauble traced with a six-point snowflake and tied with a bow.",
+  "images": [
+    "media/v4/d-P3843-A.webp",
+    "media/v4/x-P3843-A.webp"
+  ],
+  "video": "",
+  "order": 14,
+  "show": true
+}

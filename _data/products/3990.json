@@ -1,0 +1,20 @@
+{
+  "id": "3990",
+  "name": "Éclat",
+  "collection": "eclat",
+  "kind": "Bracelet",
+  "parts": [
+    "Éclat",
+    "Couronne"
+  ],
+  "gold": "",
+  "weight": "",
+  "price": "",
+  "description": "Sparkle-cut Éclat spheres, each parted from the next by a Couronne crown spacer.",
+  "images": [
+    "media/v4/d-3990.webp"
+  ],
+  "video": "",
+  "order": 6,
+  "show": true
+}

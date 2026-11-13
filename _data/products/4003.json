@@ -1,0 +1,21 @@
+{
+  "id": "4003",
+  "name": "Étoile Torsade",
+  "collection": "grain",
+  "kind": "Bracelet",
+  "parts": [
+    "Étoile",
+    "Torsade",
+    "Halo"
+  ],
+  "gold": "",
+  "weight": "",
+  "price": "",
+  "description": "Three swirl-cut Torsade beads, then three star-cut Étoile cubes, each set framed by Halo rondelles.",
+  "images": [
+    "media/v4/d-4003.webp"
+  ],
+  "video": "",
+  "order": 5,
+  "show": true
+}

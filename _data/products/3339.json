@@ -1,0 +1,20 @@
+{
+  "id": "3339",
+  "name": "Allongé Cluster",
+  "collection": "liaison",
+  "kind": "Bracelet",
+  "parts": [
+    "Allongé",
+    "Lune"
+  ],
+  "gold": "",
+  "weight": "",
+  "price": "",
+  "description": "Elongated Allongé paperclip links, gathered by clusters of small moon-cut Lune beads.",
+  "images": [
+    "media/v4/d-3339.webp"
+  ],
+  "video": "",
+  "order": 9,
+  "show": true
+}

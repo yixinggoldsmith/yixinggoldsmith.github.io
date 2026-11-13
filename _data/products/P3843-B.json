@@ -1,0 +1,21 @@
+{
+  "id": "P3843-B",
+  "name": "Christmas Tree",
+  "collection": "christmas",
+  "kind": "Charm",
+  "parts": [
+    "Filigree tree",
+    "Star"
+  ],
+  "gold": "Yellow 916 gold (1C)",
+  "weight": "2.05 g",
+  "price": "",
+  "description": "A filigree tree crowned with a star, each branch tipped with a tiny gold bead.",
+  "images": [
+    "media/v4/d-P3843-B.webp",
+    "media/v4/x-P3843-B.webp"
+  ],
+  "video": "",
+  "order": 15,
+  "show": true
+}

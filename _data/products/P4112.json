@@ -1,0 +1,21 @@
+{
+  "id": "P4112",
+  "name": "Santa",
+  "collection": "christmas",
+  "kind": "Charm",
+  "parts": [
+    "Red and white enamel",
+    "Filigree bail"
+  ],
+  "gold": "Yellow 916 gold (1C) with enamel",
+  "weight": "1.76 g",
+  "price": "",
+  "description": "Santa with his sack of gifts, in red and white enamel on 916 gold. The reverse is patterned with small hearts.",
+  "images": [
+    "media/v4/d-P4112.webp",
+    "media/v4/x-P4112.webp"
+  ],
+  "video": "",
+  "order": 18,
+  "show": true
+}

@@ -1,0 +1,22 @@
+{
+  "id": "P3843-D",
+  "name": "Snowflake",
+  "collection": "christmas",
+  "kind": "Charm",
+  "parts": [
+    "Snowflake",
+    "Diamond-cut ring",
+    "Bow"
+  ],
+  "gold": "Yellow 916 gold (1C)",
+  "weight": "1.65 g",
+  "price": "",
+  "description": "A snowflake set in a diamond-cut ring, with a bow at the top.",
+  "images": [
+    "media/v4/d-P3843-D.webp",
+    "media/v4/x-P3843-D.webp"
+  ],
+  "video": "",
+  "order": 17,
+  "show": true
+}

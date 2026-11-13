@@ -1,0 +1,20 @@
+{
+  "id": "4082",
+  "name": "Ciselé",
+  "collection": "eclat",
+  "kind": "Bracelet",
+  "parts": [
+    "Lune",
+    "Ciselé"
+  ],
+  "gold": "",
+  "weight": "",
+  "price": "",
+  "description": "Moon-cut Lune beads in two sizes, linked by chased Ciselé twist rings.",
+  "images": [
+    "media/v4/d-4082.webp"
+  ],
+  "video": "",
+  "order": 7,
+  "show": true
+}

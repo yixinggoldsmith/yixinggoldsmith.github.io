@@ -1,0 +1,21 @@
+{
+  "id": "3947",
+  "name": "Fuseau",
+  "collection": "colonne",
+  "kind": "Bracelet",
+  "parts": [
+    "Fuseau",
+    "Halo",
+    "Pavé"
+  ],
+  "gold": "",
+  "weight": "",
+  "price": "",
+  "description": "Pairs of fluted Fuseau spindles, framed by Halo rondelles around a pineapple-cut Pavé sphere.",
+  "images": [
+    "media/v4/d-3947.webp"
+  ],
+  "video": "",
+  "order": 2,
+  "show": true
+}

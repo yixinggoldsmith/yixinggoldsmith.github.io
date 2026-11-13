@@ -1,0 +1,21 @@
+{
+  "id": "4150",
+  "name": "Ligne",
+  "collection": "liaison",
+  "kind": "Bracelet",
+  "parts": [
+    "Ligne",
+    "Étoile",
+    "Pavé"
+  ],
+  "gold": "Two-tone: yellow and white 916 gold",
+  "weight": "",
+  "price": "",
+  "description": "Slim polished Ligne tubes, gathered by star-cut Étoile cubes and pineapple-cut Pavé spheres.",
+  "images": [
+    "media/v4/d-4150.webp"
+  ],
+  "video": "",
+  "order": 10,
+  "show": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "3945",
+  "name": "Colonne",
+  "collection": "colonne",
+  "kind": "Bracelet",
+  "parts": [
+    "Colonne",
+    "Lune",
+    "Disque"
+  ],
+  "gold": "",
+  "weight": "approx. 6.45 g in tri-tone (3C)",
+  "price": "",
+  "description": "Fluted Colonne pipes run between moon-cut Lune beads, each parted by a thin Disque spacer.",
+  "images": [
+    "media/v4/d-3945.webp"
+  ],
+  "video": "",
+  "order": 1,
+  "show": true
+}
