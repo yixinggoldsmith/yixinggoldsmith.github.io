@@ -1,0 +1,66 @@
+{
+  "hero": {
+    "media": "video",
+    "video": "media/v4/hero.mp4",
+    "image": "media/v4/hero-poster.webp",
+    "mobile_image": "",
+    "title": "Beads & pipes",
+    "subtitle": "Nineteen named beads, pipes and links in 916 gold",
+    "button_label": "Discover the collection",
+    "button_link": "#brochure-collection",
+    "text": "light",
+    "focus": "right"
+  },
+  "announcements": [
+    {
+      "text": "Talk to a client advisor on WhatsApp",
+      "link_label": "Message us",
+      "link": "whatsapp"
+    }
+  ],
+  "collections_title": "Shop by collection",
+  "appointment": {
+    "image": "media/v4/xmas-cover.webp",
+    "title": "Book an appointment",
+    "text": "From choosing a gift to designing a bracelet bead by bead, a client advisor will have the pieces you asked about ready when you arrive.",
+    "button_label": "Book an appointment",
+    "button_link": "#enquiry-appointment"
+  },
+  "experience_title": "The Yi Xing experience",
+  "experience": [
+    {
+      "icon": "scale",
+      "title": "Weighed in front of you",
+      "text": "Every piece is weighed and priced at the day’s gold rate, at the counter.",
+      "link_label": "How pricing works",
+      "link": "#faq"
+    },
+    {
+      "icon": "ruler",
+      "title": "Sized to your wrist",
+      "text": "We add or remove beads and pipes so each bracelet sits right, while you wait.",
+      "link_label": "Visit us",
+      "link": "#stores"
+    },
+    {
+      "icon": "gift",
+      "title": "Wrapped by hand",
+      "text": "A teal box tied with amber satin ribbon, and a card written for you.",
+      "link_label": "The Gift Edit",
+      "link": "#brochure-gift"
+    },
+    {
+      "icon": "chat",
+      "title": "Advisors on WhatsApp",
+      "text": "Questions about a design, a size or a gift? Our client advisors reply on WhatsApp.",
+      "link_label": "Message us",
+      "link": "whatsapp"
+    }
+  ],
+  "builtin_brochures": [
+    "christmas",
+    "collection",
+    "gift",
+    "library"
+  ]
+}
