@@ -39,8 +39,7 @@ content:
         label: Ends
         type: date
       - name: announcements
-        label: Announcement bar messages
-        description: Shown one at a time in the bar above the menu.
+        label: Announcement bar messages (shown one at a time)
         type: object
         list:
           collapsible: { collapsed: true, summary: "{fields.text}" }
@@ -192,7 +191,7 @@ content:
           path: media/uploads/videos
           extensions: [mp4, webm]
       - { name: description, label: Description, type: text }
-      - { name: parts, label: Made of, description: "One bead, pipe or part per line.", type: string, list: true }
+      - { name: parts, label: "Made of (one bead, pipe or part per line)", type: string, list: true }
       - { name: gold, label: Gold, description: "For example Yellow 916 gold (1C).", type: string }
       - { name: weight, label: Weight, description: "For example 2.05 g. Leave empty to show Weighed at the counter.", type: string }
       - { name: price, label: Price line (optional), description: "Leave empty to show Priced by weight.", type: string }
@@ -260,8 +259,7 @@ content:
       - { name: order, label: Order, description: "1 is the featured story.", type: number }
       - { name: show, label: Show on the site, type: boolean, default: true }
       - name: body
-        label: Story
-        description: Add blocks in reading order. Drag to reorder.
+        label: Story (blocks in reading order; drag to reorder)
         type: block
         list:
           collapsible: { collapsed: true, summary: "{index}. {fields.type} {fields.text}{fields.title}{fields.caption}{fields.name}" }
