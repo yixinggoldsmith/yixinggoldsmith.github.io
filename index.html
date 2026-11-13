@@ -493,7 +493,15 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
 .story__body { display: grid; gap: 1.5rem; padding-block: clamp(40px, 6vw, 84px) clamp(16px, 3vw, 40px); }
 .story__body > * { width: min(100%, 40rem); margin-inline: auto; min-width: 0; }
 .story__body > p { font-size: 1.07rem; line-height: 1.85; }
-.story__body > p b { font-weight: 500; }
+.story__body > p b, .story__body strong { font-weight: 500; }
+/* markup written in the story editor */
+.story__body > p a, .story__body > :is(ul, ol) a { color: var(--accent-text); text-underline-offset: 3px; }
+.story__body > :is(ul, ol) { padding-left: 1.3rem; display: grid; gap: .45rem; font-size: 1.07rem; line-height: 1.75; }
+.story__body > ul { list-style: disc; }
+.story__body > ol { list-style: decimal; }
+.story__body > :is(h1, h2, h3, h4):not(.story__h) { font-family: var(--font-display); font-size: clamp(1.5rem, 1.3rem + .8vw, 2rem); line-height: 1.2; margin-top: 1.2rem; }
+.story__body > blockquote:not(.story__quote) { border-left: 2px solid var(--amber); padding: .2rem 0 .2rem 1.5rem; font-family: var(--font-display); font-style: italic; font-size: clamp(1.3rem, 1.1rem + .8vw, 1.8rem); line-height: 1.35; }
+.story__body > hr { border: 0; border-top: 1px solid var(--line); }
 .story__body > .story__wide { width: min(100%, 76rem); margin-block: 1.5rem; }
 .story__body > .story__fig--wide { width: min(100%, 60rem); }
 .story__h { font-family: var(--font-display); font-size: clamp(1.5rem, 1.3rem + .8vw, 2rem); line-height: 1.2; margin-top: 1.2rem; }
