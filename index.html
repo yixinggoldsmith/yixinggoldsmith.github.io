@@ -686,6 +686,11 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
 .cats { padding-bottom: clamp(64px, 8vw, 120px); }
 .cats > .h2, .exp > .h2 { text-align: center; margin-bottom: clamp(1.6rem, 3.4vw, 2.8rem); }
 .cats__grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(10px, 1.4vw, 20px); max-width: 1320px; margin-inline: auto; }
+/* fewer tiles than columns: keep the tile size and centre the row */
+.cats__grid--few { display: flex; flex-wrap: wrap; justify-content: center; }
+.cats__grid--few > * { flex: 0 1 calc((100% - 5 * clamp(10px, 1.4vw, 20px)) / 6); min-width: 0; }
+@media (max-width: 899px) { .cats__grid--few > * { flex-basis: calc((100% - 2 * clamp(10px, 1.4vw, 20px)) / 3); } }
+@media (max-width: 479px) { .cats__grid--few > * { flex-basis: calc((100% - clamp(10px, 1.4vw, 20px)) / 2); } }
 .cat { display: grid; justify-items: center; gap: 1rem; text-decoration: none; color: inherit; min-width: 0; text-align: center; }
 .cat__media { width: 100%; aspect-ratio: 1; overflow: hidden; background: var(--media-bg); }
 .cat__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2, .7, .2, 1); }
@@ -1582,6 +1587,9 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
   }
 
   const shop = { col: 'all' };
+  // a collection is on the website when at least one of its pieces is shown there
+  const colHasPieces = id => PRODUCTS.some(p => p.col === id);
+  const liveCols = () => Object.values(COLLECTIONS).filter(c => colHasPieces(c.id));
   function renderShop() {
     const items = PRODUCTS.filter(p => shop.col === 'all' || p.col === shop.col);
     const pad = (4 - items.length % 4) % 4; // fill the last row with editorial tiles, so no design sits alone
@@ -2084,7 +2092,10 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
       <a class="edsplit__media" href="#story-${esc(st.slug)}" tabindex="-1" aria-hidden="true"><img src="${esc(media(e.image || st.img))}" alt="" loading="lazy"></a>`;
 
     $('[data-cats-title]').textContent = H.collections_title || 'Shop by collection';
-    $('[data-cats]').innerHTML = Object.values(COLLECTIONS).filter(c => c.show_on_home !== false).map(c => {
+    const catCols = liveCols().filter(c => c.show_on_home !== false);
+    $('[data-cats]').closest('section').hidden = !catCols.length;
+    $('[data-cats]').classList.toggle('cats__grid--few', catCols.length < 6);
+    $('[data-cats]').innerHTML = catCols.map(c => {
       const pic = c.image || img((PRODUCTS.find(x => x.col === c.id) || {}).id || '');
       return `<a class="cat" href="#collection-${esc(c.id)}"><span class="cat__media"><img src="${esc(media(pic))}" alt="" loading="lazy"></span><span class="ulink">${esc(c.name)}</span></a>`;
     }).join('');
@@ -2096,7 +2107,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     $('[data-exp-title]').textContent = H.experience_title || 'The Yi Xing experience';
     $('[data-exp]').innerHTML = vals(H.experience).filter(x => x && x.title).slice(0, 4).map(x => `<div class="xp">${icon('x-' + (x.icon || 'sparkle'), 'xp__icon')}<h3>${esc(x.title)}</h3>${x.text ? `<p>${esc(x.text)}</p>` : ''}${x.link_label ? `<a class="ulink" ${linkAttr(x.link)}>${esc(x.link_label)}</a>` : ''}</div>`).join('');
 
-    const cols = Object.values(COLLECTIONS);
+    const cols = liveCols();
     $('[data-nav-collections]').innerHTML = cols.map(c => `<a href="#collection-${esc(c.id)}"><span>${esc(c.name)}</span><small>${esc(c.idea || '')}</small></a>`).join('')
       + `<a href="#collection-all"><span>All pieces</span><small>${PRODUCTS.length} pieces in 916 gold</small></a>`;
     $('[data-mnav-collections]').innerHTML = cols.map(c => `<a href="#collection-${esc(c.id)}">${esc(c.name)}</a>`).join('') + '<a href="#collection-all">All pieces</a>';
@@ -2223,7 +2234,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     if (h.startsWith('story-') && STORY_BY[h.slice(6)]) return { page: 'story', key: h, slug: h.slice(6) };
     let m;
     if ((m = /^brochure-(.+?)(?:--(.+))?$/.exec(h)) && BR_BY[m[1]]) return { page: 'e-brochure', key: 'e-brochure', brochure: m[1], at: m[2], scroll: 'reader' };
-    if ((m = /^collection-(.+)$/.exec(h)) && (m[1] === 'all' || COLLECTIONS[m[1]])) return { page: 'e-brochure', key: 'e-brochure', collection: m[1], scroll: 'shop' };
+    if ((m = /^collection-(.+)$/.exec(h)) && (m[1] === 'all' || COLLECTIONS[m[1]])) return { page: 'e-brochure', key: 'e-brochure', collection: m[1] === 'all' || colHasPieces(m[1]) ? m[1] : 'all', scroll: 'shop' };
     if ((m = /^enquiry-(.+)$/.exec(h)) && TYPE_LABEL[m[1]]) return { page: 'contact', key: 'contact', enquiry: m[1], scroll: 'enquiry' };
     if (h === 'faq') return { page: 'contact', key: 'contact', scroll: 'faq' };
     if ((m = /^product-(.+)$/.exec(h)) && BY_ID[m[1]]) { const cur = current && !/^product-/.test(current) ? resolve(current) : null; return Object.assign({}, cur || { page: 'home', key: 'home' }, { product: m[1], scroll: null }); }
