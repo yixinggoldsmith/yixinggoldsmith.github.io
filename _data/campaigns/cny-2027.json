@@ -1,0 +1,19 @@
+{
+  "title": "Chinese New Year 2027",
+  "slug": "cny-2027",
+  "active": true,
+  "start": "2026-11-16",
+  "end": "2027-02-28",
+  "announcements": [],
+  "hero": {
+    "media": "image",
+    "text": "light",
+    "focus": "centre",
+    "image": "media/uploads/images/baby-ads-02-261116-3af4.webp"
+  },
+  "products": {
+    "items": []
+  },
+  "promos": [],
+  "editorial": {}
+}
