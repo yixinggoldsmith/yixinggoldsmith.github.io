@@ -8,14 +8,10 @@
     "Étoile",
     "Disque"
   ],
-  "gold": "",
-  "weight": "",
-  "price": "",
   "description": "Octagonal Octave batons between star-cut Étoile cubes and thin Disque spacers.",
   "images": [
     "media/v4/d-4023.webp"
   ],
-  "video": "",
   "order": 3,
-  "show": true
+  "show": false
 }
