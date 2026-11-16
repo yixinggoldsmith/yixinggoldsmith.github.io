@@ -1624,7 +1624,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   const uniq = a => [...new Set(a.filter(x => x !== '' && x != null))];
   const COLOUR = { '1C': 'Yellow', '2C': 'Two-tone', '3C': 'Tri-tone' };
   const colourName = c => COLOUR[c] ? `${COLOUR[c]} (${c})` : String(c || '');
-  const HOOK = { F: 'Fish hook', S: 'Spring hook', SR: 'Spring ring' };
+  const HOOK = { F: 'Fish hook', S: 'Spring hook', SR: 'Spring ring', BH: 'Box hook', FHC: 'Fish hook clip', BC: 'Box clip' };
   const hookName = h => { const k = String(h || '').trim(); return HOOK[k.toUpperCase()] ? `${HOOK[k.toUpperCase()]} (${k})` : k; };
   const gfmt = w => `${Number(w).toFixed(2)} g`;
   const lenText = l => /^\d+(\.\d+)?$/.test(String(l)) ? `${l} CI` : String(l); // as written in the sheet (Length (CI))
