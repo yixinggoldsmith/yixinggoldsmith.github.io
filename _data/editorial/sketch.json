@@ -8,7 +8,7 @@
   "hero_alt": "Amber line drawing of a strand of Lune beads, Disque spacers and Colonne pipes",
   "dek": "How a bead becomes a bracelet, in three steps.",
   "order": 5,
-  "show": true,
+  "show": false,
   "body": [
     {
       "type": "text",
