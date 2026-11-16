@@ -1,0 +1,30 @@
+{
+  "format": "yixing-studio-access/1",
+  "note": "Sign-in data for Yi Xing Studio. Everything here is encrypted; it opens only with a Studio password.",
+  "repo": "yixinggoldsmith/yixinggoldsmith.github.io",
+  "vault": {
+    "iv": "hcLTCqdOhdBxLPOX",
+    "data": "aBYVyFmw0wVugg4pCQDxpMCDRPLDWgwQWrjTtoUAo4s4OTbbmBVpNwvKQmTNH+l+koFk5WCaUC4UgZBvXN5IaeFX2jao8EF/reagUXiQIPbcNImedLJRswbNywMtx137/jPpdChNJ/YATbx9RzO1CzVXNbg3CKi5oEg+riaKXrjmS/6Lf3Ou/sh/7vD1BwLljna542ydG4d34PWq"
+  },
+  "users": [
+    {
+      "id": "eb2913c24ba1753f1b921d3ee9e78df357c472e5825b13f26607b665a1cbcfb7",
+      "kdf": {
+        "alg": "argon2id",
+        "m": 65536,
+        "t": 3,
+        "p": 1,
+        "salt": "lZYQcmbas3oNcv3+OK/a4g=="
+      },
+      "key": {
+        "iv": "gwlIfyfK3MTo9qz4",
+        "data": "w6og9fNGgNbDQJcCIVkYJw+Oop0HkSa1dr5lxf/cp2Wk6cII0OiCAtgA7/OYVygt"
+      },
+      "profile": {
+        "iv": "dLJxxg/LnB7TTAvK",
+        "data": "ixs3i261fEoliFt31f+oj7zG+0mzLdB1VhE6nml5h+bQrcsREAc+vMIZlVTReRd/FPvFOru6nUHBetLLMilOsxo446aH3mkQr9MvB5LzlCqAxK0iL0mgU2Lpz1LQsrysJm4Y0guNjIdozm1HMmgrRT9CRI/c4TVv9WcG3p2+mhaDdlpY9yZXM8rPg/gxIA9CNiwoMp4="
+      }
+    }
+  ],
+  "updated": "2026-11-16T02:12:54.624Z"
+}
