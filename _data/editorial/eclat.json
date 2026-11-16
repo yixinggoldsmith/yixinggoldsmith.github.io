@@ -8,7 +8,7 @@
   "hero_alt": "An Éclat sparkle-cut sphere in 916 gold resting on teal suede",
   "dek": "How the Éclat bead is faceted, and why it throws light from every side.",
   "order": 2,
-  "show": true,
+  "show": false,
   "body": [
     {
       "type": "text",
