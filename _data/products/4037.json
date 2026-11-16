@@ -8,13 +8,10 @@
     "Lune"
   ],
   "gold": "Two-tone: yellow and white 916 gold",
-  "weight": "",
-  "price": "",
   "description": "Moon-cut Lune beads between round Anneau rings, in yellow and white gold.",
   "images": [
     "media/v4/d-4037.webp"
   ],
-  "video": "",
   "order": 8,
-  "show": true
+  "show": false
 }
