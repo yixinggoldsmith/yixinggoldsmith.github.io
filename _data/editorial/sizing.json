@@ -8,7 +8,7 @@
   "hero_alt": "The 4082 Ciselé bracelet beside loose Lune beads and a Ciselé twist ring on teal suede",
   "dek": "How we fit a beaded bracelet, one bead at a time.",
   "order": 7,
-  "show": true,
+  "show": false,
   "body": [
     {
       "type": "text",
