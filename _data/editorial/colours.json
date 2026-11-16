@@ -8,7 +8,7 @@
   "hero_alt": "Three Pavé beads in yellow, white and rose 916 gold on teal suede",
   "dek": "What 1C, 2C and 3C mean on our labels, and how to choose between them.",
   "order": 4,
-  "show": true,
+  "show": false,
   "body": [
     {
       "type": "text",
