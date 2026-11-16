@@ -1553,6 +1553,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
         <dt data-pd-mat-dt>Made of</dt><dd data-pd-mat></dd>
         <dt>Gold</dt><dd data-pd-gold></dd>
         <dt>Weight</dt><dd data-pd-weight></dd>
+        <dt data-pd-hook-dt hidden>Hook</dt><dd data-pd-hook hidden></dd>
         <dt>Ref.</dt><dd data-pd-ref></dd>
       </dl>
       <div class="pd-vars" data-pd-vars hidden></div>
@@ -1623,6 +1624,8 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   const uniq = a => [...new Set(a.filter(x => x !== '' && x != null))];
   const COLOUR = { '1C': 'Yellow', '2C': 'Two-tone', '3C': 'Tri-tone' };
   const colourName = c => COLOUR[c] ? `${COLOUR[c]} (${c})` : String(c || '');
+  const HOOK = { F: 'Fish hook', S: 'Spring hook', SR: 'Spring ring' };
+  const hookName = h => { const k = String(h || '').trim(); return HOOK[k.toUpperCase()] ? `${HOOK[k.toUpperCase()]} (${k})` : k; };
   const gfmt = w => `${Number(w).toFixed(2)} g`;
   const lenText = l => /^\d+(\.\d+)?$/.test(String(l)) ? `${l} CI` : String(l); // as written in the sheet (Length (CI))
   const PLURAL = { gold: 'Gold', jewellery: 'Jewellery', watch: 'Watches' };
@@ -1651,7 +1654,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
       gold: [purity.length ? purity.join(' or ') + ' gold' : '', colours.map(colourName).join(', ')].filter(Boolean).join(' · '),
       weight: weightRange(vs), thumb: url((md[0] || {}).th || (md[0] || {}).l), images: [], video: '',
       media: md.map(m => m.t === 'v' && m.src ? { k: 'video', s: url(m.src), poster: url(m.l || m.th), th: url(m.th || m.l) } : { k: 'img', s: url(m.l || m.th), th: url(m.th || m.l) }),
-      vs, hay: norm([name, ref, x.id, type, ...vals(x.cols), ...vs.map(v => [v.code, v.color, COLOUR[v.color], v.variation, v.size, v.length, v.hook].join(' '))].join(' '))
+      vs, hay: norm([name, ref, x.id, type, ...vals(x.cols), ...vs.map(v => [v.code, v.color, COLOUR[v.color], v.variation, v.size, v.length, v.hook, HOOK[String(v.hook || '').toUpperCase()]].join(' '))].join(' '))
     };
   }
   const sitePiece = x => {
@@ -2206,8 +2209,8 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   }
   // what tells the variants of a catalogue piece apart: colour, purity, variation, size, length, hook, weight, code
   const VAR_COLS = [['color', 'Colour', v => colourName(v.color)], ['purity', 'Gold', v => v.purity], ['variation', 'Variation', v => v.variation], ['size', 'Size', v => v.size],
-    ['length', 'Length', v => lenText(v.length)], ['hook', 'Hook', v => v.hook], ['weight', 'Weight', v => v.weight ? gfmt(v.weight) : '—'], ['code', 'Code', v => v.code]];
-  const varText = v => [colourName(v.color), v.purity ? v.purity + ' gold' : '', v.variation ? 'variation ' + v.variation : '', v.size ? 'size ' + v.size : '', v.length ? 'length ' + lenText(v.length) : '', v.hook ? 'hook ' + v.hook : '', v.weight ? gfmt(v.weight) : ''].filter(Boolean).join(', ');
+    ['length', 'Length', v => lenText(v.length)], ['hook', 'Hook', v => hookName(v.hook)], ['weight', 'Weight', v => v.weight ? gfmt(v.weight) : '—'], ['code', 'Code', v => v.code]];
+  const varText = v => [colourName(v.color), v.purity ? v.purity + ' gold' : '', v.variation ? 'variation ' + v.variation : '', v.size ? 'size ' + v.size : '', v.length ? 'length ' + lenText(v.length) : '', v.hook ? (HOOK[String(v.hook).toUpperCase()] ? hookName(v.hook).toLowerCase().replace(/\((\w+)\)$/i, (m, c) => `(${c.toUpperCase()})`) : 'hook ' + v.hook) : '', v.weight ? gfmt(v.weight) : ''].filter(Boolean).join(', ');
   function renderPdVars(p) {
     const box = $('[data-pd-vars]');
     if (p.src !== 'cat' || p.vs.length < 2) { box.hidden = true; box.innerHTML = ''; return; }
@@ -2223,6 +2226,12 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     const covers = uniq(p.vs.map(v => has(v) ? v.m[0] : null).filter(k => k != null && !own.includes(k)));
     return own.concat(covers).map(k => p.media[k]).filter(Boolean);
   }
+  function setPdHook(hooks) {
+    const hs = uniq(hooks.map(h => String(h || '').trim()));
+    const one = hs.length === 1 ? hookName(hs[0]) : '';
+    $('[data-pd-hook]').textContent = one;
+    $('[data-pd-hook]').hidden = $('[data-pd-hook-dt]').hidden = !one;
+  }
   function pickPdVar(i) {
     const p = PD; if (!p || p.src !== 'cat') return;
     pdVar = i === pdVar ? -1 : i;
@@ -2231,6 +2240,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     $('[data-pd-weight]').textContent = v ? (v.weight ? gfmt(v.weight) : 'Weighed at the counter') : (p.weight || 'Weighed at the counter');
     $('[data-pd-gold]').textContent = v ? [v.purity ? v.purity + ' gold' : '', colourName(v.color)].filter(Boolean).join(' · ') : p.gold;
     $('[data-pd-ref]').textContent = [p.ref, v && v.code].filter(Boolean).join(' · ');
+    setPdHook(v ? [v.hook] : p.vs.map(x => x.hook));
     if (v ? v.m && v.m.length : true) setPdMedia(galleryFor(p, pdVar));
   }
   const pdDesc = p => {
@@ -2259,6 +2269,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     $('[data-pd-gold]').textContent = p.gold || 'Yellow 916 gold; ask about two-tone and tri-tone';
     $('[data-pd-weight]').textContent = p.weight || 'Weighed at the counter';
     $('[data-pd-ref]').textContent = p.src === 'cat' && p.vs.length === 1 && p.vs[0].code && p.vs[0].code !== p.ref ? `${p.ref} · ${p.vs[0].code}` : p.ref;
+    setPdHook(p.vs.map(x => x.hook));
     renderPdVars(p);
     const sv = $('[data-pd-save]'); sv.dataset.id = p.id;
     $('[data-pd-enquire]').dataset.product = p.id;
