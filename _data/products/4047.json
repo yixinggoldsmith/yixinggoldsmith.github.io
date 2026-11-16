@@ -7,14 +7,10 @@
     "Olive",
     "Spirale"
   ],
-  "gold": "",
-  "weight": "",
-  "price": "",
   "description": "Fluted Olive beads and Spirale coil tubes in one supple line.",
   "images": [
     "media/v4/d-4047.webp"
   ],
-  "video": "",
   "order": 11,
-  "show": true
+  "show": false
 }
