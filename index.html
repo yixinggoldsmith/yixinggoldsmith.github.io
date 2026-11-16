@@ -428,6 +428,52 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
 .select { position: relative; display: inline-flex; align-items: center; gap: .5rem; font-size: .84rem; color: var(--muted); }
 .select select { appearance: none; border: 0; border-bottom: 1px solid var(--line-strong); background: transparent; color: var(--ink); font: inherit; padding: .5rem 1.6rem .5rem 0; cursor: pointer; border-radius: 0; }
 .select::after { content: ""; position: absolute; right: .25rem; top: 50%; width: 6px; height: 6px; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); transform: translateY(-75%) rotate(45deg); pointer-events: none; }
+.toolbar__filters { display: grid; gap: .75rem; min-width: 0; flex: 1 1 32rem; }
+.chips__label { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); align-self: center; margin-right: .3rem; }
+.shop-search { position: relative; display: flex; align-items: center; width: min(100%, 15rem); }
+.shop-search input { width: 100%; border: 0; border-bottom: 1px solid var(--line-strong); border-radius: 0; background: transparent; color: var(--ink); font: inherit; font-size: .9rem; padding: .5rem 0 .5rem 1.7rem; }
+.shop-search input::placeholder { color: var(--muted); }
+.shop-search input:focus { outline: none; border-bottom-color: var(--ink); }
+.shop-search input:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+.shop-search .icon { position: absolute; left: 0; width: 16px; height: 16px; color: var(--muted); pointer-events: none; }
+.shop-note { color: var(--muted); font-size: .88rem; margin: -1rem 0 1.75rem; display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+.shop-note:empty { display: none; }
+button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accent-text); padding: 0 0 .4rem; cursor: pointer; }
+.shop-empty { grid-column: 1 / -1; color: var(--muted); padding: 2rem 0; }
+.shop-more { display: flex; justify-content: center; margin-top: clamp(2.2rem, 4vw, 3.5rem); }
+.card__badge { position: absolute; top: 10px; left: 10px; z-index: 1; pointer-events: none; font: 500 .62rem/1 var(--font-text); letter-spacing: .16em; text-transform: uppercase; background: var(--paper); color: var(--ink); padding: .5em .65em; }
+/* catalogue photos are shot on white with room around the piece: show them whole, on white */
+.card__media.is-photo, .ptile__media.is-photo, .cat__media.is-photo, .pdialog__media.is-photo { background: #FFFFFF; }
+.card__media.is-photo img, .ptile__media.is-photo img, .cat__media.is-photo img, .pdialog__media.is-photo img { object-fit: contain; }
+.pdialog__media.is-photo video { object-fit: contain; background: #FFFFFF; }
+.pdialog__thumbs { right: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.pdialog__thumbs::-webkit-scrollbar { display: none; }
+.pdialog__thumbs button { flex: none; }
+.pdialog__thumbs button > * { grid-area: 1 / 1; }
+.pdialog__media.is-photo .pdialog__thumbs button { border-color: var(--line-strong); background: #FFFFFF; }
+.pdialog__media.is-photo .pdialog__thumbs button[aria-pressed="true"] { border: 2px solid var(--amber); }
+.pdialog__thumbs img + .icon { width: 22px; height: 22px; padding: 4px; border-radius: 50%; background: rgba(14, 26, 27, .6); color: #FFFFFF; }
+.pd-vars { width: 100%; display: grid; gap: .45rem; }
+.pd-vars__title { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.pd-vars__scroll { max-height: 14.5rem; overflow: auto; border-bottom: 1px solid var(--line); }
+.pd-vars table { width: 100%; border-collapse: collapse; font-size: .84rem; font-variant-numeric: tabular-nums; }
+.pd-vars th { position: sticky; top: 0; background: var(--paper); text-align: left; font: 500 var(--fs-micro)/1.6 var(--font-text); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: .4rem .7rem .4rem 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.pd-vars td { padding: .5rem .7rem .5rem 0; border-top: 1px solid var(--line); white-space: nowrap; }
+.pd-vars tbody tr:first-child td { border-top: 0; }
+.pd-vars tr[data-pd-var] { cursor: pointer; }
+.pd-vars tr[data-pd-var]:hover td { background: var(--stone); }
+.pd-vars tr[aria-selected="true"] td { color: var(--teal); font-weight: 500; }
+.pd-vars tr[data-pd-var]:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.pdialog__specs [hidden] { display: none; }
+.nav__menu .nav__label { padding: .7rem 1rem .2rem; font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.mmenu__sub .mmenu__label { display: block; padding: .9rem 0 .2rem; font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); border: 0; }
+@media (max-width: 599px) {
+  .shop-search { width: 100%; } .toolbar__right { width: 100%; justify-content: space-between; }
+  .toolbar__filters { width: 100%; }
+  .toolbar__filters .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); }
+  .toolbar__filters .chips::-webkit-scrollbar { display: none; }
+  .toolbar__filters .chip-btn, .chips__label { flex: none; }
+}
 .active-filter { display: inline-flex; align-items: center; gap: .5rem; padding: 0 .4rem 0 .9rem; min-height: 40px; border: 1px solid var(--amber); font-size: .84rem; }
 .active-filter button { width: 32px; height: 32px; border: 0; background: none; cursor: pointer; display: grid; place-items: center; color: var(--ink); }
 .empty { padding: 3rem 0; color: var(--muted); display: grid; gap: 1rem; justify-items: start; }
@@ -944,6 +990,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
 .drawer__list { flex: 1; overflow-y: auto; display: grid; align-content: start; gap: 1rem; padding-block: 1.25rem; }
 .saved { display: grid; grid-template-columns: 84px minmax(0, 1fr) auto; gap: 1rem; align-items: center; }
 .saved img { width: 84px; height: 84px; object-fit: cover; background: var(--media-bg); }
+.saved img.is-photo { object-fit: contain; background: #FFFFFF; }
 .saved__name { font: 500 .76rem/1.4 var(--font-text); letter-spacing: .12em; text-transform: uppercase; }
 .saved__meta { color: var(--muted); font-size: .82rem; }
 .drawer__foot { display: grid; gap: .75rem; padding-top: 1rem; border-top: 1px solid var(--line); }
@@ -1215,14 +1262,23 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
   </section>
   <section class="section wrap" id="shop" aria-labelledby="shop-title">
     <div class="section-head">
-      <div><p class="eyebrow">The collections</p><h2 class="h2" id="shop-title">Browse the pieces</h2></div>
-      <p class="body-copy" style="max-width:26rem">Every piece in 916 gold, by collection. Save the ones you like and bring the list to any boutique.</p>
+      <div><p class="eyebrow">The pieces</p><h2 class="h2" id="shop-title">Browse the pieces</h2></div>
+      <p class="body-copy" style="max-width:26rem">Our gold pieces by category and collection, each priced by weight at the day’s gold rate. Save the ones you like and bring the list to any boutique.</p>
     </div>
     <div class="toolbar">
-      <div class="chips" role="group" aria-label="Filter by collection" data-cat-chips></div>
-      <div class="toolbar__right"><span class="result-count" data-result-count aria-live="polite"></span></div>
+      <div class="toolbar__filters">
+        <div class="chips" role="group" aria-label="Filter by category" data-type-chips></div>
+        <div class="chips" role="group" aria-label="Filter by collection" data-cat-chips hidden></div>
+      </div>
+      <div class="toolbar__right">
+        <label class="shop-search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><input type="search" placeholder="Search name or ref." aria-label="Search the pieces" data-shop-q autocomplete="off" spellcheck="false"></label>
+        <label class="select"><span>Sort</span><select data-shop-sort aria-label="Sort the pieces"><option value="featured">Featured</option><option value="light">Lightest first</option><option value="heavy">Heaviest first</option></select></label>
+        <span class="result-count" data-result-count aria-live="polite"></span>
+      </div>
     </div>
+    <p class="shop-note" data-shop-note aria-live="polite"></p>
     <div class="grid" data-grid></div>
+    <div class="shop-more"><button class="btn btn--line" type="button" data-shop-more hidden>Show more</button></div>
   </section>
 </div>
 
@@ -1494,11 +1550,12 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
       <div class="price-line"><span class="hallmark" data-pd-hall></span><span class="price" data-pd-price></span></div>
       <p data-pd-desc></p>
       <dl class="pdialog__specs">
-        <dt>Made of</dt><dd data-pd-mat></dd>
+        <dt data-pd-mat-dt>Made of</dt><dd data-pd-mat></dd>
         <dt>Gold</dt><dd data-pd-gold></dd>
         <dt>Weight</dt><dd data-pd-weight></dd>
         <dt>Ref.</dt><dd data-pd-ref></dd>
       </dl>
+      <div class="pd-vars" data-pd-vars hidden></div>
       <div class="btn-row">
         <a class="btn btn--solid" href="#contact" data-pd-enquire>Enquire about this piece</a>
         <button class="btn btn--line save-btn" type="button" data-pd-save aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><span>Save</span></button>
@@ -1515,7 +1572,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
   /* ---------- data: everything editable comes from the editor (Pages CMS -> _data/*.json), embedded at build time ---------- */
-  let COLLECTIONS = {}, PRODUCTS = [], BY_ID = {}, STORIES = [], STORY_BY = {}, HOME = {}, CAMPAIGN = null, LIVE = [], BROCHURES = [], BR_BY = {}, PREVIEWING = '';
+  let COLLECTIONS = {}, PRODUCTS = [], BY_ID = {}, BY_UP = {}, TYPES = [], TYPE_BY = {}, STUDIO_COLS = [], SITE_PRODUCTS = [], STORIES = [], STORY_BY = {}, HOME = {}, CAMPAIGN = null, LIVE = [], BROCHURES = [], BR_BY = {}, PREVIEWING = '';
   // the bead library itself stays in code: it is the reference every design is spelled from
   const LIBRARY = [
     { code: 'B01', type: 'Bead', name: 'Lune', what: 'Moon-cut sphere', size: '4 mm' },
@@ -1550,7 +1607,92 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
 
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const icon = (id, cls = 'icon') => `<svg class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
-  const img = id => { const p = BY_ID[id]; return (p && p.images[0]) ? media(p.images[0]) : `media/v4/d-${id}.webp`; };
+  const img = id => { const p = BY_ID[id]; return p && p.thumb ? p.thumb : (p && p.images[0]) ? media(p.images[0]) : `media/v4/d-${id}.webp`; };
+  // a product id typed anywhere (links, the Studio): the exact id, else the same letters in any case
+  const findId = id => { id = String(id == null ? '' : id); return BY_ID[id] ? id : (BY_UP[id.toUpperCase()] || ''); };
+
+  /* ---------- the catalogue: products with photos, from the staff catalogue's Google Sheet ---------- */
+  // (only what customers may see: the catalogue PC leaves out prices, stock, teams and merchants)
+  const CAT_URL = 'https://yg-catalogue.senlai.workers.dev/pub/catalogue.json';
+  const CAT_BASE = CAT_URL.replace(/[^/]+$/, '');
+  const CAT_KEY = 'yixing-catalogue';
+  let CAT = null, CAT_PRODUCTS = [], CAT_STATE = 'loading', COLNAME_ID = {};
+  const PAGE = 24;
+  const norm = t => String(t || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const slug = t => norm(t).replace(/[^a-z0-9\u3400-\u9fff]+/g, '-').replace(/^-+|-+$/g, '');
+  const uniq = a => [...new Set(a.filter(x => x !== '' && x != null))];
+  const COLOUR = { '1C': 'Yellow', '2C': 'Two-tone', '3C': 'Tri-tone' };
+  const colourName = c => COLOUR[c] ? `${COLOUR[c]} (${c})` : String(c || '');
+  const gfmt = w => `${Number(w).toFixed(2)} g`;
+  const lenText = l => /^\d+(\.\d+)?$/.test(String(l)) ? `${l} CI` : String(l); // as written in the sheet (Length (CI))
+  const PLURAL = { gold: 'Gold', jewellery: 'Jewellery', watch: 'Watches' };
+  const plural = t => PLURAL[norm(t)] || (/s$/i.test(t) ? t : t + 's');
+  const typeId = t => slug(plural(String(t || '')));
+  const minW = p => { const ws = (p.vs || []).map(v => v.weight).filter(w => w > 0); if (ws.length) return Math.min(...ws); const m = /([\d.]+)\s*g/i.exec(p.weight || ''); return m ? Number(m[1]) : NaN; };
+  function weightRange(vs) {
+    const ws = vs.map(v => v.weight).filter(w => w > 0);
+    if (!ws.length) return '';
+    const a = Math.min(...ws), b = Math.max(...ws);
+    return a === b ? gfmt(a) : `${Number(a).toFixed(2)}–${gfmt(b)}`;
+  }
+  function catPiece(x) {
+    const vs = vals(x.vs).filter(v => v && typeof v === 'object');
+    const md = vals(x.media).filter(m => m && (m.l || m.th));
+    const url = r => r ? CAT_BASE + String(r).split('/').map(encodeURIComponent).join('/') : '';
+    const type = String(x.type || '').trim();
+    const purity = uniq(vs.map(v => String(v.purity || '')));
+    const colours = uniq(vs.map(v => String(v.color || '')));
+    const ref = String(x.ref || x.id);
+    const named = !!String(x.name || '').trim(), name = named ? String(x.name).trim() : [type || 'Piece', ref].join(' ');
+    return {
+      id: String(x.id), ref, name, named, src: 'cat', type, kind: (type || 'piece').toLowerCase(),
+      colNames: vals(x.cols).map(String), cols: [], col: '', hl: vals(x.hl).map(String), date: String(x.date || ''),
+      made: [], desc: String(x.about || ''), price: '', hall: purity[0] || '916', purity, colours,
+      gold: [purity.length ? purity.join(' or ') + ' gold' : '', colours.map(colourName).join(', ')].filter(Boolean).join(' · '),
+      weight: weightRange(vs), thumb: url((md[0] || {}).th || (md[0] || {}).l), images: [], video: '',
+      media: md.map(m => m.t === 'v' && m.src ? { k: 'video', s: url(m.src), poster: url(m.l || m.th), th: url(m.th || m.l) } : { k: 'img', s: url(m.l || m.th), th: url(m.th || m.l) }),
+      vs, hay: norm([name, ref, x.id, type, ...vals(x.cols), ...vs.map(v => [v.code, v.color, COLOUR[v.color], v.variation, v.size, v.length, v.hook].join(' '))].join(' '))
+    };
+  }
+  const sitePiece = x => {
+    const kind = String(x.kind || 'Bracelet');
+    return { id: String(x.id), ref: String(x.id), name: x.name || String(x.id), named: true, src: 'site', type: kind.charAt(0).toUpperCase() + kind.slice(1), kind: kind.toLowerCase(),
+      colNames: [], cols: x.collection ? [refId(x.collection)] : [], col: refId(x.collection), hl: [], date: '',
+      made: vals(x.parts).filter(Boolean).map(String), gold: x.gold || '', weight: x.weight || '', price: x.price || '', desc: x.description || '', hall: '916',
+      images: vals(x.images).filter(Boolean), video: x.video || '', thumb: '', media: null, vs: [],
+      hay: norm([x.name, x.id, kind, ...vals(x.parts)].join(' ')) };
+  };
+  // the Studio's collections (cover photo, words, order) and every collection named in the catalogue (Collection 1–5);
+  // the catalogue's products, then the website-only pieces whose code the catalogue doesn't have (yet)
+  function mergeProducts() {
+    const cols = {}, bySlug = {};
+    STUDIO_COLS.forEach(c => { cols[c.id] = c; bySlug[slug(c.name)] = c.id; bySlug[slug(c.id)] = c.id; });
+    COLNAME_ID = {};
+    vals(CAT && CAT.collections).forEach((c, k) => {
+      const name = String((c && c.name) || '').trim(); if (!name) return;
+      const id = bySlug[slug(name)] || slug(name) || 'collection-' + k;
+      if (!cols[id]) cols[id] = { id, name, idea: '', text: '', image: '', order: 500 + k, show_on_home: true };
+      COLNAME_ID[name] = id;
+    });
+    COLLECTIONS = Object.fromEntries(Object.values(cols).sort(byOrder).map(c => [c.id, c]));
+    const inCat = new Set(CAT_PRODUCTS.map(p => p.id.toUpperCase()));
+    PRODUCTS = SITE_PRODUCTS.filter(p => !inCat.has(p.id.toUpperCase())).concat(CAT_PRODUCTS);
+    PRODUCTS.forEach(p => { if (p.src === 'cat') p.cols = uniq(p.colNames.map(n => COLNAME_ID[n])); p.col = p.cols[0] || ''; });
+    BY_ID = Object.fromEntries(PRODUCTS.map(x => [x.id, x]));
+    BY_UP = Object.fromEntries(PRODUCTS.map(x => [x.id.toUpperCase(), x.id]));
+    const tc = {};
+    PRODUCTS.forEach(p => { const id = typeId(p.type); if (!id) return; (tc[id] = tc[id] || { id, name: p.type, label: plural(p.type), n: 0 }).n++; });
+    TYPES = Object.values(tc).sort((a, b) => b.n - a.n || a.label.localeCompare(b.label));
+    TYPE_BY = Object.fromEntries(TYPES.map(t => [t.id, t]));
+  }
+  function useCatalogue(doc) {
+    if (!doc || typeof doc !== 'object' || !Array.isArray(doc.products)) return false;
+    CAT = doc;
+    CAT_PRODUCTS = doc.products.filter(x => x && x.id).map(catPiece);
+    mergeProducts();
+    return true;
+  }
+  const cachedCatalogue = () => { try { const t = localStorage.getItem(CAT_KEY); return t ? JSON.parse(t) : null; } catch (e) { return null; } };
 
   /* ---------- saved pieces (per-viewer convenience) ---------- */
   const KEY = 'yixing-saved';
@@ -1563,7 +1705,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     persist(); syncSaved();
   }
   function syncSaved() {
-    const ws = $('[data-wa-saved]'); if (ws) ws.href = waLink(saved.length ? 'Hello Yi Xing, I am interested in these designs: ' + saved.map(id => `${id} ${BY_ID[id].name}`).join(', ') + '.' : 'Hello Yi Xing, ');
+    const ws = $('[data-wa-saved]'); if (ws) ws.href = waLink(saved.length ? 'Hello Yi Xing, I am interested in these designs: ' + savedText() + '.' : 'Hello Yi Xing, ');
     $$('[data-wish-count]').forEach(el => { el.textContent = saved.length; });
     $$('[data-drawer-open]').forEach(b => b.setAttribute('aria-label', `Saved pieces, ${saved.length}`));
     $$('[data-save]').forEach(b => {
@@ -1571,32 +1713,39 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
       b.setAttribute('aria-pressed', on);
       const label = b.querySelector('span');
       if (label) label.textContent = on ? 'Saved' : 'Save';
-      if (b.classList.contains('card__save')) b.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${BY_ID[b.dataset.save].name}`);
+      if (b.classList.contains('card__save')) b.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${(BY_ID[b.dataset.save] || { name: b.dataset.save }).name}`);
     });
     const list = $('[data-saved-list]');
     list.innerHTML = saved.length ? saved.map(id => {
-      const p = BY_ID[id];
-      return `<div class="saved"><img src="${img(p.id)}" alt="" width="84" height="84">
-        <div><p class="saved__name">${esc(p.name)}</p><p class="saved__meta">916 · Ref. ${esc(p.id)}</p></div>
-        <button class="icon-btn" type="button" data-unsave="${p.id}" aria-label="Remove ${esc(p.name)}">${icon('i-close')}</button></div>`;
+      const p = BY_ID[id] || { id, ref: id, name: id, hall: '916' };
+      return `<div class="saved"><img src="${esc(img(p.id))}" alt="" width="84" height="84"${p.thumb ? ' class="is-photo"' : ''}>
+        <div><p class="saved__name">${esc(p.name)}</p><p class="saved__meta">${esc(p.hall || '916')} · Ref. ${esc(p.ref || p.id)}</p></div>
+        <button class="icon-btn" type="button" data-unsave="${esc(p.id)}" aria-label="Remove ${esc(p.name)}">${icon('i-close')}</button></div>`;
     }).join('') : '<p class="drawer__empty">Tap the heart on any design to keep it here. Saved designs stay on this device.</p>';
     $('.drawer__foot').hidden = !saved.length;
     const pd = $('[data-pd-save]');
     if (pd.dataset.id) { pd.setAttribute('aria-pressed', isSaved(pd.dataset.id)); pd.querySelector('span').textContent = isSaved(pd.dataset.id) ? 'Saved' : 'Save'; }
   }
 
+  const savedText = () => saved.map(id => { const p = BY_ID[id]; return p ? `${p.ref} ${p.name}` : id; }).join(', ');
+
   /* ---------- design cards ---------- */
+  const altOf = p => p.src === 'cat' ? `${p.name}, ${p.type || 'piece'} in ${p.hall} gold, ref. ${p.ref}` : `${p.id} ${p.name} ${p.kind || 'bracelet'}: ${p.made.join(', ')}`;
+  const colourWords = p => { const c = p.colours.map(x => (COLOUR[x] || x).toLowerCase()).join(' or '); return c.charAt(0).toUpperCase() + c.slice(1); };
+  const cardMeta = p => p.src === 'cat' ? [p.named ? p.type : '', colourWords(p), p.weight].filter(Boolean).join(' · ') : p.made.join(' · ');
+  const badgeOf = p => p.hl.includes('new') ? 'New' : p.hl.includes('best') ? 'Best seller' : p.hl.includes('promo') ? 'Offer' : '';
   function card(p) {
+    const badge = badgeOf(p);
     return `<article class="card">
-      <button class="card__media" type="button" data-open-product="${p.id}" aria-label="View ${esc(p.id)} ${esc(p.name)}">
-        <img src="${img(p.id)}" alt="${esc(p.id)} ${esc(p.name)} ${p.kind || 'bracelet'}: ${esc(p.made.join(', '))}" width="900" height="1125" loading="lazy">
-      </button>
-      <button class="icon-btn card__save" type="button" data-save="${p.id}" aria-pressed="false" aria-label="Save ${esc(p.name)}">${icon('i-heart')}</button>
+      <button class="card__media${p.thumb ? ' is-photo' : ''}" type="button" data-open-product="${esc(p.id)}" aria-label="View ${esc(p.ref)} ${esc(p.name)}">
+        <img src="${esc(img(p.id))}" alt="${esc(altOf(p))}" width="900" height="1125" loading="lazy">
+      </button>${badge ? `<span class="card__badge">${badge}</span>` : ''}
+      <button class="icon-btn card__save" type="button" data-save="${esc(p.id)}" aria-pressed="false" aria-label="Save ${esc(p.name)}">${icon('i-heart')}</button>
       <div class="card__body">
-        <span class="hallmark">916</span>
-        <h3 class="card__name"><button type="button" data-open-product="${p.id}">${esc(p.name)}</button></h3>
-        <p class="card__meta">${esc(p.made.join(' · '))}</p>
-        <p class="card__price">Ref. ${esc(p.id)}</p>
+        <span class="hallmark">${esc(p.hall || '916')}</span>
+        <h3 class="card__name"><button type="button" data-open-product="${esc(p.id)}">${esc(p.name)}</button></h3>
+        <p class="card__meta">${esc(cardMeta(p))}</p>
+        <p class="card__price">${p.named ? `Ref. ${esc(p.ref)}` : esc(p.price || 'Priced by weight')}</p>
       </div>
     </article>`;
   }
@@ -1612,21 +1761,48 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     </article>`;
   }
 
-  const shop = { col: 'all' };
+  const shop = { col: 'all', type: 'all', q: '', sort: 'featured', n: PAGE };
   // a collection is on the website when at least one of its pieces is shown there
-  const colHasPieces = id => PRODUCTS.some(p => p.col === id);
+  const colHasPieces = id => PRODUCTS.some(p => p.cols.includes(id));
   const liveCols = () => Object.values(COLLECTIONS).filter(c => colHasPieces(c.id));
+  const inCol = (p, col) => col === 'all' || p.cols.includes(col);
+  const inType = (p, type) => type === 'all' || typeId(p.type) === type;
+  function shopItems() {
+    const q = norm(shop.q).trim();
+    const words = q ? q.split(/\s+/) : [];
+    let items = PRODUCTS.filter(p => inCol(p, shop.col) && inType(p, shop.type) && words.every(w => p.hay.includes(w) || p.hay.replace(/[^a-z0-9]/g, '').includes(w.replace(/[^a-z0-9]/g, '') || '\u0000')));
+    if (shop.sort !== 'featured') {
+      const dir = shop.sort === 'heavy' ? -1 : 1;
+      items = items.slice().sort((a, b) => { const x = minW(a), y = minW(b); return (isNaN(x) - isNaN(y)) || (dir * ((x || 0) - (y || 0))); });
+    }
+    return items;
+  }
   function renderShop() {
-    const items = PRODUCTS.filter(p => shop.col === 'all' || p.col === shop.col);
-    const pad = (4 - items.length % 4) % 4; // fill the last row with editorial tiles, so no design sits alone
-    $('[data-grid]').innerHTML = items.map(card).join('') + EXTRAS.slice(0, pad).map(extraCard).join('');
-    $('[data-result-count]').textContent = `${items.length} ${items.length === 1 ? 'piece' : 'pieces'}`;
-    $('[data-cat-chips]').innerHTML = [['all', 'All']].concat(Object.entries(COLLECTIONS).filter(([k]) => PRODUCTS.some(p => p.col === k)).map(([k, c]) => [k, c.name])).map(([k, label]) => {
-      const n = PRODUCTS.filter(p => k === 'all' || p.col === k).length;
-      return `<button class="chip-btn" type="button" data-cat="${k}" aria-pressed="${shop.col === k}">${esc(label)}<span class="count">${n}</span></button>`;
-    }).join('');
+    if (shop.col !== 'all' && !colHasPieces(shop.col)) shop.col = 'all';
+    if (shop.type !== 'all' && !TYPE_BY[shop.type]) shop.type = 'all';
+    const all = shopItems(), items = all.slice(0, shop.n);
+    const pad = all.length <= shop.n && !shop.q ? (4 - items.length % 4) % 4 : 0; // fill the last row with editorial tiles, so no design sits alone
+    $('[data-grid]').innerHTML = items.length ? items.map(card).join('') + EXTRAS.slice(0, pad).map(extraCard).join('')
+      : `<p class="shop-empty">${shop.q ? `Nothing matches “${esc(shop.q)}”. Try a reference such as GR040, or fewer words.` : 'No pieces here yet.'}</p>`;
+    $('[data-result-count]').textContent = `${all.length} ${all.length === 1 ? 'piece' : 'pieces'}`;
+    const more = $('[data-shop-more]');
+    more.hidden = all.length <= shop.n;
+    more.textContent = `Show more (${all.length - Math.min(all.length, shop.n)} more)`;
+    const typeN = t => PRODUCTS.filter(p => inCol(p, shop.col) && inType(p, t)).length;
+    $('[data-type-chips]').innerHTML = [['all', 'All']].concat(TYPES.map(t => [t.id, t.label])).map(([k, label]) =>
+      `<button class="chip-btn" type="button" data-shop-type="${esc(k)}" aria-pressed="${shop.type === k}">${esc(label)}<span class="count">${typeN(k)}</span></button>`).join('');
+    const cols = liveCols(), cc = $('[data-cat-chips]');
+    cc.hidden = !cols.length;
+    cc.innerHTML = cols.length ? '<span class="chips__label">Collections</span>' + [['all', 'All']].concat(cols.map(c => [c.id, c.name])).map(([k, label]) => {
+      const n = PRODUCTS.filter(p => inCol(p, k) && inType(p, shop.type)).length;
+      return `<button class="chip-btn" type="button" data-cat="${esc(k)}" aria-pressed="${shop.col === k}">${esc(label)}<span class="count">${n}</span></button>`;
+    }).join('') : '';
+    const note = $('[data-shop-note]');
+    note.innerHTML = CAT_STATE === 'loading' ? 'Loading our catalogue…'
+      : CAT_STATE === 'error' ? `Our full catalogue can’t be loaded just now, so only some pieces are shown. <button class="ulink" type="button" data-cat-retry>Try again</button>` : '';
     syncSaved();
   }
+  function shopTo(o) { Object.assign(shop, { n: PAGE }, o); renderShop(); }
   function libraryHTML() {
     return LIBRARY.map(c => {
       const used = PRODUCTS.filter(p => p.made.includes(c.name)).map(p => p.name);
@@ -1671,7 +1847,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     if (/^(mailto|tel):/i.test(l)) return `href="${esc(l)}"`;
     return `href="${esc(l.startsWith('#') ? l : '#' + l)}"`;
   };
-  const prod = id => BY_ID[id] || { id, name: id, made: [], desc: '', weight: '', gold: '', images: [], kind: 'piece' };
+  const prod = id => BY_ID[id] || { id, ref: id, name: id, named: true, made: [], desc: '', weight: '', gold: '', images: [], kind: 'piece', type: 'Piece', cols: [], vs: [], hl: [], hall: '916', thumb: '', src: 'site' };
   const STORY_CATS = ['All', 'Craft', 'Collections', 'Guides', 'Gifting'];
   const ed = { cat: 'All' };
   const CTA = (href, label, kind, attrs) => `<a class="btn btn--${kind}" href="${href}" ${attrs || ''}>${esc(label)}</a>`;
@@ -1712,7 +1888,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     if (t === 'text') return richText(b.html);
     if (t === 'quote') return b.text ? `<blockquote class="story__quote"><p>${esc(b.text)}</p></blockquote>` : '';
     if (t === 'image') return b.image ? `<figure class="story__fig"><img src="${esc(media(b.image))}" alt="${esc(b.alt || '')}" ${wh(b.image)} loading="lazy" style="aspect-ratio:1;object-fit:cover">${b.caption ? `<figcaption>${esc(b.caption)}</figcaption>` : ''}</figure>` : '';
-    if (t === 'products') { const ps = vals(b.items).map(refId).filter(id => BY_ID[id]).map(id => BY_ID[id]); return ps.length ? `<div class="story__wide">${b.title ? `<p class="eyebrow">${esc(b.title)}</p>` : ''}<div class="grid grid--3">${ps.map(card).join('')}</div></div>` : ''; }
+    if (t === 'products') { const ps = uniq(vals(b.items).map(refId).map(findId)).map(id => BY_ID[id]); return ps.length ? `<div class="story__wide">${b.title ? `<p class="eyebrow">${esc(b.title)}</p>` : ''}<div class="grid grid--3">${ps.map(card).join('')}</div></div>` : ''; }
     if (t === 'component') return b.name === 'library' ? `<div class="story__wide"><div class="library">${libraryHTML()}</div></div>` : b.name === 'colours' ? `<div class="story__wide">${coloursHTML()}</div>` : b.name === 'steps' ? `<div class="story__wide">${stepsHTML()}</div>` : '';
     if (t === 'buttons') { const xs = vals(b.items).filter(x => x && x.label); return xs.length ? `<div class="btn-row story__cta">${xs.map(x => `<a class="btn btn--${x.style === 'line' ? 'line' : 'solid'}" ${linkAttr(x.link)}>${esc(x.label)}</a>`).join('')}</div>` : ''; }
     return '';
@@ -1828,7 +2004,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     const num = i > 0 && i < n - 1 ? `<span class="pg__num">${i + 1}</span>` : '';
     let h = '';
     if (pg.t === 'image') {
-      const pp = pg.product && BY_ID[pg.product];
+      const pp = pg.product && BY_ID[findId(pg.product)];
       const bar = pg.cap || pp ? `<div class="pg__imgbar">${pg.cap ? `<span>${esc(pg.cap)}</span>` : '<span></span>'}${pp ? `<button class="pg__link" type="button" data-open-product="${pp.id}">View ${esc(pp.name)}</button>` : ''}</div>` : '';
       return `<div class="pg pg--image"><img class="pg__full" src="${esc(media(pg.img))}" alt="${esc(pg.cap || (pg.cover ? b.title : ''))}" loading="lazy">${bar}${pg.cover ? '' : num}</div>`;
     }
@@ -2015,36 +2191,82 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
   const dlg = $('[data-pdialog]');
   let lastFocus = null;
   let PD_MEDIA = [];
+  let PD = null, PD_ALL = [], pdVar = -1;
   function showPdMedia(i) {
     const m = PD_MEDIA[i]; if (!m) return;
     const im = $('[data-pd-img]'), vd = $('[data-pd-video]');
-    if (m.k === 'video') { im.hidden = true; vd.hidden = false; if (vd.dataset.src !== m.s) { vd.dataset.src = m.s; vd.src = media(m.s); } const pr = vd.play(); if (pr && pr.catch) pr.catch(() => {}); }
+    if (m.k === 'video') { im.hidden = true; vd.hidden = false; if (vd.dataset.src !== m.s) { vd.dataset.src = m.s; vd.poster = m.poster ? media(m.poster) : ''; vd.src = media(m.s); } const pr = vd.play(); if (pr && pr.catch) pr.catch(() => {}); }
     else { vd.pause(); vd.hidden = true; im.hidden = false; im.src = media(m.s); }
     $$('[data-pd-thumb]').forEach(b => b.setAttribute('aria-pressed', +b.dataset.pdThumb === i));
   }
+  function setPdMedia(list) {
+    PD_MEDIA = list;
+    $('[data-pd-thumbs]').innerHTML = PD_MEDIA.length > 1 ? PD_MEDIA.map((m, k) => `<button type="button" data-pd-thumb="${k}" aria-label="${m.k === 'video' ? 'Play the video' : 'Image ' + (k + 1)}" aria-pressed="${k === 0}">${m.k === 'video' ? (m.th ? `<img src="${esc(m.th)}" alt="">` : '') + icon('i-play') : `<img src="${esc(m.th || media(m.s))}" alt="">`}</button>`).join('') : '';
+    showPdMedia(0);
+  }
+  // what tells the variants of a catalogue piece apart: colour, purity, variation, size, length, hook, weight, code
+  const VAR_COLS = [['color', 'Colour', v => colourName(v.color)], ['purity', 'Gold', v => v.purity], ['variation', 'Variation', v => v.variation], ['size', 'Size', v => v.size],
+    ['length', 'Length', v => lenText(v.length)], ['hook', 'Hook', v => v.hook], ['weight', 'Weight', v => v.weight ? gfmt(v.weight) : '—'], ['code', 'Code', v => v.code]];
+  const varText = v => [colourName(v.color), v.purity ? v.purity + ' gold' : '', v.variation ? 'variation ' + v.variation : '', v.size ? 'size ' + v.size : '', v.length ? 'length ' + lenText(v.length) : '', v.hook ? 'hook ' + v.hook : '', v.weight ? gfmt(v.weight) : ''].filter(Boolean).join(', ');
+  function renderPdVars(p) {
+    const box = $('[data-pd-vars]');
+    if (p.src !== 'cat' || p.vs.length < 2) { box.hidden = true; box.innerHTML = ''; return; }
+    const cols = VAR_COLS.filter(([k]) => k === 'weight' || uniq(p.vs.map(v => String(v[k] || ''))).length > 1);
+    box.hidden = false;
+    box.innerHTML = `<p class="pd-vars__title">${p.vs.length} variants · tap one to see its details</p><div class="pd-vars__scroll"><table><thead><tr>${cols.map(([, h]) => `<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>`
+      + p.vs.map((v, i) => `<tr data-pd-var="${i}" tabindex="0" aria-selected="${i === pdVar}">${cols.map(([, , f]) => `<td>${esc(f(v) || '—')}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+  }
+  function galleryFor(p, vi) {
+    if (!p.media) return PD_ALL;
+    const has = v => v && v.m && v.m.length;
+    const own = has(p.vs[vi]) ? p.vs[vi].m : (p.vs.find(has) || { m: p.media.map((_, k) => k) }).m;
+    const covers = uniq(p.vs.map(v => has(v) ? v.m[0] : null).filter(k => k != null && !own.includes(k)));
+    return own.concat(covers).map(k => p.media[k]).filter(Boolean);
+  }
+  function pickPdVar(i) {
+    const p = PD; if (!p || p.src !== 'cat') return;
+    pdVar = i === pdVar ? -1 : i;
+    const v = p.vs[pdVar];
+    $$('[data-pd-var]').forEach(r => r.setAttribute('aria-selected', +r.dataset.pdVar === pdVar ? 'true' : 'false'));
+    $('[data-pd-weight]').textContent = v ? (v.weight ? gfmt(v.weight) : 'Weighed at the counter') : (p.weight || 'Weighed at the counter');
+    $('[data-pd-gold]').textContent = v ? [v.purity ? v.purity + ' gold' : '', colourName(v.color)].filter(Boolean).join(' · ') : p.gold;
+    $('[data-pd-ref]').textContent = [p.ref, v && v.code].filter(Boolean).join(' · ');
+    if (v ? v.m && v.m.length : true) setPdMedia(galleryFor(p, pdVar));
+  }
+  const pdDesc = p => {
+    if (p.desc || p.src !== 'cat') return p.desc;
+    const cs = p.colours.map(c => (COLOUR[c] || c).toLowerCase());
+    return `${p.type || 'Piece'} in ${p.purity.length ? p.purity.join(' or ') : '916'} gold${cs.length ? ', in ' + cs.join(' or ') : ''}${p.vs.length > 1 ? `, with ${p.vs.length} variants` : ''}. Priced by weight at the day’s gold rate.`;
+  };
   function openProduct(id) {
+    id = findId(id);
     const p = BY_ID[id]; if (!p) return;
     lastFocus = document.activeElement;
-    const col = COLLECTIONS[p.col] || { name: '', idea: '' };
-    PD_MEDIA = (p.images.length ? p.images : [img(p.id)]).map(x => ({ s: x, k: 'img' })).concat(p.video ? [{ s: p.video, k: 'video' }] : []);
-    $('[data-pd-thumbs]').innerHTML = PD_MEDIA.length > 1 ? PD_MEDIA.map((m, k) => `<button type="button" data-pd-thumb="${k}" aria-label="${m.k === 'video' ? 'Play the video' : 'Image ' + (k + 1)}" aria-pressed="${k === 0}">${m.k === 'video' ? icon('i-play') : `<img src="${esc(media(m.s))}" alt="">`}</button>`).join('') : '';
-    showPdMedia(0);
-    $('[data-pd-img]').alt = `${p.id} ${p.name} ${p.kind || 'bracelet'} in 916 gold`;
-    $('[data-pd-col]').textContent = [col.name, col.idea].filter(Boolean).join(' · ');
+    PD = p; pdVar = -1;
+    const cols = p.cols.map(c => COLLECTIONS[c]).filter(Boolean);
+    PD_ALL = p.media ? p.media.slice() : (p.images.length ? p.images : [img(p.id)]).map(x => ({ s: x, k: 'img' })).concat(p.video ? [{ s: p.video, k: 'video' }] : []);
+    if (!PD_ALL.length) PD_ALL = [{ s: img(p.id), k: 'img' }];
+    $('.pdialog__media').classList.toggle('is-photo', p.src === 'cat');
+    setPdMedia(galleryFor(p, -1));
+    $('[data-pd-img]').alt = altOf(p);
+    $('[data-pd-col]').textContent = cols.length ? cols.length === 1 ? [cols[0].name, cols[0].idea].filter(Boolean).join(' · ') : cols.map(c => c.name).join(' · ') : (p.src === 'cat' ? plural(p.type || 'Piece') : '');
     $('[data-pd-name]').textContent = p.name;
-    $('[data-pd-hall]').textContent = '916';
+    $('[data-pd-hall]').textContent = p.hall || '916';
     $('[data-pd-price]').textContent = p.price || 'Priced by weight';
-    $('[data-pd-desc]').textContent = p.desc;
-    $('[data-pd-mat]').textContent = p.made.join(' · ') || '916 gold';
+    $('[data-pd-desc]').textContent = pdDesc(p);
+    $('[data-pd-mat]').textContent = p.made.join(' · ');
+    $('[data-pd-mat]').hidden = $('[data-pd-mat-dt]').hidden = !p.made.length;
     $('[data-pd-gold]').textContent = p.gold || 'Yellow 916 gold; ask about two-tone and tri-tone';
     $('[data-pd-weight]').textContent = p.weight || 'Weighed at the counter';
-    $('[data-pd-ref]').textContent = p.id;
+    $('[data-pd-ref]').textContent = p.src === 'cat' && p.vs.length === 1 && p.vs[0].code && p.vs[0].code !== p.ref ? `${p.ref} · ${p.vs[0].code}` : p.ref;
+    renderPdVars(p);
     const sv = $('[data-pd-save]'); sv.dataset.id = p.id;
     $('[data-pd-enquire]').dataset.product = p.id;
     syncSaved();
     if (typeof dlg.showModal === 'function') { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', '');
   }
   function closeProduct() { if (dlg.open) { dlg.close ? dlg.close() : dlg.removeAttribute('open'); } }
+  dlg.addEventListener('keydown', e => { const r = e.target.closest && e.target.closest('[data-pd-var]'); if (r && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); pickPdVar(+r.dataset.pdVar); } });
   dlg.addEventListener('close', () => { const vd = $('[data-pd-video]'); vd.pause(); if (/^#product-/.test(location.hash) && history.replaceState) history.replaceState(null, '', '#' + (current || 'home')); if (lastFocus && lastFocus.focus) lastFocus.focus(); });
   dlg.addEventListener('click', e => { if (e.target === dlg) closeProduct(); });
 
@@ -2100,7 +2322,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     const k = PCAR.indexOf(g);
     $('[data-pcar-title]').textContent = PCAR.length > 1 ? 'Featured pieces' : g.title;
     $('[data-pcar]').setAttribute('aria-label', unstar(g.title));
-    $('[data-pcar]').innerHTML = g.ids.map(id => ptile(BY_ID[id])).join('');
+    $('[data-pcar]').innerHTML = g.ids.filter(id => BY_ID[id]).map(id => ptile(BY_ID[id])).join('');
     $('[data-pcar]').scrollLeft = 0;
     $$('[data-pcar-tab]').forEach((b, j) => { b.setAttribute('aria-selected', j === k ? 'true' : 'false'); b.tabIndex = j === k ? 0 : -1; });
     requestAnimationFrame(syncPcar);
@@ -2119,11 +2341,12 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     clearInterval(annTimer);
     if (ANN.length > 1 && motionOK()) annTimer = setInterval(() => { const a = $('[data-announce]'); if (!a.matches(':hover') && !a.contains(document.activeElement)) stepAnnounce(1); }, 6000);
   }
+  const kindLine = p => p.src === 'cat' ? (p.named ? `${p.type || 'Piece'} in ${p.hall} gold` : `${colourWords(p) || 'Yellow'} ${p.hall} gold`) : `${p.kind.charAt(0).toUpperCase() + p.kind.slice(1)} in ${/white|rose|two|tri/i.test(p.gold) ? '916 gold' : 'yellow 916 gold'}`;
   const ptile = p => `<article class="ptile">
-      <button class="ptile__media" type="button" data-open-product="${p.id}" aria-label="View ${esc(p.id)} ${esc(p.name)}"><img src="${esc(img(p.id))}" alt="${esc(p.name)}, ${esc(p.kind)} in 916 gold" loading="lazy"></button>
-      <button class="icon-btn card__save" type="button" data-save="${p.id}" aria-pressed="false" aria-label="Save ${esc(p.name)}">${icon('i-heart')}</button>
-      <h3 class="ptile__name"><button type="button" data-open-product="${p.id}">${esc(p.name)}</button></h3>
-      <p class="ptile__kind">${esc(p.kind.charAt(0).toUpperCase() + p.kind.slice(1))} in ${esc(/white|rose|two|tri/i.test(p.gold) ? '916 gold' : 'yellow 916 gold')}</p>
+      <button class="ptile__media${p.thumb ? ' is-photo' : ''}" type="button" data-open-product="${esc(p.id)}" aria-label="View ${esc(p.ref)} ${esc(p.name)}"><img src="${esc(img(p.id))}" alt="${esc(altOf(p))}" loading="lazy"></button>
+      <button class="icon-btn card__save" type="button" data-save="${esc(p.id)}" aria-pressed="false" aria-label="Save ${esc(p.name)}">${icon('i-heart')}</button>
+      <h3 class="ptile__name"><button type="button" data-open-product="${esc(p.id)}">${esc(p.name)}</button></h3>
+      <p class="ptile__kind">${esc(kindLine(p))}</p>
       <p class="ptile__price">${esc([p.weight, p.price || 'Priced by weight'].filter(Boolean).join(' · '))}</p>
     </article>`;
   function syncPcar() {
@@ -2155,13 +2378,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     if (!ANN.length) ANN = vals(H.announcements).filter(m => m && m.text);
     annI = 0; renderAnnounce(); startAnnounce();
 
-    PCAR = LIVE.map(c => { const pc = c.products || {}; return { title: pc.title || unstar(c.title) || 'Featured pieces', ids: vals(pc.items).map(refId).filter(id => BY_ID[id]) }; }).filter(g => g.ids.length);
-    if (!PCAR.length) PCAR = [{ title: 'Featured pieces', ids: PRODUCTS.slice(0, 10).map(x => x.id) }];
-    const tabs = $('[data-pcar-tabs]');
-    tabs.hidden = PCAR.length < 2;
-    $('[data-pcar-title]').classList.toggle('visually-hidden', PCAR.length > 1);
-    tabs.innerHTML = PCAR.length < 2 ? '' : PCAR.map((g, i) => `<button class="pcar__tab" type="button" role="tab" id="pcar-tab-${i}" aria-controls="pcar-track" data-pcar-tab="${i}">${emph(g.title)}</button>`).join('');
-    showPcar(0);
+    renderProductParts();
 
     const promos = LIVE.flatMap(c => vals(c.promos).filter(x => x && x.image).slice(0, 3));
     $('[data-promos]').hidden = !promos.length;
@@ -2180,15 +2397,6 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
       <a class="edsplit__media" href="#story-${esc(st.slug)}" tabindex="-1" aria-hidden="true"><img src="${esc(media(e.image || st.img))}" alt="" loading="lazy"></a>`;
     });
 
-    $('[data-cats-title]').textContent = H.collections_title || 'Shop by collection';
-    const catCols = liveCols().filter(c => c.show_on_home !== false);
-    $('[data-cats]').closest('section').hidden = !catCols.length;
-    $('[data-cats]').classList.toggle('cats__grid--few', catCols.length < 6);
-    $('[data-cats]').innerHTML = catCols.map(c => {
-      const pic = c.image || img((PRODUCTS.find(x => x.col === c.id) || {}).id || '');
-      return `<a class="cat" href="#collection-${esc(c.id)}"><span class="cat__media"><img src="${esc(media(pic))}" alt="" loading="lazy"></span><span class="ulink">${esc(c.name)}</span></a>`;
-    }).join('');
-
     const ap = H.appointment || {};
     $('[data-appt]').innerHTML = `<div class="appt__media"><img src="${esc(media(ap.image || 'yixing-box'))}" alt="" loading="lazy"></div>
       <div class="appt__text"><h2 class="h2" id="appt-title">${emph(ap.title || 'Book an appointment')}</h2>${ap.text ? `<p class="body-copy">${esc(ap.text)}</p>` : ''}<a class="btn btn--line" ${linkAttr(ap.button_link || '#enquiry-appointment')}>${esc(ap.button_label || 'Book an appointment')}</a></div>`;
@@ -2196,10 +2404,37 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     $('[data-exp-title]').textContent = H.experience_title || 'The Yi Xing experience';
     $('[data-exp]').innerHTML = vals(H.experience).filter(x => x && x.title).slice(0, 4).map(x => `<div class="xp">${icon('x-' + (x.icon || 'sparkle'), 'xp__icon')}<h3>${esc(x.title)}</h3>${x.text ? `<p>${esc(x.text)}</p>` : ''}${x.link_label ? `<a class="ulink" ${linkAttr(x.link)}>${esc(x.link_label)}</a>` : ''}</div>`).join('');
 
+    syncSaved();
+  }
+  // everything on the home page and in the menus that lists products (again when the catalogue arrives)
+  function renderProductParts() {
+    const H = HOME || {};
+    const camp = LIVE.map(c => { const pc = c.products || {}; return { title: pc.title || unstar(c.title) || 'Featured pieces', ids: uniq(vals(pc.items).map(refId).map(findId)) }; }).filter(g => g.ids.length);
+    const latest = CAT_PRODUCTS.slice().sort((a, b) => (b.hl.includes('new') - a.hl.includes('new')) || b.date.localeCompare(a.date)).slice(0, 12).map(x => x.id);
+    PCAR = camp.concat(latest.length >= 4 ? [{ title: 'Latest pieces', ids: latest }] : []);
+    if (!PCAR.length) PCAR = [{ title: 'Featured pieces', ids: PRODUCTS.slice(0, 10).map(x => x.id) }];
+    const tabs = $('[data-pcar-tabs]');
+    tabs.hidden = PCAR.length < 2;
+    $('[data-pcar-title]').classList.toggle('visually-hidden', PCAR.length > 1);
+    tabs.innerHTML = PCAR.length < 2 ? '' : PCAR.map((g, i) => `<button class="pcar__tab" type="button" role="tab" id="pcar-tab-${i}" aria-controls="pcar-track" data-pcar-tab="${i}">${emph(g.title)}</button>`).join('');
+    $('[data-pcar]').closest('section').hidden = !PCAR[0].ids.length;
+    showPcar(0);
+
+    // tiles: the collections shown on the home page, then a tile per category
+    const firstOf = f => (PRODUCTS.find(f) || {}).id || '';
+    const tiles = liveCols().filter(c => c.show_on_home !== false).map(c => ({ href: '#collection-' + c.id, name: c.name, pic: c.image ? media(c.image) : img(firstOf(x => x.cols.includes(c.id))) }))
+      .concat(TYPES.map(t => ({ href: '#type-' + t.id, name: t.label, pic: img(firstOf(x => typeId(x.type) === t.id && (x.thumb || x.images.length))) || img(firstOf(x => typeId(x.type) === t.id)) })));
+    $('[data-cats-title]').textContent = H.collections_title || 'Shop by category';
+    $('[data-cats]').closest('section').hidden = !tiles.length;
+    $('[data-cats]').classList.toggle('cats__grid--few', tiles.length % 6 !== 0);
+    $('[data-cats]').innerHTML = tiles.map(x => `<a class="cat" href="${esc(x.href)}"><span class="cat__media${x.pic.startsWith(CAT_BASE) ? ' is-photo' : ''}"><img src="${esc(x.pic)}" alt="" loading="lazy"></span><span class="ulink">${esc(x.name)}</span></a>`).join('');
+
     const cols = liveCols();
-    $('[data-nav-collections]').innerHTML = cols.map(c => `<a href="#collection-${esc(c.id)}"><span>${esc(c.name)}</span><small>${esc(c.idea || '')}</small></a>`).join('')
-      + `<a href="#collection-all"><span>All pieces</span><small>${PRODUCTS.length} pieces in 916 gold</small></a>`;
-    $('[data-mnav-collections]').innerHTML = cols.map(c => `<a href="#collection-${esc(c.id)}">${esc(c.name)}</a>`).join('') + '<a href="#collection-all">All pieces</a>';
+    $('[data-nav-collections]').innerHTML = (cols.length ? '<p class="nav__label">Collections</p>' : '') + cols.map(c => `<a href="#collection-${esc(c.id)}"><span>${esc(c.name)}</span><small>${esc(c.idea || `${PRODUCTS.filter(p => p.cols.includes(c.id)).length} pieces`)}</small></a>`).join('')
+      + (TYPES.length ? '<p class="nav__label">Categories</p>' : '') + TYPES.map(t => `<a href="#type-${esc(t.id)}"><span>${esc(t.label)}</span><small>${t.n} ${t.n === 1 ? 'piece' : 'pieces'}</small></a>`).join('')
+      + `<a href="#collection-all"><span>All pieces</span><small>${PRODUCTS.length} pieces in gold</small></a>`;
+    $('[data-mnav-collections]').innerHTML = cols.map(c => `<a href="#collection-${esc(c.id)}">${esc(c.name)}</a>`).join('')
+      + (TYPES.length && cols.length ? '<span class="mmenu__label">Categories</span>' : '') + TYPES.map(t => `<a href="#type-${esc(t.id)}">${esc(t.label)}</a>`).join('') + '<a href="#collection-all">All pieces</a>';
     syncSaved();
   }
 
@@ -2288,12 +2523,11 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
   /* ---------- content: the editor's data, embedded in the page when the site is built ---------- */
   function applyContent(d) {
     d = d && typeof d === 'object' ? d : {};
-    COLLECTIONS = Object.fromEntries(vals(d.collections).filter(c => c && c.id).sort(byOrder).map(c => [String(c.id), Object.assign({}, c, { id: String(c.id), name: c.name || String(c.id), idea: c.idea || '' })]));
-    PRODUCTS = vals(d.products).filter(x => x && x.id && x.show !== false).sort(byOrder).map(x => ({
-      id: String(x.id), name: x.name || String(x.id), col: refId(x.collection), kind: String(x.kind || 'Bracelet').toLowerCase(),
-      made: vals(x.parts).filter(Boolean).map(String), gold: x.gold || '', weight: x.weight || '', price: x.price || '', desc: x.description || '',
-      images: vals(x.images).filter(Boolean), video: x.video || '' }));
-    BY_ID = Object.fromEntries(PRODUCTS.map(x => [x.id, x]));
+    // products and collections come from the catalogue (below); the Studio keeps its collections' cover photos and words,
+    // and the website-only pieces that aren't in the catalogue
+    STUDIO_COLS = vals(d.collections).filter(c => c && c.id).sort(byOrder).map(c => Object.assign({}, c, { id: String(c.id), name: c.name || String(c.id), idea: c.idea || '' }));
+    SITE_PRODUCTS = vals(d.products).filter(x => x && x.id && x.show !== false).sort(byOrder).map(sitePiece);
+    mergeProducts();
     STORIES = vals(d.editorial).filter(x => x && x.slug && x.show !== false).sort(byOrder).map(x => ({
       slug: String(x.slug), cat: x.category || 'Craft', read: x.read || 2, img: x.hero || '', alt: x.hero_alt || '',
       title: emph(x.title), dek: x.dek || '', body: vals(x.body) }));
@@ -2311,7 +2545,6 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
       .concat(BUILTIN_BROCHURES.filter(b => shown.includes(b.id)));
     BR_BY = Object.fromEntries(BROCHURES.map(b => [b.id, b]));
     if (!BR_BY[reader.b] && BROCHURES[0]) reader.b = BROCHURES[0].id;
-    saved = saved.filter(id => BY_ID[id]);
   }
 
   /* ---------- router ---------- */
@@ -2325,9 +2558,10 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     let m;
     if ((m = /^brochure-(.+?)(?:--(.+))?$/.exec(h)) && BR_BY[m[1]]) return { page: 'e-brochure', key: 'e-brochure', brochure: m[1], at: m[2], scroll: 'reader' };
     if ((m = /^collection-(.+)$/.exec(h)) && (m[1] === 'all' || COLLECTIONS[m[1]])) return { page: 'e-brochure', key: 'e-brochure', collection: m[1] === 'all' || colHasPieces(m[1]) ? m[1] : 'all', scroll: 'shop' };
+    if ((m = /^type-(.+)$/.exec(h)) && TYPE_BY[m[1]]) return { page: 'e-brochure', key: 'e-brochure', type: m[1], scroll: 'shop' };
     if ((m = /^enquiry-(.+)$/.exec(h)) && TYPE_LABEL[m[1]]) return { page: 'contact', key: 'contact', enquiry: m[1], scroll: 'enquiry' };
     if (h === 'faq') return { page: 'contact', key: 'contact', scroll: 'faq' };
-    if ((m = /^product-(.+)$/.exec(h)) && BY_ID[m[1]]) { const cur = current && !/^product-/.test(current) ? resolve(current) : null; return Object.assign({}, cur || { page: 'home', key: 'home' }, { product: m[1], scroll: null }); }
+    if ((m = /^product-(.+)$/.exec(h)) && findId(m[1])) { const cur = current && !/^product-/.test(current) ? resolve(current) : null; return Object.assign({}, cur || { page: 'home', key: 'home' }, { product: findId(m[1]), scroll: null }); }
     return TITLES[h] ? { page: h, key: h } : null;
   }
   let current = null, pendingScroll = null, firstShow = true;
@@ -2338,7 +2572,9 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     current = r.key;
     document.body.dataset.route = route;
     if (r.brochure) openBrochure(r.brochure, r.at);
-    if (r.collection) { shop.col = r.collection; renderShop(); }
+    if (r.collection) shopTo({ col: r.collection, type: 'all', q: '' });
+    if (r.type) shopTo({ type: r.type, col: 'all', q: '' });
+    if (r.collection || r.type) { const q = $('[data-shop-q]'); if (q) q.value = ''; }
     if (r.enquiry) { freshForm(); setType(r.enquiry); }
     if (r.scroll) pendingScroll = pendingScroll || r.scroll;
     if (route === 'story' && changed) renderStory(r.slug);
@@ -2347,7 +2583,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
       p.hidden = !on;
       if (on && changed && !firstShow) { p.classList.remove('is-entering'); void p.offsetWidth; p.classList.add('is-entering'); }
     });
-    const navKey = NAV_KEY[route] || route, subKey = route === 'story' ? 'editorial' : route;
+    const navKey = r.collection || r.type ? 'collections' : NAV_KEY[route] || route, subKey = r.collection || r.type ? '' : route === 'story' ? 'editorial' : route;
     $$('[data-route-link]').forEach(a => { if (a.dataset.routeLink === navKey) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     $$('[data-sub-link]').forEach(a => { if (a.dataset.subLink === subKey) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     document.title = route === 'story' ? `${plain(STORY_BY[r.slug].title)} · Yi Xing` : TITLES[route];
@@ -2378,7 +2614,11 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     const op = t.closest('[data-open-product]'); if (op) { openProduct(op.dataset.openProduct); return; }
     if (t.closest('[data-pdialog-close]')) { closeProduct(); return; }
 
-    const cat = t.closest('[data-cat]'); if (cat) { shop.col = cat.dataset.cat; renderShop(); return; }
+    const cat = t.closest('[data-cat]'); if (cat) { shopTo({ col: cat.dataset.cat }); return; }
+    const typ = t.closest('[data-shop-type]'); if (typ) { shopTo({ type: typ.dataset.shopType }); return; }
+    if (t.closest('[data-shop-more]')) { shop.n += PAGE; renderShop(); return; }
+    if (t.closest('[data-cat-retry]')) { loadCatalogue(true); return; }
+    const pv = t.closest('[data-pd-var]'); if (pv) { pickPdVar(+pv.dataset.pdVar); return; }
     const scat = t.closest('[data-story-cat]'); if (scat) { ed.cat = scat.dataset.storyCat; renderEditorial(); return; }
     const bopen = t.closest('[data-brochure-open]'); if (bopen) { openBrochure(bopen.dataset.brochureOpen); $('#reader').scrollIntoView({ block: 'start' }); return; }
     const flipBtn = t.closest('[data-flip]'); if (flipBtn) { flip(+flipBtn.dataset.flip); return; }
@@ -2414,13 +2654,13 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     const rr = resolve(hash);
     if (!rr) return;
     const route = rr.page;
-    if (route === 'e-brochure' && a.dataset.scroll === 'shop') { shop.col = a.dataset.collection || 'all'; renderShop(); }
+    if (route === 'e-brochure' && a.dataset.scroll === 'shop') shopTo({ col: a.dataset.collection || 'all' });
     if (a.dataset.brochure) openBrochure(a.dataset.brochure, a.dataset.brochureAt);
     if (route === 'contact') freshForm();
     if (a.dataset.enquiry) setType(a.dataset.enquiry);
     if (a.dataset.message) prefill(a.dataset.message);
-    if (a.hasAttribute('data-pd-enquire')) { const p = BY_ID[a.dataset.product]; if (p) { setType('general'); prefill(`I’m interested in ${p.id} ${p.name}.`); } }
-    if (a.hasAttribute('data-enquire-saved')) { setType('general'); prefill('I’m interested in these designs: ' + saved.map(id => `${id} ${BY_ID[id].name}`).join(', ') + '.'); }
+    if (a.hasAttribute('data-pd-enquire')) { const p = BY_ID[a.dataset.product]; if (p) { const v = p === PD && p.vs[pdVar]; setType('general'); prefill(`I’m interested in ${p.ref} ${p.name}${v ? ` (${varText(v)}${v.code ? ', code ' + v.code : ''})` : ''}.`); } }
+    if (a.hasAttribute('data-enquire-saved')) { setType('general'); prefill('I’m interested in these designs: ' + savedText() + '.'); }
     if (a.dataset.scroll) pendingScroll = a.dataset.scroll;
     else if (route === 'contact' && (a.dataset.enquiry || a.dataset.message || a.hasAttribute('data-pd-enquire') || a.hasAttribute('data-enquire-saved'))) pendingScroll = 'enquiry';
     if (location.hash === '#' + hash) { e.preventDefault(); current = null; show(hash); }
@@ -2481,6 +2721,35 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     new IntersectionObserver(([en]) => { heroInView = en.isIntersecting; syncVideo(); }, { threshold: .15 }).observe($('.hero'));
   }
 
+  /* ---------- shop search and sort ---------- */
+  let qTimer = null;
+  $('[data-shop-q]').addEventListener('input', e => { clearTimeout(qTimer); qTimer = setTimeout(() => shopTo({ q: e.target.value }), 160); });
+  $('[data-shop-sort]').addEventListener('change', e => shopTo({ sort: e.target.value }));
+
+  /* ---------- the catalogue arrives (a copy saved on this device shows at once; the network has the latest) ---------- */
+  let waitingHash = '';
+  function afterCatalogue() {
+    renderProductParts(); renderShop();
+    if (current === 'e-brochure') renderReader();
+    // a link straight to a catalogue piece, category or collection waited for the list
+    const h = location.hash.slice(1);
+    if (waitingHash && h === waitingHash && resolve(h)) { waitingHash = ''; current = null; show(h); }
+  }
+  function loadCatalogue(retry) {
+    if (retry) { CAT_STATE = 'loading'; renderShop(); }
+    const ctl = 'AbortController' in window ? new AbortController() : null;
+    const timer = setTimeout(() => ctl && ctl.abort(), 25000);
+    fetch(CAT_URL, ctl ? { signal: ctl.signal } : {}).then(r => r.ok ? r.text() : Promise.reject(new Error('HTTP ' + r.status))).then(txt => {
+      clearTimeout(timer);
+      const doc = JSON.parse(txt), same = CAT && CAT.generated && CAT.generated === doc.generated;
+      if (!useCatalogue(doc)) throw new Error('bad catalogue');
+      CAT_STATE = 'ok';
+      try { if (txt.length < 2500000) localStorage.setItem(CAT_KEY, txt); } catch (e) { /* storage unavailable */ }
+      saved = saved.filter(id => BY_ID[id]); persist();
+      if (same) renderShop(); else afterCatalogue();
+    }).catch(() => { clearTimeout(timer); if (CAT_STATE !== 'cached') CAT_STATE = 'error'; renderShop(); });
+  }
+
   /* ---------- product carousel ---------- */
   $('[data-pcar]').addEventListener('scroll', syncPcar, { passive: true });
   window.addEventListener('resize', syncPcar);
@@ -2489,6 +2758,7 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
   let DATA = {};
   try { DATA = JSON.parse($('#site-data').textContent); } catch (e) { DATA = {}; }
   applyContent(DATA);
+  if (useCatalogue(cachedCatalogue())) CAT_STATE = 'cached';
   if (PREVIEWING) {
     const pill = document.createElement('a');
     pill.className = 'preview-pill'; pill.href = location.pathname;
@@ -2496,7 +2766,8 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
     document.body.appendChild(pill);
   }
   renderHome(); renderShop(); renderEditorial(); renderShelf(); syncType(); syncSaved();
-  show((location.hash || '#home').slice(1));
+  { const h = (location.hash || '#home').slice(1); if (!resolve(h)) waitingHash = h; show(h); }
+  loadCatalogue();
 })();
 </script>
 
