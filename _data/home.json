@@ -57,10 +57,5 @@
       "link": "whatsapp"
     }
   ],
-  "builtin_brochures": [
-    "christmas",
-    "collection",
-    "gift",
-    "library"
-  ]
+  "builtin_brochures": []
 }
