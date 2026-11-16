@@ -429,7 +429,7 @@ function busy(btn, on, label) {
 const NAV = [
   { id: 'overview', label: 'Overview', icon: 'home' },
   { id: 'campaigns', label: 'Campaigns', icon: 'flag', count: () => entries('campaigns').length },
-  { id: 'products', label: 'Products', icon: 'gem', count: () => entries('products').length },
+  { id: 'products', label: 'Products', icon: 'gem', count: () => productsOnSite() },
   { id: 'collections', label: 'Collections', icon: 'grid', count: () => entries('collections').length },
   { id: 'brochures', label: 'e-Brochures', icon: 'book', count: () => entries('brochures').length + BUILTIN_BROCHURES.length },
   { id: 'editorial', label: 'Editorial', icon: 'pen', count: () => entries('editorial').length },
@@ -485,6 +485,11 @@ async function route() {
   const r = parseRoute();
   const fn = VIEWS[r.view] || VIEWS.overview;
   S.draft = null; S.dirty = false;
+  const first = !CAT.at && !CAT.error;
+  await catalogueReady();
+  if (my !== routeToken) return;
+  // the catalogue arrived late: show it on the pages that list products, unless something is being edited
+  if (first && !CAT.at && !CAT.error) loadCatalogue().then(() => { if (my === routeToken && !S.dirty) route(); });
   try { await fn(r.id, my); }
   catch (e) { console.error(e); handleError(e); }
   if (my === routeToken) window.scrollTo(0, 0);
@@ -586,9 +591,11 @@ function linkGroups() {
     ['Contact', [['whatsapp', 'WhatsApp chat'], ['#enquiry-appointment', 'Book an appointment'], ['#enquiry-general', 'Enquiry form'], ['#enquiry-design', 'Design your own'], ['#enquiry-tradein', 'Trade-in'], ['#enquiry-care', 'Care and restringing']]],
     ['Pages', [['#collection-all', 'All designs'], ['#editorial', 'Editorial'], ['#e-brochure', 'e-Brochures'], ['#about', 'About us'], ['#stores', 'Visit us'], ['#contact', 'Contact us'], ['#faq', 'Pricing and care']]],
     ['e-Brochures', brochures],
-    ['Collections', values('collections').slice().sort(byOrder).map(c => [`#collection-${c.id}`, c.name || c.id])],
+    ['Collections', values('collections').slice().sort(byOrder).map(c => [`#collection-${c.id}`, c.name || c.id])
+      .concat(((CAT.doc && CAT.doc.collections) || []).filter(c => !studioColFor(c.name)).map(c => [catColLink(c.name), `${c.name} (catalogue)`]))],
+    ['Categories', ((CAT.doc && CAT.doc.types) || []).map(t => [typeLink(t.name), pluralOf(t.name)])],
     ['Stories', values('editorial').slice().sort(byOrder).map(s => [`#story-${s.slug}`, plain(s.title)])],
-    ['Products', values('products').slice().sort(byOrder).map(p => [`#product-${p.id}`, `${p.name} (${p.id})`])],
+    ['Products', pickable().map(p => [`#product-${p.id}`, p.src === 'cat' ? `${p.name} (${p.meta.split(' · ')[0]})` : `${p.name} (${p.id})`])],
   ];
 }
 function linkHTML(path, v, id) {
@@ -688,12 +695,12 @@ function imagesHTML(f, path, v) {
 // ---- brochure pages
 function pagesHTML(f, path, v) {
   const arr = Array.isArray(v) ? v : [];
-  const prods = values('products').slice().sort(byOrder);
+  const prods = pickable();
   return `<div class="pages" data-drop="${path}" data-mode="pages" data-ftype="image">
     ${arr.map((pg, i) => `<div class="page thumb" draggable="true" data-thumb="${i}" data-list="${path}">
       <div class="thumb__img">${imgTag(pg && pg.image)}<span class="thumb__tag">Page ${i + 1}</span></div>
       <input class="input" type="text" data-bind="${join(path, i, 'caption')}" data-kind="text" value="${esc((pg && pg.caption) || '')}" placeholder="Caption (optional)" aria-label="Caption for page ${i + 1}">
-      <select class="select" data-bind="${join(path, i, 'product')}" data-kind="text" aria-label="Product on page ${i + 1}"><option value="">No product button</option>${prods.map(p => `<option value="${esc(p.id)}" ${pg && String(pg.product) === String(p.id) ? 'selected' : ''}>${esc(p.name)} (${esc(p.id)})</option>`).join('')}</select>
+      <select class="select" data-bind="${join(path, i, 'product')}" data-kind="text" aria-label="Product on page ${i + 1}"><option value="">No product button</option>${prods.map(p => `<option value="${esc(p.id)}" ${pg && String(pg.product).toUpperCase() === p.id.toUpperCase() ? 'selected' : ''}>${esc(p.name)} (${esc(p.src === 'cat' ? p.meta.split(' · ')[0] : p.id)})</option>`).join('')}</select>
       <div class="thumb__bar">
         <button type="button" class="btn btn--ghost" data-act="move" data-path="${path}" data-i="${i}" data-d="-1" ${i === 0 ? 'disabled' : ''} aria-label="Move page earlier">${ic('left')}</button>
         <button type="button" class="btn btn--ghost" data-act="remove" data-path="${path}" data-i="${i}" aria-label="Remove page">${ic('trash')}</button>
@@ -706,9 +713,9 @@ function pagesHTML(f, path, v) {
 function productsHTML(f, path, v) {
   const ids = Array.isArray(v) ? v : [];
   return `<div class="picks">${ids.map((pid, i) => {
-      const p = S.data.products[pid] ? S.data.products[pid].value : values('products').find(x => String(x.id) === String(pid));
-      return `<div class="pick ${p ? '' : 'pick--missing'}">${p && p.images && p.images[0] ? imgTag(p.images[0]) : '<span class="pick__ph"></span>'}
-        <div class="pick__text"><div class="pick__name">${esc(p ? p.name : pid)}</div><div class="pick__meta">${p ? esc(p.id) + (p.show === false ? ' · hidden' : '') : 'This product no longer exists'}</div></div>
+      const p = productRef(pid);
+      return `<div class="pick ${p ? '' : 'pick--missing'}">${refImg(p) || '<span class="pick__ph"></span>'}
+        <div class="pick__text"><div class="pick__name">${esc(p ? p.name : pid)}</div><div class="pick__meta">${p ? esc(p.meta) : CAT.error ? 'Not in the list right now (the catalogue can’t be reached)' : 'Not on the website: no longer in the catalogue, or no photos'}</div></div>
         <div class="pick__tools">
           <button type="button" class="btn btn--ghost" data-act="move" data-path="${path}" data-i="${i}" data-d="-1" ${i === 0 ? 'disabled' : ''} aria-label="Move up">${ic('up')}</button>
           <button type="button" class="btn btn--ghost" data-act="move" data-path="${path}" data-i="${i}" data-d="1" ${i === ids.length - 1 ? 'disabled' : ''} aria-label="Move down">${ic('down')}</button>
@@ -857,15 +864,18 @@ function pickMedia({ ftype = 'image', multiple = false } = {}) {
 function pickProducts(already = []) {
   const chosen = new Set();
   let q = '';
-  const all = () => values('products').slice().sort(byOrder).filter(p => !already.includes(String(p.id)));
+  const taken = new Set(already.map(x => String(x).toUpperCase()));
+  const all = () => pickable().filter(p => !taken.has(p.id.toUpperCase()));
   const grid = () => {
-    const list = all().filter(p => !q || `${p.name} ${p.id} ${p.collection}`.toLowerCase().includes(q));
-    return list.length ? list.map(p => `<button type="button" data-pick="${esc(p.id)}" aria-pressed="${chosen.has(String(p.id))}"><span class="lib__img" style="aspect-ratio:4/5">${p.images && p.images[0] ? imgTag(p.images[0]) : ''}</span><span class="lib__name"><b style="color:var(--ink);font-weight:500">${esc(p.name)}</b><br>${esc(p.id)}</span></button>`).join('')
-      : '<p class="muted">No more products to add.</p>';
+    const words = q.split(/\s+/).filter(Boolean);
+    const list = all().filter(p => words.every(w => p.hay.includes(w)));
+    return (CAT.error ? `<p class="hint" style="grid-column:1/-1">${esc(CAT.error)}</p>` : '') + (list.length ? list.slice(0, 120).map(p => `<button type="button" data-pick="${esc(p.id)}" aria-pressed="${chosen.has(p.id)}"><span class="lib__img" style="aspect-ratio:4/5">${refImg(p)}</span><span class="lib__name"><b style="color:var(--ink);font-weight:500">${esc(p.name)}</b><br>${esc(p.meta)}</span></button>`).join('')
+      + (list.length > 120 ? `<p class="hint" style="grid-column:1/-1">${list.length - 120} more: type a reference or a name to find them.</p>` : '')
+      : '<p class="muted">No more products to add.</p>');
   };
   return modal({
     title: 'Add products', wide: true,
-    body: `<div class="toolbar" style="margin:0"><div class="search">${ic('search')}<input class="input" type="search" placeholder="Search name or reference" data-q></div><span class="hint">They are added in the order you select them.</span></div><div class="lib" data-grid>${grid()}</div>`,
+    body: `<div class="toolbar" style="margin:0"><div class="search">${ic('search')}<input class="input" type="search" placeholder="Search name, reference or type" data-q></div><span class="hint">Catalogue products and website-only pieces. They are added in the order you select them.</span></div><div class="lib" data-grid>${grid()}</div>`,
     actions: [{ label: 'Cancel', value: false, closeOnFalse: true }, { label: 'Add', primary: true, value: () => (chosen.size ? [...chosen] : false) }],
     onOpen(w) {
       const g = w.querySelector('[data-grid]');
@@ -1137,12 +1147,12 @@ const SCHEMAS = {
     validate: v => (v.start && v.end && v.end < v.start ? { end: 'The end date is before the start date.' } : {}),
   },
   products: {
-    label: 'Product', plural: 'Products', key: 'id',
+    label: 'Website-only piece', plural: 'Products', key: 'id',
     blank: () => ({ id: '', name: '', collection: '', kind: 'Bracelet', images: [], video: '', description: '', parts: [], gold: 'Yellow 916 gold', weight: '', price: '', order: nextOrder('products'), show: true }),
     sections: [
       { title: 'Product', fields: [
         { key: 'name', label: 'Name', type: 'text', required: true, placeholder: 'Colonne' },
-        { key: 'id', label: 'Reference', type: 'ref', required: true, half: true, hint: 'Your product code, e.g. 3945 or P3843-A.' },
+        { key: 'id', label: 'Reference', type: 'ref', required: true, half: true, hint: 'Your product code, e.g. P3843-A. When the catalogue has a product with this reference, the website shows the catalogue’s.' },
         { key: 'kind', label: 'Type', type: 'select', half: true, options: ['Bracelet', 'Charm', 'Necklace', 'Pendant', 'Bangle', 'Ring', 'Earrings'] },
         { key: 'collection', label: 'Collection', type: 'select', empty: 'No collection', options: () => values('collections').slice().sort(byOrder).map(c => [c.id, c.name || c.id]) },
       ] },
@@ -1169,13 +1179,13 @@ const SCHEMAS = {
     sections: [
       { title: 'Collection', fields: [
         { key: 'name', label: 'Name', type: 'text', required: true },
-        { key: 'id', label: 'Short name', type: 'slug', required: true, hint: 'Used in links such as #collection-colonne.' },
+        { key: 'id', label: 'Short name', type: 'slug', required: true, hint: 'Used in links such as #collection-colonne. To dress a collection of the catalogue, give it the same name as in the sheet’s Collection columns.' },
         { key: 'idea', label: 'One-line idea', type: 'text' },
         { key: 'text', label: 'Description', type: 'textarea' },
         { key: 'image', label: 'Tile picture', type: 'image', folder: 'images', max: [1200, 1200], ratio: '1/1', hint: 'Square, 1000 × 1000. Shown under “Shop by collection”.' },
       ] },
-      { title: 'On the website', hint: 'A collection appears in the menu and under “Shop by collection” only while at least one of its products is shown on the website.', fields: [
-        { key: 'show_on_home', label: 'Show under “Shop by collection”', type: 'toggle', half: true },
+      { title: 'On the website', hint: 'A collection appears in the menu and as a tile on the home page only while it has products on the website: catalogue products whose Collection 1–5 has this name, or website-only pieces in it.', fields: [
+        { key: 'show_on_home', label: 'Show as a tile on the home page', type: 'toggle', half: true },
         { key: 'order', label: 'Order', type: 'number', half: true, hint: 'Lower numbers come first.' },
       ] },
     ],
@@ -1259,6 +1269,81 @@ const SCHEMAS = {
 };
 function nextOrder(kind) { const o = values(kind).map(v => Number(v.order)).filter(n => !isNaN(n)); return o.length ? Math.max(...o) + 1 : 1; }
 
+// ------------------------------------------------------------------ the catalogue
+// The website's products come from the staff catalogue (the Google Sheet + the photo folder on the catalogue PC):
+// every active product with photos or videos, grouped with its variants. The Studio reads the same public list the
+// website reads (no prices, stock, teams or merchants in it). Studio products are "website-only pieces": pieces that
+// aren't in the catalogue (yet), such as the Christmas charms. When the catalogue has the same reference, it wins.
+const CAT_URL = (IS_LOCAL && QS.get('cat')) || 'https://yg-catalogue.senlai.workers.dev/pub/catalogue.json';
+const CAT_BASE = CAT_URL.replace(/[^/]+$/, '');
+const CAT = { doc: null, error: '', at: 0, loading: null };
+
+function loadCatalogue(force = false) {
+  if (CAT.doc && !CAT.error && !force && Date.now() - CAT.at < 5 * 60e3) return Promise.resolve(CAT.doc);
+  if (CAT.loading) return CAT.loading;
+  const ctl = 'AbortController' in window ? new AbortController() : null;
+  const timer = setTimeout(() => ctl && ctl.abort(), 20000);
+  CAT.loading = fetch(CAT_URL, { cache: force ? 'no-cache' : 'default', signal: ctl ? ctl.signal : undefined })
+    .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status))))
+    .then(d => {
+      if (!d || !Array.isArray(d.products)) throw new Error('not a catalogue');
+      CAT.doc = d; CAT.error = ''; CAT.at = Date.now();
+      return d;
+    })
+    .catch(() => {
+      CAT.error = 'The catalogue can’t be reached just now (the catalogue PC may be off or restarting). Its products aren’t listed here until it’s back; the website keeps showing the last list it has.';
+      if (!CAT.doc) CAT.doc = { products: [], types: [], collections: [] };
+      return CAT.doc;
+    })
+    .finally(() => { clearTimeout(timer); CAT.loading = null; });
+  return CAT.loading;
+}
+// views wait for the catalogue a moment, never long: a slow catalogue PC mustn't hold up the Studio
+const catalogueReady = () => Promise.race([loadCatalogue(), sleep(4000)]);
+
+const catProducts = () => (CAT.doc && Array.isArray(CAT.doc.products) ? CAT.doc.products : []);
+const catById = id => { const u = String(id ?? '').toUpperCase(); return u ? catProducts().find(p => String(p.id).toUpperCase() === u) || null : null; };
+const catName = p => String(p.name || '').trim() || `${p.type || 'Piece'} ${p.ref || p.id}`;
+const catFile = r => (r ? CAT_BASE + String(r).split('/').map(encodeURIComponent).join('/') : '');
+const catThumb = p => { const m = (p.media || [])[0]; return m ? catFile(m.th || m.l) : ''; };
+const catWeights = p => {
+  const ws = (p.vs || []).map(v => v.weight).filter(w => w > 0);
+  if (!ws.length) return '';
+  const a = Math.min(...ws), b = Math.max(...ws);
+  return a === b ? `${a.toFixed(2)} g` : `${a.toFixed(2)}–${b.toFixed(2)} g`;
+};
+const catImg = (src, alt = '') => (src ? `<img class="is-photo" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async">` : '');
+
+// the same addresses the website makes for categories and catalogue collections
+const siteSlug = t => String(t || '').normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9㐀-鿿]+/g, '-').replace(/^-+|-+$/g, '');
+const PLURALS = { gold: 'Gold', jewellery: 'Jewellery', watch: 'Watches' };
+const pluralOf = t => PLURALS[String(t || '').toLowerCase()] || (/s$/i.test(t) ? t : t + 's');
+const typeLink = t => `#type-${siteSlug(pluralOf(String(t || '')))}`;
+const sameName = (a, b) => siteSlug(a) === siteSlug(b);
+// the Studio collection that dresses a catalogue collection (same name or short name)
+const studioColFor = name => values('collections').find(c => sameName(c.name, name) || sameName(c.id, name)) || null;
+const catColLink = name => `#collection-${(studioColFor(name) || {}).id || siteSlug(name)}`;
+
+// a product id saved in a campaign, a story or a brochure, as the website will show it
+function productRef(id) {
+  const cp = catById(id);
+  if (cp) return { id: String(cp.id), name: catName(cp), meta: [cp.ref, cp.type, catWeights(cp)].filter(Boolean).join(' · '), thumb: catThumb(cp), src: 'cat' };
+  const sp = S.data.products && S.data.products[id] ? S.data.products[id].value : values('products').find(x => String(x.id) === String(id));
+  if (sp) return { id: String(sp.id), name: sp.name || String(sp.id), meta: `${sp.id} · website-only${sp.show === false ? ' · hidden' : ''}`, img: sp.images && sp.images[0], src: 'site', hidden: sp.show === false };
+  return null;
+}
+const refImg = r => (r && r.thumb ? catImg(r.thumb) : r && r.img ? imgTag(r.img) : '');
+// everything a campaign, story or brochure can show: the catalogue's products, then the website-only pieces it doesn't have
+function pickable() {
+  const inCat = new Set(catProducts().map(p => String(p.id).toUpperCase()));
+  return catProducts().map(p => ({ id: String(p.id), name: catName(p), meta: [p.ref, p.type, catWeights(p)].filter(Boolean).join(' · '), thumb: catThumb(p), src: 'cat',
+      hay: [catName(p), p.id, p.ref, p.type, ...(p.cols || []), ...(p.vs || []).map(v => v.code)].join(' ').toLowerCase() }))
+    .concat(values('products').slice().sort(byOrder).filter(p => !inCat.has(String(p.id).toUpperCase())).map(p => ({
+      id: String(p.id), name: p.name || String(p.id), meta: `${p.id} · website-only${p.show === false ? ' · hidden' : ''}`, img: p.images && p.images[0], src: 'site', hidden: p.show === false,
+      hay: `${p.name} ${p.id} ${p.collection || ''}`.toLowerCase() })));
+}
+const productsOnSite = () => pickable().filter(x => !x.hidden).length;
+
 // ------------------------------------------------------------------ campaigns: what the home page shows
 const isOn = c => c && (c.active === true || c.active === 'true');
 // several campaigns can be live at once; the website shows them in this order (the same rule as the home page)
@@ -1286,7 +1371,7 @@ const heroThumb = h => (h && h.image ? imgTag(h.image) : h && h.video ? `<video 
 VIEWS.overview = async () => {
   const u = S.session.user, lives = liveCampaigns(), t = todayMY();
   const soon = values('campaigns').filter(c => isOn(c) && c.start && String(c.start) > t).sort((a, b) => String(a.start).localeCompare(String(b.start)));
-  const shownProducts = values('products').filter(p => p.show !== false).length;
+  const shownProducts = productsOnSite();
   const first = (u.name || '').split(' ')[0];
   shell('overview', [['Overview', '#overview']], `
     <div class="page-head"><div><h1 class="page-title">${esc(greeting())}${first ? `, <em>${esc(first)}</em>` : ''}</h1>
@@ -1305,7 +1390,7 @@ VIEWS.overview = async () => {
         <a class="card stat" href="#editorial"><b>${values('editorial').filter(s => s.show !== false).length}</b><span>Stories</span></a>
       </div>
       <div class="quick">
-        <a href="#campaigns/new">${ic('flag')}New campaign</a><a href="#products/new">${ic('gem')}Add a product</a>
+        <a href="#campaigns/new">${ic('flag')}New campaign</a><a href="#products">${ic('gem')}Browse products</a>
         <a href="#brochures/new">${ic('book')}New e-brochure</a><a href="#editorial/new">${ic('pen')}Write a story</a><a href="#media">${ic('upload')}Upload media</a>
       </div>
       <div class="grid-2">
@@ -1342,38 +1427,58 @@ VIEWS.campaigns = async id => {
 };
 VIEWS.products = async id => {
   if (id) return editEntry('products', id);
-  const f = S.ui.pf || (S.ui.pf = { col: '', q: '' });
-  const cols = values('collections').slice().sort(byOrder);
+  const f = S.ui.pf || (S.ui.pf = { q: '', type: '', n: 60 });
+  const types = (CAT.doc && CAT.doc.types) || [];
+  if (f.type && !types.some(t => t.name === f.type)) f.type = '';
+  const inCat = new Set(catProducts().map(p => String(p.id).toUpperCase()));
+  const site = values('products').slice().sort(byOrder);
+  const hay = p => [catName(p), p.id, p.ref, p.type, ...(p.cols || []), ...(p.vs || []).map(v => v.code)].join(' ').toLowerCase();
   const draw = () => {
-    const list = values('products').slice().sort(byOrder).filter(p => (!f.col || p.collection === f.col) && (!f.q || `${p.name} ${p.id}`.toLowerCase().includes(f.q)));
-    $('[data-tiles]').innerHTML = list.length ? `<div class="tiles">${list.map(p => `<a class="card tile" href="#products/${encodeURIComponent(p.id)}">
-      <div class="tile__media">${p.images && p.images[0] ? imgTag(p.images[0], p.name) : `<span class="tile__ph">${ic('gem', 'icon--lg')}</span>`}${p.show === false ? chip(['hidden', 'Hidden']) : ''}</div>
-      <div class="tile__body"><span class="tile__name">${esc(p.name)}</span><span class="tile__meta">${esc(p.id)}${p.collection && S.data.collections[p.collection] ? ' · ' + esc(S.data.collections[p.collection].value.name) : ''}</span></div></a>`).join('')}</div>`
-      : `<div class="card empty">${ic('search')}<p>No products match.</p></div>`;
+    const words = f.q.split(/\s+/).filter(Boolean);
+    const list = catProducts().filter(p => (!f.type || p.type === f.type) && words.every(w => hay(p).includes(w)));
+    $('[data-count]').textContent = CAT.error && !catProducts().length ? '' : `${list.length} of ${catProducts().length}`;
+    $('[data-tiles]').innerHTML = list.length ? `<div class="tiles">${list.slice(0, f.n).map(p => `<a class="card tile" href="${esc(SITE)}#product-${encodeURIComponent(p.id)}" target="_blank" rel="noopener" title="Open on the website">
+      <div class="tile__media tile__media--photo">${catImg(catThumb(p), catName(p))}${(p.hl || []).includes('new') ? chip(['live', 'New']) : ''}</div>
+      <div class="tile__body"><span class="tile__name">${esc(catName(p))}</span><span class="tile__meta">${esc([p.ref, p.vs && p.vs.length > 1 ? `${p.vs.length} variants` : '', catWeights(p)].filter(Boolean).join(' · '))}</span></div></a>`).join('')}</div>
+      ${list.length > f.n ? `<div class="addrow" style="justify-content:center;margin-top:18px"><button type="button" class="btn" data-more>Show more (${list.length - f.n} more)</button></div>` : ''}`
+      : `<div class="card empty">${ic(CAT.error ? 'alert' : 'search')}<p>${CAT.error ? 'The catalogue can’t be reached just now.' : catProducts().length ? 'No products match.' : 'No catalogue products have photos yet.'}</p></div>`;
   };
-  listPage('products', {
-    crumbs: [['Products', '#products']], title: 'Products', newLabel: 'Add a product',
-    sub: 'Each product has its photos, video and details. Product carousels, stories and brochures pick from this list.',
-    toolbar: `<div class="toolbar"><div class="search">${ic('search')}<input class="input" type="search" placeholder="Search name or reference" value="${esc(f.q)}" data-q aria-label="Search products"></div>
-      <div class="filters" role="group" aria-label="Collection"><button type="button" class="filter" data-col="" aria-pressed="${!f.col}">All</button>${cols.map(c => `<button type="button" class="filter" data-col="${esc(c.id)}" aria-pressed="${f.col === c.id}">${esc(c.name)}</button>`).join('')}</div></div>`,
-    tiles: ' ',
-  });
+  shell('products', [['Products', '#products']], `<div class="page-head"><div><h1 class="page-title">Products</h1>
+    <p class="page-sub">The website lists the products of the staff catalogue (the Google Sheet) that have photos or videos, with their variants. To change one, edit the sheet or the photo folder: the website follows within about 15 minutes. Prices, stock, teams and merchants never leave the catalogue.</p></div>
+    <div class="page-actions"><button type="button" class="btn" data-recheck>${ic('search')}Check the catalogue again</button></div></div>
+    ${CAT.error ? `<div class="card card__body" role="status" style="margin-bottom:18px;border-color:var(--warn,#b8860b)">${ic('alert')} ${esc(CAT.error)}</div>` : ''}
+    <div class="toolbar"><div class="search">${ic('search')}<input class="input" type="search" placeholder="Search name, reference or code" value="${esc(f.q)}" data-q aria-label="Search the catalogue"></div>
+      <div class="filters" role="group" aria-label="Category"><button type="button" class="filter" data-type="" aria-pressed="${!f.type}">All</button>${types.map(t => `<button type="button" class="filter" data-type="${esc(t.name)}" aria-pressed="${f.type === t.name}">${esc(pluralOf(t.name))} <span class="muted">${t.count}</span></button>`).join('')}</div>
+      <span class="hint" data-count></span></div>
+    <div data-tiles></div>
+    <section class="card" style="margin-top:28px"><div class="card__head"><div><h2 class="card__title">Website-only pieces</h2>
+      <p class="hint">Pieces on the website that aren’t in the catalogue, such as the Christmas charms. When the catalogue has a product with the same reference, the website shows the catalogue’s instead.</p></div>
+      <a class="btn btn--sm" href="#products/new">${ic('plus')}Add a piece</a></div>
+      <div class="card__body">${site.length ? `<div class="tiles">${site.map(p => `<a class="card tile" href="#products/${encodeURIComponent(p.id)}">
+        <div class="tile__media">${p.images && p.images[0] ? imgTag(p.images[0], p.name) : `<span class="tile__ph">${ic('gem', 'icon--lg')}</span>`}${inCat.has(String(p.id).toUpperCase()) ? chip(['off', 'Replaced by the catalogue']) : p.show === false ? chip(['hidden', 'Hidden']) : ''}</div>
+        <div class="tile__body"><span class="tile__name">${esc(p.name)}</span><span class="tile__meta">${esc(p.id)}${p.collection && S.data.collections[p.collection] ? ' · ' + esc(S.data.collections[p.collection].value.name) : ''}</span></div></a>`).join('')}</div>`
+        : '<p class="muted">None. Every product on the website comes from the catalogue.</p>'}</div></section>`);
   draw();
-  $('[data-q]').addEventListener('input', e => { f.q = e.target.value.trim().toLowerCase(); draw(); });
-  $('.filters').addEventListener('click', e => { const b = e.target.closest('[data-col]'); if (!b) return; f.col = b.dataset.col; $$('.filters [data-col]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); draw(); });
+  $('[data-q]').addEventListener('input', e => { f.q = e.target.value.trim().toLowerCase(); f.n = 60; draw(); });
+  $('.filters').addEventListener('click', e => { const b = e.target.closest('[data-type]'); if (!b) return; f.type = b.dataset.type; f.n = 60; $$('.filters [data-type]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); draw(); });
+  $('[data-tiles]').addEventListener('click', e => { if (e.target.closest('[data-more]')) { f.n += 60; draw(); } });
+  $('[data-recheck]').addEventListener('click', async e => { busy(e.currentTarget, true, 'Checking…'); await loadCatalogue(true); route(); });
 };
 VIEWS.collections = async id => {
   if (id) return editEntry('collections', id);
   const list = values('collections').slice().sort(byOrder);
-  const count = cid => values('products').filter(p => p.collection === cid).length;
-  listPage('collections', {
-    crumbs: [['Collections', '#collections']], title: 'Collections', newLabel: 'New collection',
-    sub: 'Collections group the products and make the square tiles under “Shop by collection”.',
-    tiles: list.length ? `<div class="tiles">${list.map(c => `<a class="card tile" href="#collections/${encodeURIComponent(c.id)}">
-      <div class="tile__media tile__media--square">${c.image ? imgTag(c.image, c.name) : `<span class="tile__ph">${ic('grid', 'icon--lg')}</span>`}${c.show_on_home === false ? chip(['off', 'Not on home page']) : ''}</div>
-      <div class="tile__body"><span class="tile__name">${esc(c.name)}</span><span class="tile__meta">${count(c.id)} products</span></div></a>`).join('')}</div>` : '',
-    empty: `${ic('grid')}<p>No collections yet.</p>`,
-  });
+  const catCols = (CAT.doc && CAT.doc.collections) || [];
+  const catCount = c => catCols.filter(x => sameName(x.name, c.name) || sameName(x.name, c.id)).reduce((n, x) => n + (x.count || 0), 0);
+  const count = c => values('products').filter(p => p.collection === c.id && p.show !== false && !catById(p.id)).length + catCount(c);
+  shell('collections', [['Collections', '#collections']], `<div class="page-head"><div><h1 class="page-title">Collections</h1>
+    <p class="page-sub">Collections come from the Collection 1–5 columns of the catalogue sheet. Give one a tile picture and a few words here by creating a collection with the same name. A collection is on the website while it has products.</p></div>
+    <div class="page-actions"><a class="btn btn--primary" href="#collections/new">${ic('plus')}New collection</a></div></div>
+    <section class="card" style="margin-bottom:28px"><div class="card__head"><div><h2 class="card__title">In the catalogue</h2><p class="hint">Names written in the sheet’s Collection 1–5 columns, for products that have photos.</p></div></div>
+      <div class="card__body">${CAT.error && !catCols.length ? `<p class="muted">${esc(CAT.error)}</p>` : catCols.length ? `<ul class="activity">${catCols.map(c => { const sc = studioColFor(c.name); return `<li><b>${sc ? `<a href="#collections/${encodeURIComponent(sc.id)}">${esc(c.name)}</a>` : esc(c.name)}</b><span>${c.count} ${c.count === 1 ? 'product' : 'products'} · ${sc ? 'tile picture and words set here' : 'no tile picture yet'}</span></li>`; }).join('')}</ul>`
+        : '<p class="muted">None yet. Fill in the Collection columns of the sheet and they appear here and on the website.</p>'}</div></section>
+    ${list.length ? `<div class="tiles">${list.map(c => `<a class="card tile" href="#collections/${encodeURIComponent(c.id)}">
+      <div class="tile__media tile__media--square">${c.image ? imgTag(c.image, c.name) : `<span class="tile__ph">${ic('grid', 'icon--lg')}</span>`}${!count(c) ? chip(['off', 'No products on the website']) : c.show_on_home === false ? chip(['off', 'Not on home page']) : ''}</div>
+      <div class="tile__body"><span class="tile__name">${esc(c.name)}</span><span class="tile__meta">${count(c)} products</span></div></a>`).join('')}</div>` : `<div class="card empty">${ic('grid')}<p>No collection pictures yet.</p></div>`}`);
 };
 VIEWS.editorial = async id => {
   if (id) return editEntry('editorial', id);
