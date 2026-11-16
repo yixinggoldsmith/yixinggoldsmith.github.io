@@ -8,7 +8,7 @@
   "hero_alt": "All nineteen Yi Xing beads, pipes, links and spacers laid out in rows on teal suede",
   "dek": "Nineteen beads, pipes and links, each with a name. Every Yi Xing design is spelled from them.",
   "order": 1,
-  "show": true,
+  "show": false,
   "body": [
     {
       "type": "text",
