@@ -1109,9 +1109,10 @@ const SCHEMAS = {
       { title: 'Campaign', fields: [
         { key: 'title', label: 'Campaign name', type: 'text', required: true, placeholder: 'Chinese New Year 2027' },
         { key: 'slug', label: 'Short name', type: 'slug', required: true, hint: 'Used for the file and the preview link. Lowercase letters, numbers and hyphens.' },
-        { key: 'active', label: 'Live on the website', type: 'toggle', hint: 'The home page shows the live campaign whose dates include today (Malaysia time). If two overlap, the one that starts later wins.' },
+        { key: 'active', label: 'Live on the website', type: 'toggle', hint: 'The home page shows every switched-on campaign whose dates include today (Malaysia time). When several are live, their banners take turns and all their sections show.' },
         { key: 'start', label: 'Starts', type: 'date', half: true },
         { key: 'end', label: 'Ends', type: 'date', half: true },
+        { key: 'order', label: 'Order on the home page', type: 'number', half: true, hint: 'When several campaigns are live, 1 comes first. Leave empty to put the one ending soonest first.' },
       ] },
       { title: 'Announcement bar', hint: 'The thin bar above the menu. Messages rotate every few seconds.', fields: [{ key: 'announcements', ...ANNOUNCEMENTS }] },
       { title: 'Home page banner', hint: 'The full-width banner at the top of the home page.', fields: [{ key: 'hero', type: 'group', fields: BANNER }] },
@@ -1173,7 +1174,7 @@ const SCHEMAS = {
         { key: 'text', label: 'Description', type: 'textarea' },
         { key: 'image', label: 'Tile picture', type: 'image', folder: 'images', max: [1200, 1200], ratio: '1/1', hint: 'Square, 1000 × 1000. Shown under “Shop by collection”.' },
       ] },
-      { title: 'On the website', fields: [
+      { title: 'On the website', hint: 'A collection appears in the menu and under “Shop by collection” only while at least one of its products is shown on the website.', fields: [
         { key: 'show_on_home', label: 'Show under “Shop by collection”', type: 'toggle', half: true },
         { key: 'order', label: 'Order', type: 'number', half: true, hint: 'Lower numbers come first.' },
       ] },
@@ -1260,18 +1261,22 @@ function nextOrder(kind) { const o = values(kind).map(v => Number(v.order)).filt
 
 // ------------------------------------------------------------------ campaigns: what the home page shows
 const isOn = c => c && (c.active === true || c.active === 'true');
-function liveCampaign() {
+// several campaigns can be live at once; the website shows them in this order (the same rule as the home page)
+const hasOrd = c => c.order !== undefined && c.order !== null && c.order !== '' && isFinite(Number(c.order));
+const byCampaign = (a, b) => (hasOrd(b) - hasOrd(a)) || (hasOrd(a) && hasOrd(b) && Number(a.order) - Number(b.order))
+  || String(a.end || '9999-12-31').localeCompare(String(b.end || '9999-12-31')) || String(b.start || '').localeCompare(String(a.start || ''));
+function liveCampaigns() {
   const t = todayMY();
-  return values('campaigns').filter(c => isOn(c) && (!c.start || String(c.start) <= t) && (!c.end || String(c.end) >= t))
-    .sort((a, b) => String(b.start || '').localeCompare(String(a.start || '')))[0] || null;
+  return values('campaigns').filter(c => isOn(c) && (!c.start || String(c.start) <= t) && (!c.end || String(c.end) >= t)).sort(byCampaign);
 }
+function liveCampaign() { return liveCampaigns()[0] || null; }
 function campaignStatus(c) {
-  const t = todayMY(), live = liveCampaign();
+  const t = todayMY();
   if (!isOn(c)) return ['off', 'Switched off'];
   if (c.start && String(c.start) > t) return ['soon', 'Starts ' + fmtDate(c.start)];
   if (c.end && String(c.end) < t) return ['off', 'Ended ' + fmtDate(c.end)];
-  if (live && live.slug !== c.slug) return ['soon', 'Hidden by ' + plain(live.title)];
-  return ['live', 'Live now'];
+  const live = liveCampaigns(), k = live.findIndex(x => x.slug === c.slug);
+  return ['live', live.length > 1 && k >= 0 ? `Live now · ${k + 1} of ${live.length}` : 'Live now'];
 }
 const chip = ([k, t]) => `<span class="chip chip--${k}">${esc(t)}</span>`;
 const dates = c => (c.start || c.end ? `${c.start ? fmtDate(c.start) : 'Any time'} – ${c.end ? fmtDate(c.end) : 'no end date'}` : 'No dates set');
@@ -1279,7 +1284,7 @@ const heroThumb = h => (h && h.image ? imgTag(h.image) : h && h.video ? `<video 
 
 // ------------------------------------------------------------------ overview
 VIEWS.overview = async () => {
-  const u = S.session.user, live = liveCampaign(), t = todayMY();
+  const u = S.session.user, lives = liveCampaigns(), t = todayMY();
   const soon = values('campaigns').filter(c => isOn(c) && c.start && String(c.start) > t).sort((a, b) => String(a.start).localeCompare(String(b.start)));
   const shownProducts = values('products').filter(p => p.show !== false).length;
   const first = (u.name || '').split(' ')[0];
@@ -1287,10 +1292,10 @@ VIEWS.overview = async () => {
     <div class="page-head"><div><h1 class="page-title">${esc(greeting())}${first ? `, <em>${esc(first)}</em>` : ''}</h1>
       <p class="page-sub">This is what the website shows today, ${esc(fmtDate(t))}. Every change you save here goes live on the website in about a minute.</p></div></div>
     <div style="display:grid;gap:20px">
-      ${live ? `<article class="card feature"><div class="feature__media">${heroThumb(live.hero)}</div>
-        <div class="feature__body">${chip(['live', 'On the home page now'])}<h2 class="feature__title">${esc(plain(live.title))}</h2>
+      ${lives.length ? lives.map((live, k) => `<article class="card feature"><div class="feature__media">${heroThumb(live.hero)}</div>
+        <div class="feature__body">${chip(['live', lives.length > 1 ? `On the home page now · ${k + 1} of ${lives.length}` : 'On the home page now'])}<h2 class="feature__title">${esc(plain(live.title))}</h2>
         <p class="muted">${esc(dates(live))}</p><p>${esc((live.hero && live.hero.title) || '')}</p>
-        <div class="page-actions"><a class="btn btn--primary" href="#campaigns/${encodeURIComponent(live.slug)}">${ic('pen')}Edit campaign</a><a class="btn" href="${esc(SITE)}" target="_blank" rel="noopener">${ic('external')}See it</a></div></div></article>`
+        <div class="page-actions"><a class="btn btn--primary" href="#campaigns/${encodeURIComponent(live.slug)}">${ic('pen')}Edit campaign</a><a class="btn" href="${esc(SITE)}" target="_blank" rel="noopener">${ic('external')}See it</a></div></div></article>`).join('')
       : `<article class="card card__body"><h2 class="feature__title">No campaign is live</h2><p class="muted" style="margin:.4rem 0 1rem">The home page shows the default banner from Home page settings.</p>
         <div class="page-actions"><a class="btn btn--primary" href="#campaigns/new">${ic('plus')}New campaign</a><a class="btn" href="#home">Edit the default banner</a></div></article>`}
       <div class="stats">
@@ -1325,10 +1330,10 @@ function listPage(kind, { crumbs, title, sub, newLabel, toolbar = '', tiles, emp
 VIEWS.campaigns = async id => {
   if (id) return editEntry('campaigns', id);
   const order = c => { const [k] = campaignStatus(c); return k === 'live' ? 0 : k === 'soon' ? 1 : 2; };
-  const list = values('campaigns').sort((a, b) => order(a) - order(b) || String(b.start || '').localeCompare(String(a.start || '')));
+  const list = values('campaigns').sort((a, b) => order(a) - order(b) || (order(a) === 0 ? byCampaign(a, b) : String(b.start || '').localeCompare(String(a.start || ''))));
   listPage('campaigns', {
     crumbs: [['Campaigns', '#campaigns']], title: 'Campaigns', newLabel: 'New campaign',
-    sub: 'A campaign is a season’s home page: banner, announcement bar, product carousel, promo tiles and an editorial feature. Switch one on and give it dates, and it appears by itself.',
+    sub: 'A campaign is a season’s home page: banner, announcement bar, product carousel, promo tiles and an editorial feature. Switch one on and give it dates, and it appears by itself. Several can be live together: their banners take turns.',
     tiles: list.length ? `<div class="tiles tiles--wide">${list.map(c => `<a class="card tile" href="#campaigns/${encodeURIComponent(c.slug)}">
       <div class="tile__media tile__media--wide">${heroThumb(c.hero)}${chip(campaignStatus(c))}</div>
       <div class="tile__body"><span class="tile__name">${esc(plain(c.title) || c.slug)}</span><span class="tile__meta">${esc(dates(c))}</span></div></a>`).join('')}</div>` : '',
@@ -1592,7 +1597,7 @@ async function deleteDraft(btn) {
     const n = values('products').filter(p => p.collection === d.key).length;
     if (n) return tell('Collection in use', `${n} product${n > 1 ? 's are' : ' is'} in “${esc(name)}”. Move ${n > 1 ? 'them' : 'it'} to another collection first.`);
   }
-  if (d.kind === 'campaigns' && liveCampaign() && liveCampaign().slug === d.key && !(await ask('This campaign is live', 'It is on the home page right now. Deleting it brings back the default banner (or the next live campaign).', 'Continue'))) return;
+  if (d.kind === 'campaigns' && liveCampaigns().some(c => c.slug === d.key) && !(await ask('This campaign is live', 'It is on the home page right now. Deleting it takes it off the home page (the default banner comes back if no other campaign is live).', 'Continue'))) return;
   const also = removeRefs(d.kind, d.key);
   const extra = also.length ? `<br><br>It’s also used in: ${also.map(o => esc(o.kind === 'home' ? 'Home page' : titleOf(o.kind, o.value))).join(', ')}. It will be taken out of those too.` : '';
   if (!(await ask(`Delete “${name}”?`, `This removes it from the website. You can’t undo this here.${extra}`, 'Delete', { danger: true }))) return;
