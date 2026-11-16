@@ -8,7 +8,7 @@
   "hero_alt": "Close view of the 3945 Colonne bracelet: fluted pipes between moon-cut beads",
   "dek": "Inside the Colonne collection: three designs built on architectural pipes.",
   "order": 3,
-  "show": true,
+  "show": false,
   "body": [
     {
       "type": "text",
