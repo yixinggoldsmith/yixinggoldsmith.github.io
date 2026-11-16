@@ -25,7 +25,6 @@
     "media": "video",
     "video": "media/uploads/videos/santa-christmas-banner.mp4",
     "image": "media/uploads/images/santa-christmas-banner-poster.webp",
-    "mobile_image": "",
     "title": "The Christmas Edit",
     "subtitle": "Five new charms in 916 gold, to give and to keep",
     "button_label": "Explore now",
@@ -40,12 +39,7 @@
       "P3843-B",
       "P3843-C",
       "P3843-D",
-      "P4112",
-      "3990",
-      "4082",
-      "4037",
-      "3945",
-      "4023"
+      "P4112"
     ]
   },
   "promos": [
@@ -72,7 +66,6 @@
     "story": "gifting",
     "title": "The art of gifting",
     "text": "Every piece leaves our boutiques in a teal box, tied by hand with amber satin ribbon and a card written for you.",
-    "link_label": "Read the story",
-    "image": ""
+    "link_label": "Read the story"
   }
 }
