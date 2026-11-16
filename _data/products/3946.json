@@ -8,14 +8,10 @@
     "Lune",
     "Grappe"
   ],
-  "gold": "",
-  "weight": "",
-  "price": "",
   "description": "Granulated Grappe clusters and moon-cut Lune beads, with a fluted Colonne pipe between each group.",
   "images": [
     "media/v4/d-3946.webp"
   ],
-  "video": "",
   "order": 4,
-  "show": true
+  "show": false
 }
