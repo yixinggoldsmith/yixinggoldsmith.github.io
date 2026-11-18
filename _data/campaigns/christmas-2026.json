@@ -1,23 +1,37 @@
 {
   "slug": "christmas-2026",
   "title": "Christmas 2026",
+  "title_ms": "Krismas 2026",
+  "title_zh": "2026 圣诞",
   "active": true,
   "start": "2026-11-01",
   "end": "2027-01-05",
   "announcements": [
     {
       "text": "Christmas 2026: five new charms in 916 gold",
+      "text_ms": "Krismas 2026: lima charm baharu dalam emas 916",
+      "text_zh": "2026 圣诞：五款916金新吊饰",
       "link_label": "Flip through the e-Brochure",
+      "link_label_ms": "Selak e-Brosur",
+      "link_label_zh": "翻阅电子目录",
       "link": "#brochure-christmas"
     },
     {
       "text": "Gift wrapping and a handwritten card with every piece",
+      "text_ms": "Balutan hadiah dan kad bertulis tangan untuk setiap barang kemas",
+      "text_zh": "每件首饰都附礼品包装和手写卡片",
       "link_label": "The Gift Edit",
+      "link_label_ms": "Pilihan hadiah",
+      "link_label_zh": "礼品精选",
       "link": "#brochure-gift"
     },
     {
       "text": "Talk to a client advisor on WhatsApp",
+      "text_ms": "Bercakap dengan penasihat pelanggan di WhatsApp",
+      "text_zh": "在 WhatsApp 上与客户顾问交谈",
       "link_label": "Message us",
+      "link_label_ms": "Mesej kami",
+      "link_label_zh": "给我们留言",
       "link": "whatsapp"
     }
   ],
@@ -26,14 +40,22 @@
     "video": "media/uploads/videos/santa-christmas-banner.mp4",
     "image": "media/uploads/images/santa-christmas-banner-poster.webp",
     "title": "The Christmas Edit",
+    "title_ms": "Pilihan Krismas",
+    "title_zh": "圣诞精选",
     "subtitle": "Five new charms in 916 gold, to give and to keep",
+    "subtitle_ms": "Lima charm baharu dalam emas 916, untuk dihadiahkan dan disimpan",
+    "subtitle_zh": "五款916金新吊饰，送人自留两相宜",
     "button_label": "Explore now",
+    "button_label_ms": "Terokai sekarang",
+    "button_label_zh": "立即探索",
     "button_link": "#brochure-christmas",
     "text": "light",
     "focus": "right"
   },
   "products": {
     "title": "Christmas 2026",
+    "title_ms": "Krismas 2026",
+    "title_zh": "2026 圣诞",
     "items": [
       "P3843-A",
       "P3843-B",
@@ -46,26 +68,44 @@
     {
       "image": "media/v4/xmas-worn.webp",
       "title": "Gifts for her",
+      "title_ms": "Hadiah untuknya",
+      "title_zh": "送给她的礼物",
       "link_label": "Shop now",
+      "link_label_ms": "Beli sekarang",
+      "link_label_zh": "立即选购",
       "link": "#collection-christmas"
     },
     {
       "image": "media/v4/xmas-bracelet.webp",
       "title": "Charms for her bracelet",
+      "title_ms": "Charm untuk rantai tangannya",
+      "title_zh": "为她的手链添一款吊饰",
       "link_label": "Discover",
+      "link_label_ms": "Terokai",
+      "link_label_zh": "探索",
       "link": "#brochure-christmas--xtwo"
     },
     {
       "image": "media/v4/yixing-box.webp",
       "title": "Wrapped in teal and amber",
+      "title_ms": "Dibalut dalam hijau kebiruan dan ambar",
+      "title_zh": "青绿与琥珀色的包装",
       "link_label": "The Gift Edit",
+      "link_label_ms": "Pilihan hadiah",
+      "link_label_zh": "礼品精选",
       "link": "#brochure-gift"
     }
   ],
   "editorial": {
     "story": "gifting",
     "title": "The art of gifting",
+    "title_ms": "Seni memberi hadiah",
+    "title_zh": "送礼的艺术",
     "text": "Every piece leaves our boutiques in a teal box, tied by hand with amber satin ribbon and a card written for you.",
-    "link_label": "Read the story"
+    "text_ms": "Setiap barang kemas meninggalkan butik kami dalam kotak hijau kebiruan, diikat dengan tangan menggunakan reben satin ambar berserta kad yang ditulis untuk anda.",
+    "text_zh": "每件首饰离开门店时都装在青绿色礼盒里，亲手系上琥珀色缎带，并附上为您手写的卡片。",
+    "link_label": "Read the story",
+    "link_label_ms": "Baca cerita",
+    "link_label_zh": "阅读故事"
   }
 }
