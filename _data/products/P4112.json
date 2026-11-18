@@ -1,16 +1,30 @@
 {
   "id": "P4112",
   "name": "Santa",
+  "name_ms": "Santa",
+  "name_zh": "圣诞老人",
   "collection": "christmas",
   "kind": "Charm",
   "parts": [
     "Red and white enamel",
     "Filigree bail"
   ],
+  "parts_ms": [
+    "Enamel merah dan putih",
+    "Gelung filigree"
+  ],
+  "parts_zh": [
+    "红白珐琅",
+    "花丝扣环"
+  ],
   "gold": "Yellow 916 gold (1C) with enamel",
+  "gold_ms": "Emas 916 kuning (1C) berenamel",
+  "gold_zh": "黄色916金（1C）配珐琅",
   "weight": "1.76 g",
   "price": "",
   "description": "Santa with his sack of gifts, in red and white enamel on 916 gold. The reverse is patterned with small hearts.",
+  "description_ms": "Santa bersama karung hadiahnya, dalam enamel merah dan putih di atas emas 916. Bahagian belakangnya bercorak hati kecil.",
+  "description_zh": "背着礼物袋的圣诞老人，以红白珐琅饰于916金之上。背面饰有小心形图案。",
   "images": [
     "media/v4/d-P4112.webp",
     "media/v4/x-P4112.webp"

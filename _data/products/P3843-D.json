@@ -1,6 +1,8 @@
 {
   "id": "P3843-D",
   "name": "Snowflake",
+  "name_ms": "Kepingan Salji",
+  "name_zh": "雪花",
   "collection": "christmas",
   "kind": "Charm",
   "parts": [
@@ -8,10 +10,24 @@
     "Diamond-cut ring",
     "Bow"
   ],
+  "parts_ms": [
+    "Kepingan salji",
+    "Gelang potongan berlian",
+    "Reben"
+  ],
+  "parts_zh": [
+    "雪花",
+    "钻石切面圆环",
+    "蝴蝶结"
+  ],
   "gold": "Yellow 916 gold (1C)",
+  "gold_ms": "Emas 916 kuning (1C)",
+  "gold_zh": "黄色916金（1C）",
   "weight": "1.65 g",
   "price": "",
   "description": "A snowflake set in a diamond-cut ring, with a bow at the top.",
+  "description_ms": "Kepingan salji dalam gelang potongan berlian, dengan reben di bahagian atas.",
+  "description_zh": "雪花嵌在钻石切面圆环中，顶部饰有蝴蝶结。",
   "images": [
     "media/v4/d-P3843-D.webp",
     "media/v4/x-P3843-D.webp"

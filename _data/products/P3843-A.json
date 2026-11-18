@@ -1,6 +1,8 @@
 {
   "id": "P3843-A",
   "name": "Snowflake Bauble",
+  "name_ms": "Bebola Kepingan Salji",
+  "name_zh": "雪花彩球",
   "collection": "christmas",
   "kind": "Charm",
   "parts": [
@@ -8,9 +10,23 @@
     "Snowflake",
     "Bow"
   ],
+  "parts_ms": [
+    "Bebola berlubang",
+    "Kepingan salji",
+    "Reben"
+  ],
+  "parts_zh": [
+    "镂空彩球",
+    "雪花",
+    "蝴蝶结"
+  ],
   "gold": "Yellow 916 gold (1C)",
+  "gold_ms": "Emas 916 kuning (1C)",
+  "gold_zh": "黄色916金（1C）",
   "weight": "2.05 g",
   "description": "An openwork bauble traced with a six-point snowflake and tied with a bow.",
+  "description_ms": "Bebola berlubang berukir kepingan salji enam penjuru, diikat dengan reben.",
+  "description_zh": "镂空彩球上勾勒出六角雪花，再系上蝴蝶结。",
   "images": [
     "media/uploads/products/p3843-a-1c-kuaci-2-05gm-1-1-1308-261116-fcd1.webp"
   ],

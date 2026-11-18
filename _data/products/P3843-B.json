@@ -1,16 +1,30 @@
 {
   "id": "P3843-B",
   "name": "Christmas Tree",
+  "name_ms": "Pokok Krismas",
+  "name_zh": "圣诞树",
   "collection": "christmas",
   "kind": "Charm",
   "parts": [
     "Filigree tree",
     "Star"
   ],
+  "parts_ms": [
+    "Pokok filigree",
+    "Bintang"
+  ],
+  "parts_zh": [
+    "花丝圣诞树",
+    "星星"
+  ],
   "gold": "Yellow 916 gold (1C)",
+  "gold_ms": "Emas 916 kuning (1C)",
+  "gold_zh": "黄色916金（1C）",
   "weight": "2.05 g",
   "price": "",
   "description": "A filigree tree crowned with a star, each branch tipped with a tiny gold bead.",
+  "description_ms": "Pokok filigree bermahkota bintang, setiap dahannya dihujungi manik emas kecil.",
+  "description_zh": "花丝圣诞树顶缀星星，每根枝头点缀一颗小金珠。",
   "images": [
     "media/v4/d-P3843-B.webp",
     "media/v4/x-P3843-B.webp"

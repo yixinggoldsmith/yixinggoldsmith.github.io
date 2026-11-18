@@ -1,16 +1,30 @@
 {
   "id": "P3843-C",
   "name": "Candy Cane",
+  "name_ms": "Tongkat Gula-gula",
+  "name_zh": "拐杖糖",
   "collection": "christmas",
   "kind": "Charm",
   "parts": [
     "Diamond-cut cane",
     "Bow"
   ],
+  "parts_ms": [
+    "Tongkat potongan berlian",
+    "Reben"
+  ],
+  "parts_zh": [
+    "钻石切面拐杖",
+    "蝴蝶结"
+  ],
   "gold": "Yellow 916 gold (1C)",
+  "gold_ms": "Emas 916 kuning (1C)",
+  "gold_zh": "黄色916金（1C）",
   "weight": "1.15 g",
   "price": "",
   "description": "A diamond-cut candy cane, tied with a bow.",
+  "description_ms": "Tongkat gula-gula potongan berlian, diikat dengan reben.",
+  "description_zh": "钻石切面拐杖糖，系上蝴蝶结。",
   "images": [
     "media/v4/d-P3843-C.webp",
     "media/v4/x-P3843-C.webp"
