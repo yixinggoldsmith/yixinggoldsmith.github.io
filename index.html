@@ -1098,7 +1098,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   --line: #E7E4DF; --line-strong: #C9C5BE; --accent-text: #026873; --focus: #026873;
   --teal: #026873; --teal-deep: #06393E; --amber: #FDA701;
   --btn-bg: #026873; --btn-fg: #FFFFFF; --btn-hover: #06393E;
-  --media-bg: #F3F1ED; --tile: #F3F1ED;
+  --media-bg: #F3F1ED; --tile: #FFFFFF;
   --band: #026873; --band-ink: #FFFFFF; --band-muted: rgba(255, 255, 255, .74); --band-line: rgba(255, 255, 255, .22); --band-scrim: rgba(2, 40, 44, .45);
   --font-display: "Newsreader", "Noto Serif SC", "Songti SC", Georgia, "Times New Roman", serif;
   --font-text: "Jost", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
@@ -1213,10 +1213,9 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
 .ptile { gap: .2rem; }
 .ptile__media { order: -2; aspect-ratio: 1; background: var(--tile); margin-bottom: .85rem; }
 .ptile__media.is-photo { background: var(--tile); }
-.ptile__media.is-photo img, .card__media.is-photo img, .cat__media.is-photo img, .colrow__media.is-photo img, .colhome__media.is-photo img, .pdialog__media.is-photo img { mix-blend-mode: multiply; object-fit: contain; }
+.ptile__media.is-photo img, .card__media.is-photo img, .cat__media.is-photo img, .colrow__media.is-photo img, .colhome__media.is-photo img, .pdialog__media.is-photo img { object-fit: contain; }
 .ptile__media.is-photo img, .card__media.is-photo img { padding: 7%; }
-/* the website-only pieces' photos (on white too) sit on the same soft grey */
-.card:not(.card--extra) .card__media img, .ptile__media img { mix-blend-mode: multiply; }
+/* product photos stay on white, as they were shot */
 .ptile__kind { order: -1; font: 300 .9375rem/1.3 var(--font-display); color: var(--ink); }
 .ptile__name { font: 400 .9375rem/1.45 var(--font-text); color: var(--text); }
 .ptile__price { font-size: .8125rem; color: var(--text); }
