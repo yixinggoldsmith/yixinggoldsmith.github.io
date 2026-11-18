@@ -1200,7 +1200,7 @@ const SCHEMAS = {
         { key: 'image', label: 'Cover picture', type: 'image', folder: 'images', max: [1600, 1200], ratio: '4/3', hint: 'Landscape 4:3, 1600 × 1200, with the pieces in the middle. Shown on the home page under “Shop by collection” and along the top of the Collections page.' },
       ] },
       { title: 'On the website', hint: 'A collection appears in the menu and as a tile on the home page only while it has products on the website: catalogue products whose Collection 1–5 has this name, or website-only pieces in it.', fields: [
-        { key: 'show_on_home', label: 'Show its cover on the home page', type: 'toggle', half: true, hint: 'Up to six collections show there, in order.' },
+        { key: 'show_on_home', label: 'Show its cover on the home page', type: 'toggle', half: true, hint: 'Every collection with pieces shows there, in this order, as a row that scrolls sideways. Turn this off to leave this one out.' },
         { key: 'order', label: 'Order', type: 'number', half: true, hint: 'Lower numbers come first.' },
       ] },
     ],
