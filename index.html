@@ -2127,7 +2127,10 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   const colourWords = p => { const c = p.colours.map(x => (COLOUR[x] || x).toLowerCase()).join(' or '); return c.charAt(0).toUpperCase() + c.slice(1); };
   const cardMeta = p => [p.src === 'cat' ? colourWords(p) : '', pWeight(p)].filter(Boolean).join(' · ') || p.made.join(' · ');
   // the line above a piece's name: its collection, else (for a named catalogue piece) its type
-  const colLine = p => { const c = COLLECTIONS[p.cols[0]]; return c ? c.name : p.src === 'cat' && p.named ? p.type : ''; };
+  // the collection a card names: a piece can be in several (Collection 1–5 in the sheet), so on a collection's page
+  // the card names that collection; elsewhere its first one
+  let colAt = [];
+  const colLine = p => { const c = COLLECTIONS[colAt.find(id => p.cols.includes(id)) || p.cols[0]]; return c ? c.name : p.src === 'cat' && p.named ? p.type : ''; };
   // the catalogue sheet's Promotion / New arrival / Best Selling Status columns (and their links on this site)
   const HL = [['promo', 'Promotion', 'promotion'], ['new', 'New arrival', 'new-arrival'], ['best', 'Best Selling', 'best-selling']];
   const HL_LABEL = Object.fromEntries(HL.map(([k, t]) => [k, t]));
@@ -2259,8 +2262,10 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     if (CAT_STATE !== 'loading') { F.col.forEach(c => { if (!colHasPieces(c)) F.col.delete(c); }); F.type.forEach(t => { if (!TYPE_BY[t]) F.type.delete(t); }); }
     const all = shopItems(), items = all.slice(0, shop.n);
     const pad = all.length <= shop.n && !shop.q && !nActive() ? (4 - items.length % 4) % 4 : 0; // fill the last row with editorial tiles, so no design sits alone
+    colAt = [...F.col];
     $('[data-grid]').innerHTML = items.length ? items.map(card).join('') + EXTRAS.slice(0, pad).map(extraCard).join('')
       : `<p class="shop-empty">${shop.q ? `Nothing matches “${esc(shop.q)}”. Try a reference such as GR040, or fewer words.` : nActive() ? 'No pieces match these filters. Try removing one.' : shop.hl ? `No pieces in ${esc(HL_LABEL[shop.hl])} right now.` : CAT_STATE === 'loading' ? '' : 'No pieces here yet.'}</p>`;
+    colAt = [];
     $('[data-result-count]').textContent = `${all.length} ${all.length === 1 ? 'piece' : 'pieces'}`;
     const more = $('[data-shop-more]');
     more.hidden = all.length <= shop.n;
