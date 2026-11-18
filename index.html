@@ -1303,6 +1303,9 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   .fbtn { order: 1; justify-content: center; }
   .toolbar .select { order: 2; justify-content: space-between; min-height: 46px; padding: 0 .9rem; border: 1px solid var(--teal); color: var(--teal); }
   .toolbar .select select { border: 0; padding: 0 1.4rem 0 0; font-weight: 500; }
+  /* a dropdown is as wide as its longest choice (“Paling ringan dahulu”): let it shrink to its box instead */
+  .toolbar .select { min-width: 0; }
+  .toolbar .select select { flex: 1 1 0; min-width: 0; width: 100%; text-overflow: ellipsis; }
   .toolbar .shop-search { order: 3; grid-column: 1 / -1; }
   .result-count { order: 4; grid-column: 1 / -1; }
   .fpill { position: fixed; z-index: 30; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 140%); display: inline-flex; align-items: center; gap: .6rem;
@@ -1359,6 +1362,28 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
 .copy-btn { color: var(--teal); }
 .br-empty { justify-items: center; text-align: center; }
 .br-empty .lede { margin-inline: auto; }
+
+/* the language switch: header (computers), phone menu, footer */
+.lang-switch { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .35rem 1.1rem; }
+.lang-switch a { padding-block: .4rem; border-bottom: 1px solid transparent; color: inherit; text-decoration: none; opacity: .7; white-space: nowrap; }
+.lang-switch a:hover { opacity: 1; }
+.lang-switch a[aria-current="true"] { opacity: 1; border-bottom-color: var(--amber); }
+.lang-switch--hdr { gap: .8rem; margin-right: .9rem; }
+.lang-switch--hdr a { font: 500 .6875rem/1 var(--font-text); letter-spacing: .1em; }
+@media (max-width: 899px) { .lang-switch--hdr { display: none; } }
+.mmenu__lang { margin-top: 1.6rem; display: grid; gap: .55rem; }
+.mmenu__lang .mmenu__label { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.mmenu__lang .lang-switch { gap: .4rem 1.4rem; }
+.mmenu__lang .lang-switch a { font: 400 1rem/1.4 var(--font-text); color: var(--ink); opacity: 1; }
+.mmenu__lang .lang-switch a[aria-current="true"] { color: var(--teal); font-weight: 500; }
+.mmenu__foot { margin-top: 1.4rem; }
+.footer__lang { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1rem; }
+.footer__lang .lang-switch a { color: #FFFFFF; }
+
+/* 中文: Chinese is set without the wide tracking of the English labels, and small labels a touch larger */
+:root[data-lang="zh"] { --fs-micro: .75rem; }
+:root[data-lang="zh"] body *:not(svg):not(svg *) { letter-spacing: .02em !important; }
+:root[data-lang="zh"] .lang-switch a:not([lang="zh-Hans"]) { letter-spacing: .1em !important; }
 </style>
 
 <link rel="canonical" href="https://yixinggoldsmith.github.io/">
@@ -1442,6 +1467,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
       <svg class="logo" viewBox="0 0 807 231" role="img" aria-hidden="true"><use href="#logo" width="807" height="231"/></svg>
     </a>
     <div class="header__right">
+      <div class="lang-switch lang-switch--hdr" data-i18n-skip role="group" aria-label="Language"><a href="?lang=en" data-lang="en" hreflang="en" lang="en">EN</a><a href="?lang=ms" data-lang="ms" hreflang="ms" lang="ms">BM</a><a href="?lang=zh" data-lang="zh" hreflang="zh-Hans" lang="zh-Hans">中文</a></div>
       <button class="icon-btn hdr-search hdr-search--d" type="button" aria-label="Search the pieces" data-search-open><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>
       <a class="icon-btn" href="#contact" data-enquiry="appointment" aria-label="Book an appointment"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg></a>
       <button class="icon-btn" type="button" data-drawer-open aria-haspopup="dialog" aria-label="Saved pieces">
@@ -1483,6 +1509,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     <a href="#stores" data-route-link="stores">Visit us</a>
     <a href="#contact" data-route-link="contact">Contact us</a>
   </nav>
+  <div class="mmenu__lang"><span class="mmenu__label">Language</span><div class="lang-switch" data-i18n-skip role="group" aria-label="Language"><a href="?lang=en" data-lang="en" hreflang="en" lang="en">English</a><a href="?lang=ms" data-lang="ms" hreflang="ms" lang="ms">Bahasa Melayu</a><a href="?lang=zh" data-lang="zh" hreflang="zh-Hans" lang="zh-Hans">中文</a></div></div>
   <div class="mmenu__foot">
     <span>Client care on WhatsApp</span>
     <a href="https://wa.me/60129969280" target="_blank" rel="noopener" data-wa="">+60 12-996 9280</a>
@@ -1875,7 +1902,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     <svg class="logo" viewBox="0 0 807 231" role="img" aria-label="Yi Xing"><use href="#logo" width="807" height="231"/></svg>
     <ul>
       <li>© 2026 Yi Xing. All rights reserved.</li><li><a href="admin/">Staff sign-in</a></li>
-      <li>Malaysia · English</li>
+      <li class="footer__lang"><span>Malaysia</span><div class="lang-switch" data-i18n-skip role="group" aria-label="Language"><a href="?lang=en" data-lang="en" hreflang="en" lang="en">English</a><a href="?lang=ms" data-lang="ms" hreflang="ms" lang="ms">Bahasa Melayu</a><a href="?lang=zh" data-lang="zh" hreflang="zh-Hans" lang="zh-Hans">中文</a></div></li>
     </ul>
   </div>
 </footer>
@@ -1942,6 +1969,94 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
+  /* ---------- languages: the page is written in English; Bahasa Melayu and 中文 come from site/i18n.json, built in.
+     The choice comes from ?lang=, else this device's last choice, else the browser's language. Switching reloads the
+     page in the new language and the address keeps ?lang=, so a shared link opens the same way. ---------- */
+  const LANGS = { en: { name: 'English', short: 'EN', html: 'en' }, ms: { name: 'Bahasa Melayu', short: 'BM', html: 'ms' }, zh: { name: '中文', short: '中文', html: 'zh-Hans' } };
+  const I18N = {"ms":{" or ":" atau ",", ":", ",", code {c}":", kod {c}",", in {colours}":", dalam {colours}",", with {n} variants":", dengan {n} variasi",". Priced by weight at the day’s gold rate.":". Harga ikut berat pada harga emas hari ini.","916 gold":"emas 916","A quiet room and a client advisor, with the designs you asked to see.":"Bilik yang tenang dan penasihat pelanggan, bersama rekaan yang anda minta untuk dilihat.","About us":"Tentang kami","Afternoon, 13:00 to 17:00":"Petang, 13:00 hingga 17:00","All":"Semua","All pieces":"Semua barang kemas","All stories":"Semua cerita","All yellow 916 gold. Every design is made this way first.":"Emas 916 kuning sepenuhnya. Setiap rekaan dibuat begini dahulu.","Almost done":"Hampir siap","Amber line drawing of Lune beads, Disque spacers and Colonne pipes":"Lukisan garis ambar manik Lune, pemisah Disque dan tiub Colonne","Anklet":"Rantai kaki","Anklets":"Rantai kaki","Appointment":"Temu janji","Area: {v}":"Kawasan: {v}","Ask us on WhatsApp":"Tanya kami di WhatsApp","Baby":"Bayi","Bangle":"Gelang","Bangles":"Gelang","Banner {n} of {m}":"Sepanduk {n} daripada {m}","Beads & pipes":"Manik & tiub","Beads and pipes in 916 gold":"Manik dan tiub emas 916","Bespoke":"Tempahan khas","Best Selling":"Paling laris","Book a quiet appointment at one of our boutiques.":"Tempah temu janji yang tenang di salah sebuah butik kami.","Book a visit":"Tempah kunjungan","Book an appointment":"Tempah temu janji","Boutiques":"Butik","Box clip":"Klip kotak","Box hook":"Cangkuk kotak","Bracelet":"Rantai tangan","Bracelets":"Rantai tangan","Bring any Yi Xing bracelet back for cleaning, restringing or sizing. We keep a record of every piece we sell.":"Bawa semula mana-mana rantai tangan Yi Xing untuk dicuci, diikat semula atau dilaraskan saiznya. Kami menyimpan rekod setiap barang kemas yang kami jual.","Brochure pages. Use the arrow keys to turn the pages.":"Halaman brosur. Gunakan kekunci anak panah untuk menyelak halaman.","Brochure reader":"Pembaca brosur","Browse the collections":"Layari koleksi","Can I reserve a design and collect it at another boutique?":"Bolehkah saya menempah rekaan dan mengambilnya di butik lain?","Can I trade in old gold?":"Bolehkah saya menukar emas lama?","Can you resize a bracelet?":"Bolehkah saiz rantai tangan diubah?","Care and restringing":"Penjagaan dan ikat semula","Categories":"Kategori","Category":"Kategori","Chain":"Rantai","Chains":"Rantai","Charm":"Charm","Charms":"Charm","Choose a brochure":"Pilih brosur","Choose your beads and pipes, and we string them to your wrist.":"Pilih manik dan tiub anda, dan kami ronce mengikut saiz pergelangan tangan anda.","Christmas 2026":"Krismas 2026","Clear all":"Kosongkan semua","Client care":"Khidmat pelanggan","Client care on WhatsApp":"Khidmat pelanggan di WhatsApp","Close":"Tutup","Close menu":"Tutup menu","Close saved pieces":"Tutup barang kemas disimpan","Close the filters":"Tutup penapis","Code":"Kod","Collection":"Koleksi","Collections":"Koleksi","Colour":"Warna","Come and see the designs in person":"Datang dan lihat rekaan secara langsung","Contact details and enquiry form":"Butiran hubungan dan borang pertanyaan","Contact us":"Hubungi kami","Copied":"Disalin","Copy":"Salin","Craft":"Kraf","Design your own":"Reka sendiri","Earring":"Subang","Earrings":"Subang","Editorial":"Cerita","Email":"E-mel","Email (optional)":"E-mel (pilihan)","Email us":"E-mel kami","Email: {v}":"E-mel: {v}","Enquire about these pieces":"Tanya tentang barang kemas ini","Enquire about this piece":"Buat pertanyaan","Evening, 17:00 to 21:00":"Malam, 17:00 hingga 21:00","Every bead and pipe is 916 gold, and every batch of alloy is tested by X-ray fluorescence before it reaches the counter.":"Setiap manik dan tiub ialah emas 916, dan setiap kelompok aloi diuji dengan pendarfluor sinar-X sebelum sampai ke kaunter.","Every bead and pipe starts as a drawing, with its cut worked out facet by facet.":"Setiap manik dan tiub bermula sebagai lukisan, dengan potongannya dirancang satu demi satu faset.","Every boutique weighs and tests gold on site. Your receipt shows the weight, purity and workmanship fee.":"Setiap butik menimbang dan menguji emas di premis. Resit anda menunjukkan berat, ketulenan dan upah tukang.","Every piece, the newest first.":"Semua barang kemas, yang terbaru dahulu.","Exit":"Keluar","Exit full screen":"Keluar skrin penuh","Featured":"Pilihan","Featured pieces":"Barang kemas pilihan","Featured story":"Cerita pilihan","Filter":"Tapis","Filter stories":"Tapis cerita","Filter, {n} chosen":"Tapis, {n} dipilih","Find your nearest boutique":"Cari butik terdekat","Finish":"Kemasan","Fish hook":"Cangkuk ikan","Fish hook clip":"Klip cangkuk ikan","Five new charms in 916 gold":"Lima charm baharu dalam emas 916","For enquiries, appointments and trade-in":"Untuk pertanyaan, temu janji dan tukar emas lama","For example Petaling Jaya or Singapore":"Contohnya Petaling Jaya atau Singapura","Frequently asked":"Soalan lazim","From sketch to gold":"Dari lakaran ke emas","From the atelier":"Dari bengkel kami","From {v} {u}":"Dari {v} {u}","Full name":"Nama penuh","Full screen":"Skrin penuh","General enquiry":"Pertanyaan umum","Gifting":"Hadiah","Gold":"Emas","Gold for the metal we work. Teal for the people we make it for. Neither half closes the circle alone.":"Emas untuk logam yang kami usahakan. Hijau kebiruan untuk insan yang kami buatkan. Tiada separuh yang dapat melengkapkan bulatan sendirian.","Gold is priced by weight at the day's rate. Your receipt lists the weight in grams, the purity and the workmanship fee, line by line.":"Emas dijual mengikut berat pada harga hari itu. Resit anda menyenaraikan berat dalam gram, ketulenan dan upah tukang, satu demi satu.","Gold trade-in":"Tukar emas lama","Guides":"Panduan","Hallmarked and tested":"Bertanda ketulenan dan diuji","Heaviest first":"Paling berat dahulu","Hello Yi Xing,":"Hai Yi Xing,","Hello Yi Xing, ":"Hai Yi Xing, ","Hello Yi Xing, I am interested in these designs: {list}.":"Hai Yi Xing, saya berminat dengan rekaan ini: {list}.","Highest weight":"Berat tertinggi","Highest weight, in {u}":"Berat tertinggi, dalam {u}","Highlights":"Sorotan","Home":"Laman utama","Hook":"Cangkuk","Hover or tap the mark to see its two halves.":"Halakan tetikus atau ketik pada logo untuk melihat dua bahagiannya.","How a bead becomes a bracelet":"Bagaimana manik menjadi rantai tangan","How can we help?":"Apa yang boleh kami bantu?","How is the price of a bracelet worked out?":"Bagaimana harga rantai tangan dikira?","How we work":"Cara kami bekerja","I agree that Yi Xing may contact me about this enquiry.":"Saya bersetuju Yi Xing boleh menghubungi saya tentang pertanyaan ini.","Image {n}":"Gambar {n}","I’m interested in these designs: {list}.":"Saya berminat dengan rekaan ini: {list}.","I’m interested in {ref} {name} ({details}).":"Saya berminat dengan {ref} {name} ({details}).","I’m interested in {ref} {name}.":"Saya berminat dengan {ref} {name}.","Language":"Bahasa","Length":"Panjang","Length ({u})":"Panjang ({u})","Library":"Perpustakaan","Lightest first":"Paling ringan dahulu","Loading our catalogue…":"Memuatkan katalog kami…","Longest length":"Panjang terpanjang","Longest length, in {u}":"Panjang terpanjang, dalam {u}","Looked after for life":"Dijaga sepanjang hayat","Lowest weight":"Berat terendah","Lowest weight, in {u}":"Berat terendah, dalam {u}","Made in 916 gold, then cut, polished and strung into the finished design.":"Dibuat dalam emas 916, kemudian dipotong, digilap dan dironce menjadi rekaan siap.","Made of":"Terdiri daripada","Main":"Utama","Malaysia":"Malaysia","Malaysia and Singapore":"Malaysia dan Singapura","Meet the library":"Kenali perpustakaan","Menu":"Menu","Message":"Mesej","Mobile":"Mudah alih","Model":"Model","More stories":"Lagi cerita","Morning, 10:00 to 13:00":"Pagi, 10:00 hingga 13:00","Name: {v}":"Nama: {v}","Necklace":"Rantai leher","Necklaces":"Rantai leher","New arrival":"Baru tiba","Newest":"Terbaru","Next message":"Mesej seterusnya","Next page":"Halaman seterusnya","Next pieces":"Barang kemas seterusnya","Nineteen beads, pipes and links":"Sembilan belas manik, tiub dan pautan","Nineteen beads, pipes and links, each with a name.":"Sembilan belas manik, tiub dan pautan, setiap satu bernama.","No pieces here yet.":"Belum ada barang kemas di sini.","No pieces in {name} right now.":"Tiada barang kemas dalam {name} buat masa ini.","No pieces match these filters. Try removing one.":"Tiada barang kemas sepadan dengan penapis ini. Cuba buang satu.","Nothing matches “{q}”. Try a reference such as GR040, or fewer words.":"Tiada padanan untuk “{q}”. Cuba nombor rujukan seperti GR040, atau kurangkan perkataan.","Open a chat":"Mula berbual","Open menu":"Buka menu","Open the e-Brochure":"Buka e-Brosur","Our boutiques":"Butik kami","Our bracelets are priced by weight: the weight in grams times the day's gold rate, plus a workmanship fee for the design. Your receipt shows each part.":"Rantai tangan kami dijual mengikut berat: berat dalam gram didarab dengan harga emas hari itu, ditambah upah tukang untuk rekaan. Resit anda menunjukkan setiap bahagian.","Our client advisors answer on WhatsApp and by email. Send us a message, or book a private appointment at one of our boutiques.":"Penasihat pelanggan kami menjawab di WhatsApp dan melalui e-mel. Hantarkan mesej, atau tempah temu janji peribadi di salah sebuah butik kami.","Our full catalogue can’t be loaded just now, so only some pieces are shown.":"Katalog penuh kami tidak dapat dimuatkan sekarang, jadi hanya sebahagian barang kemas ditunjukkan.","Our gold pieces by collection and category, each priced by weight at the day’s gold rate. Save the ones you like and bring the list to any boutique.":"Barang kemas emas kami mengikut koleksi dan kategori, setiap satu dijual mengikut berat pada harga emas hari ini. Simpan yang anda suka dan bawa senarainya ke mana-mana butik.","Our mark":"Logo kami","Page {n}":"Halaman {n}","Pages {a}–{b}":"Halaman {a}–{b}","Pause the banners":"Jeda sepanduk","Pause the video":"Jeda video","Pause video":"Jeda video","Pavé bead in {colour} 916 gold":"Manik pavé emas 916 {colour}","Pendant":"Loket","Pendants":"Loket","Phone (optional)":"Telefon (pilihan)","Phone: {v}":"Telefon: {v}","Piece":"Barang kemas","Pieces":"Barang kemas","Play the banners":"Main sepanduk","Play the video":"Main video","Please add a short message.":"Sila tulis mesej ringkas.","Please check the email address, for example name@example.com.":"Sila semak alamat e-mel, contohnya name@example.com.","Please choose a date.":"Sila pilih tarikh.","Please choose today or a later date.":"Sila pilih hari ini atau tarikh kemudian.","Please enter your name.":"Sila masukkan nama anda.","Please tick the box so we can reply to you.":"Sila tandakan kotak ini supaya kami boleh membalas anda.","Preferred date":"Tarikh pilihan","Preferred date: {d}, {t}":"Tarikh pilihan: {d}, {t}","Preferred time":"Masa pilihan","Preview: {name}":"Pratonton: {name}","Previous message":"Mesej sebelumnya","Previous page":"Halaman sebelumnya","Previous pieces":"Barang kemas sebelumnya","Priced by weight":"Harga ikut berat","Private appointments":"Temu janji peribadi","Product purity":"Ketulenan emas","Product type":"Jenis produk","Promotion":"Promosi","Questions":"Soalan","Questions about a design, sizing or a gift? Our client advisors reply on WhatsApp and by email.":"Ada soalan tentang rekaan, saiz atau hadiah? Penasihat pelanggan kami membalas di WhatsApp dan melalui e-mel.","Read the story":"Baca cerita","Ref.":"Ruj.","Ref. {ref}":"Ruj. {ref}","Remove the filter {name}":"Buang penapis {name}","Remove {name}":"Buang {name}","Ring":"Cincin","Rings":"Cincin","Roughly what you would like to trade in, for example two 916 bangles, about 30 g.":"Anggaran barang yang ingin anda tukar, contohnya dua gelang 916, kira-kira 30 g.","Save":"Simpan","Save {name}":"Simpan {name}","Saved":"Disimpan","Saved pieces":"Barang kemas disimpan","Saved pieces, {n}":"Barang kemas disimpan, {n}","Search name or ref.":"Cari nama atau ruj.","Search the pieces":"Cari barang kemas","See all":"Lihat semua","See all {name} pieces":"Lihat semua barang kemas {name}","See every design, page by page":"Lihat setiap rekaan, halaman demi halaman","See the Gift Edit":"Lihat pilihan hadiah","Selected":"Dipilih","Send by email":"Hantar melalui e-mel","Send on WhatsApp":"Hantar melalui WhatsApp","Send the list on WhatsApp":"Hantar senarai melalui WhatsApp","Send us your area and the designs you would like to see. We will tell you where to find them and have them ready for you.":"Hantarkan kawasan anda dan rekaan yang ingin anda lihat. Kami akan beritahu di mana ia boleh didapati dan sediakannya untuk anda.","Shop by category":"Beli ikut kategori","Shop by collection":"Beli ikut koleksi","Shop now":"Beli sekarang","Shortest length":"Panjang terpendek","Shortest length, in {u}":"Panjang terpendek, dalam {u}","Show all {n}":"Tunjuk semua {n}","Show fewer":"Tunjuk kurang","Show lengths in":"Tunjuk panjang dalam","Show more":"Tunjuk lagi","Show more ({n} more)":"Tunjuk lagi ({n} lagi)","Show the pieces":"Tunjuk barang kemas","Show the two halves of the mark":"Tunjuk dua bahagian logo","Show weights in":"Tunjuk berat dalam","Show {n} piece":"Tunjuk {n} barang kemas","Show {n} pieces":"Tunjuk {n} barang kemas","Six designs to give, tied by hand":"Enam rekaan untuk dihadiahkan, diikat dengan tangan","Size":"Saiz","Sized while you wait":"Saiz dilaraskan sambil anda menunggu","Sketch":"Lakaran","Skip to content":"Langkau ke kandungan","Sort":"Susun","Sort the pieces":"Susun barang kemas","Spring hook":"Cangkuk spring","Spring ring":"Cincin spring","Start a design":"Mula mereka","Stories from our atelier: how our beads are cut, what the colour codes on our labels mean, and how to choose, size and give a Yi Xing bracelet.":"Cerita dari bengkel kami: cara manik kami dipotong, maksud kod warna pada label kami, dan cara memilih, mengukur saiz dan menghadiahkan rantai tangan Yi Xing.","Stories from the atelier":"Cerita dari bengkel kami","Talk to us":"Bercakap dengan kami","Tap the heart on any design to keep it here. Saved designs stay on this device.":"Ketik ikon hati pada mana-mana rekaan untuk menyimpannya di sini. Rekaan yang disimpan kekal pada peranti ini.","Tell us which pieces you would like to see, and anything we should prepare.":"Beritahu kami barang kemas yang ingin anda lihat, dan apa-apa yang perlu kami sediakan.","Thank you, {name}.":"Terima kasih, {name}.","Thank you.":"Terima kasih.","The Bead Library":"Perpustakaan manik","The Collection 2026":"Koleksi 2026","The Gift Edit":"Pilihan hadiah","The Yi Xing experience":"Pengalaman Yi Xing","The bead library":"Perpustakaan manik","The beads and pipes you have in mind, your wrist size if you know it, and any design you would like to start from.":"Manik dan tiub yang anda bayangkan, saiz pergelangan tangan anda jika tahu, dan mana-mana rekaan yang ingin dijadikan permulaan.","The filters appear once our catalogue has loaded.":"Penapis akan muncul sebaik katalog kami dimuatkan.","The finished strand in 916 gold: Lune beads, Disque spacers and Colonne pipes":"Untaian siap dalam emas 916: manik Lune, pemisah Disque dan tiub Colonne","The house":"Jenama kami","The pieces":"Barang kemas","The same two colours dress every Yi Xing box: teal outside, and our mark in gold foil inside the lid.":"Dua warna yang sama menghiasi setiap kotak Yi Xing: hijau kebiruan di luar, dan logo kami dalam kerajang emas di dalam penutup.","There are no brochures to turn through just now. Our pieces are all on the Collections page.":"Tiada brosur untuk diselak buat masa ini. Semua barang kemas kami ada di halaman Koleksi.","They are our colour codes. 1C is all yellow gold, 2C is two-tone with white gold, and 3C is tri-tone with white and rose gold. All three are 916 gold.":"Itu kod warna kami. 1C ialah emas kuning sepenuhnya, 2C ialah dua warna dengan emas putih, dan 3C ialah tiga warna dengan emas putih dan emas merah jambu. Ketiga-tiganya emas 916.","Thirteen designs in five collections":"Tiga belas rekaan dalam lima koleksi","Three promises at the counter":"Tiga janji di kaunter","Tri-tone":"Tiga warna","Try again":"Cuba lagi","Try them on":"Cuba pakai","Turn the pages of our brochures":"Selak halaman brosur kami","Turn the pages of the brochures you will find at our counters. Tap any design to see its details, save it or send an enquiry.":"Selak halaman brosur yang terdapat di kaunter kami. Ketik mana-mana rekaan untuk melihat butirannya, menyimpannya atau menghantar pertanyaan.","Two strokes of <0>one circle<\/0>":"Dua sapuan, <0>satu bulatan<\/0>","Two-tone":"Dua warna","Type of enquiry":"Jenis pertanyaan","Up to {v} {u}":"Hingga {v} {u}","Variation":"Variasi","View {ref} {name}":"Lihat {ref} {name}","Visit":"Kunjungan","Visit us":"Kunjungi kami","We add or remove beads and pipes to fit your wrist, at no charge.":"Kami menambah atau membuang manik dan tiub supaya muat pergelangan tangan anda, tanpa caj.","We have boutiques in Malaysia and Singapore. Tell us where you are and we will point you to the nearest one, or book a private appointment.":"Kami mempunyai butik di Malaysia dan Singapura. Beritahu kami lokasi anda dan kami akan tunjukkan butik yang terdekat, atau tempah temu janji peribadi.","We model each part to a fraction of a millimetre, so beads, pipes and spacers sit flush once strung.":"Kami memodelkan setiap bahagian hingga pecahan milimeter, supaya manik, tiub dan pemisah duduk rapat apabila dironce.","We weigh every piece <0>in front of you<\/0>.":"Kami menimbang setiap barang kemas <0>di hadapan anda<\/0>.","Weighed at the counter":"Ditimbang di kaunter","Weighed in front of you":"Ditimbang di hadapan anda","Weight":"Berat","Weight ({u})":"Berat ({u})","What do 1C, 2C and 3C mean?":"Apakah maksud 1C, 2C dan 3C?","WhatsApp":"WhatsApp","WhatsApp should now open with your enquiry written out. Press send there to reach us. If it did not open, message us at {wa}.":"WhatsApp sepatutnya dibuka sekarang dengan pertanyaan anda sudah ditulis. Tekan hantar di sana untuk menghubungi kami. Jika ia tidak dibuka, mesej kami di {wa}.","WhatsApp us":"WhatsApp kami","Which piece needs care, and what you would like done.":"Barang kemas yang perlu dijaga, dan apa yang anda mahu dilakukan.","Wireframe model of the same strand":"Model rangka dawai untainan yang sama","Write another enquiry":"Tulis pertanyaan lain","Yellow":"Kuning","Yellow 916 gold; ask about two-tone and tri-tone":"Emas 916 kuning; tanya tentang dua warna dan tiga warna","Yellow with white 916 gold, finished in rhodium.":"Emas 916 kuning dengan putih, disalut rodium.","Yellow, white and rose 916 gold together in one design.":"Emas 916 kuning, putih dan merah jambu dalam satu rekaan.","Yes, at any boutique. We weigh and test it in front of you and quote at the day's buy-back rate. You can take the value in cash or put it towards a new piece.":"Boleh, di mana-mana butik. Kami menimbang dan mengujinya di hadapan anda dan memberi harga pada kadar belian balik hari itu. Anda boleh mengambil nilainya secara tunai atau menggunakannya untuk barang kemas baharu.","Yes. Ask a client advisor to reserve it, and we will move it to the boutique you choose, in Malaysia or Singapore, within three working days.":"Boleh. Minta penasihat pelanggan menempahnya, dan kami akan memindahkannya ke butik pilihan anda, di Malaysia atau Singapura, dalam tempoh tiga hari bekerja.","Yes. We add or remove beads and pipes to fit your wrist, usually while you wait, at no charge.":"Boleh. Kami menambah atau membuang manik dan tiub supaya muat pergelangan tangan anda, biasanya sambil anda menunggu, tanpa caj.","Yi Xing":"Yi Xing","Yi Xing enquiry: {type} ({name})":"Pertanyaan Yi Xing: {type} ({name})","Yi Xing is a goldsmith and jeweller from Malaysia. We make bracelets from our own alphabet of 916 gold beads and pipes, and sell them by weight and purity, with both printed on the receipt.":"Yi Xing ialah tukang emas dan pembuat barang kemas dari Malaysia. Kami membuat rantai tangan daripada abjad manik dan tiub emas 916 kami sendiri, dan menjualnya mengikut berat dan ketulenan, dengan kedua-duanya dicetak pada resit.","Yi Xing, home":"Yi Xing, laman utama","Your area (optional)":"Kawasan anda (pilihan)","Your email app should now open with your enquiry written out. Press send there to reach us. If it did not open, email us at {email}.":"Aplikasi e-mel anda sepatutnya dibuka sekarang dengan pertanyaan anda sudah ditulis. Tekan hantar di sana untuk menghubungi kami. Jika ia tidak dibuka, e-mel kami di {email}.","Your enquiry opens in your email app or WhatsApp, ready to send. Required: name and message.":"Pertanyaan anda akan dibuka dalam aplikasi e-mel atau WhatsApp, sedia untuk dihantar. Wajib: nama dan mesej.","bracelet":"rantai tangan","charm":"charm","e-Brochure":"e-Brosur","hook {v}":"cangkuk {v}","length {v}":"panjang {v}","size {v}":"saiz {v}","support@yixinggoldsmith.com":"support@yixinggoldsmith.com","to":"hingga","variation {v}":"variasi {v}","yellow 916 gold":"emas kuning 916","{colour} {hall} gold":"{colour}, emas {hall}","{name}, {type} in {hall} gold, ref. {ref}":"{name}, {type} emas {hall}, ruj. {ref}","{n} min read":"{n} min bacaan","{n} pages":"{n} halaman","{n} piece":"{n} barang kemas","{n} pieces":"{n} barang kemas","{n} pieces in gold":"{n} barang kemas emas","{n} variants · tap one to see its details":"{n} variasi · ketik satu untuk melihat butirannya","{p} gold":"Emas {p}","{type} in {gold}":"{type} {gold}","{type} in {hall} gold":"{type} emas {hall}","{type} in {purity} gold":"{type} emas {purity}","© 2026 Yi Xing. All rights reserved.":"© 2026 Yi Xing. Hak cipta terpelihara."},"zh":{" or ":"或",", ":"，",", code {c}":"，编码 {c}",", in {colours}":"，有{colours}可选",", with {n} variants":"，共 {n} 种款式",". Priced by weight at the day’s gold rate.":"。按当日金价以重量计价。","916 gold":"916金","A quiet room and a client advisor, with the designs you asked to see.":"安静的房间，专属客户顾问，备好您想看的款式。","About us":"关于我们","Afternoon, 13:00 to 17:00":"下午，13:00 至 17:00","All":"全部","All pieces":"全部款式","All stories":"全部故事","All yellow 916 gold. Every design is made this way first.":"全黄色916金。每款设计都先以这种方式制作。","Almost done":"即将完成","Amber line drawing of Lune beads, Disque spacers and Colonne pipes":"Lune 圆珠、Disque 隔珠与 Colonne 管珠的琥珀色线稿","Anklet":"脚链","Anklets":"脚链","Appointment":"预约","Area: {v}":"地区：{v}","Ask us on WhatsApp":"在 WhatsApp 上咨询我们","Baby":"婴儿","Bangle":"手镯","Bangles":"手镯","Banner {n} of {m}":"横幅 {n}/{m}","Beads & pipes":"圆珠与管珠","Beads and pipes in 916 gold":"916金圆珠与管珠","Bespoke":"定制","Best Selling":"畅销款","Book a quiet appointment at one of our boutiques.":"在我们的门店预约一个安静的时段。","Book a visit":"预约到店","Book an appointment":"预约到店","Boutiques":"门店","Box clip":"盒夹扣","Box hook":"盒扣","Bracelet":"手链","Bracelets":"手链","Bring any Yi Xing bracelet back for cleaning, restringing or sizing. We keep a record of every piece we sell.":"任何 Yi Xing 手链都可拿回来清洗、重新串绳或调整尺寸。我们为售出的每一件首饰保留记录。","Brochure pages. Use the arrow keys to turn the pages.":"目录页面。使用方向键翻页。","Brochure reader":"目录阅读器","Browse the collections":"浏览系列","Can I reserve a design and collect it at another boutique?":"可以预留款式，到另一家门店取货吗？","Can I trade in old gold?":"可以拿旧金来换吗？","Can you resize a bracelet?":"手链可以改尺寸吗？","Care and restringing":"保养与重新串绳","Categories":"类别","Category":"类别","Chain":"金链","Chains":"金链","Charm":"吊饰","Charms":"吊饰","Choose a brochure":"选择目录","Choose your beads and pipes, and we string them to your wrist.":"挑选您喜欢的圆珠和管珠，我们按您的手腕尺寸为您串好。","Christmas 2026":"2026 圣诞","Clear all":"全部清除","Client care":"客户服务","Client care on WhatsApp":"WhatsApp 客户服务","Close":"关闭","Close menu":"关闭菜单","Close saved pieces":"关闭收藏","Close the filters":"关闭筛选","Code":"编码","Collection":"系列","Collections":"系列","Colour":"颜色","Come and see the designs in person":"欢迎亲临门店欣赏","Contact details and enquiry form":"联系方式与咨询表格","Contact us":"联系我们","Copied":"已复制","Copy":"复制","Craft":"工艺","Design your own":"自己设计","Earring":"耳环","Earrings":"耳环","Editorial":"专栏","Email":"电邮","Email (optional)":"电邮（选填）","Email us":"发电邮给我们","Email: {v}":"电邮：{v}","Enquire about these pieces":"咨询这些款式","Enquire about this piece":"咨询此款","Evening, 17:00 to 21:00":"傍晚，17:00 至 21:00","Every bead and pipe is 916 gold, and every batch of alloy is tested by X-ray fluorescence before it reaches the counter.":"每颗圆珠和管珠都是916金，每批合金在上柜前都经过X射线荧光检测。","Every bead and pipe starts as a drawing, with its cut worked out facet by facet.":"每颗圆珠和管珠都从一张手绘稿开始，切面一个个推敲出来。","Every boutique weighs and tests gold on site. Your receipt shows the weight, purity and workmanship fee.":"每家门店都现场称重和检测黄金。收据会列明重量、成色和工钱。","Every piece, the newest first.":"全部款式，最新的排在前面。","Exit":"退出","Exit full screen":"退出全屏","Featured":"精选","Featured pieces":"精选款式","Featured story":"精选故事","Filter":"筛选","Filter stories":"筛选故事","Filter, {n} chosen":"筛选，已选 {n} 项","Find your nearest boutique":"查找最近的门店","Finish":"成品","Fish hook":"鱼钩扣","Fish hook clip":"鱼钩夹扣","Five new charms in 916 gold":"五款916金新吊饰","For enquiries, appointments and trade-in":"咨询、预约及旧金换新","For example Petaling Jaya or Singapore":"例如八打灵再也或新加坡","Frequently asked":"常见问题","From sketch to gold":"从草图到黄金","From the atelier":"来自工坊","From {v} {u}":"{v} {u} 起","Full name":"姓名","Full screen":"全屏","General enquiry":"一般咨询","Gifting":"送礼","Gold":"成色","Gold for the metal we work. Teal for the people we make it for. Neither half closes the circle alone.":"金色代表我们打造的金属，青绿色代表我们为之打造的人。任何一半都无法单独合成这个圆。","Gold is priced by weight at the day's rate. Your receipt lists the weight in grams, the purity and the workmanship fee, line by line.":"黄金按当日金价以重量计价。收据逐项列出克重、成色和工钱。","Gold trade-in":"旧金换新","Guides":"指南","Hallmarked and tested":"成色标记，经过检测","Heaviest first":"由重到轻","Hello Yi Xing,":"您好 Yi Xing，","Hello Yi Xing, ":"您好 Yi Xing，","Hello Yi Xing, I am interested in these designs: {list}.":"您好 Yi Xing，我对这些款式感兴趣：{list}。","Highest weight":"最高重量","Highest weight, in {u}":"最高重量，单位 {u}","Highlights":"推荐","Home":"首页","Hook":"扣头","Hover or tap the mark to see its two halves.":"将鼠标移到或点按标志，即可看到它的两半。","How a bead becomes a bracelet":"一颗珠子如何变成手链","How can we help?":"有什么可以帮您？","How is the price of a bracelet worked out?":"手链的价格怎么计算？","How we work":"我们的做法","I agree that Yi Xing may contact me about this enquiry.":"我同意 Yi Xing 就此咨询与我联系。","Image {n}":"图片 {n}","I’m interested in these designs: {list}.":"我对这些款式感兴趣：{list}。","I’m interested in {ref} {name} ({details}).":"我对 {ref} {name}（{details}）感兴趣。","I’m interested in {ref} {name}.":"我对 {ref} {name} 感兴趣。","Language":"语言","Length":"长度","Length ({u})":"长度（{u}）","Library":"图鉴","Lightest first":"由轻到重","Loading our catalogue…":"正在加载目录…","Longest length":"最长长度","Longest length, in {u}":"最长长度，单位 {u}","Looked after for life":"终身保养","Lowest weight":"最低重量","Lowest weight, in {u}":"最低重量，单位 {u}","Made in 916 gold, then cut, polished and strung into the finished design.":"以916金制成，再经切割、抛光，串成完整的作品。","Made of":"组成","Main":"主菜单","Malaysia":"马来西亚","Malaysia and Singapore":"马来西亚和新加坡","Meet the library":"认识图鉴","Menu":"菜单","Message":"留言","Mobile":"手机菜单","Model":"建模","More stories":"更多故事","Morning, 10:00 to 13:00":"上午，10:00 至 13:00","Name: {v}":"姓名：{v}","Necklace":"项链","Necklaces":"项链","New arrival":"新品","Newest":"最新","Next message":"下一则消息","Next page":"下一页","Next pieces":"下一组款式","Nineteen beads, pipes and links":"十九款圆珠、管珠与链节","Nineteen beads, pipes and links, each with a name.":"十九款圆珠、管珠与链节，每一款都有名字。","No pieces here yet.":"这里暂时没有款式。","No pieces in {name} right now.":"{name}目前没有款式。","No pieces match these filters. Try removing one.":"没有符合这些筛选条件的款式。请移除一项再试。","Nothing matches “{q}”. Try a reference such as GR040, or fewer words.":"没有与“{q}”相符的款式。请试试 GR040 这样的编号，或减少字词。","Open a chat":"开始聊天","Open menu":"打开菜单","Open the e-Brochure":"打开电子目录","Our boutiques":"我们的门店","Our bracelets are priced by weight: the weight in grams times the day's gold rate, plus a workmanship fee for the design. Your receipt shows each part.":"我们的手链按重量计价：克重乘以当日金价，再加上该款式的工钱。收据会逐项列明。","Our client advisors answer on WhatsApp and by email. Send us a message, or book a private appointment at one of our boutiques.":"我们的客户顾问通过 WhatsApp 和电邮回复。给我们留言，或在任一门店预约私人时段。","Our full catalogue can’t be loaded just now, so only some pieces are shown.":"目前无法加载完整目录，因此只显示部分款式。","Our gold pieces by collection and category, each priced by weight at the day’s gold rate. Save the ones you like and bring the list to any boutique.":"按系列和类别浏览我们的金饰，每件都按当日金价以重量计价。收藏您喜欢的款式，带着清单到任何一家门店。","Our mark":"我们的标志","Page {n}":"第 {n} 页","Pages {a}–{b}":"第 {a}–{b} 页","Pause the banners":"暂停横幅","Pause the video":"暂停视频","Pause video":"暂停视频","Pavé bead in {colour} 916 gold":"{colour}916金密镶圆珠","Pendant":"吊坠","Pendants":"吊坠","Phone (optional)":"电话（选填）","Phone: {v}":"电话：{v}","Piece":"首饰","Pieces":"首饰","Play the banners":"播放横幅","Play the video":"播放视频","Please add a short message.":"请写一段简短的留言。","Please check the email address, for example name@example.com.":"请检查电邮地址，例如 name@example.com。","Please choose a date.":"请选择日期。","Please choose today or a later date.":"请选择今天或之后的日期。","Please enter your name.":"请输入您的姓名。","Please tick the box so we can reply to you.":"请勾选此框，以便我们回复您。","Preferred date":"希望日期","Preferred date: {d}, {t}":"希望日期：{d}，{t}","Preferred time":"希望时间","Preview: {name}":"预览：{name}","Previous message":"上一则消息","Previous page":"上一页","Previous pieces":"上一组款式","Priced by weight":"按重量计价","Private appointments":"私人预约","Product purity":"成色","Product type":"产品类别","Promotion":"促销","Questions":"问答","Questions about a design, sizing or a gift? Our client advisors reply on WhatsApp and by email.":"对款式、尺寸或礼物有疑问？我们的客户顾问会通过 WhatsApp 和电邮回复。","Read the story":"阅读故事","Ref.":"编号","Ref. {ref}":"编号 {ref}","Remove the filter {name}":"移除筛选条件 {name}","Remove {name}":"移除 {name}","Ring":"戒指","Rings":"戒指","Roughly what you would like to trade in, for example two 916 bangles, about 30 g.":"大概想换什么，例如两只916手镯，约30克。","Save":"收藏","Save {name}":"收藏 {name}","Saved":"已收藏","Saved pieces":"我的收藏","Saved pieces, {n}":"我的收藏，{n} 件","Search name or ref.":"搜索名称或编号","Search the pieces":"搜索款式","See all":"查看全部","See all {name} pieces":"查看全部{name}款式","See every design, page by page":"逐页浏览每一款设计","See the Gift Edit":"查看礼品精选","Selected":"已选","Send by email":"通过电邮发送","Send on WhatsApp":"通过 WhatsApp 发送","Send the list on WhatsApp":"通过 WhatsApp 发送清单","Send us your area and the designs you would like to see. We will tell you where to find them and have them ready for you.":"告诉我们您所在的地区和想看的款式，我们会告诉您在哪里可以看到，并为您准备好。","Shop by category":"按类别选购","Shop by collection":"按系列选购","Shop now":"立即选购","Shortest length":"最短长度","Shortest length, in {u}":"最短长度，单位 {u}","Show all {n}":"显示全部 {n} 项","Show fewer":"收起","Show lengths in":"长度单位","Show more":"显示更多","Show more ({n} more)":"显示更多（还有 {n} 件）","Show the pieces":"查看款式","Show the two halves of the mark":"显示标志的两半","Show weights in":"重量单位","Show {n} piece":"显示 {n} 件","Show {n} pieces":"显示 {n} 件","Six designs to give, tied by hand":"六款送礼之选，亲手系上缎带","Size":"尺寸","Sized while you wait":"即等即改尺寸","Sketch":"草图","Skip to content":"跳到主要内容","Sort":"排序","Sort the pieces":"为款式排序","Spring hook":"弹弓钩","Spring ring":"弹簧圈扣","Start a design":"开始设计","Stories from our atelier: how our beads are cut, what the colour codes on our labels mean, and how to choose, size and give a Yi Xing bracelet.":"来自工坊的故事：我们的圆珠如何切割、标签上的颜色代码代表什么，以及如何挑选、量尺寸和赠送 Yi Xing 手链。","Stories from the atelier":"工坊故事","Talk to us":"与我们联系","Tap the heart on any design to keep it here. Saved designs stay on this device.":"点按任何款式上的心形图标即可收藏到这里。收藏的款式只保存在此设备上。","Tell us which pieces you would like to see, and anything we should prepare.":"告诉我们您想看哪些款式，以及需要我们准备什么。","Thank you, {name}.":"谢谢您，{name}。","Thank you.":"谢谢。","The Bead Library":"珠子图鉴","The Collection 2026":"2026 系列","The Gift Edit":"礼品精选","The Yi Xing experience":"Yi Xing 体验","The bead library":"珠子图鉴","The beads and pipes you have in mind, your wrist size if you know it, and any design you would like to start from.":"您心目中的圆珠和管珠、您的手腕尺寸（如果知道），以及您想参考的任何款式。","The filters appear once our catalogue has loaded.":"目录加载后即可使用筛选。","The finished strand in 916 gold: Lune beads, Disque spacers and Colonne pipes":"916金成品珠链：Lune 圆珠、Disque 隔珠与 Colonne 管珠","The house":"品牌","The pieces":"本页款式","The same two colours dress every Yi Xing box: teal outside, and our mark in gold foil inside the lid.":"每个 Yi Xing 礼盒都用这两种颜色：外面是青绿色，盒盖内侧烫印金色标志。","There are no brochures to turn through just now. Our pieces are all on the Collections page.":"目前没有可翻阅的目录。我们的全部款式都在“系列”页面。","They are our colour codes. 1C is all yellow gold, 2C is two-tone with white gold, and 3C is tri-tone with white and rose gold. All three are 916 gold.":"这是我们的颜色代码。1C 是全黄金色，2C 是黄白双色，3C 是黄、白、玫瑰金三色。三种都是916金。","Thirteen designs in five collections":"五个系列，十三款设计","Three promises at the counter":"柜台前的三个承诺","Tri-tone":"三色","Try again":"重试","Try them on":"亲自试戴","Turn the pages of our brochures":"翻阅我们的目录","Turn the pages of the brochures you will find at our counters. Tap any design to see its details, save it or send an enquiry.":"翻阅我们柜台上的目录。点按任何款式即可查看详情、收藏或发送咨询。","Two strokes of <0>one circle<\/0>":"<0>一个圆<\/0>，两笔","Two-tone":"双色","Type of enquiry":"咨询类型","Up to {v} {u}":"最多 {v} {u}","Variation":"款式","View {ref} {name}":"查看 {ref} {name}","Visit":"到店","Visit us":"门店","We add or remove beads and pipes to fit your wrist, at no charge.":"我们免费为您增减圆珠和管珠，贴合您的手腕。","We have boutiques in Malaysia and Singapore. Tell us where you are and we will point you to the nearest one, or book a private appointment.":"我们在马来西亚和新加坡设有门店。告诉我们您在哪里，我们会为您指引最近的一家，或为您安排私人预约。","We model each part to a fraction of a millimetre, so beads, pipes and spacers sit flush once strung.":"每个部件都精确建模到毫米以下，串起来时圆珠、管珠和隔珠严丝合缝。","We weigh every piece <0>in front of you<\/0>.":"每件首饰都<0>当面称重<\/0>。","Weighed at the counter":"于柜台称重","Weighed in front of you":"当面称重","Weight":"重量","Weight ({u})":"重量（{u}）","What do 1C, 2C and 3C mean?":"1C、2C 和 3C 是什么意思？","WhatsApp":"WhatsApp","WhatsApp should now open with your enquiry written out. Press send there to reach us. If it did not open, message us at {wa}.":"WhatsApp 应该已经打开，咨询内容已写好。在那里按发送即可联系我们。如果没有打开，请发消息到 {wa}。","WhatsApp us":"WhatsApp 我们","Which piece needs care, and what you would like done.":"哪件首饰需要保养，以及您希望怎么处理。","Wireframe model of the same strand":"同一串珠链的线框模型","Write another enquiry":"再写一则咨询","Yellow":"黄色","Yellow 916 gold; ask about two-tone and tri-tone":"黄色916金；双色和三色可咨询","Yellow with white 916 gold, finished in rhodium.":"黄色配白色916金，以铑金处理。","Yellow, white and rose 916 gold together in one design.":"黄、白、玫瑰三色916金融于同一款设计。","Yes, at any boutique. We weigh and test it in front of you and quote at the day's buy-back rate. You can take the value in cash or put it towards a new piece.":"可以，任何门店都可以。我们当面称重和检测，按当日回收价报价。您可以取现金，或抵扣新的首饰。","Yes. Ask a client advisor to reserve it, and we will move it to the boutique you choose, in Malaysia or Singapore, within three working days.":"可以。请客户顾问为您预留，我们会在三个工作日内把它送到您选择的门店，马来西亚或新加坡都可以。","Yes. We add or remove beads and pipes to fit your wrist, usually while you wait, at no charge.":"可以。我们免费为您增减圆珠和管珠来贴合手腕，通常即等即取。","Yi Xing":"Yi Xing","Yi Xing enquiry: {type} ({name})":"Yi Xing 咨询：{type}（{name}）","Yi Xing is a goldsmith and jeweller from Malaysia. We make bracelets from our own alphabet of 916 gold beads and pipes, and sell them by weight and purity, with both printed on the receipt.":"Yi Xing 是来自马来西亚的金匠与珠宝商。我们用自家一套916金圆珠与管珠“字母”制作手链，按重量和成色出售，两者都印在收据上。","Yi Xing, home":"Yi Xing 首页","Your area (optional)":"您所在的地区（选填）","Your email app should now open with your enquiry written out. Press send there to reach us. If it did not open, email us at {email}.":"您的电邮应用应该已经打开，咨询内容已写好。在那里按发送即可联系我们。如果没有打开，请发电邮到 {email}。","Your enquiry opens in your email app or WhatsApp, ready to send. Required: name and message.":"您的咨询会在电邮应用或 WhatsApp 中打开，可直接发送。必填：姓名和留言。","bracelet":"手链","charm":"吊饰","e-Brochure":"电子目录","hook {v}":"扣头 {v}","length {v}":"长度 {v}","size {v}":"尺寸 {v}","support@yixinggoldsmith.com":"support@yixinggoldsmith.com","to":"至","variation {v}":"款式 {v}","yellow 916 gold":"黄色916金","{colour} {hall} gold":"{colour}{hall}金","{name}, {type} in {hall} gold, ref. {ref}":"{name}，{hall}金{type}，编号 {ref}","{n} min read":"阅读约 {n} 分钟","{n} pages":"{n} 页","{n} piece":"{n} 件","{n} pieces":"{n} 件","{n} pieces in gold":"{n} 件金饰","{n} variants · tap one to see its details":"{n} 种款式 · 点按查看详情","{p} gold":"{p}金","{type} in {gold}":"{gold}{type}","{type} in {hall} gold":"{hall}金{type}","{type} in {purity} gold":"{purity}金{type}","© 2026 Yi Xing. All rights reserved.":"© 2026 Yi Xing。版权所有。"}};
+  const LANG_KEY = 'yixing-lang';
+  const LANG = (() => {
+    let q = ''; try { q = new URLSearchParams(location.search).get('lang') || ''; } catch (e) { q = ''; }
+    if (LANGS[q]) { try { localStorage.setItem(LANG_KEY, q); } catch (e) { /* the address carries it */ } return q; }
+    try { const k = localStorage.getItem(LANG_KEY); if (LANGS[k]) return k; } catch (e) { /* storage switched off */ }
+    for (const l of [].concat(navigator.languages || [], navigator.language || []).map(x => String(x).toLowerCase())) {
+      if (l.startsWith('zh')) return 'zh';
+      if (/^(ms|id)(-|$)/.test(l)) return 'ms';
+      if (l.startsWith('en')) return 'en';
+    }
+    return 'en';
+  })();
+  const DICT = LANG === 'en' ? {} : (I18N[LANG] || {});
+  // ?i18n-check lists every phrase without a translation (window.__i18n.missing()), for testing
+  const I18N_CHECK = /[?&]i18n-check(=|&|$)/.test(location.search);
+  const TR_MISS = new Map();
+  const trKey = x => String(x).replace(/\s+/g, ' ').trim();
+  const trLook = (k, kind) => { const v = DICT[k]; if (v) return v; if (I18N_CHECK && /[A-Za-z]{2}/.test(k)) TR_MISS.set(k, kind); return null; };
+  // tr('Show {n} pieces', { n: 8 }): the English is the key; the {names} are filled in after translating
+  const tr = (x, vars) => {
+    let out = x == null ? '' : String(x);
+    if (out && (LANG !== 'en' || I18N_CHECK)) { const v = trLook(out, 'script'); if (v) out = v; }
+    return vars ? out.replace(/\{(\w+)\}/g, (m, k) => (vars[k] != null ? String(vars[k]) : m)) : out;
+  };
+  document.documentElement.lang = LANGS[LANG].html;
+  document.documentElement.dataset.lang = LANG;
+  // the words written in the page: translated once, before anything is drawn. A sentence with a link or a bold word
+  // in it is one template, e.g. "Read our <0>FAQ</0>." (the link itself is kept, with its address)
+  const TR_INLINE = new Set(['A', 'B', 'STRONG', 'EM', 'I', 'SPAN', 'SMALL', 'BR', 'U', 'SUP', 'SUB', 'ABBR', 'Q', 'CITE', 'MARK', 'TIME', 'S', 'DFN']);
+  const TR_SKIP = new Set(['SCRIPT', 'STYLE', 'SVG', 'svg', 'CODE', 'PRE', 'TEMPLATE', 'NOSCRIPT']);
+  const TR_ATTRS = ['placeholder', 'aria-label', 'title', 'alt'];
+  const textInline = el => TR_INLINE.has(el.tagName) && [...el.childNodes].every(n => n.nodeType === 3 || n.nodeType === 8 || (n.nodeType === 1 && textInline(n)));
+  const trAttrs = el => TR_ATTRS.forEach(a => { const v = el.getAttribute(a); if (v && /[A-Za-z]{2}/.test(v)) { const t = trLook(trKey(v), 'attr'); if (t) el.setAttribute(a, t); } });
+  function trFill(el, kids, v) {
+    const frag = document.createDocumentFragment(), re = /<(\d+)>([\s\S]*?)<\/\1>|<(\d+)\/>/g;
+    let last = 0, m;
+    while ((m = re.exec(v))) {
+      if (m.index > last) frag.appendChild(document.createTextNode(v.slice(last, m.index)));
+      const kid = kids[+(m[1] != null ? m[1] : m[3])];
+      if (kid) { if (m[1] != null) kid.textContent = m[2]; frag.appendChild(kid); }
+      last = re.lastIndex;
+    }
+    if (last < v.length) frag.appendChild(document.createTextNode(v.slice(last)));
+    el.textContent = ''; el.appendChild(frag);
+  }
+  function translatePage(root) {
+    if (LANG === 'en' && !I18N_CHECK) return;
+    (function walk(el) {
+      if (TR_SKIP.has(el.tagName) || el.hasAttribute('data-i18n-skip')) return;
+      trAttrs(el);
+      const nodes = [...el.childNodes], els = nodes.filter(n => n.nodeType === 1);
+      if (els.length && nodes.some(n => n.nodeType === 3 && /[A-Za-z]{2}/.test(n.data)) && els.every(textInline)) {
+        const kids = []; let k = 0;
+        const key = trKey(nodes.map(n => {
+          if (n.nodeType === 3) return n.data;
+          if (n.nodeType !== 1) return '';
+          const i = k++; kids.push(n);
+          return n.children.length || !n.textContent.trim() ? `<${i}/>` : `<${i}>${n.textContent}</${i}>`;
+        }).join(''));
+        const v = trLook(key, 'page');
+        if (v) trFill(el, kids, v);
+        els.forEach(e => { trAttrs(e); $$('*', e).forEach(trAttrs); });
+        return;
+      }
+      nodes.forEach(n => {
+        if (n.nodeType === 1) walk(n);
+        else if (n.nodeType === 3 && /[A-Za-z]{2}/.test(n.data)) { const v = trLook(trKey(n.data), 'page'); if (v) n.data = n.data.replace(/\S[\s\S]*\S|\S/, () => v); }
+      });
+    })(root);
+  }
+  translatePage(document.body);
+  if (I18N_CHECK) window.__i18n = { lang: LANG, missing: () => [...TR_MISS].map(([k, kind]) => ({ k, kind })) };
+  // the language switch (header, phone menu, footer)
+  $$('a[data-lang]').forEach(a => { if (a.dataset.lang === LANG) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[data-lang]'); if (!a) return;
+    e.preventDefault();
+    const l = a.dataset.lang; if (!LANGS[l] || l === LANG) return;
+    try { localStorage.setItem(LANG_KEY, l); } catch (err) { /* the address carries it */ }
+    const u = new URL(location.href); u.searchParams.set('lang', l);
+    location.assign(u.pathname + u.search + location.hash);
+  });
+
   /* ---------- data: everything editable comes from the editor (Pages CMS -> _data/*.json), embedded at build time ---------- */
   let COLLECTIONS = {}, PRODUCTS = [], BY_ID = {}, BY_UP = {}, TYPES = [], TYPE_BY = {}, STUDIO_COLS = [], SITE_PRODUCTS = [], STORIES = [], STORY_BY = {}, HOME = {}, CAMPAIGN = null, LIVE = [], BROCHURES = [], BR_BY = {}, PREVIEWING = '';
   // the bead library itself stays in code: it is the reference every design is spelled from
@@ -1992,9 +2107,11 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   const norm = t => String(t || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const slug = t => norm(t).replace(/[^a-z0-9\u3400-\u9fff]+/g, '-').replace(/^-+|-+$/g, '');
   const uniq = a => [...new Set(a.filter(x => x !== '' && x != null))];
-  const COLOUR = { '1C': 'Yellow', '2C': 'Two-tone', '3C': 'Tri-tone' };
+  const COLOUR_EN = { '1C': 'Yellow', '2C': 'Two-tone', '3C': 'Tri-tone' };
+  const COLOUR = Object.fromEntries(Object.entries(COLOUR_EN).map(([k, v]) => [k, tr(v)]));
   const colourName = c => COLOUR[c] ? `${COLOUR[c]} (${c})` : String(c || '');
-  const HOOK = { F: 'Fish hook', S: 'Spring hook', SR: 'Spring ring', BH: 'Box hook', FHC: 'Fish hook clip', BC: 'Box clip' };
+  const HOOK_EN = { F: 'Fish hook', S: 'Spring hook', SR: 'Spring ring', BH: 'Box hook', FHC: 'Fish hook clip', BC: 'Box clip' };
+  const HOOK = Object.fromEntries(Object.entries(HOOK_EN).map(([k, v]) => [k, tr(v)]));
   const hookName = h => { const k = String(h || '').trim(); return HOOK[k.toUpperCase()] ? `${HOOK[k.toUpperCase()]} (${k})` : k; };
   // units, as in the staff catalogue: 1 CI (Chinese inch) = 3.7 cm = 37 mm; 1 Pavan = 8 g. The sheet, the filters
   // and sorting stay in CI and grams; the visitor picks what is shown (kept on this device)
@@ -2030,41 +2147,41 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     const purity = uniq(vs.map(v => String(v.purity || '')));
     const colours = uniq(vs.map(v => String(v.color || '')));
     const ref = String(x.ref || x.id);
-    const named = !!String(x.name || '').trim(), name = named ? String(x.name).trim() : [type || 'Piece', ref].join(' ');
+    const named = !!String(x.name || '').trim(), name = named ? String(x.name).trim() : [tr(type || 'Piece'), ref].join(' ');
     return {
       id: String(x.id), ref, name, named, src: 'cat', type, kind: (type || 'piece').toLowerCase(),
       colNames: vals(x.cols).map(String), cols: [], col: '', hl: vals(x.hl).map(String), date: String(x.date || ''),
       made: [], desc: String(x.about || ''), price: '', hall: purity[0] || '916', purity, colours,
-      gold: [purity.length ? purity.join(' or ') + ' gold' : '', colours.map(colourName).join(', ')].filter(Boolean).join(' · '),
+      gold: [purity.length ? tr('{p} gold', { p: purity.join(tr(' or ')) }) : '', colours.map(colourName).join(tr(', '))].filter(Boolean).join(' · '),
       weight: weightRange(vs), fv: vs, thumb: url((md[0] || {}).th || (md[0] || {}).l), images: [], video: '',
       media: md.map(m => m.t === 'v' && m.src ? { k: 'video', s: url(m.src), poster: url(m.l || m.th), th: url(m.th || m.l) } : { k: 'img', s: url(m.l || m.th), th: url(m.th || m.l) }),
-      vs, hay: norm([name, ref, x.id, type, ...vals(x.cols), ...vs.map(v => [v.code, v.color, COLOUR[v.color], v.variation, v.size, v.length, v.hook, HOOK[String(v.hook || '').toUpperCase()]].join(' '))].join(' '))
+      vs, hay: norm([name, ref, x.id, type, tr(type), ...vals(x.cols), ...vs.map(v => [v.code, v.color, COLOUR[v.color], COLOUR_EN[v.color], v.variation, v.size, v.length, v.hook, HOOK[String(v.hook || '').toUpperCase()], HOOK_EN[String(v.hook || '').toUpperCase()]].join(' '))].join(' '))
     };
   }
   const sitePiece = x => {
     const kind = String(x.kind || 'Bracelet');
     // what the filters need, read from the Studio’s words: “Yellow 916 gold (1C)”, “2.05 g”
-    const gold = String(x.gold || ''), wm = /(\d+(?:\.\d+)?)\s*g/i.exec(String(x.weight || ''));
+    const gold = String(x.__en_gold || x.gold || ''), wm = /(\d+(?:\.\d+)?)\s*g/i.exec(String(x.weight || ''));
     const code = (/\b([123]C)\b/i.exec(gold) || [])[1];
     const fv = [{ purity: (/\b(999|916|875|750|585|375)\b/.exec(gold) || [, '916'])[1], color: code ? code.toUpperCase() : /two/i.test(gold) ? '2C' : /tri|three/i.test(gold) ? '3C' : /yellow/i.test(gold) || !gold ? '1C' : '', weight: wm ? +wm[1] : 0, length: '' }];
     return { id: String(x.id), ref: String(x.id), name: x.name || String(x.id), named: true, src: 'site', type: kind.charAt(0).toUpperCase() + kind.slice(1), kind: kind.toLowerCase(), fv,
       colNames: [], cols: x.collection ? [refId(x.collection)] : [], col: refId(x.collection), hl: [], date: '',
       made: vals(x.parts).filter(Boolean).map(String), gold: x.gold || '', weight: x.weight || '', price: x.price || '', desc: x.description || '', hall: '916',
       images: vals(x.images).filter(Boolean), video: x.video || '', thumb: '', media: null, vs: [],
-      hay: norm([x.name, x.id, kind, ...vals(x.parts)].join(' ')) };
+      hay: norm([x.name, x.__en_name, x.id, kind, tr(kind), ...vals(x.parts), ...vals(x.__en_parts)].filter(Boolean).join(' ')) };
   };
   // the Studio's collections (cover photo, words, order) and every collection named in the catalogue (Collection 1–5);
   // the catalogue's products, then the website-only pieces whose code the catalogue doesn't have (yet)
   function mergeProducts() {
     const cols = {}, bySlug = {};
     // a Studio collection dresses the catalogue collection it is linked to (or that has its name or short name)
-    STUDIO_COLS.forEach(c => { cols[c.id] = c; bySlug[slug(c.name)] = bySlug[slug(c.name)] || c.id; bySlug[slug(c.id)] = bySlug[slug(c.id)] || c.id; });
+    STUDIO_COLS.forEach(c => { cols[c.id] = c; bySlug[slug(c.__en_name || c.name)] = bySlug[slug(c.__en_name || c.name)] || c.id; bySlug[slug(c.id)] = bySlug[slug(c.id)] || c.id; });
     STUDIO_COLS.forEach(c => { if (c.catalogue) bySlug[slug(c.catalogue)] = c.id; });
     COLNAME_ID = {};
     vals(CAT && CAT.collections).forEach((c, k) => {
       const name = String((c && c.name) || '').trim(); if (!name) return;
       const id = bySlug[slug(name)] || slug(name) || 'collection-' + k;
-      if (!cols[id]) cols[id] = { id, name, idea: '', text: '', image: '', order: 500 + k, show_on_home: true };
+      if (!cols[id]) cols[id] = { id, name: tr(name), idea: '', text: '', image: '', order: 500 + k, show_on_home: true };
       COLNAME_ID[name] = id;
     });
     COLLECTIONS = Object.fromEntries(Object.values(cols).sort(byOrder).map(c => [c.id, c]));
@@ -2074,7 +2191,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     BY_ID = Object.fromEntries(PRODUCTS.map(x => [x.id, x]));
     BY_UP = Object.fromEntries(PRODUCTS.map(x => [x.id.toUpperCase(), x.id]));
     const tc = {};
-    PRODUCTS.forEach(p => { const id = typeId(p.type); if (!id) return; (tc[id] = tc[id] || { id, name: p.type, label: plural(p.type), n: 0 }).n++; });
+    PRODUCTS.forEach(p => { const id = typeId(p.type); if (!id) return; (tc[id] = tc[id] || { id, name: p.type, label: tr(plural(p.type)), n: 0 }).n++; });
     TYPES = Object.values(tc).sort((a, b) => b.n - a.n || a.label.localeCompare(b.label));
     TYPE_BY = Object.fromEntries(TYPES.map(t => [t.id, t]));
   }
@@ -2098,33 +2215,33 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     persist(); syncSaved();
   }
   function syncSaved() {
-    const ws = $('[data-wa-saved]'); if (ws) ws.href = waLink(saved.length ? 'Hello Yi Xing, I am interested in these designs: ' + savedText() + '.' : 'Hello Yi Xing, ');
+    const ws = $('[data-wa-saved]'); if (ws) ws.href = waLink(saved.length ? tr('Hello Yi Xing, I am interested in these designs: {list}.', { list: savedText() }) : tr('Hello Yi Xing, '));
     $$('[data-wish-count]').forEach(el => { el.textContent = saved.length; });
-    $$('[data-drawer-open]').forEach(b => b.setAttribute('aria-label', `Saved pieces, ${saved.length}`));
+    $$('[data-drawer-open]').forEach(b => b.setAttribute('aria-label', tr('Saved pieces, {n}', { n: saved.length })));
     $$('[data-save]').forEach(b => {
       const on = isSaved(b.dataset.save);
       b.setAttribute('aria-pressed', on);
       const label = b.querySelector('span');
-      if (label) label.textContent = on ? 'Saved' : 'Save';
-      if (b.classList.contains('card__save')) b.setAttribute('aria-label', `${on ? 'Remove' : 'Save'} ${(BY_ID[b.dataset.save] || { name: b.dataset.save }).name}`);
+      if (label) label.textContent = on ? tr('Saved') : tr('Save');
+      if (b.classList.contains('card__save')) b.setAttribute('aria-label', tr(on ? 'Remove {name}' : 'Save {name}', { name: (BY_ID[b.dataset.save] || { name: b.dataset.save }).name }));
     });
     const list = $('[data-saved-list]');
     list.innerHTML = saved.length ? saved.map(id => {
       const p = BY_ID[id] || { id, ref: id, name: id, hall: '916' };
       return `<div class="saved"><img src="${esc(img(p.id))}" alt="" width="84" height="84"${p.thumb ? ' class="is-photo"' : ''}>
-        <div><p class="saved__name">${esc(p.name)}</p><p class="saved__meta">${esc(p.hall || '916')} · Ref. ${esc(p.ref || p.id)}</p></div>
-        <button class="icon-btn" type="button" data-unsave="${esc(p.id)}" aria-label="Remove ${esc(p.name)}">${icon('i-close')}</button></div>`;
-    }).join('') : '<p class="drawer__empty">Tap the heart on any design to keep it here. Saved designs stay on this device.</p>';
+        <div><p class="saved__name">${esc(p.name)}</p><p class="saved__meta">${esc(p.hall || '916')} · ${esc(tr('Ref. {ref}', { ref: p.ref || p.id }))}</p></div>
+        <button class="icon-btn" type="button" data-unsave="${esc(p.id)}" aria-label="${esc(tr('Remove {name}', { name: p.name }))}">${icon('i-close')}</button></div>`;
+    }).join('') : `<p class="drawer__empty">${tr('Tap the heart on any design to keep it here. Saved designs stay on this device.')}</p>`;
     $('.drawer__foot').hidden = !saved.length;
     const pd = $('[data-pd-save]');
-    if (pd.dataset.id) { pd.setAttribute('aria-pressed', isSaved(pd.dataset.id)); pd.querySelector('span').textContent = isSaved(pd.dataset.id) ? 'Saved' : 'Save'; }
+    if (pd.dataset.id) { pd.setAttribute('aria-pressed', isSaved(pd.dataset.id)); pd.querySelector('span').textContent = isSaved(pd.dataset.id) ? tr('Saved') : tr('Save'); }
   }
 
   const savedText = () => saved.map(id => { const p = BY_ID[id]; return p ? `${p.ref} ${p.name}` : id; }).join(', ');
 
   /* ---------- design cards ---------- */
-  const altOf = p => p.src === 'cat' ? `${p.name}, ${p.type || 'piece'} in ${p.hall} gold, ref. ${p.ref}` : `${p.id} ${p.name} ${p.kind || 'bracelet'}: ${p.made.join(', ')}`;
-  const colourWords = p => { const c = p.colours.map(x => (COLOUR[x] || x).toLowerCase()).join(' or '); return c.charAt(0).toUpperCase() + c.slice(1); };
+  const altOf = p => p.src === 'cat' ? tr('{name}, {type} in {hall} gold, ref. {ref}', { name: p.name, type: tr(p.type || 'Piece'), hall: p.hall, ref: p.ref }) : `${p.id} ${p.name} ${tr(p.kind || 'bracelet')}: ${p.made.join(', ')}`;
+  const colourWords = p => { const c = p.colours.map(x => (COLOUR[x] || x).toLowerCase()).join(tr(' or ')); return c.charAt(0).toUpperCase() + c.slice(1); };
   const cardMeta = p => [p.src === 'cat' ? colourWords(p) : '', pWeight(p)].filter(Boolean).join(' · ') || p.made.join(' · ');
   // the line above a piece's name: its collection, else (for a named catalogue piece) its type
   // the collection a card names: a piece can be in several (Collection 1–5 in the sheet), so on a collection's page
@@ -2132,17 +2249,17 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   let colAt = [];
   const colLine = p => { const c = COLLECTIONS[colAt.find(id => p.cols.includes(id)) || p.cols[0]]; return c ? c.name : p.src === 'cat' && p.named ? p.type : ''; };
   // the catalogue sheet's Promotion / New arrival / Best Selling Status columns (and their links on this site)
-  const HL = [['promo', 'Promotion', 'promotion'], ['new', 'New arrival', 'new-arrival'], ['best', 'Best Selling', 'best-selling']];
+  const HL = [['promo', tr('Promotion'), 'promotion'], ['new', tr('New arrival'), 'new-arrival'], ['best', tr('Best Selling'), 'best-selling']];
   const HL_LABEL = Object.fromEntries(HL.map(([k, t]) => [k, t]));
   const HL_ROUTE = Object.fromEntries(HL.map(([k, , r]) => [r, k]));
   const badgeOf = p => { const k = HL.map(x => x[0]).find(x => p.hl.includes(x)); return k ? HL_LABEL[k] : ''; };
   function card(p) {
     const badge = badgeOf(p);
     return `<article class="card">
-      <button class="card__media${p.thumb ? ' is-photo' : ''}" type="button" data-open-product="${esc(p.id)}" aria-label="View ${esc(p.ref)} ${esc(p.name)}">
+      <button class="card__media${p.thumb ? ' is-photo' : ''}" type="button" data-open-product="${esc(p.id)}" aria-label="${esc(tr('View {ref} {name}', { ref: p.ref, name: p.name }))}">
         <img src="${esc(img(p.id))}" alt="${esc(altOf(p))}" width="900" height="1125" loading="lazy">
       </button>${badge ? `<span class="card__badge">${badge}</span>` : ''}
-      <button class="icon-btn card__save" type="button" data-save="${esc(p.id)}" aria-pressed="false" aria-label="Save ${esc(p.name)}">${icon('i-heart')}</button>
+      <button class="icon-btn card__save" type="button" data-save="${esc(p.id)}" aria-pressed="false" aria-label="${esc(tr('Save {name}', { name: p.name }))}">${icon('i-heart')}</button>
       <div class="card__body">
         ${colLine(p) ? `<p class="card__col">${cjk(colLine(p))}</p>` : ''}
         <h3 class="card__name"><button type="button" data-open-product="${esc(p.id)}">${esc(p.name)}</button></h3>
@@ -2154,10 +2271,10 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     return `<article class="card card--extra">
       <a class="card__media" href="${x.href}" ${x.attrs} tabindex="-1" aria-hidden="true"><img src="media/v4/${x.img}.webp" alt="" width="900" height="1125" loading="lazy"></a>
       <div class="card__body">
-        <span class="hallmark">${esc(x.tag)}</span>
-        <h3 class="card__name"><a href="${x.href}" ${x.attrs}>${esc(x.title)}</a></h3>
-        <p class="card__meta">${esc(x.text)}</p>
-        <a class="link-arrow" href="${x.href}" ${x.attrs} tabindex="-1">${esc(x.cta)} ${icon('i-arrow')}</a>
+        <span class="hallmark">${esc(tr(x.tag))}</span>
+        <h3 class="card__name"><a href="${x.href}" ${x.attrs}>${esc(tr(x.title))}</a></h3>
+        <p class="card__meta">${esc(tr(x.text))}</p>
+        <a class="link-arrow" href="${x.href}" ${x.attrs} tabindex="-1">${esc(tr(x.cta))} ${icon('i-arrow')}</a>
       </div>
     </article>`;
   }
@@ -2216,12 +2333,12 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   const cjk = t => esc(t).replace(/([㐀-鿿豈-﫿]+)/g, '<span class="cjk">$1</span>');
 
   // the heading names what the page is showing: a collection, a category, a highlight, or every piece
-  const SHOP_LEDE = 'Our gold pieces by collection and category, each priced by weight at the day’s gold rate. Save the ones you like and bring the list to any boutique.';
+  const SHOP_LEDE = tr('Our gold pieces by collection and category, each priced by weight at the day’s gold rate. Save the ones you like and bring the list to any boutique.');
   function shopHead() {
-    if (shop.hl) return { eyebrow: 'Highlights', title: HL_LABEL[shop.hl], lede: shop.hl === 'new' && !hlMarked('new') ? 'Every piece, the newest first.' : SHOP_LEDE };
-    if (F.col.size === 1) { const c = COLLECTIONS[[...F.col][0]]; if (c) return { eyebrow: 'Collection', title: c.name, lede: c.text || c.idea || SHOP_LEDE, main: ['col', c.id] }; }
-    if (F.type.size === 1 && !F.col.size) { const t = TYPE_BY[[...F.type][0]]; if (t) return { eyebrow: 'Category', title: t.label, lede: SHOP_LEDE, main: ['type', t.id] }; }
-    return { eyebrow: 'Collections', title: 'All pieces', lede: SHOP_LEDE };
+    if (shop.hl) return { eyebrow: tr('Highlights'), title: HL_LABEL[shop.hl], lede: shop.hl === 'new' && !hlMarked('new') ? tr('Every piece, the newest first.') : SHOP_LEDE };
+    if (F.col.size === 1) { const c = COLLECTIONS[[...F.col][0]]; if (c) return { eyebrow: tr('Collection'), title: c.name, lede: c.text || c.idea || SHOP_LEDE, main: ['col', c.id] }; }
+    if (F.type.size === 1 && !F.col.size) { const t = TYPE_BY[[...F.type][0]]; if (t) return { eyebrow: tr('Category'), title: t.label, lede: SHOP_LEDE, main: ['type', t.id] }; }
+    return { eyebrow: tr('Collections'), title: tr('All pieces'), lede: SHOP_LEDE };
   }
   const colCover = c => c.image ? { src: media(c.image), photo: false } : (() => { const p = PRODUCTS.find(x => x.cols.includes(c.id) && (x.thumb || x.images.length)) || PRODUCTS.find(x => x.cols.includes(c.id)); return p ? { src: img(p.id), photo: !!p.thumb } : { src: '', photo: false }; })();
   function renderColrow() {
@@ -2229,7 +2346,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     $('[data-colrow-wrap]').hidden = !cols.length;
     if (!cols.length) { $('[data-colrow]').innerHTML = ''; return; }
     const cur = shop.hl ? '' : F.col.size === 1 ? [...F.col][0] : F.col.size ? '' : 'all';
-    $('[data-colrow]').innerHTML = `<a class="colrow__item" href="#collection-all"${cur === 'all' ? ' aria-current="true"' : ''}><span class="colrow__media"><span class="colrow__all"><b>All</b><small>${PRODUCTS.length} pieces</small></span></span><span class="colrow__name">All pieces</span></a>`
+    $('[data-colrow]').innerHTML = `<a class="colrow__item" href="#collection-all"${cur === 'all' ? ' aria-current="true"' : ''}><span class="colrow__media"><span class="colrow__all"><b>${tr('All')}</b><small>${tr(PRODUCTS.length === 1 ? '{n} piece' : '{n} pieces', { n: PRODUCTS.length })}</small></span></span><span class="colrow__name">${tr('All pieces')}</span></a>`
       + cols.map(c => { const pic = colCover(c); return `<a class="colrow__item" href="#collection-${esc(c.id)}"${cur === c.id ? ' aria-current="true"' : ''}><span class="colrow__media${pic.photo ? ' is-photo' : ''}">${pic.src ? `<img src="${esc(pic.src)}" alt="" loading="lazy">` : ''}</span><span class="colrow__name">${cjk(c.name)}</span></a>`; }).join('');
     centreColrow();
   }
@@ -2246,15 +2363,15 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     if (shop.hl) pills.push([HL_LABEL[shop.hl], 'hl', '']);
     F.col.forEach(c => { if (COLLECTIONS[c] && !(main[0] === 'col' && main[1] === c)) pills.push([COLLECTIONS[c].name, 'col', c]); });
     F.type.forEach(t => { if (TYPE_BY[t] && !(main[0] === 'type' && main[1] === t)) pills.push([TYPE_BY[t].label, 'type', t]); });
-    F.pur.forEach(x => pills.push([x + ' gold', 'pur', x]));
+    F.pur.forEach(x => pills.push([tr('{p} gold', { p: x }), 'pur', x]));
     F.color.forEach(x => pills.push([colLabel(x), 'color', x]));
-    const span = (a, b, out, u) => a != null && b != null ? `${out(a)}–${out(b)} ${u}` : a != null ? `From ${out(a)} ${u}` : `Up to ${out(b)} ${u}`;
+    const span = (a, b, out, u) => a != null && b != null ? `${out(a)}–${out(b)} ${u}` : a != null ? tr('From {v} {u}', { v: out(a), u }) : tr('Up to {v} {u}', { v: out(b), u });
     if (wOn()) pills.push([span(F.wmin, F.wmax, wOut, wU().label), 'w', '']);
     if (lOn()) pills.push([span(F.lmin, F.lmax, lenOut, lenU().label), 'l', '']);
     const box = $('[data-pills]');
     box.hidden = !pills.length;
-    box.innerHTML = pills.map(([label, k, v]) => `<button class="pill" type="button" data-pill="${k}" data-v="${esc(v)}" aria-label="Remove the filter ${esc(label)}">${esc(label)}${icon('i-close')}</button>`).join('')
-      + (pills.length > 1 || (pills.length && head.main) ? '<button class="ulink" type="button" data-filters-clear>Clear all</button>' : '');
+    box.innerHTML = pills.map(([label, k, v]) => `<button class="pill" type="button" data-pill="${k}" data-v="${esc(v)}" aria-label="${esc(tr('Remove the filter {name}', { name: label }))}">${esc(label)}${icon('i-close')}</button>`).join('')
+      + (pills.length > 1 || (pills.length && head.main) ? `<button class="ulink" type="button" data-filters-clear>${tr('Clear all')}</button>` : '');
   }
   function renderShop() {
     // a choice that no longer exists (a collection without pieces, a category gone from the catalogue) drops out,
@@ -2263,13 +2380,13 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     const all = shopItems(), items = all.slice(0, shop.n);
     const pad = all.length <= shop.n && !shop.q && !nActive() ? (4 - items.length % 4) % 4 : 0; // fill the last row with editorial tiles, so no design sits alone
     colAt = [...F.col];
-    $('[data-grid]').innerHTML = items.length ? items.map(card).join('') + EXTRAS.slice(0, pad).map(extraCard).join('')
-      : `<p class="shop-empty">${shop.q ? `Nothing matches “${esc(shop.q)}”. Try a reference such as GR040, or fewer words.` : nActive() ? 'No pieces match these filters. Try removing one.' : shop.hl ? `No pieces in ${esc(HL_LABEL[shop.hl])} right now.` : CAT_STATE === 'loading' ? '' : 'No pieces here yet.'}</p>`;
+    $('[data-grid]').innerHTML = items.length ? items.map(card).join('') + EXTRAS.filter(x => !x.href.startsWith('#story-') || STORY_BY[x.href.slice(7)]).slice(0, pad).map(extraCard).join('')
+      : `<p class="shop-empty">${shop.q ? esc(tr('Nothing matches “{q}”. Try a reference such as GR040, or fewer words.', { q: shop.q })) : nActive() ? tr('No pieces match these filters. Try removing one.') : shop.hl ? esc(tr('No pieces in {name} right now.', { name: HL_LABEL[shop.hl] })) : CAT_STATE === 'loading' ? '' : tr('No pieces here yet.')}</p>`;
     colAt = [];
-    $('[data-result-count]').textContent = `${all.length} ${all.length === 1 ? 'piece' : 'pieces'}`;
+    $('[data-result-count]').textContent = tr(all.length === 1 ? '{n} piece' : '{n} pieces', { n: all.length });
     const more = $('[data-shop-more]');
     more.hidden = all.length <= shop.n;
-    more.textContent = `Show more (${all.length - Math.min(all.length, shop.n)} more)`;
+    more.textContent = tr('Show more ({n} more)', { n: all.length - Math.min(all.length, shop.n) });
     const head = shopHead();
     $('[data-shop-eyebrow]').textContent = head.eyebrow;
     $('[data-shop-title]').innerHTML = cjk(head.title);
@@ -2278,12 +2395,12 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     renderColrow(); renderPills(head);
     const n = nActive();
     $$('[data-filter-n], [data-filter-n2]').forEach(b => { b.hidden = !n; b.textContent = n; });
-    $('[data-filters-open]').setAttribute('aria-label', n ? `Filter, ${n} chosen` : 'Filter');
-    $('[data-filters-show]').textContent = `Show ${all.length} ${all.length === 1 ? 'piece' : 'pieces'}`;
+    $('[data-filters-open]').setAttribute('aria-label', n ? tr('Filter, {n} chosen', { n }) : tr('Filter'));
+    $('[data-filters-show]').textContent = tr(all.length === 1 ? 'Show {n} piece' : 'Show {n} pieces', { n: all.length });
     $('[data-shop-sort]').value = shop.sort;
     const note = $('[data-shop-note]');
-    note.innerHTML = CAT_STATE === 'loading' ? 'Loading our catalogue…'
-      : CAT_STATE === 'error' ? `Our full catalogue can’t be loaded just now, so only some pieces are shown. <button class="ulink" type="button" data-cat-retry>Try again</button>` : '';
+    note.innerHTML = CAT_STATE === 'loading' ? tr('Loading our catalogue…')
+      : CAT_STATE === 'error' ? `${tr('Our full catalogue can’t be loaded just now, so only some pieces are shown.')} <button class="ulink" type="button" data-cat-retry>${tr('Try again')}</button>` : '';
     syncFilters();
     syncSaved();
   }
@@ -2296,9 +2413,9 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   const flist = (key, items) => `<div data-flist="${key}">${items.map(([v, label], i) => `<label class="fcheck"${i >= LIST_TOP ? ' data-extra' : ''}><input type="checkbox" data-f="${key}" value="${esc(v)}"><span class="fcheck__lbl">${cjk(label)}</span><span class="fcheck__n" data-fn></span></label>`).join('')}</div>`
     + (items.length > LIST_TOP ? `<button class="fmore" type="button" data-fmore="${key}"></button>` : '');
   const fchips = (key, items) => `<div class="fchips">${items.map(([v, label, small]) => `<button class="fchip" type="button" data-f="${key}" data-v="${esc(v)}" aria-pressed="false">${esc(label)}${small ? `<small>${esc(small)}</small>` : ''}<span class="fchip__n" data-fn></span></button>`).join('')}</div>`;
-  const useg = (kind, units, cur, what) => `<div class="useg" role="group" aria-label="Show ${what} in">${Object.entries(units).map(([k, u]) => `<button type="button" data-unit="${kind}" data-v="${k}" aria-pressed="${k === cur}">${u.label}</button>`).join('')}</div>`;
-  const frange = (key, what, unit) => `<div class="frange" data-frange="${key}"><span class="frange__track"></span><span class="frange__fill"></span><input type="range" data-rmin aria-label="Lowest ${what}"><input type="range" data-rmax aria-label="Highest ${what}"></div>
-    <div class="finputs"><label><input type="number" inputmode="decimal" step="any" min="0" data-nmin aria-label="Lowest ${what}, in ${unit}"><span>${unit}</span></label><span>to</span><label><input type="number" inputmode="decimal" step="any" min="0" data-nmax aria-label="Highest ${what}, in ${unit}"><span>${unit}</span></label></div>`;
+  const useg = (kind, units, cur, what) => `<div class="useg" role="group" aria-label="${esc(tr(what === 'weights' ? 'Show weights in' : 'Show lengths in'))}">${Object.entries(units).map(([k, u]) => `<button type="button" data-unit="${kind}" data-v="${k}" aria-pressed="${k === cur}">${u.label}</button>`).join('')}</div>`;
+  const frange = (key, what, unit) => `<div class="frange" data-frange="${key}"><span class="frange__track"></span><span class="frange__fill"></span><input type="range" data-rmin aria-label="${esc(tr(what === 'weight' ? 'Lowest weight' : 'Shortest length'))}"><input type="range" data-rmax aria-label="${esc(tr(what === 'weight' ? 'Highest weight' : 'Longest length'))}"></div>
+    <div class="finputs"><label><input type="number" inputmode="decimal" step="any" min="0" data-nmin aria-label="${esc(tr(what === 'weight' ? 'Lowest weight, in {u}' : 'Shortest length, in {u}', { u: unit }))}"><span>${unit}</span></label><span>${tr('to')}</span><label><input type="number" inputmode="decimal" step="any" min="0" data-nmax aria-label="${esc(tr(what === 'weight' ? 'Highest weight, in {u}' : 'Longest length, in {u}', { u: unit }))}"><span>${unit}</span></label></div>`;
   // the panel is drawn when the list of pieces or a unit changes; choosing only updates it (so a slider being dragged stays put)
   function buildFilters() {
     const body = $('[data-filters-body]');
@@ -2308,13 +2425,13 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     FP.built = sig;
     const wu = wU(), lu = lenU();
     body.innerHTML = [
-      cols.length ? fgroup('col', 'Collection', '', flist('col', cols.map(c => [c.id, c.name]))) : '',
-      purs.length ? fgroup('pur', 'Product purity', '', fchips('pur', purs.map(x => [x, x]))) : '',
-      TYPES.length ? fgroup('type', 'Product type', '', flist('type', TYPES.map(t => [t.id, t.label]))) : '',
-      cols2.length ? fgroup('color', 'Colour', '', fchips('color', cols2.map(x => COLOUR[x] ? [x, COLOUR[x], x] : [x, x]))) : '',
-      wb ? fgroup('w', `Weight (${wu.label})`, useg('w', W_UNITS, UNITS.w, 'weights'), frange('w', 'weight', wu.label)) : '',
-      lv.length > 1 ? fgroup('l', `Length (${lu.label})`, useg('len', LEN_UNITS, UNITS.len, 'lengths'), frange('l', 'length', lu.label)) : '',
-    ].join('') || '<p class="drawer__empty">The filters appear once our catalogue has loaded.</p>';
+      cols.length ? fgroup('col', tr('Collection'), '', flist('col', cols.map(c => [c.id, c.name]))) : '',
+      purs.length ? fgroup('pur', tr('Product purity'), '', fchips('pur', purs.map(x => [x, x]))) : '',
+      TYPES.length ? fgroup('type', tr('Product type'), '', flist('type', TYPES.map(t => [t.id, t.label]))) : '',
+      cols2.length ? fgroup('color', tr('Colour'), '', fchips('color', cols2.map(x => COLOUR[x] ? [x, COLOUR[x], x] : [x, x]))) : '',
+      wb ? fgroup('w', tr('Weight ({u})', { u: wu.label }), useg('w', W_UNITS, UNITS.w, 'weights'), frange('w', 'weight', wu.label)) : '',
+      lv.length > 1 ? fgroup('l', tr('Length ({u})', { u: lu.label }), useg('len', LEN_UNITS, UNITS.len, 'lengths'), frange('l', 'length', lu.label)) : '',
+    ].join('') || `<p class="drawer__empty">${tr('The filters appear once our catalogue has loaded.')}</p>`;
     FP.R = {};
     if (wb) {
       const lo = roundTo(Math.floor(wb.min * wu.f / wu.step) * wu.step, 4), hi = roundTo(Math.ceil(wb.max * wu.f / wu.step) * wu.step, 4);
@@ -2375,7 +2492,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     $$('[data-fmore]', body).forEach(btn => {
       const key = btn.dataset.fmore, open = !!FP.more[key], rows = $$(`[data-flist="${key}"] .fcheck`, body);
       rows.forEach(r => { r.hidden = !open && r.hasAttribute('data-extra') && !$('input', r).checked; });
-      btn.textContent = open ? 'Show fewer' : `Show all ${rows.length}`;
+      btn.textContent = open ? tr('Show fewer') : tr('Show all {n}', { n: rows.length });
       btn.setAttribute('aria-expanded', open);
     });
     syncRanges(keepSliders);
@@ -2467,7 +2584,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   const linkAttr = (link, text) => {
     const l = String(link || '').trim();
     if (!l) return 'href="#home"';
-    if (/^whatsapp/i.test(l)) return `href="${esc(waLink(text || 'Hello Yi Xing, '))}" target="_blank" rel="noopener"`;
+    if (/^whatsapp/i.test(l)) return `href="${esc(waLink(text || tr('Hello Yi Xing, ')))}" target="_blank" rel="noopener"`;
     if (/^https?:\/\//i.test(l)) return `href="${esc(l)}" target="_blank" rel="noopener"`;
     if (/^(mailto|tel):/i.test(l)) return `href="${esc(l)}"`;
     return `href="${esc(l.startsWith('#') ? l : '#' + l)}"`;
@@ -2481,10 +2598,10 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     return `<a class="story-card${feature ? ' story-card--feature' : ''}" href="#story-${x.slug}">
       <div class="story-card__media"><img src="${media(x.img)}" alt="" ${wh(x.img)} loading="lazy"></div>
       <div class="story-card__text">
-        <p class="story-card__meta">${esc(x.cat)} · ${x.read} min read</p>
+        <p class="story-card__meta">${esc(tr(x.cat))} · ${tr('{n} min read', { n: x.read })}</p>
         <h3 class="story-card__title">${x.title}</h3>
         <p class="story-card__dek">${esc(x.dek)}</p>
-        ${feature ? `<span class="link-arrow">Read the story ${icon('i-arrow')}</span>` : ''}
+        ${feature ? `<span class="link-arrow">${tr('Read the story')} ${icon('i-arrow')}</span>` : ''}
       </div>
     </a>`;
   }
@@ -2492,7 +2609,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     $('[data-story-feature]').innerHTML = storyCard(STORIES[0], true);
     $('[data-story-chips]').innerHTML = STORY_CATS.map(c => {
       const n = STORIES.slice(1).filter(x => c === 'All' || x.cat === c).length;
-      return `<button class="chip-btn" type="button" data-story-cat="${c}" aria-pressed="${ed.cat === c}">${c}<span class="count">${n}</span></button>`;
+      return `<button class="chip-btn" type="button" data-story-cat="${c}" aria-pressed="${ed.cat === c}">${esc(tr(c))}<span class="count">${n}</span></button>`;
     }).join('');
     $('[data-stories]').innerHTML = STORIES.slice(1).filter(x => ed.cat === 'All' || x.cat === ed.cat).map(x => storyCard(x)).join('');
   }
@@ -2500,12 +2617,12 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
       ['yellow', '1C', 'Yellow', 'All yellow 916 gold. Every design is made this way first.'],
       ['white', '2C', 'Two-tone', 'Yellow with white 916 gold, finished in rhodium.'],
       ['rose', '3C', 'Tri-tone', 'Yellow, white and rose 916 gold together in one design.']
-    ].map(([c, code, name, text]) => `<figure class="colour"><img src="${media('gold-' + c)}" alt="Pavé bead in ${c} 916 gold" width="600" height="600" loading="lazy"><figcaption><span class="colour__code">${code}</span><h3>${name}</h3><p>${text}</p></figcaption></figure>`).join('')}</div>`;
+    ].map(([c, code, name, text]) => `<figure class="colour"><img src="${media('gold-' + c)}" alt="${esc(tr('Pavé bead in {colour} 916 gold', { colour: tr(name).toLowerCase() }))}" width="600" height="600" loading="lazy"><figcaption><span class="colour__code">${code}</span><h3>${tr(name)}</h3><p>${tr(text)}</p></figcaption></figure>`).join('')}</div>`;
   const stepsHTML = () => `<ol class="steps">${[
       ['strand-sketch', '01', 'Sketch', 'Every bead and pipe starts as a drawing, with its cut worked out facet by facet.'],
       ['strand-wire', '02', 'Model', 'We model each part to a fraction of a millimetre, so beads, pipes and spacers sit flush once strung.'],
       ['strand-final', '03', 'Finish', 'Made in 916 gold, then cut, polished and strung into the finished design.']
-    ].map(([im, n, h, t]) => `<li class="step"><div class="step__media"><img src="${media(im)}" alt="" width="1000" height="1000" loading="lazy"></div><div class="step__head"><span class="step__num">${n}</span><h3>${h}</h3></div><p>${t}</p></li>`).join('')}</ol>`;
+    ].map(([im, n, h, t]) => `<li class="step"><div class="step__media"><img src="${media(im)}" alt="" width="1000" height="1000" loading="lazy"></div><div class="step__head"><span class="step__num">${n}</span><h3>${tr(h)}</h3></div><p>${tr(t)}</p></li>`).join('')}</ol>`;
   function block(b) {
     if (!b || typeof b !== 'object') return '';
     const t = b.type || b._block;
@@ -2523,8 +2640,8 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     const more = [1, 2, 3].map(k => STORIES[(i + k) % STORIES.length]);
     $('[data-story]').innerHTML = `
       <header class="wrap story__head">
-        <a class="link-back" href="#editorial">${icon('i-left')}Editorial</a>
-        <p class="eyebrow">${esc(x.cat)} · ${x.read} min read</p>
+        <a class="link-back" href="#editorial">${icon('i-left')}${tr('Editorial')}</a>
+        <p class="eyebrow">${esc(tr(x.cat))} · ${tr('{n} min read', { n: x.read })}</p>
         <h1 class="h1">${x.title}</h1>
         <p class="lede">${esc(x.dek)}</p>
       </header>
@@ -2532,8 +2649,8 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
       <div class="wrap story__body">${x.body.map(block).join('')}</div>
       <section class="section wrap story__more" aria-labelledby="more-title">
         <div class="section-head">
-          <div><p class="eyebrow">Editorial</p><h2 class="h2" id="more-title">More stories</h2></div>
-          <a class="link-arrow" href="#editorial">All stories ${icon('i-arrow')}</a>
+          <div><p class="eyebrow">${tr('Editorial')}</p><h2 class="h2" id="more-title">${tr('More stories')}</h2></div>
+          <a class="link-arrow" href="#editorial">${tr('All stories')} ${icon('i-arrow')}</a>
         </div>
         <div class="stories">${more.map(m => storyCard(m)).join('')}</div>
       </section>`;
@@ -2722,7 +2839,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   const pagesOf = v => spreadMode() ? [2 * v - 1, 2 * v] : [v];
   const viewOfPage = i => spreadMode() ? Math.floor((i + 1) / 2) : i;
   const slot = (b, i) => i >= 0 && i < b.pages.length ? pageHTML(b, i) : '';
-  const viewLabel = (b, v) => { const ps = pagesOf(v).filter(i => i >= 0 && i < b.pages.length).map(i => i + 1); return ps.length > 1 ? `Pages ${ps[0]}–${ps[1]}` : `Page ${ps[0]}`; };
+  const viewLabel = (b, v) => { const ps = pagesOf(v).filter(i => i >= 0 && i < b.pages.length).map(i => i + 1); return ps.length > 1 ? tr('Pages {a}–{b}', { a: ps[0], b: ps[1] }) : tr('Page {n}', { n: ps[0] }); };
   let turning = false;
 
   function renderShelf() {
@@ -2732,7 +2849,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     $$('[data-sub-link="e-brochure"], [data-br-cta], [data-br-link]').forEach(el => { el.hidden = none; });
     $('[data-shelf]').innerHTML = BROCHURES.map(b => `<button class="shelf__item" type="button" data-brochure-open="${b.id}" aria-pressed="${b.id === reader.b}">
         <span class="shelf__cover"><img src="${media(b.cover)}" alt="" ${wh(b.cover)} loading="lazy"></span>
-        <span class="shelf__text"><span class="shelf__pages">${b.pages.length} pages</span><span class="shelf__name">${esc(b.title)}</span><span class="shelf__sub">${esc(b.sub)}</span></span>
+        <span class="shelf__text"><span class="shelf__pages">${tr('{n} pages', { n: b.pages.length })}</span><span class="shelf__name">${esc(tr(b.title))}</span><span class="shelf__sub">${esc(tr(b.sub))}</span></span>
       </button>`).join('');
   }
   function renderReader() {
@@ -2747,7 +2864,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
       ? `<div class="book__page book__page--l">${slot(b, l)}</div><div class="book__page book__page--r">${slot(b, r)}</div>`
       : `<div class="book__page book__page--r">${slot(b, l)}</div>`;
     $('[data-reader-title]').textContent = b.title;
-    $('[data-reader-meta]').textContent = `${b.pages.length} pages · ${b.sub}`;
+    $('[data-reader-meta]').textContent = `${tr('{n} pages', { n: b.pages.length })} · ${b.sub}`;
     $('[data-reader-count]').textContent = `${viewLabel(b, reader.v)} of ${b.pages.length}`;
     $('[data-flip="-1"]').disabled = reader.v === 0;
     $('[data-flip="1"]').disabled = reader.v === V - 1;
@@ -2793,7 +2910,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   (() => {
     const book = $('[data-book]'), rd = $('[data-reader]');
     if (document.fullscreenEnabled && rd.requestFullscreen) $('[data-fullscreen]').hidden = false;
-    document.addEventListener('fullscreenchange', () => { $('[data-fullscreen]').textContent = document.fullscreenElement ? 'Exit full screen' : 'Full screen'; });
+    document.addEventListener('fullscreenchange', () => { $('[data-fullscreen]').textContent = document.fullscreenElement ? tr('Exit full screen') : tr('Full screen'); });
     book.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') { e.preventDefault(); flip(1); }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); flip(-1); }
@@ -2831,19 +2948,19 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   }
   function setPdMedia(list) {
     PD_MEDIA = list;
-    $('[data-pd-thumbs]').innerHTML = PD_MEDIA.length > 1 ? PD_MEDIA.map((m, k) => `<button type="button" data-pd-thumb="${k}" aria-label="${m.k === 'video' ? 'Play the video' : 'Image ' + (k + 1)}" aria-pressed="${k === 0}">${m.k === 'video' ? (m.th ? `<img src="${esc(m.th)}" alt="">` : '') + icon('i-play') : `<img src="${esc(m.th || media(m.s))}" alt="">`}</button>`).join('') : '';
+    $('[data-pd-thumbs]').innerHTML = PD_MEDIA.length > 1 ? PD_MEDIA.map((m, k) => `<button type="button" data-pd-thumb="${k}" aria-label="${m.k === 'video' ? tr('Play the video') : tr('Image {n}', { n: k + 1 })}" aria-pressed="${k === 0}">${m.k === 'video' ? (m.th ? `<img src="${esc(m.th)}" alt="">` : '') + icon('i-play') : `<img src="${esc(m.th || media(m.s))}" alt="">`}</button>`).join('') : '';
     showPdMedia(0);
   }
   // what tells the variants of a catalogue piece apart: colour, purity, variation, size, length, hook, weight, code
-  const VAR_COLS = [['color', 'Colour', v => colourName(v.color)], ['purity', 'Gold', v => v.purity], ['variation', 'Variation', v => v.variation], ['size', 'Size', v => v.size],
-    ['length', 'Length', v => lenText(v.length)], ['hook', 'Hook', v => hookName(v.hook)], ['weight', 'Weight', v => v.weight ? gfmt(v.weight) : '—'], ['code', 'Code', v => v.code]];
-  const varText = v => [colourName(v.color), v.purity ? v.purity + ' gold' : '', v.variation ? 'variation ' + v.variation : '', v.size ? 'size ' + v.size : '', v.length ? 'length ' + lenText(v.length) : '', v.hook ? (HOOK[String(v.hook).toUpperCase()] ? hookName(v.hook).toLowerCase().replace(/\((\w+)\)$/i, (m, c) => `(${c.toUpperCase()})`) : 'hook ' + v.hook) : '', v.weight ? gfmt(v.weight) : ''].filter(Boolean).join(', ');
+  const VAR_COLS = [['color', tr('Colour'), v => colourName(v.color)], ['purity', tr('Gold'), v => v.purity], ['variation', tr('Variation'), v => v.variation], ['size', tr('Size'), v => v.size],
+    ['length', tr('Length'), v => lenText(v.length)], ['hook', tr('Hook'), v => hookName(v.hook)], ['weight', tr('Weight'), v => v.weight ? gfmt(v.weight) : '—'], ['code', tr('Code'), v => v.code]];
+  const varText = v => [colourName(v.color), v.purity ? tr('{p} gold', { p: v.purity }) : '', v.variation ? tr('variation {v}', { v: v.variation }) : '', v.size ? tr('size {v}', { v: v.size }) : '', v.length ? tr('length {v}', { v: lenText(v.length) }) : '', v.hook ? (HOOK[String(v.hook).toUpperCase()] ? hookName(v.hook).toLowerCase().replace(/\((\w+)\)$/i, (m, c) => `(${c.toUpperCase()})`) : tr('hook {v}', { v: v.hook })) : '', v.weight ? gfmt(v.weight) : ''].filter(Boolean).join(tr(', '));
   function renderPdVars(p) {
     const box = $('[data-pd-vars]');
     if (p.src !== 'cat' || p.vs.length < 2) { box.hidden = true; box.innerHTML = ''; return; }
     const cols = VAR_COLS.filter(([k]) => k === 'weight' || uniq(p.vs.map(v => String(v[k] || ''))).length > 1);
     box.hidden = false;
-    box.innerHTML = `<p class="pd-vars__title">${p.vs.length} variants · tap one to see its details</p><div class="pd-vars__scroll"><table><thead><tr>${cols.map(([, h]) => `<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>`
+    box.innerHTML = `<p class="pd-vars__title">${tr('{n} variants · tap one to see its details', { n: p.vs.length })}</p><div class="pd-vars__scroll"><table><thead><tr>${cols.map(([, h]) => `<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>`
       + p.vs.map((v, i) => `<tr data-pd-var="${i}" tabindex="0" aria-selected="${i === pdVar}">${cols.map(([, , f]) => `<td>${esc(f(v) || '—')}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
   }
   function galleryFor(p, vi) {
@@ -2864,8 +2981,8 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     pdVar = i === pdVar ? -1 : i;
     const v = p.vs[pdVar];
     $$('[data-pd-var]').forEach(r => r.setAttribute('aria-selected', +r.dataset.pdVar === pdVar ? 'true' : 'false'));
-    $('[data-pd-weight]').textContent = v ? (v.weight ? gfmt(v.weight) : 'Weighed at the counter') : (pWeight(p) || 'Weighed at the counter');
-    $('[data-pd-gold]').textContent = v ? [v.purity ? v.purity + ' gold' : '', colourName(v.color)].filter(Boolean).join(' · ') : p.gold;
+    $('[data-pd-weight]').textContent = v ? (v.weight ? gfmt(v.weight) : tr('Weighed at the counter')) : (pWeight(p) || tr('Weighed at the counter'));
+    $('[data-pd-gold]').textContent = v ? [v.purity ? tr('{p} gold', { p: v.purity }) : '', colourName(v.color)].filter(Boolean).join(' · ') : p.gold;
     $('[data-pd-ref]').textContent = [p.ref, v && v.code].filter(Boolean).join(' · ');
     setPdHook(v ? [v.hook] : p.vs.map(x => x.hook));
     if (v ? v.m && v.m.length : true) setPdMedia(galleryFor(p, pdVar));
@@ -2873,7 +2990,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   const pdDesc = p => {
     if (p.desc || p.src !== 'cat') return p.desc;
     const cs = p.colours.map(c => (COLOUR[c] || c).toLowerCase());
-    return `${p.type || 'Piece'} in ${p.purity.length ? p.purity.join(' or ') : '916'} gold${cs.length ? ', in ' + cs.join(' or ') : ''}${p.vs.length > 1 ? `, with ${p.vs.length} variants` : ''}. Priced by weight at the day’s gold rate.`;
+    return tr('{type} in {purity} gold', { type: tr(p.type || 'Piece'), purity: p.purity.length ? p.purity.join(tr(' or ')) : '916' }) + (cs.length ? tr(', in {colours}', { colours: cs.join(tr(' or ')) }) : '') + (p.vs.length > 1 ? tr(', with {n} variants', { n: p.vs.length }) : '') + tr('. Priced by weight at the day’s gold rate.');
   };
   function openProduct(id) {
     id = findId(id);
@@ -2886,15 +3003,15 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     $('.pdialog__media').classList.toggle('is-photo', p.src === 'cat');
     setPdMedia(galleryFor(p, -1));
     $('[data-pd-img]').alt = altOf(p);
-    $('[data-pd-col]').textContent = cols.length ? cols.length === 1 ? [cols[0].name, cols[0].idea].filter(Boolean).join(' · ') : cols.map(c => c.name).join(' · ') : (p.src === 'cat' ? plural(p.type || 'Piece') : '');
+    $('[data-pd-col]').textContent = cols.length ? cols.length === 1 ? [cols[0].name, cols[0].idea].filter(Boolean).join(' · ') : cols.map(c => c.name).join(' · ') : (p.src === 'cat' ? tr(plural(p.type || 'Piece')) : '');
     $('[data-pd-name]').textContent = p.name;
     $('[data-pd-hall]').textContent = p.hall || '916';
-    $('[data-pd-price]').textContent = p.price || 'Priced by weight';
+    $('[data-pd-price]').textContent = p.price || tr('Priced by weight');
     $('[data-pd-desc]').textContent = pdDesc(p);
     $('[data-pd-mat]').textContent = p.made.join(' · ');
     $('[data-pd-mat]').hidden = $('[data-pd-mat-dt]').hidden = !p.made.length;
-    $('[data-pd-gold]').textContent = p.gold || 'Yellow 916 gold; ask about two-tone and tri-tone';
-    $('[data-pd-weight]').textContent = pWeight(p) || 'Weighed at the counter';
+    $('[data-pd-gold]').textContent = p.gold || tr('Yellow 916 gold; ask about two-tone and tri-tone');
+    $('[data-pd-weight]').textContent = pWeight(p) || tr('Weighed at the counter');
     $('[data-pd-ref]').textContent = p.src === 'cat' && p.vs.length === 1 && p.vs[0].code && p.vs[0].code !== p.ref ? `${p.ref} · ${p.vs[0].code}` : p.ref;
     setPdHook(p.vs.map(x => x.hook));
     renderPdVars(p);
@@ -2924,7 +3041,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
       + `<div class="hero__pics">${!useVideo && h.image ? `<img class="hero__pic--d" src="${esc(media(h.image))}" alt=""${i ? '' : ' fetchpriority="high"'}>` : ''}${h.mobile_image ? `<img class="hero__pic--m" src="${esc(media(h.mobile_image))}" alt="">` : ''}</div></div>`;
   }
   function heroCopy(h, i, own) {
-    const title = h.title || (own ? '' : 'Beads & pipes'), tag = i ? 'h2' : 'h1';
+    const title = h.title || (own ? '' : tr('Beads & pipes')), tag = i ? 'h2' : 'h1';
     return `<div class="hero__copy" data-copy="${i}">`
       + (title ? `<${tag} class="hero__title"${i ? '' : ' id="hero-title"'}>${emph(title)}</${tag}>` : '')
       + (h.subtitle ? `<p class="hero__sub">${esc(h.subtitle)}</p>` : '')
@@ -2958,13 +3075,13 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   function showPcar(i) {
     const g = PCAR[i] || PCAR[0]; if (!g) return;
     const k = PCAR.indexOf(g);
-    $('[data-pcar-title]').textContent = PCAR.length > 1 ? 'Featured pieces' : g.title;
+    $('[data-pcar-title]').textContent = PCAR.length > 1 ? tr('Featured pieces') : g.title;
     $('[data-pcar]').setAttribute('aria-label', unstar(g.title));
     $('[data-pcar]').innerHTML = g.ids.filter(id => BY_ID[id]).map(id => ptile(BY_ID[id])).join('');
     $('[data-pcar]').scrollLeft = 0;
     const all = $('[data-pcar-all]');
     all.parentElement.hidden = !g.more;
-    if (g.more) { all.href = g.more; all.setAttribute('aria-label', `See all ${unstar(g.title)} pieces`); }
+    if (g.more) { all.href = g.more; all.setAttribute('aria-label', tr('See all {name} pieces', { name: unstar(g.title) })); }
     $$('[data-pcar-tab]').forEach((b, j) => { b.setAttribute('aria-selected', j === k ? 'true' : 'false'); b.tabIndex = j === k ? 0 : -1; });
     requestAnimationFrame(syncPcar);
     syncSaved();
@@ -2973,10 +3090,10 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   function renderAnnounce(dir) {
     const m = ANN[annI]; const box = $('[data-announce-msg]');
     $('[data-announce]').classList.toggle('is-single', ANN.length < 2);
-    if (!m) { box.innerHTML = '<span>Beads and pipes in 916 gold</span>'; return; }
+    if (!m) { box.innerHTML = `<span>${tr('Beads and pipes in 916 gold')}</span>`; return; }
     // a link to a brochure that is switched off leaves the message as plain words
     const dead = /^#brochure-/.test(String(m.link || '').trim()) && !resolve(String(m.link).trim().slice(1));
-    box.innerHTML = m.link && !dead ? `<a ${linkAttr(m.link, 'Hello Yi Xing, ')}><span>${esc(m.text)}</span>${m.link_label ? `<span class="announce__cta">${esc(m.link_label)}</span>` : ''}</a>` : `<span>${esc(m.text)}</span>`;
+    box.innerHTML = m.link && !dead ? `<a ${linkAttr(m.link, tr('Hello Yi Xing, '))}><span>${esc(m.text)}</span>${m.link_label ? `<span class="announce__cta">${esc(m.link_label)}</span>` : ''}</a>` : `<span>${esc(m.text)}</span>`;
     if (dir) { box.classList.remove('is-in'); void box.offsetWidth; box.classList.add('is-in'); }
   }
   function stepAnnounce(d) { if (ANN.length < 2) return; annI = (annI + d + ANN.length) % ANN.length; renderAnnounce(d); }
@@ -2984,13 +3101,13 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     clearInterval(annTimer);
     if (ANN.length > 1 && motionOK()) annTimer = setInterval(() => { const a = $('[data-announce]'); if (!a.matches(':hover') && !a.contains(document.activeElement)) stepAnnounce(1); }, 6000);
   }
-  const kindLine = p => p.src === 'cat' ? (p.named ? `${p.type || 'Piece'} in ${p.hall} gold` : `${colourWords(p) || 'Yellow'} ${p.hall} gold`) : `${p.kind.charAt(0).toUpperCase() + p.kind.slice(1)} in ${/white|rose|two|tri/i.test(p.gold) ? '916 gold' : 'yellow 916 gold'}`;
+  const kindLine = p => p.src === 'cat' ? (p.named ? tr('{type} in {hall} gold', { type: tr(p.type || 'Piece'), hall: p.hall }) : tr('{colour} {hall} gold', { colour: colourWords(p) || tr('Yellow'), hall: p.hall })) : tr('{type} in {gold}', { type: tr(p.kind.charAt(0).toUpperCase() + p.kind.slice(1)), gold: tr(/white|rose|two|tri/i.test(p.gold) ? '916 gold' : 'yellow 916 gold') });
   const ptile = p => `<article class="ptile">
-      <button class="ptile__media${p.thumb ? ' is-photo' : ''}" type="button" data-open-product="${esc(p.id)}" aria-label="View ${esc(p.ref)} ${esc(p.name)}"><img src="${esc(img(p.id))}" alt="${esc(altOf(p))}" loading="lazy"></button>
-      <button class="icon-btn card__save" type="button" data-save="${esc(p.id)}" aria-pressed="false" aria-label="Save ${esc(p.name)}">${icon('i-heart')}</button>
+      <button class="ptile__media${p.thumb ? ' is-photo' : ''}" type="button" data-open-product="${esc(p.id)}" aria-label="${esc(tr('View {ref} {name}', { ref: p.ref, name: p.name }))}"><img src="${esc(img(p.id))}" alt="${esc(altOf(p))}" loading="lazy"></button>
+      <button class="icon-btn card__save" type="button" data-save="${esc(p.id)}" aria-pressed="false" aria-label="${esc(tr('Save {name}', { name: p.name }))}">${icon('i-heart')}</button>
       <h3 class="ptile__name"><button type="button" data-open-product="${esc(p.id)}">${esc(p.name)}</button></h3>
       <p class="ptile__kind">${cjk(colLine(p) || kindLine(p))}</p>
-      <p class="ptile__price">${esc([pWeight(p), p.price || 'Priced by weight'].filter(Boolean).join(' · '))}</p>
+      <p class="ptile__price">${esc([pWeight(p), p.price || tr('Priced by weight')].filter(Boolean).join(' · '))}</p>
     </article>`;
   function syncPcar() {
     const t = $('[data-pcar]'), max = t.scrollWidth - t.clientWidth;
@@ -3012,7 +3129,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     $('[data-hero-content]').innerHTML = SLIDES.map((x, i) => heroCopy(x.hero, i, x.own)).join('');
     const dots = $('[data-hero-dots]');
     dots.hidden = SLIDES.length < 2;
-    dots.innerHTML = SLIDES.length < 2 ? '' : SLIDES.map((x, i) => `<button class="hero__dot" type="button" data-hero-dot="${i}" aria-label="Banner ${i + 1} of ${SLIDES.length}${x.hero.title ? ': ' + esc(unstar(x.hero.title)) : ''}"></button>`).join('');
+    dots.innerHTML = SLIDES.length < 2 ? '' : SLIDES.map((x, i) => `<button class="hero__dot" type="button" data-hero-dot="${i}" aria-label="${esc(tr('Banner {n} of {m}', { n: i + 1, m: SLIDES.length }))}${x.hero.title ? ': ' + esc(unstar(x.hero.title)) : ''}"></button>`).join('');
     $('[data-video-toggle]').hidden = !(SLIDES.length > 1 || $('.hero__slide video'));
     showSlide(0);
     requestAnimationFrame(() => requestAnimationFrame(() => sec.classList.remove('hero--instant')));
@@ -3032,15 +3149,15 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
       let el = anchor;
       if (i) { el = document.createElement('section'); el.className = 'edsplit edsplit--flip'; el.setAttribute('data-edsplit-extra', ''); el.setAttribute('aria-labelledby', 'edsplit-title-' + i); anchor.after(el); anchor = el; }
       el.hidden = !st;
-      if (st) el.innerHTML = `<div class="edsplit__text"><h2 class="h2" id="edsplit-title${i ? '-' + i : ''}">${e.title ? emph(e.title) : st.title}</h2><p class="body-copy">${esc(e.text || st.dek)}</p><a class="ulink" href="#story-${esc(st.slug)}">${esc(e.link_label || 'Read the story')}</a></div>
+      if (st) el.innerHTML = `<div class="edsplit__text"><h2 class="h2" id="edsplit-title${i ? '-' + i : ''}">${e.title ? emph(e.title) : st.title}</h2><p class="body-copy">${esc(e.text || st.dek)}</p><a class="ulink" href="#story-${esc(st.slug)}">${esc(e.link_label || tr('Read the story'))}</a></div>
       <a class="edsplit__media" href="#story-${esc(st.slug)}" tabindex="-1" aria-hidden="true"><img src="${esc(media(e.image || st.img))}" alt="" loading="lazy"></a>`;
     });
 
     const ap = H.appointment || {};
     $('[data-appt]').innerHTML = `<div class="appt__media"><img src="${esc(media(ap.image || 'yixing-box'))}" alt="" loading="lazy"></div>
-      <div class="appt__text"><h2 class="h2" id="appt-title">${emph(ap.title || 'Book an appointment')}</h2>${ap.text ? `<p class="body-copy">${esc(ap.text)}</p>` : ''}<a class="btn btn--line" ${linkAttr(ap.button_link || '#enquiry-appointment')}>${esc(ap.button_label || 'Book an appointment')}</a></div>`;
+      <div class="appt__text"><h2 class="h2" id="appt-title">${emph(ap.title || tr('Book an appointment'))}</h2>${ap.text ? `<p class="body-copy">${esc(ap.text)}</p>` : ''}<a class="btn btn--line" ${linkAttr(ap.button_link || '#enquiry-appointment')}>${esc(ap.button_label || tr('Book an appointment'))}</a></div>`;
 
-    $('[data-exp-title]').textContent = H.experience_title || 'The Yi Xing experience';
+    $('[data-exp-title]').textContent = H.experience_title || tr('The Yi Xing experience');
     $('[data-exp]').innerHTML = vals(H.experience).filter(x => x && x.title).slice(0, 4).map(x => `<div class="xp">${icon('x-' + (x.icon || 'sparkle'), 'xp__icon')}<h3>${esc(x.title)}</h3>${x.text ? `<p>${esc(x.text)}</p>` : ''}${x.link_label ? `<a class="ulink" ${linkAttr(x.link)}>${esc(x.link_label)}</a>` : ''}</div>`).join('');
 
     syncSaved();
@@ -3048,7 +3165,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   // everything on the home page and in the menus that lists products (again when the catalogue arrives)
   function renderProductParts() {
     const H = HOME || {};
-    const camp = LIVE.map(c => { const pc = c.products || {}; return { title: pc.title || unstar(c.title) || 'Featured pieces', ids: uniq(vals(pc.items).map(refId).map(findId)) }; }).filter(g => g.ids.length);
+    const camp = LIVE.map(c => { const pc = c.products || {}; return { title: pc.title || unstar(c.title) || tr('Featured pieces'), ids: uniq(vals(pc.items).map(refId).map(findId)) }; }).filter(g => g.ids.length);
     // the sheet's Promotion / New arrival / Best Selling marks; until anything is marked New arrival, the newest listings
     const byDate = (a, b) => b.date.localeCompare(a.date);
     const marks = HL.map(([k, title, route]) => {
@@ -3057,7 +3174,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
       return { title, ids: list.slice(0, 12).map(x => x.id), more: '#' + route };
     }).filter(g => g.ids.length);
     PCAR = camp.concat(marks);
-    if (!PCAR.length) PCAR = [{ title: 'Featured pieces', ids: PRODUCTS.slice(0, 10).map(x => x.id) }];
+    if (!PCAR.length) PCAR = [{ title: tr('Featured pieces'), ids: PRODUCTS.slice(0, 10).map(x => x.id) }];
     const tabs = $('[data-pcar-tabs]');
     tabs.hidden = PCAR.length < 2;
     tabs.innerHTML = PCAR.length < 2 ? '' : PCAR.map((g, i) => `<button class="pcar__tab" type="button" role="tab" id="pcar-tab-${i}" aria-controls="pcar-track" data-pcar-tab="${i}">${emph(g.title)}</button>`).join('');
@@ -3067,38 +3184,38 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     // Shop by collection: a cover per collection on the home page (up to six), under the carousel
     const homeCols = liveCols().filter(c => c.show_on_home !== false && c.show_on_home !== 'false').slice(0, 6);
     $('[data-colhome]').hidden = !homeCols.length;
-    $('[data-colhome-title]').textContent = H.colhome_title || 'Shop by collection';
-    $('[data-colhome-grid]').innerHTML = homeCols.map(c => { const pic = colCover(c); return `<a class="colhome__tile" href="#collection-${esc(c.id)}"><span class="colhome__media${pic.photo ? ' is-photo' : ''}">${pic.src ? `<img src="${esc(pic.src)}" alt="" loading="lazy">` : ''}</span><span class="colhome__name">${cjk(c.name)}</span><span class="ulink">Shop now</span></a>`; }).join('');
+    $('[data-colhome-title]').textContent = H.colhome_title || tr('Shop by collection');
+    $('[data-colhome-grid]').innerHTML = homeCols.map(c => { const pic = colCover(c); return `<a class="colhome__tile" href="#collection-${esc(c.id)}"><span class="colhome__media${pic.photo ? ' is-photo' : ''}">${pic.src ? `<img src="${esc(pic.src)}" alt="" loading="lazy">` : ''}</span><span class="colhome__name">${cjk(c.name)}</span><span class="ulink">${tr('Shop now')}</span></a>`; }).join('');
     // Shop by category: a tile per product type
     const firstOf = f => (PRODUCTS.find(f) || {}).id || '';
     const tiles = TYPES.map(t => ({ href: '#type-' + t.id, name: t.label, pic: img(firstOf(x => typeId(x.type) === t.id && (x.thumb || x.images.length))) || img(firstOf(x => typeId(x.type) === t.id)) }));
-    $('[data-cats-title]').textContent = H.collections_title || 'Shop by category';
+    $('[data-cats-title]').textContent = H.collections_title || tr('Shop by category');
     $('[data-cats]').closest('section').hidden = !tiles.length;
     $('[data-cats]').classList.toggle('cats__grid--few', tiles.length % 6 !== 0);
     $('[data-cats]').innerHTML = tiles.map(x => `<a class="cat" href="${esc(x.href)}"><span class="cat__media${x.pic.startsWith(CAT_BASE) ? ' is-photo' : ''}"><img src="${esc(x.pic)}" alt="" loading="lazy"></span><span class="ulink">${esc(x.name)}</span></a>`).join('');
 
     const cols = liveCols();
-    $('[data-nav-collections]').innerHTML = (cols.length ? '<p class="nav__label">Collections</p>' : '') + cols.map(c => `<a href="#collection-${esc(c.id)}"><span>${esc(c.name)}</span><small>${esc(c.idea || `${PRODUCTS.filter(p => p.cols.includes(c.id)).length} pieces`)}</small></a>`).join('')
-      + (TYPES.length ? '<p class="nav__label">Categories</p>' : '') + TYPES.map(t => `<a href="#type-${esc(t.id)}"><span>${esc(t.label)}</span><small>${t.n} ${t.n === 1 ? 'piece' : 'pieces'}</small></a>`).join('')
-      + `<a href="#collection-all"><span>All pieces</span><small>${PRODUCTS.length} pieces in gold</small></a>`;
+    $('[data-nav-collections]').innerHTML = (cols.length ? `<p class="nav__label">${tr('Collections')}</p>` : '') + cols.map(c => { const n = PRODUCTS.filter(p => p.cols.includes(c.id)).length; return `<a href="#collection-${esc(c.id)}"><span>${esc(c.name)}</span><small>${esc(c.idea || tr(n === 1 ? '{n} piece' : '{n} pieces', { n }))}</small></a>`; }).join('')
+      + (TYPES.length ? `<p class="nav__label">${tr('Categories')}</p>` : '') + TYPES.map(t => `<a href="#type-${esc(t.id)}"><span>${esc(t.label)}</span><small>${tr(t.n === 1 ? '{n} piece' : '{n} pieces', { n: t.n })}</small></a>`).join('')
+      + `<a href="#collection-all"><span>${tr('All pieces')}</span><small>${tr('{n} pieces in gold', { n: PRODUCTS.length })}</small></a>`;
     $('[data-mnav-collections]').innerHTML = cols.map(c => `<a href="#collection-${esc(c.id)}">${esc(c.name)}</a>`).join('')
-      + (TYPES.length && cols.length ? '<span class="mmenu__label">Categories</span>' : '') + TYPES.map(t => `<a href="#type-${esc(t.id)}">${esc(t.label)}</a>`).join('') + '<a href="#collection-all">All pieces</a>';
+      + (TYPES.length && cols.length ? `<span class="mmenu__label">${tr('Categories')}</span>` : '') + TYPES.map(t => `<a href="#type-${esc(t.id)}">${esc(t.label)}</a>`).join('') + `<a href="#collection-all">${tr('All pieces')}</a>`;
     syncSaved();
   }
 
   /* ---------- contact form ---------- */
   const form = $('[data-form]');
-  const TYPE_LABEL = { general: 'General enquiry', appointment: 'Appointment', design: 'Design your own', tradein: 'Gold trade-in', care: 'Care and restringing' };
+  const TYPE_LABEL = { general: tr('General enquiry'), appointment: tr('Appointment'), design: tr('Design your own'), tradein: tr('Gold trade-in'), care: tr('Care and restringing') };
   let sendVia = 'email';
   $$('[data-send]').forEach(b => b.addEventListener('click', () => { sendVia = b.dataset.send; }));
   const todayMY = (() => { try { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kuala_Lumpur' }).format(new Date()); } catch (e) { return new Date().toISOString().slice(0, 10); } })();
   $('#f-date').min = todayMY;
   const PROMPTS = {
-    general: 'How can we help?',
-    appointment: 'Tell us which pieces you would like to see, and anything we should prepare.',
-    design: 'The beads and pipes you have in mind, your wrist size if you know it, and any design you would like to start from.',
-    tradein: 'Roughly what you would like to trade in, for example two 916 bangles, about 30 g.',
-    care: 'Which piece needs care, and what you would like done.'
+    general: tr('How can we help?'),
+    appointment: tr('Tell us which pieces you would like to see, and anything we should prepare.'),
+    design: tr('The beads and pipes you have in mind, your wrist size if you know it, and any design you would like to start from.'),
+    tradein: tr('Roughly what you would like to trade in, for example two 916 bangles, about 30 g.'),
+    care: tr('Which piece needs care, and what you would like done.')
   };
   function setType(type) {
     const r = $(`#type-${type}`); if (!r) return;
@@ -3123,13 +3240,13 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     const via = (e.submitter && e.submitter.dataset.send) || sendVia;
     const name = $('#f-name'), email = $('#f-email'), msg = $('#f-msg'), consent = $('#f-consent');
     const checks = [
-      [name, name.value.trim() ? '' : 'Please enter your name.'],
-      [email, !email.value.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim()) ? '' : 'Please check the email address, for example name@example.com.'],
-      [msg, msg.value.trim() ? '' : 'Please add a short message.']
+      [name, name.value.trim() ? '' : tr('Please enter your name.')],
+      [email, !email.value.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim()) ? '' : tr('Please check the email address, for example name@example.com.')],
+      [msg, msg.value.trim() ? '' : tr('Please add a short message.')]
     ];
     const type = form.querySelector('input[name="type"]:checked').value;
     const visit = type === 'appointment' || type === 'design';
-    if (visit) checks.push([$('#f-date'), $('#f-date').value ? ($('#f-date').value < todayMY ? 'Please choose today or a later date.' : '') : 'Please choose a date.']);
+    if (visit) checks.push([$('#f-date'), $('#f-date').value ? ($('#f-date').value < todayMY ? tr('Please choose today or a later date.') : '') : tr('Please choose a date.')]);
     checks.forEach(([el, m]) => fieldError(el, m));
     $('[data-consent-error]').hidden = consent.checked;
     const first = checks.find(([, m]) => m);
@@ -3137,20 +3254,21 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     if (!consent.checked) { consent.focus(); return; }
     const fullName = name.value.trim().replace(/\s+/g, ' ');
     const v = id => $(id).value.trim();
-    const details = [`Name: ${fullName}`, v('#f-email') && `Email: ${v('#f-email')}`, v('#f-phone') && `Phone: ${v('#f-phone')}`,
-      v('#f-area') && `Area: ${v('#f-area')}`, visit && `Preferred date: ${v('#f-date')}, ${$('#f-time').value}`].filter(Boolean);
+    const timeSel = $('#f-time'), timeText = timeSel.selectedIndex >= 0 ? timeSel.options[timeSel.selectedIndex].text : timeSel.value;
+    const details = [tr('Name: {v}', { v: fullName }), v('#f-email') && tr('Email: {v}', { v: v('#f-email') }), v('#f-phone') && tr('Phone: {v}', { v: v('#f-phone') }),
+      v('#f-area') && tr('Area: {v}', { v: v('#f-area') }), visit && tr('Preferred date: {d}, {t}', { d: v('#f-date'), t: timeText })].filter(Boolean);
     const text = [TYPE_LABEL[type], msg.value.trim(), details.join('\n')].join('\n\n');
     if (via === 'whatsapp') {
-      const url = waLink('Hello Yi Xing,\n\n' + text);
+      const url = waLink(tr('Hello Yi Xing,') + '\n\n' + text);
       const w = window.open(url, '_blank');
       if (w) w.opener = null; else location.href = url;
     } else {
-      location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(`Yi Xing enquiry: ${TYPE_LABEL[type]} (${fullName})`)}&body=${encodeURIComponent(text)}`;
+      location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(tr('Yi Xing enquiry: {type} ({name})', { type: TYPE_LABEL[type], name: fullName }))}&body=${encodeURIComponent(text)}`;
     }
-    $('[data-success-title]').textContent = `Thank you, ${fullName}.`;
+    $('[data-success-title]').textContent = tr('Thank you, {name}.', { name: fullName });
     $('[data-success-text]').textContent = via === 'whatsapp'
-      ? `WhatsApp should now open with your enquiry written out. Press send there to reach us. If it did not open, message us at +60 12-996 9280.`
-      : `Your email app should now open with your enquiry written out. Press send there to reach us. If it did not open, email us at ${EMAIL}.`;
+      ? tr('WhatsApp should now open with your enquiry written out. Press send there to reach us. If it did not open, message us at {wa}.', { wa: '+60 12-996 9280' })
+      : tr('Your email app should now open with your enquiry written out. Press send there to reach us. If it did not open, email us at {email}.', { email: EMAIL });
     form.hidden = true;
     const ok = $('[data-success]'); ok.hidden = false; ok.focus();
   });
@@ -3169,6 +3287,20 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   $$('[data-wa]').forEach(a => { a.href = waLink(a.dataset.wa); });
 
   /* ---------- content: the editor's data, embedded in the page when the site is built ---------- */
+  // content in the visitor's language: a field with a Bahasa Melayu or 中文 version (title_ms, title_zh…, filled in
+  // the Studio) stands in for the English one, which is kept as __en_<field> (collections are matched by it)
+  function localize(o) {
+    if (Array.isArray(o)) { o.forEach(localize); return o; }
+    if (!o || typeof o !== 'object') return o;
+    Object.keys(o).forEach(k => {
+      const v = o[k];
+      if (v && typeof v === 'object') localize(v);
+      if (LANG === 'en' || /_(ms|zh)$/.test(k) || k.startsWith('__en_')) return;
+      const t = o[k + '_' + LANG];
+      if (typeof t === 'string' ? t.trim() : Array.isArray(t) && t.length) { o['__en_' + k] = v; o[k] = t; }
+    });
+    return o;
+  }
   function applyContent(d) {
     d = d && typeof d === 'object' ? d : {};
     // products and collections come from the catalogue (below); the Studio keeps its collections' cover photos and words,
@@ -3180,6 +3312,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
       slug: String(x.slug), cat: x.category || 'Craft', read: x.read || 2, img: x.hero || '', alt: x.hero_alt || '',
       title: emph(x.title), dek: x.dek || '', body: vals(x.body) }));
     STORY_BY = Object.fromEntries(STORIES.map(x => [x.slug, x]));
+    $$('a[href^="#story-"]').forEach(a => { const off = !STORY_BY[a.getAttribute('href').slice(7)], li = a.parentElement && a.parentElement.tagName === 'LI' ? a.parentElement : null; (li || a).hidden = off; });
     HOME = d.home && typeof d.home === 'object' ? d.home : {};
     const live = vals(d.campaigns).filter(c => c && (c.active === true || c.active === 'true') && (!c.start || String(c.start) <= todayMY) && (!c.end || String(c.end) >= todayMY));
     // ?campaign=<short name> previews any saved campaign (used by Yi Xing Studio's Preview button)
@@ -3197,7 +3330,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   }
 
   /* ---------- router ---------- */
-  const TITLES = { home: 'Yi Xing', collections: 'Collections · Yi Xing', editorial: 'Editorial · Yi Xing', 'e-brochure': 'e-Brochure · Yi Xing', about: 'About us · Yi Xing', stores: 'Visit us · Yi Xing', contact: 'Contact us · Yi Xing' };
+  const TITLES = { home: 'Yi Xing', collections: `${tr('Collections')} · Yi Xing`, editorial: `${tr('Editorial')} · Yi Xing`, 'e-brochure': `${tr('e-Brochure')} · Yi Xing`, about: `${tr('About us')} · Yi Xing`, stores: `${tr('Visit us')} · Yi Xing`, contact: `${tr('Contact us')} · Yi Xing` };
   const NAV_KEY = { editorial: 'highlights', 'e-brochure': 'highlights', story: 'highlights' };
   // a hash names a page, a story (#story-slug) or the old #highlights; anything else is not a route
   function resolve(h) {
@@ -3297,9 +3430,9 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     const copy = t.closest('[data-copy]');
     if (copy) {
       const src = copy.parentElement.querySelector('[data-copy-src]'); const text = src.textContent.trim();
-      const done = label => { copy.textContent = label; setTimeout(() => { copy.textContent = 'Copy'; }, 1600); };
-      const fallback = () => { const r = document.createRange(); r.selectNodeContents(src); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done('Selected'); };
-      try { navigator.clipboard.writeText(text).then(() => done('Copied'), fallback); } catch (err) { fallback(); }
+      const done = label => { copy.textContent = label; setTimeout(() => { copy.textContent = tr('Copy'); }, 1600); };
+      const fallback = () => { const r = document.createRange(); r.selectNodeContents(src); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done(tr('Selected')); };
+      try { navigator.clipboard.writeText(text).then(() => done(tr('Copied')), fallback); } catch (err) { fallback(); }
       return;
     }
     const pstep = t.closest('[data-pcar-step]');
@@ -3326,8 +3459,8 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     if (route === 'contact') freshForm();
     if (a.dataset.enquiry) setType(a.dataset.enquiry);
     if (a.dataset.message) prefill(a.dataset.message);
-    if (a.hasAttribute('data-pd-enquire')) { const p = BY_ID[a.dataset.product]; if (p) { const v = p === PD && p.vs[pdVar]; setType('general'); prefill(`I’m interested in ${p.ref} ${p.name}${v ? ` (${varText(v)}${v.code ? ', code ' + v.code : ''})` : ''}.`); } }
-    if (a.hasAttribute('data-enquire-saved')) { setType('general'); prefill('I’m interested in these designs: ' + savedText() + '.'); }
+    if (a.hasAttribute('data-pd-enquire')) { const p = BY_ID[a.dataset.product]; if (p) { const v = p === PD && p.vs[pdVar]; setType('general'); prefill(v ? tr('I’m interested in {ref} {name} ({details}).', { ref: p.ref, name: p.name, details: varText(v) + (v.code ? tr(', code {c}', { c: v.code }) : '') }) : tr('I’m interested in {ref} {name}.', { ref: p.ref, name: p.name })); } }
+    if (a.hasAttribute('data-enquire-saved')) { setType('general'); prefill(tr('I’m interested in these designs: {list}.', { list: savedText() })); }
     if (a.dataset.scroll) pendingScroll = a.dataset.scroll;
     else if (route === 'contact' && (a.dataset.enquiry || a.dataset.message || a.hasAttribute('data-pd-enquire') || a.hasAttribute('data-enquire-saved'))) pendingScroll = 'enquiry';
     if (location.hash === '#' + hash) { e.preventDefault(); current = null; show(hash); }
@@ -3362,8 +3495,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
       if (on && current === 'home' && !userPaused && heroInView) { if (v.preload === 'none') v.preload = 'auto'; const pr = v.play(); if (pr && pr.catch) pr.catch(() => {}); }
       else v.pause();
     });
-    const what = SLIDES.length > 1 ? 'banners' : 'video';
-    vbtn.setAttribute('aria-label', (userPaused ? 'Play ' : 'Pause ') + what);
+    vbtn.setAttribute('aria-label', tr(SLIDES.length > 1 ? (userPaused ? 'Play the banners' : 'Pause the banners') : (userPaused ? 'Play the video' : 'Pause the video')));
     vbtn.innerHTML = icon(userPaused ? 'i-play' : 'i-pause');
   }
   // swipe between banners on touch screens
@@ -3439,12 +3571,12 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   /* ---------- boot ---------- */
   let DATA = {};
   try { DATA = JSON.parse($('#site-data').textContent); } catch (e) { DATA = {}; }
-  applyContent(DATA);
+  applyContent(localize(DATA));
   if (useCatalogue(cachedCatalogue())) CAT_STATE = 'cached';
   if (PREVIEWING) {
     const pill = document.createElement('a');
     pill.className = 'preview-pill'; pill.href = location.pathname;
-    pill.innerHTML = `<span>Preview: ${esc(PREVIEWING)}</span><b>Exit</b>`;
+    pill.innerHTML = `<span>${esc(tr('Preview: {name}', { name: PREVIEWING }))}</span><b>${tr('Exit')}</b>`;
     document.body.appendChild(pill);
   }
   renderHome(); renderShop(); renderEditorial(); renderShelf(); syncType(); syncSaved();
