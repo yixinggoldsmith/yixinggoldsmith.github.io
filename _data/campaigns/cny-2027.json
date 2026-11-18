@@ -6,15 +6,44 @@
   "active": true,
   "start": "2026-11-16",
   "end": "2027-02-28",
-  "announcements": [],
+  "announcements": [
+    {
+      "text": "Chinese New Year 2027: three goat pendants in 916 gold",
+      "text_ms": "Tahun Baru Cina 2027: tiga loket kambing emas 916",
+      "text_zh": "2027 新春：三款916金羊年吊坠",
+      "link_label": "Flip through the e-Brochure",
+      "link_label_ms": "Selak e-Brosur",
+      "link_label_zh": "翻阅电子目录",
+      "link": "#brochure-cny-2027"
+    }
+  ],
   "hero": {
-    "media": "image",
+    "media": "video",
+    "video": "media/uploads/videos/cny-2027-goat-banner.mp4",
+    "image": "media/uploads/images/cny-2027-goat-banner-poster.webp",
+    "mobile_image": "",
+    "title": "The Year of the *Goat*",
+    "title_ms": "Tahun *Kambing*",
+    "title_zh": "*羊*年",
+    "subtitle": "Three new pendants in 916 gold, for wisdom, wealth and blessings",
+    "subtitle_ms": "Tiga loket baharu emas 916, untuk ilmu, rezeki dan berkat",
+    "subtitle_zh": "三款916金新吊坠，寓意学业、财富与福气",
+    "button_label": "Explore now",
+    "button_label_ms": "Terokai sekarang",
+    "button_label_zh": "立即探索",
+    "button_link": "#brochure-cny-2027",
     "text": "light",
-    "focus": "centre",
-    "image": "media/uploads/images/baby-ads-02-261116-3af4.webp"
+    "focus": "centre"
   },
   "products": {
-    "items": []
+    "title": "Year of the Goat",
+    "title_ms": "Tahun Kambing",
+    "title_zh": "羊年",
+    "items": [
+      "P4329",
+      "P4330",
+      "P4331"
+    ]
   },
   "promos": [],
   "editorial": {}
