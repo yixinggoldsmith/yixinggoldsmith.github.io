@@ -170,6 +170,8 @@ h1, h2, h3, p { margin: 0; }
 .activity { list-style: none; margin: 0; padding: 0; }
 .activity li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .2rem 1rem; padding: 12px 22px; border-top: 1px solid var(--line); }
 .activity li:first-child { border-top: 0; }
+.activity li.has-act { align-items: center; }
+.activity li.has-act > div { display: grid; gap: .15rem; min-width: 0; }
 .activity b { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .activity span { color: var(--muted); font-size: .84rem; white-space: nowrap; }
 

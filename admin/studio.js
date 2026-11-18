@@ -1130,12 +1130,7 @@ const SCHEMAS = {
         { key: 'products.title', label: 'Heading', type: 'text', placeholder: 'Christmas 2026' },
         { key: 'products.items', label: 'Products, in order', type: 'products' },
       ] },
-      { title: 'Promo tiles', hint: 'Up to three pictures with links, under the carousel.', fields: [{ key: 'promos', type: 'list', max: 3, addLabel: 'Add a tile', summary: i => i.title, fields: [
-        { key: 'image', label: 'Picture', type: 'image', folder: 'images', max: [1600, 1200], ratio: '7/5', hint: 'Landscape, about 1400 × 1000.' },
-        { key: 'title', label: 'Title', type: 'text' },
-        { key: 'link_label', label: 'Link text', type: 'text', half: true, placeholder: 'Shop now' },
-        { key: 'link', label: 'Link', type: 'link', half: true },
-      ] }] },
+      // (the Promo tiles under the carousel became Shop by collection, set under Collections; a campaign keeps its old tiles in its file)
       { title: 'Editorial feature', hint: 'Text beside a large picture, linking to a story.', fields: [
         { key: 'editorial.story', label: 'Story', type: 'story' },
         { key: 'editorial.title', label: 'Heading', type: 'text', hint: 'Leave empty to use the story’s title.' },
@@ -1175,17 +1170,18 @@ const SCHEMAS = {
   },
   collections: {
     label: 'Collection', plural: 'Collections', key: 'id',
-    blank: () => ({ id: '', name: '', idea: '', text: '', image: '', order: nextOrder('collections'), show_on_home: true }),
+    blank: () => ({ id: '', name: '', catalogue: '', idea: '', text: '', image: '', order: nextOrder('collections'), show_on_home: true }),
     sections: [
       { title: 'Collection', fields: [
         { key: 'name', label: 'Name', type: 'text', required: true },
-        { key: 'id', label: 'Short name', type: 'slug', required: true, hint: 'Used in links such as #collection-colonne. To dress a collection of the catalogue, give it the same name as in the sheet’s Collection columns.' },
-        { key: 'idea', label: 'One-line idea', type: 'text' },
-        { key: 'text', label: 'Description', type: 'textarea' },
-        { key: 'image', label: 'Tile picture', type: 'image', folder: 'images', max: [1200, 1200], ratio: '1/1', hint: 'Square, 1000 × 1000. Shown under “Shop by collection”.' },
+        { key: 'id', label: 'Short name', type: 'slug', required: true, hint: 'Used in links such as #collection-colonne.' },
+        { key: 'catalogue', label: 'Collection in the catalogue sheet', type: 'select', empty: 'None (website-only pieces)', options: () => catCollectionNames().map(n => [n, n]), hint: 'The catalogue products whose Collection 1–5 says this are listed in this collection. You can then give it any name above.' },
+        { key: 'idea', label: 'One-line idea', type: 'text', hint: 'Shown under the name in the Collections menu.' },
+        { key: 'text', label: 'Description', type: 'textarea', hint: 'Shown at the top of the collection’s page.' },
+        { key: 'image', label: 'Cover picture', type: 'image', folder: 'images', max: [1600, 1200], ratio: '4/3', hint: 'Landscape 4:3, 1600 × 1200, with the pieces in the middle. Shown on the home page under “Shop by collection” and along the top of the Collections page.' },
       ] },
       { title: 'On the website', hint: 'A collection appears in the menu and as a tile on the home page only while it has products on the website: catalogue products whose Collection 1–5 has this name, or website-only pieces in it.', fields: [
-        { key: 'show_on_home', label: 'Show as a tile on the home page', type: 'toggle', half: true },
+        { key: 'show_on_home', label: 'Show its cover on the home page', type: 'toggle', half: true, hint: 'Up to six collections show there, in order.' },
         { key: 'order', label: 'Order', type: 'number', half: true, hint: 'Lower numbers come first.' },
       ] },
     ],
@@ -1250,7 +1246,8 @@ const SCHEMAS = {
     sections: [
       { title: 'Default banner', hint: 'Shown when no campaign is live.', fields: [{ key: 'hero', type: 'group', fields: BANNER }] },
       { title: 'Default announcement bar', hint: 'Shown when no campaign is live.', fields: [{ key: 'announcements', ...ANNOUNCEMENTS }] },
-      { title: 'Shop by collection', fields: [{ key: 'collections_title', label: 'Heading', type: 'text', placeholder: 'Shop by collection' }] },
+      { title: 'Shop by collection', hint: 'A cover for each collection, under the product carousel. The covers, and which collections show, are set under Collections.', fields: [{ key: 'colhome_title', label: 'Heading', type: 'text', placeholder: 'Shop by collection' }] },
+      { title: 'Shop by category', hint: 'A tile for each product type (Rings, Bracelets…), further down the page.', fields: [{ key: 'collections_title', label: 'Heading', type: 'text', placeholder: 'Shop by category' }] },
       { title: 'Book an appointment', fields: [{ key: 'appointment', type: 'group', fields: [
         { key: 'image', label: 'Picture', type: 'image', folder: 'images', max: [1350, 1700], ratio: '4/5', hint: 'Portrait, about 1080 × 1350.' },
         { key: 'title', label: 'Heading', type: 'text' }, { key: 'text', label: 'Text', type: 'textarea' },
@@ -1321,7 +1318,10 @@ const pluralOf = t => PLURALS[String(t || '').toLowerCase()] || (/s$/i.test(t) ?
 const typeLink = t => `#type-${siteSlug(pluralOf(String(t || '')))}`;
 const sameName = (a, b) => siteSlug(a) === siteSlug(b);
 // the Studio collection that dresses a catalogue collection (same name or short name)
-const studioColFor = name => values('collections').find(c => sameName(c.name, name) || sameName(c.id, name)) || null;
+// (linked by its “Collection in the catalogue sheet”, else by the same name or short name)
+const colDresses = (c, name) => (c.catalogue ? sameName(c.catalogue, name) : false) || sameName(c.name, name) || sameName(c.id, name);
+const studioColFor = name => values('collections').find(c => c.catalogue && sameName(c.catalogue, name)) || values('collections').find(c => colDresses(c, name)) || null;
+const catCollectionNames = () => ((CAT.doc && CAT.doc.collections) || []).map(c => String(c.name || '')).filter(Boolean);
 const catColLink = name => `#collection-${(studioColFor(name) || {}).id || siteSlug(name)}`;
 
 // a product id saved in a campaign, a story or a brochure, as the website will show it
@@ -1468,13 +1468,13 @@ VIEWS.collections = async id => {
   if (id) return editEntry('collections', id);
   const list = values('collections').slice().sort(byOrder);
   const catCols = (CAT.doc && CAT.doc.collections) || [];
-  const catCount = c => catCols.filter(x => sameName(x.name, c.name) || sameName(x.name, c.id)).reduce((n, x) => n + (x.count || 0), 0);
+  const catCount = c => catCols.filter(x => studioColFor(x.name) === c).reduce((n, x) => n + (x.count || 0), 0);
   const count = c => values('products').filter(p => p.collection === c.id && p.show !== false && !catById(p.id)).length + catCount(c);
   shell('collections', [['Collections', '#collections']], `<div class="page-head"><div><h1 class="page-title">Collections</h1>
-    <p class="page-sub">Collections come from the Collection 1–5 columns of the catalogue sheet. Give one a tile picture and a few words here by creating a collection with the same name. A collection is on the website while it has products.</p></div>
+    <p class="page-sub">Collections come from the Collection 1–5 columns of the catalogue sheet. Here each one gets a cover picture, a name and a few words. A collection is on the website while it has products.</p></div>
     <div class="page-actions"><a class="btn btn--primary" href="#collections/new">${ic('plus')}New collection</a></div></div>
     <section class="card" style="margin-bottom:28px"><div class="card__head"><div><h2 class="card__title">In the catalogue</h2><p class="hint">Names written in the sheet’s Collection 1–5 columns, for products that have photos.</p></div></div>
-      <div class="card__body">${CAT.error && !catCols.length ? `<p class="muted">${esc(CAT.error)}</p>` : catCols.length ? `<ul class="activity">${catCols.map(c => { const sc = studioColFor(c.name); return `<li><b>${sc ? `<a href="#collections/${encodeURIComponent(sc.id)}">${esc(c.name)}</a>` : esc(c.name)}</b><span>${c.count} ${c.count === 1 ? 'product' : 'products'} · ${sc ? 'tile picture and words set here' : 'no tile picture yet'}</span></li>`; }).join('')}</ul>`
+      <div class="card__body">${CAT.error && !catCols.length ? `<p class="muted">${esc(CAT.error)}</p>` : catCols.length ? `<ul class="activity">${catCols.map(c => { const sc = studioColFor(c.name); return `<li class="has-act"><div><b>${sc ? `<a href="#collections/${encodeURIComponent(sc.id)}">${esc(c.name)}</a>` : esc(c.name)}</b><span>${c.count} ${c.count === 1 ? 'product' : 'products'} · ${sc ? (sc.image ? `cover set${sc.name !== c.name ? `, shown as “${esc(sc.name)}”` : ''}` : 'no cover yet') : 'no cover yet'}</span></div>${sc ? `<a class="btn btn--sm" href="#collections/${encodeURIComponent(sc.id)}">${ic('image')}${sc.image ? 'Change the cover' : 'Add a cover'}</a>` : `<a class="btn btn--sm" href="#collections/new?catalogue=${encodeURIComponent(encodeURIComponent(c.name))}">${ic('image')}Add a cover</a>`}</li>`; }).join('')}</ul>`
         : '<p class="muted">None yet. Fill in the Collection columns of the sheet and they appear here and on the website.</p>'}</div></section>
     ${list.length ? `<div class="tiles">${list.map(c => `<a class="card tile" href="#collections/${encodeURIComponent(c.id)}">
       <div class="tile__media tile__media--square">${c.image ? imgTag(c.image, c.name) : `<span class="tile__ph">${ic('grid', 'icon--lg')}</span>`}${!count(c) ? chip(['off', 'No products on the website']) : c.show_on_home === false ? chip(['off', 'Not on home page']) : ''}</div>
@@ -1530,6 +1530,9 @@ function editEntry(kind, id) {
     const copyOf = new URLSearchParams(id.split('?')[1] || '').get('copy');
     value = schema.blank();
     if (copyOf && S.data[kind][copyOf]) { value = clone(S.data[kind][copyOf].value); value.title = value.title ? `${plain(value.title)} copy` : ''; value[schema.key] = slugify(value.title); if (kind === 'campaigns') value.active = false; }
+    // “Add a cover” beside a collection of the catalogue: a collection linked to it, named as in the sheet
+    const fromCat = kind === 'collections' ? new URLSearchParams(id.split('?')[1] || '').get('catalogue') : '';
+    if (fromCat) { value.name = fromCat; value.catalogue = fromCat; let k = slugify(fromCat) || 'collection'; for (let i = 2; S.data.collections[k]; i++) k = `${slugify(fromCat) || 'collection'}-${i}`; value.id = k; }
   } else {
     const k = S.data[kind][id] ? id : (entries(kind).find(x => String(x.value[schema.key]) === id) || {}).key;
     if (!k) { toast('That item no longer exists.', 'error'); return go('#' + kind); }
