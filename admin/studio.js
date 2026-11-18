@@ -528,6 +528,24 @@ const UI = () => S.ui;
 function fieldsHTML(fields, base, obj) {
   return fields.filter(f => !f.showIf || f.showIf(obj || {})).map(f => fieldHTML(f, join(base, f.key), getAt(obj || {}, f.key))).join('');
 }
+// the words visitors read, also in Bahasa Melayu and 中文: saved beside the English as <key>_ms and <key>_zh.
+// Left empty, the website shows the English.
+const TR_LANGS = [['ms', 'BM', 'ms', 'Bahasa Melayu'], ['zh', '中文', 'zh-Hans', 'Chinese']];
+const TR_KEYS = new Set(['title', 'subtitle', 'button_label', 'text', 'link_label', 'name', 'description', 'parts', 'gold', 'idea', 'dek', 'hero_alt', 'html', 'alt', 'caption', 'label', 'colhome_title', 'collections_title', 'experience_title']);
+const translatable = f => ['text', 'textarea', 'richtext', 'tags'].includes(f.type) && TR_KEYS.has(f.key) && f.tr !== false;
+function trHTML(f, path) {
+  const root = S.draft ? S.draft.value : {};
+  return `<div class="tr" role="group" aria-label="${esc((f.label || 'This text') + ' in other languages')}">${TR_LANGS.map(([l, tag, lang, full]) => {
+    const p = path + '_' + l, v = getAt(root, p), id = 'f_' + p.replace(/[^a-z0-9]/gi, '_');
+    const ph = `placeholder="${esc(full)}: empty shows the English"`;
+    let c;
+    if (f.type === 'richtext') c = rtHTML(p, v || '', id);
+    else if (f.type === 'textarea') c = `<textarea class="textarea" id="${id}" data-bind="${p}" data-kind="text" rows="${f.rows || 3}" lang="${lang}" ${ph}>${esc(v ?? '')}</textarea>`;
+    else if (f.type === 'tags') c = `<textarea class="textarea" id="${id}" data-bind="${p}" data-kind="lines" rows="3" lang="${lang}" ${ph}>${esc((Array.isArray(v) ? v : []).join('\n'))}</textarea>`;
+    else c = `<input class="input" id="${id}" type="text" data-bind="${p}" data-kind="text" value="${esc(v ?? '')}" lang="${lang}" ${ph} autocomplete="off">`;
+    return `<div class="tr__row"><label class="tr__tag" for="${id}" title="${full}">${tag}</label>${c}</div>`;
+  }).join('')}</div>`;
+}
 function fieldHTML(f, path, v) {
   if (f.type === 'group') return fieldsHTML(f.fields, path, v || {});
   const err = S.draft && S.draft.errors && S.draft.errors[path];
@@ -577,7 +595,8 @@ function fieldHTML(f, path, v) {
     case 'blocks': control = blocksHTML(f, path, v); break;
     default: control = `<p class="hint">Unknown field ${esc(f.type)}</p>`;
   }
-  return `<div class="field ${f.half ? 'field--half' : ''} ${err ? 'has-error' : ''}" data-field="${path}">${label}${control}${hint}${error}</div>`;
+  const trs = translatable(f) ? trHTML(f, path) : '';
+  return `<div class="field ${f.half ? 'field--half' : ''} ${err ? 'has-error' : ''}" data-field="${path}">${label}${control}${trs}${hint}${error}</div>`;
 }
 function optionList(f) {
   const o = typeof f.options === 'function' ? f.options() : (f.options || []);
