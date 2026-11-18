@@ -1,8 +1,14 @@
 {
   "id": "christmas",
   "name": "Christmas 2026",
+  "name_ms": "Krismas 2026",
+  "name_zh": "2026 圣诞",
   "idea": "Seasonal charms",
+  "idea_ms": "Charm musim perayaan",
+  "idea_zh": "节日吊饰",
   "text": "Five charms in 916 gold for Christmas 2026.",
+  "text_ms": "Lima charm emas 916 untuk Krismas 2026.",
+  "text_zh": "2026 圣诞的五款916金吊饰。",
   "image": "media/v4/xmas-bracelet.webp",
   "order": 6,
   "show_on_home": true
