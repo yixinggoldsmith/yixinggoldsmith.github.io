@@ -111,6 +111,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 [id] { scroll-margin-top: calc(var(--header-h) + 24px); }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+[hidden] { display: none !important; }
 .cjk { font-family: var(--font-cjk); font-weight: 400; letter-spacing: 0; font-style: normal; }
 .icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 .skip { position: absolute; left: 16px; top: -60px; z-index: 100; background: var(--btn-bg); color: var(--btn-fg); padding: .6rem 1rem; }
@@ -421,15 +422,43 @@ body.hero-dark[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not
 .spotlight__text > *:not(.spotlight__cjk) { position: relative; z-index: 1; }
 @media (max-width: 899px) { .spotlight__in { grid-template-columns: minmax(0, 1fr); } .spotlight__text { padding-top: 0; } }
 
-/* shop toolbar */
-.toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.5rem; padding-block: 1.25rem; border-block: 1px solid var(--line); margin-bottom: clamp(2rem, 3vw, 3rem); }
-.toolbar__right { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+/* the Collections page: collection covers along the top, then one quiet toolbar (Filter, search, sort) */
+.page-head--shop { padding-bottom: clamp(28px, 3vw, 44px); }
+.page-head--shop .lede:empty { display: none; }
+.h1 .cjk, .colhome__name .cjk { font-size: .82em; }
+.colrow-wrap { margin-bottom: clamp(30px, 3.6vw, 52px); }
+.colrow { display: flex; gap: clamp(10px, 1.4vw, 20px); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; padding: 4px 4px 6px; margin: -4px -4px 0; }
+.colrow::-webkit-scrollbar { display: none; }
+.colrow::before, .colrow::after { content: ""; margin: auto; }
+.colrow__item { flex: 1 1 0; min-width: 128px; max-width: 200px; display: grid; gap: .8rem; align-content: start; justify-items: center; text-decoration: none; color: inherit; scroll-snap-align: start; min-width: 0; }
+.colrow__media { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: var(--stone); transition: outline-color .2s; outline: 1px solid transparent; outline-offset: 3px; }
+.colrow__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2, .7, .2, 1); }
+.colrow__media.is-photo { background: #FFFFFF; }
+.colrow__media.is-photo img { object-fit: contain; }
+.colrow__item:hover .colrow__media img { transform: scale(1.04); }
+.colrow__item[aria-current="true"] .colrow__media { outline-color: var(--ink); }
+.colrow__all { display: grid; place-content: center; justify-items: center; gap: .45rem; width: 100%; height: 100%; background: var(--band); color: var(--band-ink); }
+.colrow__all b { font: 400 clamp(1.45rem, 1.15rem + .9vw, 2rem)/1 var(--font-display); }
+.colrow__all small { font: 500 .6rem/1 var(--font-text); letter-spacing: .18em; text-transform: uppercase; color: var(--band-muted); }
+.colrow__name { font: 500 .68rem/1.45 var(--font-text); letter-spacing: .12em; text-transform: uppercase; text-align: center; padding-bottom: .4rem; border-bottom: 1px solid transparent; text-wrap: balance; max-width: 100%; }
+.colrow__item[aria-current="true"] .colrow__name { border-bottom-color: var(--amber); }
+.colrow__name .cjk { letter-spacing: .04em; }
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .9rem 1.5rem; padding-block: 1rem; border-block: 1px solid var(--line); margin-bottom: clamp(1.6rem, 2.6vw, 2.4rem); }
+.fbtn { display: inline-flex; align-items: center; gap: .65rem; min-height: 46px; padding: 0 1.15rem; border: 1px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; font: 500 .72rem/1 var(--font-text); letter-spacing: .2em; text-transform: uppercase; transition: background-color .2s, color .2s; }
+.fbtn:hover { background: var(--ink); color: var(--paper); }
+.fbtn .icon { width: 18px; height: 18px; }
+.fbtn__n { display: inline-grid; place-items: center; min-width: 1.35rem; height: 1.35rem; padding: 0 .3rem; border-radius: 999px; background: var(--amber); color: #142021; font-size: .68rem; letter-spacing: 0; }
+.toolbar .shop-search { flex: 1 1 13rem; width: auto; max-width: 20rem; }
+.toolbar__right { margin-left: auto; display: flex; align-items: center; gap: 1.25rem; }
+.pills { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: calc(-1 * clamp(.6rem, 1.2vw, 1.2rem)) 0 clamp(1.6rem, 2.6vw, 2.4rem); }
+.pill { display: inline-flex; align-items: center; gap: .5rem; min-height: 36px; padding: 0 .55rem 0 .9rem; border: 1px solid var(--line-strong); background: var(--stone); color: var(--ink); font: 400 .82rem/1 var(--font-text); cursor: pointer; }
+.pill:hover { border-color: var(--ink); }
+.pill .icon { width: 14px; height: 14px; }
+.pills .ulink { margin-left: .4rem; }
 .result-count { color: var(--muted); font-size: .84rem; font-variant-numeric: tabular-nums; }
 .select { position: relative; display: inline-flex; align-items: center; gap: .5rem; font-size: .84rem; color: var(--muted); }
 .select select { appearance: none; border: 0; border-bottom: 1px solid var(--line-strong); background: transparent; color: var(--ink); font: inherit; padding: .5rem 1.6rem .5rem 0; cursor: pointer; border-radius: 0; }
 .select::after { content: ""; position: absolute; right: .25rem; top: 50%; width: 6px; height: 6px; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); transform: translateY(-75%) rotate(45deg); pointer-events: none; }
-.toolbar__filters { display: grid; gap: .75rem; min-width: 0; flex: 1 1 32rem; }
-.chips__label { font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); align-self: center; margin-right: .3rem; }
 .shop-search { position: relative; display: flex; align-items: center; width: min(100%, 15rem); }
 .shop-search input { width: 100%; border: 0; border-bottom: 1px solid var(--line-strong); border-radius: 0; background: transparent; color: var(--ink); font: inherit; font-size: .9rem; padding: .5rem 0 .5rem 1.7rem; }
 .shop-search input::placeholder { color: var(--muted); }
@@ -468,14 +497,59 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
 .nav__menu .nav__label { padding: .7rem 1rem .2rem; font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
 .mmenu__sub .mmenu__label { display: block; padding: .9rem 0 .2rem; font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); border: 0; }
 @media (max-width: 599px) {
-  .shop-search { width: 100%; } .toolbar__right { width: 100%; justify-content: space-between; }
-  .toolbar__filters { width: 100%; }
-  .toolbar__filters .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); }
-  .toolbar__filters .chips::-webkit-scrollbar { display: none; }
-  .toolbar__filters .chip-btn, .chips__label { flex: none; }
+  .toolbar { gap: .75rem 1rem; }
+  .toolbar .shop-search { order: 3; flex-basis: 100%; max-width: none; }
+  .toolbar__right { gap: .9rem; }
+  .colrow { margin-inline: calc(-1 * max(16px, var(--gutter))); padding-inline: max(16px, var(--gutter)); scroll-padding-inline: max(16px, var(--gutter)); }
+  .colrow__item { flex: 0 0 37vw; max-width: none; }
 }
-.active-filter { display: inline-flex; align-items: center; gap: .5rem; padding: 0 .4rem 0 .9rem; min-height: 40px; border: 1px solid var(--amber); font-size: .84rem; }
-.active-filter button { width: 32px; height: 32px; border: 0; background: none; cursor: pointer; display: grid; place-items: center; color: var(--ink); }
+/* the filter panel: slides in from the left, beside the Filter button */
+.drawer--left .drawer__panel { left: 0; right: auto; animation-name: slideL; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: 24px; }
+@keyframes slideL { from { transform: translateX(-100%); } to { transform: none; } }
+.fpanel__body { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding-bottom: .5rem; }
+.fgroup { padding-block: 1.25rem; border-bottom: 1px solid var(--line); }
+.fgroup:last-child { border-bottom: 0; }
+.fgroup__head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: .85rem; min-height: 32px; }
+.fgroup__head h3 { font: 500 .74rem/1.3 var(--font-text); letter-spacing: .16em; text-transform: uppercase; }
+.fcheck { display: flex; align-items: center; gap: .8rem; min-height: 42px; cursor: pointer; }
+.fcheck input { width: 18px; height: 18px; margin: 0; accent-color: var(--teal); flex: none; cursor: pointer; }
+.fcheck__lbl { flex: 1; min-width: 0; font-size: .92rem; line-height: 1.3; }
+.fcheck__n, .fchip__n { color: var(--muted); font-size: .76rem; font-variant-numeric: tabular-nums; }
+.fcheck.is-zero { opacity: .45; }
+.fmore { border: 0; background: none; padding: .5rem 0 0; cursor: pointer; color: var(--accent-text); font: 500 .68rem/1.2 var(--font-text); letter-spacing: .16em; text-transform: uppercase; }
+.fchips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.fchip { display: inline-flex; align-items: center; gap: .5em; min-height: 40px; padding: 0 .9rem; border: 1px solid var(--line-strong); background: transparent; color: var(--ink); cursor: pointer; font: 400 .86rem/1 var(--font-text); transition: background-color .2s, color .2s, border-color .2s; }
+.fchip:hover { border-color: var(--ink); }
+.fchip small { color: var(--muted); font-size: .7rem; letter-spacing: .04em; }
+.fchip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.fchip[aria-pressed="true"] small, .fchip[aria-pressed="true"] .fchip__n { color: inherit; opacity: .7; }
+.fchip:disabled { opacity: .4; cursor: default; border-color: var(--line); }
+.useg { display: inline-flex; border: 1px solid var(--line-strong); flex: none; }
+.useg button { border: 0; background: none; min-width: 2.7rem; height: 30px; padding: 0 .55rem; cursor: pointer; font: 500 .68rem/1 var(--font-text); letter-spacing: .06em; color: var(--muted); }
+.useg button + button { border-left: 1px solid var(--line-strong); }
+.useg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.frange { position: relative; height: 34px; margin: 0 11px .4rem; }
+.frange__track, .frange__fill { position: absolute; top: 16px; height: 2px; }
+.frange__track { left: -11px; right: -11px; background: var(--line-strong); }
+.frange__fill { background: var(--ink); }
+.frange input[type=range] { position: absolute; left: -11px; top: 0; width: calc(100% + 22px); height: 34px; margin: 0; background: none; pointer-events: none; -webkit-appearance: none; appearance: none; }
+.frange input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; pointer-events: auto; width: 22px; height: 22px; border-radius: 50%; background: var(--paper); border: 1.5px solid var(--ink); cursor: grab; }
+.frange input[type=range]::-moz-range-thumb { pointer-events: auto; width: 19px; height: 19px; border-radius: 50%; background: var(--paper); border: 1.5px solid var(--ink); cursor: grab; }
+.frange input[type=range]::-webkit-slider-runnable-track { background: none; }
+.frange input[type=range]::-moz-range-track { background: none; }
+.frange input[type=range]:focus { outline: none; }
+.frange input[type=range]:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--focus); outline-offset: 2px; }
+.frange input[type=range]:focus-visible::-moz-range-thumb { outline: 2px solid var(--focus); outline-offset: 2px; }
+.finputs { display: flex; align-items: center; gap: .7rem; color: var(--muted); font-size: .84rem; }
+.finputs label { flex: 1; display: flex; align-items: center; gap: .4rem; min-width: 0; border-bottom: 1px solid var(--line-strong); }
+.finputs label:focus-within { border-bottom-color: var(--ink); }
+.finputs input { width: 100%; min-width: 0; border: 0; background: none; color: var(--ink); font: inherit; font-size: .92rem; padding: .5rem 0; font-variant-numeric: tabular-nums; }
+.finputs input:focus { outline: none; }
+.finputs input::placeholder { color: var(--muted); opacity: .8; }
+.fpanel__foot { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .75rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+.fpanel__foot .btn { padding-inline: 1.2rem; }
+/* the e-Brochure page when every brochure is switched off */
+.br-empty { display: grid; justify-items: start; gap: 1.4rem; padding-bottom: var(--section); }
 .empty { padding: 3rem 0; color: var(--muted); display: grid; gap: 1rem; justify-items: start; }
 
 /* bead library */
@@ -733,16 +807,26 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
 .pcar__nav { display: flex; justify-content: center; align-items: center; gap: clamp(1rem, 3vw, 2rem); margin-top: clamp(1.6rem, 3vw, 2.6rem); }
 .pcar__nav button { border: 0; background: none; color: var(--ink); width: 40px; height: 40px; display: grid; place-items: center; cursor: pointer; }
 .pcar__nav button:disabled { opacity: .28; cursor: default; }
+.pcar__all { text-align: center; margin: clamp(1rem, 2vw, 1.4rem) 0 0; }
 .pcar__bar { position: relative; width: min(300px, 46vw); height: 1px; background: var(--line); }
 .pcar__bar span { position: absolute; left: 0; top: -.5px; height: 2px; width: 30%; background: var(--ink); transition: left .35s, width .35s; }
-.promos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.6vw, 24px); padding-bottom: clamp(64px, 8vw, 120px); }
-.promo { display: grid; justify-items: center; gap: 1.1rem; text-align: center; text-decoration: none; color: inherit; min-width: 0; }
-.promo__media { width: 100%; aspect-ratio: 1.4; overflow: hidden; background: var(--media-bg); }
-.promo__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
-.promo:hover .promo__media img { transform: scale(1.03); }
-.promo__title { font: 400 clamp(1.35rem, 1.1rem + .7vw, 1.75rem)/1.2 var(--font-display); margin-top: .7rem; text-wrap: balance; }
-.promo__title em { font-style: italic; }
-@media (max-width: 699px) { .promos { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 84%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; } .promo { scroll-snap-align: start; } }
+/* home: Shop by collection, a cover per collection (three to a row, the last row centred) */
+.colhome { padding-bottom: clamp(64px, 8vw, 120px); }
+.colhome > .h2 { text-align: center; margin-bottom: clamp(1.6rem, 3.4vw, 2.8rem); }
+.colhome__grid { --g: clamp(12px, 1.6vw, 24px); display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(30px, 3.4vw, 48px) var(--g); }
+.colhome__tile { flex: 0 1 calc((100% - 2 * var(--g)) / 3); min-width: 0; display: grid; justify-items: center; align-content: start; gap: 1rem; text-align: center; text-decoration: none; color: inherit; }
+.colhome__media { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: var(--stone); }
+.colhome__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+.colhome__media.is-photo { background: #FFFFFF; }
+.colhome__media.is-photo img { object-fit: contain; }
+.colhome__tile:hover .colhome__media img { transform: scale(1.03); }
+.colhome__name { font: 400 clamp(1.3rem, 1.1rem + .6vw, 1.7rem)/1.2 var(--font-display); margin-top: .5rem; text-wrap: balance; }
+@media (max-width: 899px) { .colhome__tile { flex-basis: calc((100% - var(--g)) / 2); } }
+@media (max-width: 599px) {
+  .colhome__grid { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(-1 * max(16px, var(--gutter))); padding-inline: max(16px, var(--gutter)); scroll-padding-inline: max(16px, var(--gutter)); }
+  .colhome__grid::-webkit-scrollbar { display: none; }
+  .colhome__tile { flex: 0 0 80%; scroll-snap-align: start; }
+}
 .edsplit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: center; padding-bottom: clamp(64px, 8vw, 120px); }
 .edsplit__text { display: grid; justify-items: center; gap: 1.3rem; text-align: center; max-width: 30rem; justify-self: center; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: clamp(16px, 3vw, 48px); }
 .edsplit__text .h2 em { font-style: italic; color: var(--accent-text); }
@@ -1060,6 +1144,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 6.5v11M15 6.5v11"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M8.5 6.2v11.6L18 12z"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M3.5 7h9M17.5 7h3M3.5 17h3M11.5 17h9"/><circle cx="15" cy="7" r="2.3"/><circle cx="9" cy="17" r="2.3"/></symbol>
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 3.8l2.6.4 1.2 4-1.9 1.4a11 11 0 0 0 5.9 5.9l1.4-1.9 4 1.2.4 2.6c-.2 1.3-1.3 2.3-2.7 2.3A15.6 15.6 0 0 1 4.3 6.5c0-1.4 1-2.5 2.3-2.7z"/></symbol>
     <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M4.5 19.5l1.2-3.9A8 8 0 1 1 8.6 18.4z"/><path d="M9.2 8.6c.2 2.9 2.7 5.6 5.9 6.1l1-1.3-1.8-1-1 .6a5 5 0 0 1-2.4-2.4l.6-1-1-1.8z"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13"/><path d="M3.8 6l8.2 6.6L20.2 6"/></symbol>
@@ -1177,15 +1262,19 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
         <span class="pcar__bar" aria-hidden="true"><span data-pcar-bar></span></span>
         <button type="button" aria-label="Next pieces" data-pcar-step="1"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button>
       </div>
+      <p class="pcar__all" hidden><a class="ulink" href="#collection-all" data-pcar-all>See all</a></p>
     </div>
   </section>
 
-  <section class="wrap promos" aria-label="Gift ideas" data-promos></section>
+  <section class="wrap colhome" aria-labelledby="colhome-title" data-colhome hidden>
+    <h2 class="h2" id="colhome-title" data-colhome-title>Shop by collection</h2>
+    <div class="colhome__grid" data-colhome-grid></div>
+  </section>
 
   <section class="edsplit" aria-labelledby="edsplit-title" data-edsplit></section>
 
   <section class="wrap cats" aria-labelledby="cats-title">
-    <h2 class="h2" id="cats-title" data-cats-title>Shop by collection</h2>
+    <h2 class="h2" id="cats-title" data-cats-title>Shop by category</h2>
     <div class="cats__grid" data-cats></div>
   </section>
 
@@ -1215,7 +1304,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     </div>
     <div class="stories" data-stories></div>
   </section>
-  <section class="cta-band" aria-labelledby="ed-cta-title">
+  <section class="cta-band" aria-labelledby="ed-cta-title" data-br-cta>
     <div class="wrap cta-band__in">
       <div>
         <p class="eyebrow">e-Brochure</p>
@@ -1236,11 +1325,15 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     <a href="#editorial" data-sub-link="editorial">Editorial</a>
     <a href="#e-brochure" data-sub-link="e-brochure">e-Brochure</a>
   </nav></div>
-  <section class="wrap" aria-labelledby="shelf-title">
+  <section class="wrap br-empty" data-br-empty hidden>
+    <p class="lede">There are no brochures to turn through just now. Our pieces are all on the Collections page.</p>
+    <a class="btn btn--line" href="#collection-all">Browse the collections</a>
+  </section>
+  <section class="wrap" aria-labelledby="shelf-title" data-br-shelf>
     <h2 class="label" id="shelf-title">Choose a brochure</h2>
     <div class="shelf" data-shelf></div>
   </section>
-  <section class="section--tight wrap" id="reader" aria-label="Brochure reader">
+  <section class="section--tight wrap" id="reader" aria-label="Brochure reader" data-br-reader>
     <div class="reader" data-reader>
       <div class="reader__bar">
         <div>
@@ -1260,22 +1353,26 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
       <div class="reader__dots" data-dots></div>
     </div>
   </section>
-  <section class="section wrap" id="shop" aria-labelledby="shop-title">
-    <div class="section-head">
-      <div><p class="eyebrow">The pieces</p><h2 class="h2" id="shop-title">Browse the pieces</h2></div>
-      <p class="body-copy" style="max-width:26rem">Our gold pieces by category and collection, each priced by weight at the day’s gold rate. Save the ones you like and bring the list to any boutique.</p>
-    </div>
+</div>
+
+<!-- ============ COLLECTIONS: every piece, with the collection covers along the top ============ -->
+<div class="page" data-page="collections" hidden>
+  <header class="wrap page-head page-head--shop">
+    <div><p class="eyebrow" data-shop-eyebrow>Collections</p><h1 class="h1" data-shop-title>All pieces</h1></div>
+    <p class="lede" data-shop-lede></p>
+  </header>
+  <nav class="wrap colrow-wrap" aria-label="Collections" data-colrow-wrap hidden><div class="colrow" data-colrow></div></nav>
+  <section class="wrap" id="shop" aria-labelledby="shop-title" style="padding-bottom:var(--section)">
+    <h2 class="visually-hidden" id="shop-title">The pieces</h2>
     <div class="toolbar">
-      <div class="toolbar__filters">
-        <div class="chips" role="group" aria-label="Filter by category" data-type-chips></div>
-        <div class="chips" role="group" aria-label="Filter by collection" data-cat-chips hidden></div>
-      </div>
+      <button class="fbtn" type="button" data-filters-open aria-haspopup="dialog" aria-controls="filters"><svg class="icon" aria-hidden="true"><use href="#i-filter"/></svg>Filter<span class="fbtn__n" data-filter-n hidden></span></button>
+      <label class="shop-search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><input type="search" placeholder="Search name or ref." aria-label="Search the pieces" data-shop-q autocomplete="off" spellcheck="false"></label>
       <div class="toolbar__right">
-        <label class="shop-search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><input type="search" placeholder="Search name or ref." aria-label="Search the pieces" data-shop-q autocomplete="off" spellcheck="false"></label>
-        <label class="select"><span>Sort</span><select data-shop-sort aria-label="Sort the pieces"><option value="featured">Featured</option><option value="light">Lightest first</option><option value="heavy">Heaviest first</option></select></label>
         <span class="result-count" data-result-count aria-live="polite"></span>
+        <label class="select"><span>Sort</span><select data-shop-sort aria-label="Sort the pieces"><option value="featured">Featured</option><option value="new">Newest</option><option value="light">Lightest first</option><option value="heavy">Heaviest first</option></select></label>
       </div>
     </div>
+    <div class="pills" data-pills hidden></div>
     <p class="shop-note" data-shop-note aria-live="polite"></p>
     <div class="grid" data-grid></div>
     <div class="shop-more"><button class="btn btn--line" type="button" data-shop-more hidden>Show more</button></div>
@@ -1503,7 +1600,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
       <ul>
         <li><a href="#about">About us</a></li>
         <li><a href="#editorial">Editorial</a></li>
-        <li><a href="#e-brochure">e-Brochure</a></li>
+        <li data-br-link><a href="#e-brochure">e-Brochure</a></li>
         <li><a href="#story-alphabet">The bead library</a></li>
       </ul>
     </div>
@@ -1536,6 +1633,21 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     <div class="drawer__foot">
       <a class="btn btn--solid" href="#contact" data-enquire-saved>Enquire about these pieces</a>
       <a class="btn btn--line" href="https://wa.me/60129969280" target="_blank" rel="noopener" data-wa-saved>Send the list on WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<div class="drawer drawer--left" id="filters" hidden role="dialog" aria-modal="true" aria-labelledby="filters-title">
+  <div class="drawer__backdrop" data-filters-close></div>
+  <div class="drawer__panel">
+    <div class="drawer__head">
+      <h2 id="filters-title">Filter</h2>
+      <button class="icon-btn" type="button" aria-label="Close the filters" data-filters-close><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+    </div>
+    <div class="fpanel__body" data-filters-body></div>
+    <div class="fpanel__foot">
+      <button class="btn btn--line" type="button" data-filters-clear>Clear all</button>
+      <button class="btn btn--solid" type="button" data-filters-close data-filters-show>Show the pieces</button>
     </div>
   </div>
 </div>
@@ -1626,8 +1738,20 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   const colourName = c => COLOUR[c] ? `${COLOUR[c]} (${c})` : String(c || '');
   const HOOK = { F: 'Fish hook', S: 'Spring hook', SR: 'Spring ring', BH: 'Box hook', FHC: 'Fish hook clip', BC: 'Box clip' };
   const hookName = h => { const k = String(h || '').trim(); return HOOK[k.toUpperCase()] ? `${HOOK[k.toUpperCase()]} (${k})` : k; };
-  const gfmt = w => `${Number(w).toFixed(2)} g`;
-  const lenText = l => /^\d+(\.\d+)?$/.test(String(l)) ? `${l} CI` : String(l); // as written in the sheet (Length (CI))
+  // units, as in the staff catalogue: 1 CI (Chinese inch) = 3.7 cm = 37 mm; 1 Pavan = 8 g. The sheet, the filters
+  // and sorting stay in CI and grams; the visitor picks what is shown (kept on this device)
+  const LEN_UNITS = { ci: { label: 'CI', f: 1, d: 3, step: 0.01 }, cm: { label: 'cm', f: 3.7, d: 2, step: 0.1 }, mm: { label: 'mm', f: 37, d: 1, step: 1 } };
+  const W_UNITS = { g: { label: 'g', f: 1, d: 2, step: 0.1 }, pavan: { label: 'Pavan', f: 1 / 8, d: 3, step: 0.01 } };
+  const UNIT_KEY = 'yixing-units';
+  const UNITS = (() => { let u = null; try { u = JSON.parse(localStorage.getItem(UNIT_KEY) || 'null'); } catch (e) { u = null; } u = u && typeof u === 'object' ? u : {}; return { len: LEN_UNITS[u.len] ? u.len : 'ci', w: W_UNITS[u.w] ? u.w : 'g' }; })();
+  const lenU = () => LEN_UNITS[UNITS.len], wU = () => W_UNITS[UNITS.w];
+  const roundTo = (x, d) => Math.round(x * 10 ** d) / 10 ** d;
+  const wOut = g => roundTo(g * wU().f, wU().d), wIn = x => roundTo(x / wU().f, 4);
+  const lenOut = ci => roundTo(ci * lenU().f, lenU().d), lenIn = x => roundTo(x / lenU().f, 4);
+  const isLen = l => /^\d+(\.\d+)?$/.test(String(l == null ? '' : l).trim());
+  const gfmt = w => `${(Number(w) * wU().f).toFixed(wU().d)} ${wU().label}`;
+  // a length as written in the sheet (0.48, in CI), or in cm or mm; codes such as Q or S stay as they are
+  const lenText = l => isLen(l) ? `${UNITS.len === 'ci' ? String(l).trim() : lenOut(Number(l))} ${lenU().label}` : String(l == null ? '' : l);
   const PLURAL = { gold: 'Gold', jewellery: 'Jewellery', watch: 'Watches' };
   const plural = t => PLURAL[norm(t)] || (/s$/i.test(t) ? t : t + 's');
   const typeId = t => slug(plural(String(t || '')));
@@ -1636,8 +1760,10 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     const ws = vs.map(v => v.weight).filter(w => w > 0);
     if (!ws.length) return '';
     const a = Math.min(...ws), b = Math.max(...ws);
-    return a === b ? gfmt(a) : `${Number(a).toFixed(2)}–${gfmt(b)}`;
+    return a === b ? gfmt(a) : `${(a * wU().f).toFixed(wU().d)}–${gfmt(b)}`;
   }
+  // the weight line of a piece in the chosen unit (a website-only piece's “2.05 g” too)
+  const pWeight = p => { if (p.src === 'cat') return weightRange(p.vs); const m = /^\s*(\d+(?:\.\d+)?)\s*g(?:rams?)?\s*$/i.exec(p.weight || ''); return m ? gfmt(+m[1]) : p.weight; };
   function catPiece(x) {
     const vs = vals(x.vs).filter(v => v && typeof v === 'object');
     const md = vals(x.media).filter(m => m && (m.l || m.th));
@@ -1652,14 +1778,18 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
       colNames: vals(x.cols).map(String), cols: [], col: '', hl: vals(x.hl).map(String), date: String(x.date || ''),
       made: [], desc: String(x.about || ''), price: '', hall: purity[0] || '916', purity, colours,
       gold: [purity.length ? purity.join(' or ') + ' gold' : '', colours.map(colourName).join(', ')].filter(Boolean).join(' · '),
-      weight: weightRange(vs), thumb: url((md[0] || {}).th || (md[0] || {}).l), images: [], video: '',
+      weight: weightRange(vs), fv: vs, thumb: url((md[0] || {}).th || (md[0] || {}).l), images: [], video: '',
       media: md.map(m => m.t === 'v' && m.src ? { k: 'video', s: url(m.src), poster: url(m.l || m.th), th: url(m.th || m.l) } : { k: 'img', s: url(m.l || m.th), th: url(m.th || m.l) }),
       vs, hay: norm([name, ref, x.id, type, ...vals(x.cols), ...vs.map(v => [v.code, v.color, COLOUR[v.color], v.variation, v.size, v.length, v.hook, HOOK[String(v.hook || '').toUpperCase()]].join(' '))].join(' '))
     };
   }
   const sitePiece = x => {
     const kind = String(x.kind || 'Bracelet');
-    return { id: String(x.id), ref: String(x.id), name: x.name || String(x.id), named: true, src: 'site', type: kind.charAt(0).toUpperCase() + kind.slice(1), kind: kind.toLowerCase(),
+    // what the filters need, read from the Studio’s words: “Yellow 916 gold (1C)”, “2.05 g”
+    const gold = String(x.gold || ''), wm = /(\d+(?:\.\d+)?)\s*g/i.exec(String(x.weight || ''));
+    const code = (/\b([123]C)\b/i.exec(gold) || [])[1];
+    const fv = [{ purity: (/\b(999|916|875|750|585|375)\b/.exec(gold) || [, '916'])[1], color: code ? code.toUpperCase() : /two/i.test(gold) ? '2C' : /tri|three/i.test(gold) ? '3C' : /yellow/i.test(gold) || !gold ? '1C' : '', weight: wm ? +wm[1] : 0, length: '' }];
+    return { id: String(x.id), ref: String(x.id), name: x.name || String(x.id), named: true, src: 'site', type: kind.charAt(0).toUpperCase() + kind.slice(1), kind: kind.toLowerCase(), fv,
       colNames: [], cols: x.collection ? [refId(x.collection)] : [], col: refId(x.collection), hl: [], date: '',
       made: vals(x.parts).filter(Boolean).map(String), gold: x.gold || '', weight: x.weight || '', price: x.price || '', desc: x.description || '', hall: '916',
       images: vals(x.images).filter(Boolean), video: x.video || '', thumb: '', media: null, vs: [],
@@ -1669,7 +1799,9 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   // the catalogue's products, then the website-only pieces whose code the catalogue doesn't have (yet)
   function mergeProducts() {
     const cols = {}, bySlug = {};
-    STUDIO_COLS.forEach(c => { cols[c.id] = c; bySlug[slug(c.name)] = c.id; bySlug[slug(c.id)] = c.id; });
+    // a Studio collection dresses the catalogue collection it is linked to (or that has its name or short name)
+    STUDIO_COLS.forEach(c => { cols[c.id] = c; bySlug[slug(c.name)] = bySlug[slug(c.name)] || c.id; bySlug[slug(c.id)] = bySlug[slug(c.id)] || c.id; });
+    STUDIO_COLS.forEach(c => { if (c.catalogue) bySlug[slug(c.catalogue)] = c.id; });
     COLNAME_ID = {};
     vals(CAT && CAT.collections).forEach((c, k) => {
       const name = String((c && c.name) || '').trim(); if (!name) return;
@@ -1735,8 +1867,12 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   /* ---------- design cards ---------- */
   const altOf = p => p.src === 'cat' ? `${p.name}, ${p.type || 'piece'} in ${p.hall} gold, ref. ${p.ref}` : `${p.id} ${p.name} ${p.kind || 'bracelet'}: ${p.made.join(', ')}`;
   const colourWords = p => { const c = p.colours.map(x => (COLOUR[x] || x).toLowerCase()).join(' or '); return c.charAt(0).toUpperCase() + c.slice(1); };
-  const cardMeta = p => p.src === 'cat' ? [p.named ? p.type : '', colourWords(p), p.weight].filter(Boolean).join(' · ') : p.made.join(' · ');
-  const badgeOf = p => p.hl.includes('new') ? 'New' : p.hl.includes('best') ? 'Best seller' : p.hl.includes('promo') ? 'Offer' : '';
+  const cardMeta = p => p.src === 'cat' ? [p.named ? p.type : '', colourWords(p), pWeight(p)].filter(Boolean).join(' · ') : p.made.join(' · ');
+  // the catalogue sheet's Promotion / New arrival / Best Selling Status columns (and their links on this site)
+  const HL = [['promo', 'Promotion', 'promotion'], ['new', 'New arrival', 'new-arrival'], ['best', 'Best Selling', 'best-selling']];
+  const HL_LABEL = Object.fromEntries(HL.map(([k, t]) => [k, t]));
+  const HL_ROUTE = Object.fromEntries(HL.map(([k, , r]) => [r, k]));
+  const badgeOf = p => { const k = HL.map(x => x[0]).find(x => p.hl.includes(x)); return k ? HL_LABEL[k] : ''; };
   function card(p) {
     const badge = badgeOf(p);
     return `<article class="card">
@@ -1764,48 +1900,270 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     </article>`;
   }
 
-  const shop = { col: 'all', type: 'all', q: '', sort: 'featured', n: PAGE };
+  /* ---------- the Collections page: every piece, a Filter panel, the collection covers along the top ---------- */
+  const shop = { hl: '', q: '', sort: 'featured', n: PAGE };
+  // what the Filter panel narrows to: collections and product types (any of those ticked), and, for at least one
+  // variant of a piece, the purities and colours ticked, a weight range (grams) and a length range (CI)
+  const F = { col: new Set(), type: new Set(), pur: new Set(), color: new Set(), wmin: null, wmax: null, lmin: null, lmax: null };
+  const resetF = () => { F.col.clear(); F.type.clear(); F.pur.clear(); F.color.clear(); F.wmin = F.wmax = F.lmin = F.lmax = null; };
+  const wOn = () => F.wmin != null || F.wmax != null, lOn = () => F.lmin != null || F.lmax != null;
+  const nActive = () => F.col.size + F.type.size + F.pur.size + F.color.size + (wOn() ? 1 : 0) + (lOn() ? 1 : 0);
+  const wTol = () => 0.5 * 10 ** -wU().d / wU().f + 1e-9, lTol = () => 0.5 * 10 ** -lenU().d / lenU().f + 1e-9; // half the smallest step shown
   // a collection is on the website when at least one of its pieces is shown there
   const colHasPieces = id => PRODUCTS.some(p => p.cols.includes(id));
   const liveCols = () => Object.values(COLLECTIONS).filter(c => colHasPieces(c.id));
-  const inCol = (p, col) => col === 'all' || p.cols.includes(col);
-  const inType = (p, type) => type === 'all' || typeId(p.type) === type;
+  // Promotion / New arrival / Best Selling: the pieces marked in the sheet; nothing marked New arrival yet: every piece, newest first
+  const hlMarked = k => PRODUCTS.some(p => p.hl.includes(k));
+  let QW = [];
+  const qWords = () => { const q = norm(shop.q).trim(); return q ? q.split(/\s+/) : []; };
+  function varOK(v, skip) {
+    if (skip !== 'pur' && F.pur.size && !F.pur.has(String(v.purity || ''))) return false;
+    if (skip !== 'color' && F.color.size && !F.color.has(String(v.color || ''))) return false;
+    if (skip !== 'w' && wOn()) { const w = Number(v.weight); if (!(w > 0) || (F.wmin != null && w < F.wmin - wTol()) || (F.wmax != null && w > F.wmax + wTol())) return false; }
+    if (skip !== 'l' && lOn()) { if (!isLen(v.length)) return false; const l = Number(v.length); if ((F.lmin != null && l < F.lmin - lTol()) || (F.lmax != null && l > F.lmax + lTol())) return false; }
+    return true;
+  }
+  // does piece p pass every filter but `skip` (the counts beside each choice leave out their own group), with a variant matching `want`?
+  function passes(p, skip, want) {
+    if (shop.hl && hlMarked(shop.hl) && !p.hl.includes(shop.hl)) return false;
+    if (QW.length && !QW.every(w => p.hay.includes(w) || p.hay.replace(/[^a-z0-9]/g, '').includes(w.replace(/[^a-z0-9]/g, '') || '\u0000'))) return false;
+    if (skip !== 'col' && F.col.size && !p.cols.some(c => F.col.has(c))) return false;
+    if (skip !== 'type' && F.type.size && !F.type.has(typeId(p.type))) return false;
+    const vf = (skip !== 'pur' && F.pur.size) || (skip !== 'color' && F.color.size) || (skip !== 'w' && wOn()) || (skip !== 'l' && lOn()) || want;
+    return !vf || vals(p.fv).some(v => varOK(v, skip) && (!want || want(v)));
+  }
   function shopItems() {
-    const q = norm(shop.q).trim();
-    const words = q ? q.split(/\s+/) : [];
-    let items = PRODUCTS.filter(p => inCol(p, shop.col) && inType(p, shop.type) && words.every(w => p.hay.includes(w) || p.hay.replace(/[^a-z0-9]/g, '').includes(w.replace(/[^a-z0-9]/g, '') || '\u0000')));
-    if (shop.sort !== 'featured') {
+    QW = qWords();
+    let items = PRODUCTS.filter(p => passes(p, ''));
+    if (shop.sort === 'new') items = items.slice().sort((a, b) => (!a.date - !b.date) || b.date.localeCompare(a.date));
+    else if (shop.sort !== 'featured') {
       const dir = shop.sort === 'heavy' ? -1 : 1;
       items = items.slice().sort((a, b) => { const x = minW(a), y = minW(b); return (isNaN(x) - isNaN(y)) || (dir * ((x || 0) - (y || 0))); });
     }
     return items;
   }
+  // the values each group offers: the purities and colours of every variant, the weights and lengths that exist
+  const facetVals = k => { const s = new Set(); PRODUCTS.forEach(p => vals(p.fv).forEach(v => { const x = String(v[k] || '').trim(); if (x) s.add(x); })); return [...s]; };
+  const PUR_ORDER = ['999', '916', '750'], COL_ORDER = ['1C', '2C', '3C'];
+  const ordered = (xs, first, cmp) => first.filter(x => xs.includes(x)).concat(xs.filter(x => !first.includes(x)).sort(cmp));
+  const purities = () => ordered(facetVals('purity'), PUR_ORDER, (a, b) => (Number(b) || 0) - (Number(a) || 0) || a.localeCompare(b));
+  const colours = () => ordered(facetVals('color'), COL_ORDER, (a, b) => a.localeCompare(b));
+  function wBounds() { const ws = PRODUCTS.flatMap(p => vals(p.fv).map(v => Number(v.weight)).filter(w => w > 0)); return ws.length ? { min: Math.min(...ws), max: Math.max(...ws) } : null; }
+  const lenValues = () => uniq(PRODUCTS.flatMap(p => vals(p.fv).map(v => isLen(v.length) ? Number(v.length) : null).filter(x => x != null))).sort((a, b) => a - b);
+  const colLabel = c => COLOUR[c] ? `${COLOUR[c]} (${c})` : c;
+  const cjk = t => esc(t).replace(/([㐀-鿿豈-﫿]+)/g, '<span class="cjk">$1</span>');
+
+  // the heading names what the page is showing: a collection, a category, a highlight, or every piece
+  const SHOP_LEDE = 'Our gold pieces by collection and category, each priced by weight at the day’s gold rate. Save the ones you like and bring the list to any boutique.';
+  function shopHead() {
+    if (shop.hl) return { eyebrow: 'Highlights', title: HL_LABEL[shop.hl], lede: shop.hl === 'new' && !hlMarked('new') ? 'Every piece, the newest first.' : SHOP_LEDE };
+    if (F.col.size === 1) { const c = COLLECTIONS[[...F.col][0]]; if (c) return { eyebrow: 'Collection', title: c.name, lede: c.text || c.idea || SHOP_LEDE, main: ['col', c.id] }; }
+    if (F.type.size === 1 && !F.col.size) { const t = TYPE_BY[[...F.type][0]]; if (t) return { eyebrow: 'Category', title: t.label, lede: SHOP_LEDE, main: ['type', t.id] }; }
+    return { eyebrow: 'Collections', title: 'All pieces', lede: SHOP_LEDE };
+  }
+  const colCover = c => c.image ? { src: media(c.image), photo: false } : (() => { const p = PRODUCTS.find(x => x.cols.includes(c.id) && (x.thumb || x.images.length)) || PRODUCTS.find(x => x.cols.includes(c.id)); return p ? { src: img(p.id), photo: !!p.thumb } : { src: '', photo: false }; })();
+  function renderColrow() {
+    const cols = liveCols();
+    $('[data-colrow-wrap]').hidden = !cols.length;
+    if (!cols.length) { $('[data-colrow]').innerHTML = ''; return; }
+    const cur = shop.hl ? '' : F.col.size === 1 ? [...F.col][0] : F.col.size ? '' : 'all';
+    $('[data-colrow]').innerHTML = `<a class="colrow__item" href="#collection-all"${cur === 'all' ? ' aria-current="true"' : ''}><span class="colrow__media"><span class="colrow__all"><b>All</b><small>${PRODUCTS.length} pieces</small></span></span><span class="colrow__name">All pieces</span></a>`
+      + cols.map(c => { const pic = colCover(c); return `<a class="colrow__item" href="#collection-${esc(c.id)}"${cur === c.id ? ' aria-current="true"' : ''}><span class="colrow__media${pic.photo ? ' is-photo' : ''}">${pic.src ? `<img src="${esc(pic.src)}" alt="" loading="lazy">` : ''}</span><span class="colrow__name">${cjk(c.name)}</span></a>`; }).join('');
+    centreColrow();
+  }
+  // on a narrow screen the row scrolls sideways: bring the collection being shown into view
+  function centreColrow() {
+    const row = $('[data-colrow]'), el = $('[aria-current="true"]', row);
+    if (!el || !row.clientWidth || row.scrollWidth <= row.clientWidth) return;
+    const rr = row.getBoundingClientRect(), er = el.getBoundingClientRect();
+    row.scrollLeft += (er.left - rr.left) - (rr.width - er.width) / 2;
+  }
+  function renderPills(head) {
+    const main = head.main || [];
+    const pills = [];
+    if (shop.hl) pills.push([HL_LABEL[shop.hl], 'hl', '']);
+    F.col.forEach(c => { if (COLLECTIONS[c] && !(main[0] === 'col' && main[1] === c)) pills.push([COLLECTIONS[c].name, 'col', c]); });
+    F.type.forEach(t => { if (TYPE_BY[t] && !(main[0] === 'type' && main[1] === t)) pills.push([TYPE_BY[t].label, 'type', t]); });
+    F.pur.forEach(x => pills.push([x + ' gold', 'pur', x]));
+    F.color.forEach(x => pills.push([colLabel(x), 'color', x]));
+    const span = (a, b, out, u) => a != null && b != null ? `${out(a)}–${out(b)} ${u}` : a != null ? `From ${out(a)} ${u}` : `Up to ${out(b)} ${u}`;
+    if (wOn()) pills.push([span(F.wmin, F.wmax, wOut, wU().label), 'w', '']);
+    if (lOn()) pills.push([span(F.lmin, F.lmax, lenOut, lenU().label), 'l', '']);
+    const box = $('[data-pills]');
+    box.hidden = !pills.length;
+    box.innerHTML = pills.map(([label, k, v]) => `<button class="pill" type="button" data-pill="${k}" data-v="${esc(v)}" aria-label="Remove the filter ${esc(label)}">${esc(label)}${icon('i-close')}</button>`).join('')
+      + (pills.length > 1 || (pills.length && head.main) ? '<button class="ulink" type="button" data-filters-clear>Clear all</button>' : '');
+  }
   function renderShop() {
-    if (shop.col !== 'all' && !colHasPieces(shop.col)) shop.col = 'all';
-    if (shop.type !== 'all' && !TYPE_BY[shop.type]) shop.type = 'all';
+    // a choice that no longer exists (a collection without pieces, a category gone from the catalogue) drops out,
+    // but only once the catalogue has answered: before that, a link to a catalogue collection simply waits
+    if (CAT_STATE !== 'loading') { F.col.forEach(c => { if (!colHasPieces(c)) F.col.delete(c); }); F.type.forEach(t => { if (!TYPE_BY[t]) F.type.delete(t); }); }
     const all = shopItems(), items = all.slice(0, shop.n);
-    const pad = all.length <= shop.n && !shop.q ? (4 - items.length % 4) % 4 : 0; // fill the last row with editorial tiles, so no design sits alone
+    const pad = all.length <= shop.n && !shop.q && !nActive() ? (4 - items.length % 4) % 4 : 0; // fill the last row with editorial tiles, so no design sits alone
     $('[data-grid]').innerHTML = items.length ? items.map(card).join('') + EXTRAS.slice(0, pad).map(extraCard).join('')
-      : `<p class="shop-empty">${shop.q ? `Nothing matches “${esc(shop.q)}”. Try a reference such as GR040, or fewer words.` : 'No pieces here yet.'}</p>`;
+      : `<p class="shop-empty">${shop.q ? `Nothing matches “${esc(shop.q)}”. Try a reference such as GR040, or fewer words.` : nActive() ? 'No pieces match these filters. Try removing one.' : shop.hl ? `No pieces in ${esc(HL_LABEL[shop.hl])} right now.` : CAT_STATE === 'loading' ? '' : 'No pieces here yet.'}</p>`;
     $('[data-result-count]').textContent = `${all.length} ${all.length === 1 ? 'piece' : 'pieces'}`;
     const more = $('[data-shop-more]');
     more.hidden = all.length <= shop.n;
     more.textContent = `Show more (${all.length - Math.min(all.length, shop.n)} more)`;
-    const typeN = t => PRODUCTS.filter(p => inCol(p, shop.col) && inType(p, t)).length;
-    $('[data-type-chips]').innerHTML = [['all', 'All']].concat(TYPES.map(t => [t.id, t.label])).map(([k, label]) =>
-      `<button class="chip-btn" type="button" data-shop-type="${esc(k)}" aria-pressed="${shop.type === k}">${esc(label)}<span class="count">${typeN(k)}</span></button>`).join('');
-    const cols = liveCols(), cc = $('[data-cat-chips]');
-    cc.hidden = !cols.length;
-    cc.innerHTML = cols.length ? '<span class="chips__label">Collections</span>' + [['all', 'All']].concat(cols.map(c => [c.id, c.name])).map(([k, label]) => {
-      const n = PRODUCTS.filter(p => inCol(p, k) && inType(p, shop.type)).length;
-      return `<button class="chip-btn" type="button" data-cat="${esc(k)}" aria-pressed="${shop.col === k}">${esc(label)}<span class="count">${n}</span></button>`;
-    }).join('') : '';
+    const head = shopHead();
+    $('[data-shop-eyebrow]').textContent = head.eyebrow;
+    $('[data-shop-title]').innerHTML = cjk(head.title);
+    $('[data-shop-lede]').textContent = head.lede;
+    if (current && /^(collection|type)-|^(promotion|new-arrival|best-selling)$/.test(current)) document.title = `${plain(head.title)} · Yi Xing`;
+    renderColrow(); renderPills(head);
+    const n = nActive(), badge = $('[data-filter-n]');
+    badge.hidden = !n; badge.textContent = n;
+    $('[data-filters-open]').setAttribute('aria-label', n ? `Filter, ${n} chosen` : 'Filter');
+    $('[data-filters-show]').textContent = `Show ${all.length} ${all.length === 1 ? 'piece' : 'pieces'}`;
+    $('[data-shop-sort]').value = shop.sort;
     const note = $('[data-shop-note]');
     note.innerHTML = CAT_STATE === 'loading' ? 'Loading our catalogue…'
       : CAT_STATE === 'error' ? `Our full catalogue can’t be loaded just now, so only some pieces are shown. <button class="ulink" type="button" data-cat-retry>Try again</button>` : '';
+    syncFilters();
     syncSaved();
   }
   function shopTo(o) { Object.assign(shop, { n: PAGE }, o); renderShop(); }
+
+  /* ---------- the Filter panel ---------- */
+  const FP = { built: '', more: {}, R: {} };
+  const LIST_TOP = 6;
+  const fgroup = (key, title, side, inner) => `<section class="fgroup" data-fgroup="${key}"><div class="fgroup__head"><h3>${title}</h3>${side || ''}</div>${inner}</section>`;
+  const flist = (key, items) => `<div data-flist="${key}">${items.map(([v, label], i) => `<label class="fcheck"${i >= LIST_TOP ? ' data-extra' : ''}><input type="checkbox" data-f="${key}" value="${esc(v)}"><span class="fcheck__lbl">${cjk(label)}</span><span class="fcheck__n" data-fn></span></label>`).join('')}</div>`
+    + (items.length > LIST_TOP ? `<button class="fmore" type="button" data-fmore="${key}"></button>` : '');
+  const fchips = (key, items) => `<div class="fchips">${items.map(([v, label, small]) => `<button class="fchip" type="button" data-f="${key}" data-v="${esc(v)}" aria-pressed="false">${esc(label)}${small ? `<small>${esc(small)}</small>` : ''}<span class="fchip__n" data-fn></span></button>`).join('')}</div>`;
+  const useg = (kind, units, cur, what) => `<div class="useg" role="group" aria-label="Show ${what} in">${Object.entries(units).map(([k, u]) => `<button type="button" data-unit="${kind}" data-v="${k}" aria-pressed="${k === cur}">${u.label}</button>`).join('')}</div>`;
+  const frange = (key, what, unit) => `<div class="frange" data-frange="${key}"><span class="frange__track"></span><span class="frange__fill"></span><input type="range" data-rmin aria-label="Lowest ${what}"><input type="range" data-rmax aria-label="Highest ${what}"></div>
+    <div class="finputs"><label><input type="number" inputmode="decimal" step="any" min="0" data-nmin aria-label="Lowest ${what}, in ${unit}"><span>${unit}</span></label><span>to</span><label><input type="number" inputmode="decimal" step="any" min="0" data-nmax aria-label="Highest ${what}, in ${unit}"><span>${unit}</span></label></div>`;
+  // the panel is drawn when the list of pieces or a unit changes; choosing only updates it (so a slider being dragged stays put)
+  function buildFilters() {
+    const body = $('[data-filters-body]');
+    const cols = liveCols(), purs = purities(), cols2 = colours(), wb = wBounds(), lv = lenValues();
+    const sig = [cols.map(c => c.id + c.name).join(), TYPES.map(t => t.id).join(), purs.join(), cols2.join(), wb ? wb.min + '-' + wb.max : '', lv.join(), UNITS.len, UNITS.w].join('|');
+    if (sig === FP.built) return;
+    FP.built = sig;
+    const wu = wU(), lu = lenU();
+    body.innerHTML = [
+      cols.length ? fgroup('col', 'Collection', '', flist('col', cols.map(c => [c.id, c.name]))) : '',
+      purs.length ? fgroup('pur', 'Product purity', '', fchips('pur', purs.map(x => [x, x]))) : '',
+      TYPES.length ? fgroup('type', 'Product type', '', flist('type', TYPES.map(t => [t.id, t.label]))) : '',
+      cols2.length ? fgroup('color', 'Colour', '', fchips('color', cols2.map(x => COLOUR[x] ? [x, COLOUR[x], x] : [x, x]))) : '',
+      wb ? fgroup('w', `Weight (${wu.label})`, useg('w', W_UNITS, UNITS.w, 'weights'), frange('w', 'weight', wu.label)) : '',
+      lv.length > 1 ? fgroup('l', `Length (${lu.label})`, useg('len', LEN_UNITS, UNITS.len, 'lengths'), frange('l', 'length', lu.label)) : '',
+    ].join('') || '<p class="drawer__empty">The filters appear once our catalogue has loaded.</p>';
+    FP.R = {};
+    if (wb) {
+      const lo = roundTo(Math.floor(wb.min * wu.f / wu.step) * wu.step, 4), hi = roundTo(Math.ceil(wb.max * wu.f / wu.step) * wu.step, 4);
+      FP.R.w = { lo, hi };
+      $$('[data-frange="w"] input', body).forEach(r => { r.min = lo; r.max = hi; r.step = wu.step; });
+      $('[data-fgroup="w"] [data-nmin]', body).placeholder = lo.toFixed(wu.d); $('[data-fgroup="w"] [data-nmax]', body).placeholder = hi.toFixed(wu.d);
+    }
+    if (lv.length > 1) {
+      // the length sliders step through the lengths that exist (0.46, 0.48, 1.2 …); the boxes take any number
+      FP.R.l = { values: lv };
+      $$('[data-frange="l"] input', body).forEach(r => { r.min = 0; r.max = lv.length - 1; r.step = 1; });
+      $('[data-fgroup="l"] [data-nmin]', body).placeholder = lenOut(lv[0]); $('[data-fgroup="l"] [data-nmax]', body).placeholder = lenOut(lv[lv.length - 1]);
+    }
+  }
+  function syncRanges(keepSliders) {
+    const body = $('[data-filters-body]');
+    const fill = (g, a, b) => { const f = $('.frange__fill', g); f.style.left = a + '%'; f.style.width = Math.max(0, b - a) + '%'; };
+    const W = FP.R.w, gw = $('[data-fgroup="w"]', body);
+    if (W && gw) {
+      const span = W.hi - W.lo || 1;
+      const a = F.wmin != null ? Math.min(Math.max(wOut(F.wmin), W.lo), W.hi) : W.lo, b = F.wmax != null ? Math.min(Math.max(wOut(F.wmax), W.lo), W.hi) : W.hi;
+      if (!keepSliders) { $('[data-rmin]', gw).value = a; $('[data-rmax]', gw).value = b; }
+      fill($('.frange', gw), (Math.min(a, b) - W.lo) / span * 100, (Math.max(a, b) - W.lo) / span * 100);
+      const nmin = $('[data-nmin]', gw), nmax = $('[data-nmax]', gw);
+      if (document.activeElement !== nmin) nmin.value = F.wmin != null ? wOut(F.wmin) : '';
+      if (document.activeElement !== nmax) nmax.value = F.wmax != null ? wOut(F.wmax) : '';
+    }
+    const L = FP.R.l, gl = $('[data-fgroup="l"]', body);
+    if (L && gl) {
+      const vs = L.values, last = vs.length - 1;
+      let a = 0, b = last;
+      if (F.lmin != null) { a = vs.findIndex(v => v >= F.lmin - lTol()); if (a < 0) a = last; }
+      if (F.lmax != null) { while (b > 0 && vs[b] > F.lmax + lTol()) b--; }
+      if (!keepSliders) { $('[data-rmin]', gl).value = a; $('[data-rmax]', gl).value = b; }
+      fill($('.frange', gl), Math.min(a, b) / (last || 1) * 100, Math.max(a, b) / (last || 1) * 100);
+      const nmin = $('[data-nmin]', gl), nmax = $('[data-nmax]', gl);
+      if (document.activeElement !== nmin) nmin.value = F.lmin != null ? lenOut(F.lmin) : '';
+      if (document.activeElement !== nmax) nmax.value = F.lmax != null ? lenOut(F.lmax) : '';
+    }
+  }
+  // ticks, counts (each counts the pieces it would show with the other groups as they are) and ranges
+  function syncFilters(keepSliders) {
+    const body = $('[data-filters-body]');
+    if (fpanel.hidden) return; // brought up to date when it opens
+    buildFilters();
+    QW = qWords();
+    const count = (key, v) => key === 'col' ? PRODUCTS.filter(p => p.cols.includes(v) && passes(p, 'col')).length
+      : key === 'type' ? PRODUCTS.filter(p => typeId(p.type) === v && passes(p, 'type')).length
+      : PRODUCTS.filter(p => passes(p, key, x => String(x[key === 'pur' ? 'purity' : 'color'] || '') === v)).length;
+    $$('input[data-f]', body).forEach(cb => {
+      const on = F[cb.dataset.f].has(cb.value), n = count(cb.dataset.f, cb.value), row = cb.closest('.fcheck');
+      cb.checked = on; $('[data-fn]', row).textContent = n; row.classList.toggle('is-zero', !n && !on);
+    });
+    $$('button[data-f]', body).forEach(b => {
+      const on = F[b.dataset.f].has(b.dataset.v), n = count(b.dataset.f, b.dataset.v);
+      b.setAttribute('aria-pressed', on); $('[data-fn]', b).textContent = n; b.disabled = !n && !on;
+    });
+    $$('[data-fmore]', body).forEach(btn => {
+      const key = btn.dataset.fmore, open = !!FP.more[key], rows = $$(`[data-flist="${key}"] .fcheck`, body);
+      rows.forEach(r => { r.hidden = !open && r.hasAttribute('data-extra') && !$('input', r).checked; });
+      btn.textContent = open ? 'Show fewer' : `Show all ${rows.length}`;
+      btn.setAttribute('aria-expanded', open);
+    });
+    syncRanges(keepSliders);
+  }
+  let fTimer = null;
+  const applyLater = () => { clearTimeout(fTimer); fTimer = setTimeout(() => { shop.n = PAGE; renderShop(); }, 140); };
+  function toggleF(key, v) { if (F[key].has(v)) F[key].delete(v); else F[key].add(v); shop.n = PAGE; renderShop(); }
+  function fromSliders(key) {
+    const g = $(`[data-frange="${key}"]`), a0 = +$('[data-rmin]', g).value, b0 = +$('[data-rmax]', g).value, a = Math.min(a0, b0), b = Math.max(a0, b0);
+    if (key === 'w') { const R = FP.R.w; F.wmin = a <= R.lo + 1e-9 ? null : wIn(a); F.wmax = b >= R.hi - 1e-9 ? null : wIn(b); }
+    else { const vs = FP.R.l.values; F.lmin = a <= 0 ? null : vs[a]; F.lmax = b >= vs.length - 1 ? null : vs[b]; }
+    syncRanges(true); applyLater();
+  }
+  function fromInputs(key) {
+    const g = $(`[data-fgroup="${key}"]`), a = parseFloat($('[data-nmin]', g).value), b = parseFloat($('[data-nmax]', g).value);
+    if (key === 'w') {
+      F.wmin = Number.isFinite(a) ? wIn(a) : null; F.wmax = Number.isFinite(b) ? wIn(b) : null;
+      if (F.wmin != null && F.wmax != null && F.wmin > F.wmax) [F.wmin, F.wmax] = [F.wmax, F.wmin];
+    } else {
+      // a typed 1.78 cm is 0.4811 CI: use the length in the sheet it stands for (0.48)
+      const vs = (FP.R.l || {}).values || [], snap = x => { const ci = lenIn(x); const hit = vs.find(v => Math.abs(v - ci) <= lTol()); return hit != null ? hit : ci; };
+      F.lmin = Number.isFinite(a) ? snap(a) : null; F.lmax = Number.isFinite(b) ? snap(b) : null;
+      if (F.lmin != null && F.lmax != null && F.lmin > F.lmax) [F.lmin, F.lmax] = [F.lmax, F.lmin];
+    }
+    shop.n = PAGE; renderShop();
+  }
+  function setUnit(kind, v) {
+    if (kind === 'w' && W_UNITS[v]) UNITS.w = v; else if (kind === 'len' && LEN_UNITS[v]) UNITS.len = v; else return;
+    try { localStorage.setItem(UNIT_KEY, JSON.stringify(UNITS)); } catch (e) { /* storage unavailable */ }
+    buildFilters(); renderShop(); renderProductParts();
+    const b = $(`[data-unit="${kind}"][data-v="${v}"]`); if (b) b.focus();
+  }
+  const fpanel = $('#filters');
+  let fReturn = null;
+  function openFilters() { fReturn = document.activeElement; buildFilters(); fpanel.hidden = false; syncFilters(); document.body.style.overflow = 'hidden'; $('.drawer__head [data-filters-close]', fpanel).focus(); }
+  function closeFilters() { if (fpanel.hidden) return; fpanel.hidden = true; document.body.style.overflow = ''; if (fReturn && fReturn.focus) fReturn.focus(); }
+  function clearFilters() { const keep = shopHead().main; resetF(); if (keep) F[keep[0]].add(keep[1]); shopTo({ hl: '' }); }
+  (() => {
+    const body = $('[data-filters-body]');
+    body.addEventListener('change', e => { const cb = e.target.closest('input[type="checkbox"][data-f]'); if (cb) toggleF(cb.dataset.f, cb.value); });
+    body.addEventListener('click', e => {
+      const chip = e.target.closest('button[data-f]'); if (chip) { toggleF(chip.dataset.f, chip.dataset.v); return; }
+      const more = e.target.closest('[data-fmore]'); if (more) { FP.more[more.dataset.fmore] = !FP.more[more.dataset.fmore]; syncFilters(); return; }
+      const u = e.target.closest('[data-unit]'); if (u) setUnit(u.dataset.unit, u.dataset.v);
+    });
+    let nTimer = null;
+    body.addEventListener('input', e => {
+      const r = e.target.closest('[data-frange] input'); if (r) { fromSliders(r.closest('[data-frange]').dataset.frange); return; }
+      const n = e.target.closest('.finputs input'); if (n) { clearTimeout(nTimer); const key = n.closest('[data-fgroup]').dataset.fgroup; nTimer = setTimeout(() => fromInputs(key), 450); }
+    });
+    body.addEventListener('change', e => { const n = e.target.closest('.finputs input'); if (n) { clearTimeout(nTimer); fromInputs(n.closest('[data-fgroup]').dataset.fgroup); } });
+  })();
   function libraryHTML() {
     return LIBRARY.map(c => {
       const used = PRODUCTS.filter(p => p.made.includes(c.name)).map(p => p.name);
@@ -2104,12 +2462,17 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   let turning = false;
 
   function renderShelf() {
+    // no brochure on the shelf: the page says so, and the menus and links to it step aside
+    const none = !BROCHURES.length;
+    $('[data-br-empty]').hidden = !none; $('[data-br-shelf]').hidden = none; $('[data-br-reader]').hidden = none;
+    $$('[data-sub-link="e-brochure"], [data-br-cta], [data-br-link]').forEach(el => { el.hidden = none; });
     $('[data-shelf]').innerHTML = BROCHURES.map(b => `<button class="shelf__item" type="button" data-brochure-open="${b.id}" aria-pressed="${b.id === reader.b}">
         <span class="shelf__cover"><img src="${media(b.cover)}" alt="" ${wh(b.cover)} loading="lazy"></span>
         <span class="shelf__text"><span class="shelf__pages">${b.pages.length} pages</span><span class="shelf__name">${esc(b.title)}</span><span class="shelf__sub">${esc(b.sub)}</span></span>
       </button>`).join('');
   }
   function renderReader() {
+    if (!BR_BY[reader.b]) return;
     const b = BR_BY[reader.b], V = viewCount(b), sp = spreadMode();
     reader.v = Math.max(0, Math.min(reader.v, V - 1));
     const [l, r] = pagesOf(reader.v);
@@ -2237,7 +2600,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     pdVar = i === pdVar ? -1 : i;
     const v = p.vs[pdVar];
     $$('[data-pd-var]').forEach(r => r.setAttribute('aria-selected', +r.dataset.pdVar === pdVar ? 'true' : 'false'));
-    $('[data-pd-weight]').textContent = v ? (v.weight ? gfmt(v.weight) : 'Weighed at the counter') : (p.weight || 'Weighed at the counter');
+    $('[data-pd-weight]').textContent = v ? (v.weight ? gfmt(v.weight) : 'Weighed at the counter') : (pWeight(p) || 'Weighed at the counter');
     $('[data-pd-gold]').textContent = v ? [v.purity ? v.purity + ' gold' : '', colourName(v.color)].filter(Boolean).join(' · ') : p.gold;
     $('[data-pd-ref]').textContent = [p.ref, v && v.code].filter(Boolean).join(' · ');
     setPdHook(v ? [v.hook] : p.vs.map(x => x.hook));
@@ -2267,7 +2630,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     $('[data-pd-mat]').textContent = p.made.join(' · ');
     $('[data-pd-mat]').hidden = $('[data-pd-mat-dt]').hidden = !p.made.length;
     $('[data-pd-gold]').textContent = p.gold || 'Yellow 916 gold; ask about two-tone and tri-tone';
-    $('[data-pd-weight]').textContent = p.weight || 'Weighed at the counter';
+    $('[data-pd-weight]').textContent = pWeight(p) || 'Weighed at the counter';
     $('[data-pd-ref]').textContent = p.src === 'cat' && p.vs.length === 1 && p.vs[0].code && p.vs[0].code !== p.ref ? `${p.ref} · ${p.vs[0].code}` : p.ref;
     setPdHook(p.vs.map(x => x.hook));
     renderPdVars(p);
@@ -2335,6 +2698,9 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     $('[data-pcar]').setAttribute('aria-label', unstar(g.title));
     $('[data-pcar]').innerHTML = g.ids.filter(id => BY_ID[id]).map(id => ptile(BY_ID[id])).join('');
     $('[data-pcar]').scrollLeft = 0;
+    const all = $('[data-pcar-all]');
+    all.parentElement.hidden = !g.more;
+    if (g.more) { all.href = g.more; all.setAttribute('aria-label', `See all ${unstar(g.title)} pieces`); }
     $$('[data-pcar-tab]').forEach((b, j) => { b.setAttribute('aria-selected', j === k ? 'true' : 'false'); b.tabIndex = j === k ? 0 : -1; });
     requestAnimationFrame(syncPcar);
     syncSaved();
@@ -2344,7 +2710,9 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     const m = ANN[annI]; const box = $('[data-announce-msg]');
     $('[data-announce]').classList.toggle('is-single', ANN.length < 2);
     if (!m) { box.innerHTML = '<span>Beads and pipes in 916 gold</span>'; return; }
-    box.innerHTML = m.link ? `<a ${linkAttr(m.link, 'Hello Yi Xing, ')}><span>${esc(m.text)}</span>${m.link_label ? `<span class="announce__cta">${esc(m.link_label)}</span>` : ''}</a>` : `<span>${esc(m.text)}</span>`;
+    // a link to a brochure that is switched off leaves the message as plain words
+    const dead = /^#brochure-/.test(String(m.link || '').trim()) && !resolve(String(m.link).trim().slice(1));
+    box.innerHTML = m.link && !dead ? `<a ${linkAttr(m.link, 'Hello Yi Xing, ')}><span>${esc(m.text)}</span>${m.link_label ? `<span class="announce__cta">${esc(m.link_label)}</span>` : ''}</a>` : `<span>${esc(m.text)}</span>`;
     if (dir) { box.classList.remove('is-in'); void box.offsetWidth; box.classList.add('is-in'); }
   }
   function stepAnnounce(d) { if (ANN.length < 2) return; annI = (annI + d + ANN.length) % ANN.length; renderAnnounce(d); }
@@ -2358,7 +2726,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
       <button class="icon-btn card__save" type="button" data-save="${esc(p.id)}" aria-pressed="false" aria-label="Save ${esc(p.name)}">${icon('i-heart')}</button>
       <h3 class="ptile__name"><button type="button" data-open-product="${esc(p.id)}">${esc(p.name)}</button></h3>
       <p class="ptile__kind">${esc(kindLine(p))}</p>
-      <p class="ptile__price">${esc([p.weight, p.price || 'Priced by weight'].filter(Boolean).join(' · '))}</p>
+      <p class="ptile__price">${esc([pWeight(p), p.price || 'Priced by weight'].filter(Boolean).join(' · '))}</p>
     </article>`;
   function syncPcar() {
     const t = $('[data-pcar]'), max = t.scrollWidth - t.clientWidth;
@@ -2391,10 +2759,6 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
 
     renderProductParts();
 
-    const promos = LIVE.flatMap(c => vals(c.promos).filter(x => x && x.image).slice(0, 3));
-    $('[data-promos]').hidden = !promos.length;
-    $('[data-promos]').innerHTML = promos.map(x => `<a class="promo" ${linkAttr(x.link)}><span class="promo__media"><img src="${esc(media(x.image))}" alt="" loading="lazy"></span><span class="promo__title">${emph(x.title)}</span>${x.link_label ? `<span class="ulink">${esc(x.link_label)}</span>` : ''}</a>`).join('');
-
     // one editorial feature per live campaign that has one; the latest story when none does
     const feats = LIVE.map(c => c.editorial || {}).filter(e => e && (e.story || e.title || e.text || e.image));
     $$('[data-edsplit-extra]').forEach(el => el.remove());
@@ -2421,8 +2785,14 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   function renderProductParts() {
     const H = HOME || {};
     const camp = LIVE.map(c => { const pc = c.products || {}; return { title: pc.title || unstar(c.title) || 'Featured pieces', ids: uniq(vals(pc.items).map(refId).map(findId)) }; }).filter(g => g.ids.length);
-    const latest = CAT_PRODUCTS.slice().sort((a, b) => (b.hl.includes('new') - a.hl.includes('new')) || b.date.localeCompare(a.date)).slice(0, 12).map(x => x.id);
-    PCAR = camp.concat(latest.length >= 4 ? [{ title: 'Latest pieces', ids: latest }] : []);
+    // the sheet's Promotion / New arrival / Best Selling marks; until anything is marked New arrival, the newest listings
+    const byDate = (a, b) => b.date.localeCompare(a.date);
+    const marks = HL.map(([k, title, route]) => {
+      let list = CAT_PRODUCTS.filter(p => p.hl.includes(k)).sort(byDate);
+      if (!list.length && k === 'new') list = CAT_PRODUCTS.slice().sort(byDate);
+      return { title, ids: list.slice(0, 12).map(x => x.id), more: '#' + route };
+    }).filter(g => g.ids.length);
+    PCAR = camp.concat(marks);
     if (!PCAR.length) PCAR = [{ title: 'Featured pieces', ids: PRODUCTS.slice(0, 10).map(x => x.id) }];
     const tabs = $('[data-pcar-tabs]');
     tabs.hidden = PCAR.length < 2;
@@ -2431,10 +2801,14 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     $('[data-pcar]').closest('section').hidden = !PCAR[0].ids.length;
     showPcar(0);
 
-    // tiles: the collections shown on the home page, then a tile per category
+    // Shop by collection: a cover per collection on the home page (up to six), under the carousel
+    const homeCols = liveCols().filter(c => c.show_on_home !== false && c.show_on_home !== 'false').slice(0, 6);
+    $('[data-colhome]').hidden = !homeCols.length;
+    $('[data-colhome-title]').textContent = H.colhome_title || 'Shop by collection';
+    $('[data-colhome-grid]').innerHTML = homeCols.map(c => { const pic = colCover(c); return `<a class="colhome__tile" href="#collection-${esc(c.id)}"><span class="colhome__media${pic.photo ? ' is-photo' : ''}">${pic.src ? `<img src="${esc(pic.src)}" alt="" loading="lazy">` : ''}</span><span class="colhome__name">${cjk(c.name)}</span><span class="ulink">Shop now</span></a>`; }).join('');
+    // Shop by category: a tile per product type
     const firstOf = f => (PRODUCTS.find(f) || {}).id || '';
-    const tiles = liveCols().filter(c => c.show_on_home !== false).map(c => ({ href: '#collection-' + c.id, name: c.name, pic: c.image ? media(c.image) : img(firstOf(x => x.cols.includes(c.id))) }))
-      .concat(TYPES.map(t => ({ href: '#type-' + t.id, name: t.label, pic: img(firstOf(x => typeId(x.type) === t.id && (x.thumb || x.images.length))) || img(firstOf(x => typeId(x.type) === t.id)) })));
+    const tiles = TYPES.map(t => ({ href: '#type-' + t.id, name: t.label, pic: img(firstOf(x => typeId(x.type) === t.id && (x.thumb || x.images.length))) || img(firstOf(x => typeId(x.type) === t.id)) }));
     $('[data-cats-title]').textContent = H.collections_title || 'Shop by category';
     $('[data-cats]').closest('section').hidden = !tiles.length;
     $('[data-cats]').classList.toggle('cats__grid--few', tiles.length % 6 !== 0);
@@ -2551,7 +2925,8 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     LIVE = forced ? [forced] : live.sort(byCampaign);
     CAMPAIGN = LIVE[0] || null;
     PREVIEWING = forced ? String(forced.title || forced.slug) : '';
-    const shown = vals(HOME.builtin_brochures).length ? vals(HOME.builtin_brochures) : BUILTIN_BROCHURES.map(b => b.id);
+    // the designed brochures switched on in the Studio (none switched on: none; never saved: all of them)
+    const shown = Array.isArray(HOME.builtin_brochures) ? HOME.builtin_brochures.map(String) : HOME.builtin_brochures && typeof HOME.builtin_brochures === 'object' ? vals(HOME.builtin_brochures).map(String) : BUILTIN_BROCHURES.map(b => b.id);
     BROCHURES = vals(d.brochures).filter(b => b && b.slug && b.show !== false).sort(byOrder).map(cmsBrochure).filter(b => b.pages.length > 2)
       .concat(BUILTIN_BROCHURES.filter(b => shown.includes(b.id)));
     BR_BY = Object.fromEntries(BROCHURES.map(b => [b.id, b]));
@@ -2559,7 +2934,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   }
 
   /* ---------- router ---------- */
-  const TITLES = { home: 'Yi Xing', editorial: 'Editorial · Yi Xing', 'e-brochure': 'e-Brochure · Yi Xing', about: 'About us · Yi Xing', stores: 'Visit us · Yi Xing', contact: 'Contact us · Yi Xing' };
+  const TITLES = { home: 'Yi Xing', collections: 'Collections · Yi Xing', editorial: 'Editorial · Yi Xing', 'e-brochure': 'e-Brochure · Yi Xing', about: 'About us · Yi Xing', stores: 'Visit us · Yi Xing', contact: 'Contact us · Yi Xing' };
   const NAV_KEY = { editorial: 'highlights', 'e-brochure': 'highlights', story: 'highlights' };
   // a hash names a page, a story (#story-slug) or the old #highlights; anything else is not a route
   function resolve(h) {
@@ -2568,8 +2943,11 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     if (h.startsWith('story-') && STORY_BY[h.slice(6)]) return { page: 'story', key: h, slug: h.slice(6) };
     let m;
     if ((m = /^brochure-(.+?)(?:--(.+))?$/.exec(h)) && BR_BY[m[1]]) return { page: 'e-brochure', key: 'e-brochure', brochure: m[1], at: m[2], scroll: 'reader' };
-    if ((m = /^collection-(.+)$/.exec(h)) && (m[1] === 'all' || COLLECTIONS[m[1]])) return { page: 'e-brochure', key: 'e-brochure', collection: m[1] === 'all' || colHasPieces(m[1]) ? m[1] : 'all', scroll: 'shop' };
-    if ((m = /^type-(.+)$/.exec(h)) && TYPE_BY[m[1]]) return { page: 'e-brochure', key: 'e-brochure', type: m[1], scroll: 'shop' };
+    // the Collections page: every piece (#collection-all), one collection, one category, or a highlight of the sheet
+    if (h === 'collections' || h === 'shop') return { page: 'collections', key: 'collection-all', collection: 'all' };
+    if ((m = /^collection-(.+)$/.exec(h)) && (m[1] === 'all' || COLLECTIONS[m[1]])) return { page: 'collections', key: h, collection: m[1] };
+    if ((m = /^type-(.+)$/.exec(h)) && TYPE_BY[m[1]]) return { page: 'collections', key: h, type: m[1] };
+    if (HL_ROUTE[h]) return { page: 'collections', key: h, hl: HL_ROUTE[h] };
     if ((m = /^enquiry-(.+)$/.exec(h)) && TYPE_LABEL[m[1]]) return { page: 'contact', key: 'contact', enquiry: m[1], scroll: 'enquiry' };
     if (h === 'faq') return { page: 'contact', key: 'contact', scroll: 'faq' };
     if ((m = /^product-(.+)$/.exec(h)) && findId(m[1])) { const cur = current && !/^product-/.test(current) ? resolve(current) : null; return Object.assign({}, cur || { page: 'home', key: 'home' }, { product: findId(m[1]), scroll: null }); }
@@ -2583,9 +2961,14 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     current = r.key;
     document.body.dataset.route = route;
     if (r.brochure) openBrochure(r.brochure, r.at);
-    if (r.collection) shopTo({ col: r.collection, type: 'all', q: '' });
-    if (r.type) shopTo({ type: r.type, col: 'all', q: '' });
-    if (r.collection || r.type) { const q = $('[data-shop-q]'); if (q) q.value = ''; }
+    // arriving at a collection, a category or a highlight starts from its own pieces (a product opened on top keeps the filters)
+    if (changed && (r.collection || r.type || r.hl)) {
+      resetF();
+      if (r.collection && r.collection !== 'all') F.col.add(r.collection);
+      if (r.type) F.type.add(r.type);
+      shopTo(Object.assign({ hl: r.hl || '', q: '' }, r.hl ? { sort: 'new' } : {}));
+      const q = $('[data-shop-q]'); if (q) q.value = '';
+    }
     if (r.enquiry) { freshForm(); setType(r.enquiry); }
     if (r.scroll) pendingScroll = pendingScroll || r.scroll;
     if (route === 'story' && changed) renderStory(r.slug);
@@ -2594,12 +2977,13 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
       p.hidden = !on;
       if (on && changed && !firstShow) { p.classList.remove('is-entering'); void p.offsetWidth; p.classList.add('is-entering'); }
     });
-    const navKey = r.collection || r.type ? 'collections' : NAV_KEY[route] || route, subKey = r.collection || r.type ? '' : route === 'story' ? 'editorial' : route;
+    const navKey = NAV_KEY[route] || route, subKey = route === 'story' ? 'editorial' : route;
     $$('[data-route-link]').forEach(a => { if (a.dataset.routeLink === navKey) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     $$('[data-sub-link]').forEach(a => { if (a.dataset.subLink === subKey) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
-    document.title = route === 'story' ? `${plain(STORY_BY[r.slug].title)} · Yi Xing` : TITLES[route];
+    document.title = route === 'story' ? `${plain(STORY_BY[r.slug].title)} · Yi Xing` : route === 'collections' ? `${plain(shopHead().title)} · Yi Xing` : TITLES[route];
     if (route === 'e-brochure') renderReader();
-    closeMenu(); closeDrawer(); if (!r.product) closeProduct();
+    if (route === 'collections' && changed) requestAnimationFrame(centreColrow);
+    closeMenu(); closeDrawer(); closeFilters(); if (!r.product) closeProduct();
     const target = pendingScroll && document.getElementById(pendingScroll);
     pendingScroll = null;
     if (target) requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
@@ -2625,8 +3009,15 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     const op = t.closest('[data-open-product]'); if (op) { openProduct(op.dataset.openProduct); return; }
     if (t.closest('[data-pdialog-close]')) { closeProduct(); return; }
 
-    const cat = t.closest('[data-cat]'); if (cat) { shopTo({ col: cat.dataset.cat }); return; }
-    const typ = t.closest('[data-shop-type]'); if (typ) { shopTo({ type: typ.dataset.shopType }); return; }
+    if (t.closest('[data-filters-open]')) { openFilters(); return; }
+    if (t.closest('[data-filters-close]')) { closeFilters(); return; }
+    if (t.closest('[data-filters-clear]')) { clearFilters(); return; }
+    const pill = t.closest('[data-pill]');
+    if (pill) {
+      const k = pill.dataset.pill, v = pill.dataset.v;
+      if (k === 'hl') shop.hl = ''; else if (k === 'w') F.wmin = F.wmax = null; else if (k === 'l') F.lmin = F.lmax = null; else if (F[k]) F[k].delete(v);
+      shopTo({}); return;
+    }
     if (t.closest('[data-shop-more]')) { shop.n += PAGE; renderShop(); return; }
     if (t.closest('[data-cat-retry]')) { loadCatalogue(true); return; }
     const pv = t.closest('[data-pd-var]'); if (pv) { pickPdVar(+pv.dataset.pdVar); return; }
@@ -2665,7 +3056,6 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     const rr = resolve(hash);
     if (!rr) return;
     const route = rr.page;
-    if (route === 'e-brochure' && a.dataset.scroll === 'shop') shopTo({ col: a.dataset.collection || 'all' });
     if (a.dataset.brochure) openBrochure(a.dataset.brochure, a.dataset.brochureAt);
     if (route === 'contact') freshForm();
     if (a.dataset.enquiry) setType(a.dataset.enquiry);
@@ -2684,7 +3074,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   function closeMenu() { if (menu.hidden) return; menu.hidden = true; $('[data-menu-open]').setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; if (menuReturn && menuReturn.focus) menuReturn.focus(); }
   function openDrawer() { drawerReturn = document.activeElement; syncSaved(); drawer.hidden = false; document.body.style.overflow = 'hidden'; $('.drawer__head [data-drawer-close]').focus(); }
   function closeDrawer() { if (drawer.hidden) return; drawer.hidden = true; document.body.style.overflow = ''; if (drawerReturn && drawerReturn.focus) drawerReturn.focus(); }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); closeDrawer(); } });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeMenu(); closeDrawer(); closeFilters(); } });
 
   /* ---------- header + hero film ---------- */
   const header = $('.site-header');
