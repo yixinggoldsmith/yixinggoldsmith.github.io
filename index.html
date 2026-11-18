@@ -1925,7 +1925,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   }
   // does piece p pass every filter but `skip` (the counts beside each choice leave out their own group), with a variant matching `want`?
   function passes(p, skip, want) {
-    if (shop.hl && hlMarked(shop.hl) && !p.hl.includes(shop.hl)) return false;
+    if (shop.hl && (shop.hl !== 'new' || hlMarked('new')) && !p.hl.includes(shop.hl)) return false;
     if (QW.length && !QW.every(w => p.hay.includes(w) || p.hay.replace(/[^a-z0-9]/g, '').includes(w.replace(/[^a-z0-9]/g, '') || '\u0000'))) return false;
     if (skip !== 'col' && F.col.size && !p.cols.some(c => F.col.has(c))) return false;
     if (skip !== 'type' && F.type.size && !F.type.has(typeId(p.type))) return false;
