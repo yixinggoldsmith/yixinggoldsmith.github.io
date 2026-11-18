@@ -11,8 +11,8 @@ layout: null
 <meta name="description" content="Yi Xing: beads and pipes in 916 gold, strung into thirteen designs. Boutiques in Malaysia and Singapore.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..500&family=Jost:wght@300;400;500&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&display=swap&text=%E9%87%91%E7%8F%A0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;1,6..72,300&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400&display=swap">
 <style>
 /* Layout: a quiet white gallery. One full-bleed teal moment (the hero film) and a teal footer bracket
    generous white space; every piece sits on the brand teal; the bead codes (B01, P01) and the 916 hallmark are the recurring detail. */
@@ -70,26 +70,6 @@ layout: null
   --section: clamp(72px, 9vw, 140px);
   --maxw: 1320px;
   --header-h: 118px;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #0B1314; --stone: #141F21; --stone-2: #1C2A2C; --ink: #ECE8DF; --muted: #9DABAA;
-    --line: #23393B; --line-strong: #3D5557; --teal: #2C8C95; --teal-deep: #072B2F; --amber: #FDB12E;
-    --gold-ink: #F2B54A; --accent-text: #7CCAD0; --btn-bg: #ECE8DF; --btn-fg: #0B1314; --btn-hover: #FFFFFF;
-    --pg-paper: #E9E5DC; --pg-line: #D3CEC3; --focus: #7CCAD0; --logo-teal: #5CB8BF; --logo-amber: #FDB12E; --dot-home: #5CB8BF; --dot-near: #233436;
-    --pin: #FDB12E; --pin-ring: #0B1314; --ok: #6CC08F; --closed: #E39A86; --error: #F08C7A;
-    --shadow: 0 30px 80px -40px rgba(0, 0, 0, .7);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #0B1314; --stone: #141F21; --stone-2: #1C2A2C; --ink: #ECE8DF; --muted: #9DABAA;
-  --line: #23393B; --line-strong: #3D5557; --teal: #2C8C95; --teal-deep: #072B2F; --amber: #FDB12E;
-  --gold-ink: #F2B54A; --accent-text: #7CCAD0; --btn-bg: #ECE8DF; --btn-fg: #0B1314; --btn-hover: #FFFFFF;
-  --pg-paper: #E9E5DC; --pg-line: #D3CEC3; --focus: #7CCAD0; --logo-teal: #5CB8BF; --logo-amber: #FDB12E; --dot-home: #5CB8BF; --dot-near: #233436;
-  --pin: #FDB12E; --pin-ring: #0B1314; --ok: #6CC08F; --closed: #E39A86; --error: #F08C7A;
-  --shadow: 0 30px 80px -40px rgba(0, 0, 0, .7);
-  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -1105,6 +1085,270 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
+
+/* ======================================================================================================
+   Look and feel (18 Nov 2026), after tiffany.my: white and a warm off-white, black type, a light serif
+   for headings, small spaced capitals for links and buttons, product photos on a soft warm grey, and a
+   phone-first layout. This layer restyles the rules above; it is the one to edit for the look.
+   ====================================================================================================== */
+:root {
+  --paper: #FFFFFF; --stone: #F7F5F2; --stone-2: #EEEAE4; --ink: #000000; --text: #454545; --muted: #767676;
+  --line: #E7E4DF; --line-strong: #C9C5BE; --accent-text: #026873; --focus: #026873;
+  --btn-bg: #000000; --btn-fg: #FFFFFF; --btn-hover: #333333;
+  --media-bg: #F3F1ED; --tile: #F3F1ED;
+  --band: #AEDCDC; --band-ink: #000000; --band-muted: rgba(0, 0, 0, .62); --band-line: rgba(0, 0, 0, .14); --band-scrim: rgba(0, 0, 0, .3);
+  --font-display: "Newsreader", "Noto Serif SC", "Songti SC", Georgia, "Times New Roman", serif;
+  --font-text: "Jost", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  --fs-hero: clamp(2.5rem, 2rem + 2.4vw, 4.25rem);
+  --fs-h1: clamp(2rem, 1.62rem + 1.6vw, 3.25rem);
+  --fs-h2: clamp(1.5rem, 1.3rem + 1vw, 2.25rem);
+  --fs-lede: 1rem;
+  --fs-micro: .6875rem;
+  --track: .1em;
+  --gutter: clamp(16px, 3.6vw, 48px);
+  --section: clamp(56px, 7vw, 112px);
+  --shadow: 0 24px 60px -30px rgba(0, 0, 0, .28);
+  color-scheme: light;
+}
+body { color: var(--text); line-height: 1.6; }
+h1, h2, h3, h4 { color: var(--ink); }
+
+/* type: a light serif with tight tracking for headings, small capitals with air for labels */
+.h1, .h2, .statement, .hero__title, .story-card__title, .drawer__head h2, .pdialog__info h2, .footer h2, .faq summary, .visit-grid h3,
+.xp h3, .colhome__name, .shelf__name, .story__h, .story__quote p, .principle h3, .step h3, .channel__value, .reader__title,
+.pcar__title, .edsplit__text .h2, .appt__text .h2, .mark-band .h2 { font-weight: 300; }
+.h1, .h2, .statement, .hero__title { letter-spacing: -.03em; color: var(--ink); }
+.h1 { font-size: var(--fs-h1); line-height: 1.1; }
+.h2 { font-size: var(--fs-h2); line-height: 1.18; }
+.h1 em, .h2 em, .statement em, .hero__title em, .edsplit__text .h2 em, .appt__text .h2 em, .story-card__title em { font-style: italic; color: inherit; }
+.eyebrow { gap: 0; margin-bottom: .75rem; font: 500 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .1em; color: var(--muted); }
+.eyebrow::before { display: none; }
+.lede { color: var(--text); line-height: 1.65; }
+.body-copy { color: var(--text); }
+.label { font-size: var(--fs-micro); letter-spacing: .1em; }
+
+/* buttons and links: black, square, 11px capitals */
+.btn { min-height: 46px; padding: 0 1.6rem; font: 600 var(--fs-micro)/1 var(--font-text); letter-spacing: .1em; }
+.btn--solid { background: #000000; color: #FFFFFF; }
+.btn--solid:hover { background: #333333; }
+.btn--line { border-color: #000000; color: #000000; }
+.btn--line:hover { background: #000000; color: #FFFFFF; }
+.btn--band { background: #000000; color: #FFFFFF; }
+.btn--band:hover { background: #333333; }
+.btn--band-line { border-color: #000000; color: #000000; }
+.ulink { font: 600 var(--fs-micro)/1.2 var(--font-text); letter-spacing: .1em; padding-bottom: 4px; border-bottom: 1px solid currentColor; color: var(--ink); }
+.ulink:hover, a:hover > .ulink { border-bottom-color: transparent; }
+button.ulink { border-bottom: 1px solid currentColor; padding: 0 0 4px; }
+.link-arrow { font: 600 var(--fs-micro)/1 var(--font-text); letter-spacing: .1em; color: var(--ink); }
+.chip-btn, .chip span { font-size: .8125rem; border-color: var(--line-strong); }
+.chip-btn[aria-pressed="true"], .chip input:checked + span { background: #000000; border-color: #000000; color: #FFFFFF; }
+.hallmark { color: var(--muted); }
+
+/* announcement bar: the brand teal, light, as Tiffany's blue */
+.announce { background: var(--band); color: #000000; font-size: .8125rem; letter-spacing: .01em; }
+.announce a, .announce__arrow { color: #000000; }
+.announce__msg { min-height: 2.75em; }
+
+/* header */
+.site-header { border-bottom: 1px solid var(--line); }
+.header__bar { min-height: 68px; }
+.site-header.is-scrolled .header__bar { min-height: 60px; }
+.util-link { font: 500 var(--fs-micro)/1 var(--font-text); letter-spacing: .1em; }
+.util-link:hover { color: inherit; opacity: .65; }
+.util-link::after { height: 1px; background: currentColor; }
+.nav { column-gap: clamp(1.8rem, 3.6vw, 3.4rem); }
+.nav a { font: 500 .75rem/1 var(--font-text); letter-spacing: .1em; padding: .45rem 0 1rem; }
+.nav a::after { height: 1px; bottom: .6rem; background: currentColor; }
+.nav a[aria-current="page"]::after { background: currentColor; }
+body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-within) .nav a[aria-current="page"]::after { background: currentColor; }
+.nav__menu { border-color: var(--line); box-shadow: 0 18px 40px -26px rgba(0, 0, 0, .3); }
+.nav .nav__menu a { font: 300 1.08rem/1.25 var(--font-display); }
+.icon-btn .icon { width: 22px; height: 22px; stroke-width: 1.3; }
+.hdr-search--m { display: none; }
+@media (max-width: 899px) {
+  .header__bar, .site-header.is-scrolled .header__bar { min-height: 56px; }
+  .logo, .site-header.is-scrolled .logo { height: 22px; }
+  .header__left, .header__right { gap: 0; }
+  .icon-btn { min-width: 40px; }
+  .hdr-search--m { display: inline-flex; }
+  .hdr-search--d { display: none; }
+}
+
+/* phone menu: plain rows, as a list */
+.mmenu__top { min-height: 56px; border-bottom: 1px solid var(--line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); }
+.mmenu__top .logo { height: 22px; }
+.mmenu nav { margin-top: .5rem; }
+.mmenu nav a { padding: 1rem 0; border-bottom: 1px solid var(--line); font: 400 1rem/1.4 var(--font-text); letter-spacing: 0; color: var(--ink); }
+.mmenu nav a[aria-current="page"] { color: var(--ink); font-weight: 500; }
+.mmenu nav a.mmenu__parent { padding-bottom: .35rem; font-weight: 500; }
+.mmenu__sub { display: grid; gap: 0; padding: 0 0 .7rem; }
+.mmenu nav .mmenu__sub a { padding: .55rem 0; font: 400 .9375rem/1.4 var(--font-text); letter-spacing: 0; text-transform: none; color: var(--text); }
+.mmenu__sub .mmenu__label { padding: .8rem 0 .2rem; font: 600 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .1em; color: var(--muted); }
+.mmenu__foot { color: var(--text); font-size: .875rem; }
+.mmenu__foot a { font: 400 1rem/1.4 var(--font-text); }
+
+/* banner */
+.hero { background: #D9D5CF; }
+.hero::before { background: linear-gradient(180deg, rgba(0, 0, 0, .32) 0%, rgba(0, 0, 0, 0) 24%), linear-gradient(0deg, rgba(0, 0, 0, .42) 0%, rgba(0, 0, 0, 0) 46%); }
+.hero__title { font-size: var(--fs-hero); line-height: 1.08; letter-spacing: -.035em; color: inherit; }
+.hero__sub { font-size: 1rem; }
+.btn--hero { min-height: 44px; padding: 0 1.4rem; }
+.hero__toggle { width: 36px; height: 36px; border: 0; background: rgba(0, 0, 0, .25); color: #FFFFFF; }
+@media (max-width: 699px) {
+  .hero { height: calc(100svh - 42px); min-height: 520px; max-height: 880px; }
+  .hero__content { bottom: 56px; }
+}
+
+/* product carousel: small capital tabs; on phones one piece in the middle with its neighbours peeking */
+.pcar { padding-block: clamp(48px, 6vw, 96px) clamp(40px, 5vw, 80px); }
+.pcar__title { font-size: var(--fs-h2); margin-bottom: 1rem; }
+.pcar__tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; gap: 1.8rem; margin-bottom: clamp(1.6rem, 3vw, 2.6rem); }
+.pcar__tabs::-webkit-scrollbar { display: none; }
+.pcar__tab { flex: none; padding: .55rem 0; font: 500 var(--fs-micro)/1 var(--font-text); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.pcar__tab::after { height: 1px; background: #000000; }
+.ptile { gap: .2rem; }
+.ptile__media { order: -2; aspect-ratio: 1; background: var(--tile); margin-bottom: .85rem; }
+.ptile__media.is-photo { background: var(--tile); }
+.ptile__media.is-photo img, .card__media.is-photo img, .cat__media.is-photo img, .colrow__media.is-photo img, .colhome__media.is-photo img, .pdialog__media.is-photo img { mix-blend-mode: multiply; object-fit: contain; }
+.ptile__media.is-photo img, .card__media.is-photo img { padding: 7%; }
+/* the website-only pieces' photos (on white too) sit on the same soft grey */
+.card:not(.card--extra) .card__media img, .ptile__media img { mix-blend-mode: multiply; }
+.ptile__kind { order: -1; font: 300 .9375rem/1.3 var(--font-display); color: var(--ink); }
+.ptile__name { font: 400 .9375rem/1.45 var(--font-text); color: var(--text); }
+.ptile__price { font-size: .8125rem; color: var(--text); }
+.pcar__nav button { width: 36px; height: 36px; }
+@media (max-width: 599px) {
+  .pcar__tabs { justify-content: flex-start; margin-inline: calc(-1 * max(16px, var(--gutter))); padding-inline: max(16px, var(--gutter)); }
+  .pcar__track { --gap: 0px; grid-auto-columns: 54vw; margin-inline: calc(-1 * max(16px, var(--gutter))); padding-inline: 23vw; scroll-padding-inline: 23vw; }
+  .ptile { scroll-snap-align: center; padding-inline: 8px; }
+  .pcar__nav button { display: none; }
+}
+
+/* product cards on the Collections page and in stories */
+.grid { gap: clamp(32px, 3.4vw, 48px) clamp(10px, 1.6vw, 24px); }
+.card { gap: .75rem; }
+.card__media, .card__media.is-photo { aspect-ratio: 1; background: var(--tile); }
+.card__body { justify-items: center; text-align: center; gap: .15rem; }
+.card__body .hallmark { display: none; }
+.card__col { font: 300 .9375rem/1.3 var(--font-display); color: var(--ink); }
+.card__name { margin: 0; font: 400 .9375rem/1.45 var(--font-text); letter-spacing: 0; text-transform: none; color: var(--text); }
+.card__meta { font-size: .8125rem; color: var(--muted); }
+.card__price { font-size: .8125rem; color: var(--text); }
+.card__badge { top: 10px; left: 10px; padding: 0; background: transparent; font: 600 .625rem/1 var(--font-text); letter-spacing: .1em; color: var(--ink); }
+.card__save { color: var(--ink); }
+.card__save[aria-pressed="true"] .icon, .save-btn[aria-pressed="true"] .icon { fill: #000000; stroke: #000000; }
+.card--extra .card__body { justify-items: center; text-align: center; }
+.card--extra .card__name { font: 300 1.15rem/1.25 var(--font-display); color: var(--ink); }
+
+/* home: Shop by collection, Shop by category, editorial, appointment, services */
+.colhome__name { font-size: clamp(1.15rem, 1rem + .6vw, 1.5rem); }
+.colhome__media { background: var(--tile); }
+.cats__grid { gap: clamp(24px, 3vw, 40px) clamp(10px, 1.4vw, 20px); }
+.cat { gap: .9rem; }
+.cat__media, .cat__media.is-photo { background: var(--tile); }
+.cat__media.is-photo img { padding: 10%; }
+.cat .ulink { border-bottom: 0; padding-bottom: 0; }
+.edsplit__text .h2, .appt__text .h2 { font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.6rem); }
+.edsplit__text .body-copy, .appt__text .body-copy { color: var(--text); }
+.xp__icon { width: 36px; height: 36px; color: var(--ink); stroke-width: 1; margin-bottom: .2rem; }
+.xp h3 { font: 300 1.15rem/1.3 var(--font-display); }
+.xp p { color: var(--text); font-size: .875rem; }
+@media (max-width: 699px) {
+  .colhome__grid { flex-wrap: wrap; justify-content: flex-start; overflow: visible; margin-inline: 0; padding-inline: 0; gap: 28px 12px; --g: 12px; }
+  .colhome__tile { flex: 0 1 calc((100% - 12px) / 2); gap: .7rem; }
+  .colhome__tile .ulink { display: none; }
+  .cats__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cats__grid--few > * { flex-basis: calc((100% - clamp(10px, 1.4vw, 20px)) / 2); }
+  .exp__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; row-gap: 2.2rem; }
+  .edsplit__text, .appt__text { padding-inline: max(24px, env(safe-area-inset-left, 0px)); }
+}
+
+/* sub pages: a centred, compact head */
+.page-head { padding-block: clamp(36px, 6vw, 88px) clamp(24px, 3vw, 44px); grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: .9rem; }
+.page-head > div { display: grid; justify-items: center; }
+.page-head .lede { justify-self: center; max-width: 40rem; }
+.page-head .eyebrow { margin-bottom: .6rem; }
+.section-head { flex-direction: column; align-items: center; text-align: center; gap: 1rem; }
+.section-head > div { display: grid; justify-items: center; }
+.subnav { justify-content: center; gap: 2rem; }
+.subnav a { font: 500 var(--fs-micro)/1 var(--font-text); letter-spacing: .1em; }
+.subnav a[aria-current="page"] { border-bottom-color: #000000; border-bottom-width: 1px; }
+.cta-band__in { justify-content: center; text-align: center; align-items: center; flex-direction: column; }
+.cta-band__in > div { justify-items: center; }
+
+/* the Collections page */
+.colrow__all { background: var(--stone); color: var(--ink); }
+.colrow__all b { font-weight: 300; }
+.colrow__all small { color: var(--muted); }
+.colrow__media { background: var(--tile); }
+.colrow__item[aria-current="true"] .colrow__name { border-bottom-color: #000000; }
+.fbtn { min-height: 46px; border-color: #000000; font-weight: 600; letter-spacing: .1em; }
+.fbtn__n { background: #000000; color: #FFFFFF; }
+.pill { background: var(--stone); border-color: var(--line); }
+.fcheck input { accent-color: #000000; }
+.fpill { display: none; }
+@media (max-width: 599px) {
+  .toolbar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; padding-block: 12px; border-top: 0; }
+  .toolbar__right { display: contents; }
+  .fbtn { order: 1; justify-content: center; }
+  .toolbar .select { order: 2; justify-content: space-between; min-height: 46px; padding: 0 .9rem; border: 1px solid #000000; color: var(--ink); }
+  .toolbar .select select { border: 0; padding: 0 1.4rem 0 0; font-weight: 500; }
+  .toolbar .shop-search { order: 3; grid-column: 1 / -1; }
+  .result-count { order: 4; grid-column: 1 / -1; }
+  .fpill { position: fixed; z-index: 30; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 140%); display: inline-flex; align-items: center; gap: .6rem;
+    min-height: 44px; padding: 0 1.3rem; border: 0; border-radius: 999px; background: #000000; color: #FFFFFF; box-shadow: 0 10px 28px -10px rgba(0, 0, 0, .45);
+    font: 600 var(--fs-micro)/1 var(--font-text); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: transform .3s cubic-bezier(.2, .7, .2, 1); }
+  .fpill .icon { width: 16px; height: 16px; }
+  .fpill.is-on { transform: translate(-50%, 0); }
+  .fpill .fbtn__n { background: #FFFFFF; color: #000000; }
+}
+
+/* product window */
+.pdialog__media, .pdialog__media.is-photo { background: var(--tile); }
+.pdialog__info { align-content: start; }
+.pdialog__info h2 { letter-spacing: -.02em; }
+.pdialog__specs dt { letter-spacing: .1em; }
+@media (max-width: 759px) {
+  .pdialog__media { aspect-ratio: 1; min-height: 0; }
+  .pdialog__info { padding: 22px 16px 0; gap: 1rem; }
+  .pdialog__info .btn-row { position: sticky; bottom: 0; z-index: 2; width: calc(100% + 32px); margin: .5rem -16px 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--paper); border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+}
+
+/* footer: light, with its lists folding away on phones */
+.footer { background: var(--stone); color: var(--text); border-top: 1px solid var(--line); }
+.footer a { color: var(--ink); }
+.footer h2 { font: 300 1.6rem/1.2 var(--font-display); color: var(--ink); }
+.footer p { color: var(--text); font-size: .875rem; }
+.footer__talk a { font: 400 1rem/1.4 var(--font-text); }
+.footer__talk .icon { color: var(--ink); }
+.footer__col summary { list-style: none; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+.footer__col summary::-webkit-details-marker { display: none; }
+.footer__col h3 { margin-bottom: 1rem; color: var(--ink); font: 600 var(--fs-micro)/1.4 var(--font-text); letter-spacing: .1em; }
+.footer__col ul { font-size: .875rem; }
+.footer__bottom { border-top-color: var(--line); color: var(--muted); }
+.footer .logo { --lt: var(--logo-teal); --la: var(--logo-amber); height: 22px; }
+@media (min-width: 700px) { .footer__col summary { pointer-events: none; } }
+@media (max-width: 699px) {
+  .footer__top { grid-template-columns: minmax(0, 1fr); gap: 0; padding-block: 48px 8px; }
+  .footer__news { padding-bottom: 2rem; }
+  .footer__col { border-top: 1px solid var(--line); }
+  .footer__col summary { padding: 1.05rem 0; }
+  .footer__col summary h3 { margin: 0; }
+  .footer__col summary::after { content: ""; width: 10px; height: 10px; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); transform: translateY(-3px) rotate(45deg); transition: transform .25s; }
+  .footer__col[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+  .footer__col ul { padding-bottom: 1.2rem; }
+}
+
+/* contact, about, stories */
+.faq summary { font-size: 1.15rem; }
+.field label { letter-spacing: .1em; }
+.channel .icon { color: var(--ink); }
+.story-card__meta { letter-spacing: .1em; }
+.story-card__title { font-weight: 300; }
+.story-card__meta, .shelf__pages, .pd-vars__title { color: var(--muted); }
+.copy-btn { color: var(--ink); }
+.br-empty { justify-items: center; text-align: center; }
+.br-empty .lede { margin-inline: auto; }
 </style>
 
 <link rel="canonical" href="https://yixinggoldsmith.github.io/">
@@ -1179,6 +1423,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
       <button class="icon-btn menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu" data-menu-open>
         <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
       </button>
+      <button class="icon-btn hdr-search hdr-search--m" type="button" aria-label="Search the pieces" data-search-open><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>
       <a class="util-link" href="#stores" data-route-link="stores"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>Visit us</a>
       <a class="util-link" href="#contact" data-route-link="contact"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>Contact us</a>
       <a class="util-link" href="#about" data-route-link="about"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>About us</a>
@@ -1187,6 +1432,8 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
       <svg class="logo" viewBox="0 0 807 231" role="img" aria-hidden="true"><use href="#logo" width="807" height="231"/></svg>
     </a>
     <div class="header__right">
+      <button class="icon-btn hdr-search hdr-search--d" type="button" aria-label="Search the pieces" data-search-open><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>
+      <a class="icon-btn" href="#contact" data-enquiry="appointment" aria-label="Book an appointment"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg></a>
       <button class="icon-btn" type="button" data-drawer-open aria-haspopup="dialog" aria-label="Saved pieces">
         <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><span class="wish-count" data-wish-count>0</span>
       </button>
@@ -1373,6 +1620,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
       </div>
     </div>
     <div class="pills" data-pills hidden></div>
+    <button class="fpill" type="button" data-filters-open aria-haspopup="dialog" aria-controls="filters" tabindex="-1"><svg class="icon" aria-hidden="true"><use href="#i-filter"/></svg>Filter<span class="fbtn__n" data-filter-n2 hidden></span></button>
     <p class="shop-note" data-shop-note aria-live="polite"></p>
     <div class="grid" data-grid></div>
     <div class="shop-more"><button class="btn btn--line" type="button" data-shop-more hidden>Show more</button></div>
@@ -1586,32 +1834,32 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
         <a href="mailto:support@yixinggoldsmith.com"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>support@yixinggoldsmith.com</a>
       </div>
     </div>
-    <div class="footer__col">
-      <h3>Client care</h3>
+    <details class="footer__col" open>
+      <summary><h3>Client care</h3></summary>
       <ul>
         <li><a href="#contact">Contact us</a></li>
         <li><a href="#contact" data-enquiry="appointment">Book an appointment</a></li>
         <li><a href="#contact" data-scroll="faq">Frequently asked</a></li>
         <li><a href="#contact" data-enquiry="tradein">Gold trade-in</a></li>
       </ul>
-    </div>
-    <div class="footer__col">
-      <h3>The house</h3>
+    </details>
+    <details class="footer__col" open>
+      <summary><h3>The house</h3></summary>
       <ul>
         <li><a href="#about">About us</a></li>
         <li><a href="#editorial">Editorial</a></li>
         <li data-br-link><a href="#e-brochure">e-Brochure</a></li>
         <li><a href="#story-alphabet">The bead library</a></li>
       </ul>
-    </div>
-    <div class="footer__col">
-      <h3>Visit us</h3>
+    </details>
+    <details class="footer__col" open>
+      <summary><h3>Visit us</h3></summary>
       <ul>
         <li><a href="#stores">Our boutiques</a></li>
         <li><a href="https://wa.me/60129969280" target="_blank" rel="noopener" data-wa="Hello Yi Xing, ">WhatsApp us</a></li>
         <li><a href="mailto:support@yixinggoldsmith.com">Email us</a></li>
       </ul>
-    </div>
+    </details>
   </div>
   <div class="wrap footer__bottom">
     <svg class="logo" viewBox="0 0 807 231" role="img" aria-label="Yi Xing"><use href="#logo" width="807" height="231"/></svg>
@@ -1867,7 +2115,9 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   /* ---------- design cards ---------- */
   const altOf = p => p.src === 'cat' ? `${p.name}, ${p.type || 'piece'} in ${p.hall} gold, ref. ${p.ref}` : `${p.id} ${p.name} ${p.kind || 'bracelet'}: ${p.made.join(', ')}`;
   const colourWords = p => { const c = p.colours.map(x => (COLOUR[x] || x).toLowerCase()).join(' or '); return c.charAt(0).toUpperCase() + c.slice(1); };
-  const cardMeta = p => p.src === 'cat' ? [p.named ? p.type : '', colourWords(p), pWeight(p)].filter(Boolean).join(' · ') : p.made.join(' · ');
+  const cardMeta = p => [p.src === 'cat' ? colourWords(p) : '', pWeight(p)].filter(Boolean).join(' · ') || p.made.join(' · ');
+  // the line above a piece's name: its collection, else (for a named catalogue piece) its type
+  const colLine = p => { const c = COLLECTIONS[p.cols[0]]; return c ? c.name : p.src === 'cat' && p.named ? p.type : ''; };
   // the catalogue sheet's Promotion / New arrival / Best Selling Status columns (and their links on this site)
   const HL = [['promo', 'Promotion', 'promotion'], ['new', 'New arrival', 'new-arrival'], ['best', 'Best Selling', 'best-selling']];
   const HL_LABEL = Object.fromEntries(HL.map(([k, t]) => [k, t]));
@@ -1881,10 +2131,9 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
       </button>${badge ? `<span class="card__badge">${badge}</span>` : ''}
       <button class="icon-btn card__save" type="button" data-save="${esc(p.id)}" aria-pressed="false" aria-label="Save ${esc(p.name)}">${icon('i-heart')}</button>
       <div class="card__body">
-        <span class="hallmark">${esc(p.hall || '916')}</span>
+        ${colLine(p) ? `<p class="card__col">${cjk(colLine(p))}</p>` : ''}
         <h3 class="card__name"><button type="button" data-open-product="${esc(p.id)}">${esc(p.name)}</button></h3>
         <p class="card__meta">${esc(cardMeta(p))}</p>
-        <p class="card__price">${p.named ? `Ref. ${esc(p.ref)}` : esc(p.price || 'Priced by weight')}</p>
       </div>
     </article>`;
   }
@@ -2012,8 +2261,8 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     $('[data-shop-lede]').textContent = head.lede;
     if (current && /^(collection|type)-|^(promotion|new-arrival|best-selling)$/.test(current)) document.title = `${plain(head.title)} · Yi Xing`;
     renderColrow(); renderPills(head);
-    const n = nActive(), badge = $('[data-filter-n]');
-    badge.hidden = !n; badge.textContent = n;
+    const n = nActive();
+    $$('[data-filter-n], [data-filter-n2]').forEach(b => { b.hidden = !n; b.textContent = n; });
     $('[data-filters-open]').setAttribute('aria-label', n ? `Filter, ${n} chosen` : 'Filter');
     $('[data-filters-show]').textContent = `Show ${all.length} ${all.length === 1 ? 'piece' : 'pieces'}`;
     $('[data-shop-sort]').value = shop.sort;
@@ -2725,7 +2974,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
       <button class="ptile__media${p.thumb ? ' is-photo' : ''}" type="button" data-open-product="${esc(p.id)}" aria-label="View ${esc(p.ref)} ${esc(p.name)}"><img src="${esc(img(p.id))}" alt="${esc(altOf(p))}" loading="lazy"></button>
       <button class="icon-btn card__save" type="button" data-save="${esc(p.id)}" aria-pressed="false" aria-label="Save ${esc(p.name)}">${icon('i-heart')}</button>
       <h3 class="ptile__name"><button type="button" data-open-product="${esc(p.id)}">${esc(p.name)}</button></h3>
-      <p class="ptile__kind">${esc(kindLine(p))}</p>
+      <p class="ptile__kind">${cjk(colLine(p) || kindLine(p))}</p>
       <p class="ptile__price">${esc([pWeight(p), p.price || 'Priced by weight'].filter(Boolean).join(' · '))}</p>
     </article>`;
   function syncPcar() {
@@ -2796,7 +3045,6 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     if (!PCAR.length) PCAR = [{ title: 'Featured pieces', ids: PRODUCTS.slice(0, 10).map(x => x.id) }];
     const tabs = $('[data-pcar-tabs]');
     tabs.hidden = PCAR.length < 2;
-    $('[data-pcar-title]').classList.toggle('visually-hidden', PCAR.length > 1);
     tabs.innerHTML = PCAR.length < 2 ? '' : PCAR.map((g, i) => `<button class="pcar__tab" type="button" role="tab" id="pcar-tab-${i}" aria-controls="pcar-track" data-pcar-tab="${i}">${emph(g.title)}</button>`).join('');
     $('[data-pcar]').closest('section').hidden = !PCAR[0].ids.length;
     showPcar(0);
@@ -2983,6 +3231,8 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     document.title = route === 'story' ? `${plain(STORY_BY[r.slug].title)} · Yi Xing` : route === 'collections' ? `${plain(shopHead().title)} · Yi Xing` : TITLES[route];
     if (route === 'e-brochure') renderReader();
     if (route === 'collections' && changed) requestAnimationFrame(centreColrow);
+    if (route === 'collections' && searchFocus) { searchFocus = false; requestAnimationFrame(() => { const q = $('[data-shop-q]'); q.focus({ preventScroll: true }); q.scrollIntoView({ block: 'center' }); }); }
+    syncFpill();
     closeMenu(); closeDrawer(); closeFilters(); if (!r.product) closeProduct();
     const target = pendingScroll && document.getElementById(pendingScroll);
     pendingScroll = null;
@@ -3009,6 +3259,7 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
     const op = t.closest('[data-open-product]'); if (op) { openProduct(op.dataset.openProduct); return; }
     if (t.closest('[data-pdialog-close]')) { closeProduct(); return; }
 
+    if (t.closest('[data-search-open]')) { openSearch(); return; }
     if (t.closest('[data-filters-open]')) { openFilters(); return; }
     if (t.closest('[data-filters-close]')) { closeFilters(); return; }
     if (t.closest('[data-filters-clear]')) { clearFilters(); return; }
@@ -3154,6 +3405,21 @@ button.ulink { background: none; border: 0; border-bottom: 1px solid var(--accen
   /* ---------- product carousel ---------- */
   $('[data-pcar]').addEventListener('scroll', syncPcar, { passive: true });
   window.addEventListener('resize', syncPcar);
+
+  /* ---------- search icon, footer folds, the floating Filter button ---------- */
+  let searchFocus = false;
+  function openSearch() {
+    searchFocus = true;
+    if (current && document.body.dataset.route === 'collections') { current = null; show(location.hash.slice(1) || 'collection-all'); return; }
+    if (location.hash === '#collection-all') { current = null; show('collection-all'); } else location.hash = '#collection-all';
+  }
+  const footMQ = window.matchMedia ? window.matchMedia('(max-width: 699px)') : { matches: false };
+  const syncFoot = () => $$('.footer__col').forEach(d => { d.open = !footMQ.matches; });
+  syncFoot();
+  if (footMQ.addEventListener) footMQ.addEventListener('change', syncFoot); else if (footMQ.addListener) footMQ.addListener(syncFoot);
+  let toolbarGone = false;
+  function syncFpill() { const f = $('.fpill'); if (f) f.classList.toggle('is-on', toolbarGone && document.body.dataset.route === 'collections'); }
+  if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { toolbarGone = !en.isIntersecting && en.boundingClientRect.top < 0; syncFpill(); }).observe($('.toolbar'));
 
   /* ---------- boot ---------- */
   let DATA = {};
