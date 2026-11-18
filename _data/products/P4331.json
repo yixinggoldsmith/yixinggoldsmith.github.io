@@ -1,0 +1,39 @@
+{
+  "id": "P4331",
+  "name": "Blessing Goat",
+  "name_ms": "Kambing Berkat",
+  "name_zh": "福羊",
+  "collection": "cny-2027",
+  "kind": "Pendant",
+  "parts": [
+    "Openwork goat",
+    "福 medallion",
+    "Tube bail"
+  ],
+  "parts_ms": [
+    "Kambing kerawang",
+    "Medalion 福",
+    "Gelung tiub"
+  ],
+  "parts_zh": [
+    "镂空小羊",
+    "福字圆章",
+    "管状扣头"
+  ],
+  "gold": "Yellow 916 gold (1C)",
+  "gold_ms": "Emas 916 kuning (1C)",
+  "gold_zh": "黄色916金（1C）",
+  "weight": "1.15 g",
+  "price": "",
+  "description": "A goat drawn in a single line of gold, carrying the character 福 for blessings: light, open and easy to wear every day.",
+  "description_ms": "Kambing yang dilukis dengan satu garisan emas, membawa aksara 福 untuk berkat: ringan, terbuka dan mudah dipakai setiap hari.",
+  "description_zh": "以一笔金线勾勒的小羊，身上带着“福”字，寓意福气满满；轻盈通透，适合日常佩戴。",
+  "images": [
+    "media/uploads/products/p4331-blessing-goat-2.webp",
+    "media/uploads/products/p4331-blessing-goat-views.webp",
+    "media/uploads/products/p4331-blessing-goat-1.webp"
+  ],
+  "video": "media/uploads/videos/p4331-blessing-goat.mp4",
+  "order": 21,
+  "show": true
+}

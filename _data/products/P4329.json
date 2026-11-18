@@ -1,0 +1,39 @@
+{
+  "id": "P4329",
+  "name": "Scholar Goat",
+  "name_ms": "Kambing Bijak",
+  "name_zh": "学霸羊",
+  "collection": "cny-2027",
+  "kind": "Pendant",
+  "parts": [
+    "Goat in round glasses",
+    "Open book",
+    "Jump ring"
+  ],
+  "parts_ms": [
+    "Kambing berkaca mata bulat",
+    "Buku terbuka",
+    "Cincin penyambung"
+  ],
+  "parts_zh": [
+    "戴圆眼镜的小羊",
+    "打开的书本",
+    "连接圈"
+  ],
+  "gold": "Yellow 916 gold (1C)",
+  "gold_ms": "Emas 916 kuning (1C)",
+  "gold_zh": "黄色916金（1C）",
+  "weight": "1.37 g",
+  "price": "",
+  "description": "A little goat in round glasses, holding an open book: a wish for wisdom and good results in the Year of the Goat.",
+  "description_ms": "Anak kambing berkaca mata bulat memegang buku terbuka: doa untuk ilmu dan kejayaan pada Tahun Kambing.",
+  "description_zh": "戴着圆眼镜、捧着书本的小羊，祝愿羊年学业进步、聪明伶俐。",
+  "images": [
+    "media/uploads/products/p4329-scholar-goat-2.webp",
+    "media/uploads/products/p4329-scholar-goat-views.webp",
+    "media/uploads/products/p4329-scholar-goat-1.webp"
+  ],
+  "video": "media/uploads/videos/p4329-scholar-goat.mp4",
+  "order": 19,
+  "show": true
+}

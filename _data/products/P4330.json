@@ -1,0 +1,39 @@
+{
+  "id": "P4330",
+  "name": "Fortune Goat",
+  "name_ms": "Kambing Rezeki",
+  "name_zh": "招财羊",
+  "collection": "cny-2027",
+  "kind": "Pendant",
+  "parts": [
+    "Seated goat",
+    "Gold ingot",
+    "Stardust finish"
+  ],
+  "parts_ms": [
+    "Kambing duduk",
+    "Jongkong emas",
+    "Kemasan berkilau"
+  ],
+  "parts_zh": [
+    "坐姿小羊",
+    "金元宝",
+    "星砂工艺"
+  ],
+  "gold": "Yellow 916 gold (1C)",
+  "gold_ms": "Emas 916 kuning (1C)",
+  "gold_zh": "黄色916金（1C）",
+  "weight": "1.43 g",
+  "price": "",
+  "description": "A seated goat in a stardust finish, holding a gold ingot close: a wish for wealth and good fortune in the year ahead.",
+  "description_ms": "Kambing duduk berkemasan berkilau, memeluk jongkong emas: doa untuk rezeki dan tuah pada tahun baharu.",
+  "description_zh": "坐着的小羊抱着金元宝，星砂工艺闪闪发亮，祝愿新的一年财源广进、好运连连。",
+  "images": [
+    "media/uploads/products/p4330-fortune-goat-2.webp",
+    "media/uploads/products/p4330-fortune-goat-views.webp",
+    "media/uploads/products/p4330-fortune-goat-1.webp"
+  ],
+  "video": "media/uploads/videos/p4330-fortune-goat.mp4",
+  "order": 20,
+  "show": true
+}
