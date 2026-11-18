@@ -1,26 +1,38 @@
 {
   "slug": "gifting",
   "title": "Tied by hand in *amber*",
+  "title_ms": "Diikat dengan tangan, dalam *ambar*",
+  "title_zh": "亲手系上*琥珀色*缎带",
   "category": "Gifting",
   "read": 2,
   "date": "2026-11-01",
   "hero": "media/v4/yixing-box.webp",
   "hero_alt": "A teal Yi Xing gift box tied with amber satin ribbon beside an open bracelet box",
+  "hero_alt_ms": "Kotak hadiah Yi Xing berwarna hijau kebiruan diikat reben satin ambar, di sebelah kotak rantai tangan yang terbuka",
+  "hero_alt_zh": "系着琥珀色缎带的 Yi Xing 青绿色礼盒，旁边是打开的手链盒",
   "dek": "Six designs to give this season, and how we wrap them.",
+  "dek_ms": "Enam rekaan untuk dihadiahkan musim ini, dan cara kami membalutnya.",
+  "dek_zh": "本季六款送礼之选，以及我们的包装方式。",
   "order": 6,
   "show": true,
   "body": [
     {
       "type": "text",
-      "html": "<p>Every Yi Xing bracelet leaves our boutiques in a hinged teal box lined in ivory velvet, with our mark in gold foil inside the lid. For gifts, we tie the box by hand with amber satin ribbon and add a card written in the boutique.</p>"
+      "html": "<p>Every Yi Xing bracelet leaves our boutiques in a hinged teal box lined in ivory velvet, with our mark in gold foil inside the lid. For gifts, we tie the box by hand with amber satin ribbon and add a card written in the boutique.</p>",
+      "html_ms": "<p>Setiap rantai tangan Yi Xing meninggalkan butik kami dalam kotak berengsel berwarna hijau kebiruan yang dilapik baldu gading, dengan logo kami dalam kerajang emas di dalam penutup. Untuk hadiah, kami mengikat kotak itu dengan tangan menggunakan reben satin ambar dan menyertakan kad yang ditulis di butik.</p>",
+      "html_zh": "<p>每条 Yi Xing 手链离开门店时，都装在内衬象牙色丝绒的青绿色翻盖盒里，盒盖内侧烫印金色标志。若是送礼，我们会亲手系上琥珀色缎带，并附上在门店手写的卡片。</p>"
     },
     {
       "type": "text",
-      "html": "<p>Gift wrapping and the card are complimentary. If you are not sure of the wrist size, choose the design and it can be resized later at any of our boutiques.</p>"
+      "html": "<p>Gift wrapping and the card are complimentary. If you are not sure of the wrist size, choose the design and it can be resized later at any of our boutiques.</p>",
+      "html_ms": "<p>Balutan hadiah dan kad adalah percuma. Jika anda tidak pasti saiz pergelangan tangan, pilih rekaannya dahulu dan saiznya boleh dilaraskan kemudian di mana-mana butik kami.</p>",
+      "html_zh": "<p>礼品包装和卡片均免费提供。如果不确定手腕尺寸，先选好款式，之后可到任何一家门店调整尺寸。</p>"
     },
     {
       "type": "products",
       "title": "Six designs to give",
+      "title_ms": "Enam rekaan untuk dihadiahkan",
+      "title_zh": "六款送礼之选",
       "items": [
         "3990",
         "4082",
@@ -35,11 +47,15 @@
       "items": [
         {
           "label": "Flip through the Gift Edit",
+          "label_ms": "Selak pilihan hadiah",
+          "label_zh": "翻阅礼品精选",
           "link": "#brochure-gift",
           "style": "solid"
         },
         {
           "label": "Arrange gift wrapping",
+          "label_ms": "Minta balutan hadiah",
+          "label_zh": "安排礼品包装",
           "link": "#enquiry-general",
           "style": "line"
         }
