@@ -1198,7 +1198,7 @@ const SCHEMAS = {
         { key: 'catalogue', label: 'Collection in the catalogue sheet', type: 'select', empty: 'None (website-only pieces)', options: () => catCollectionNames().map(n => [n, n]), hint: 'The catalogue products whose Collection 1–5 says this are listed in this collection. You can then give it any name above.' },
         { key: 'idea', label: 'One-line idea', type: 'text', hint: 'Shown under the name in the Collections menu.' },
         { key: 'text', label: 'Description', type: 'textarea', hint: 'Shown at the top of the collection’s page.' },
-        { key: 'image', label: 'Cover picture', type: 'image', folder: 'images', max: [1600, 1200], ratio: '4/3', hint: 'Landscape 4:3, 1600 × 1200, with the pieces in the middle. Shown on the home page under “Shop by collection” and along the top of the Collections page.' },
+        { key: 'image', label: 'Cover picture', type: 'image', folder: 'images', max: [1350, 1700], ratio: '4/5', hint: 'Portrait 4:5, 1080 × 1350, with the pieces in the middle and calm space at the foot, where the name sits. Shown as a card under “Shop by collection” on the home page; the Collections page and the Collections menu show its middle.' },
       ] },
       { title: 'On the website', hint: 'A collection appears in the menu and as a tile on the home page only while it has products on the website: catalogue products whose Collection 1–5 has this name, or website-only pieces in it.', fields: [
         { key: 'show_on_home', label: 'Show its cover on the home page', type: 'toggle', half: true, hint: 'Every collection with pieces shows there, in this order, as a row that scrolls sideways. Turn this off to leave this one out.' },
