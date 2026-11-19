@@ -1373,6 +1373,40 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
 .cat:hover .cat__media { border-color: var(--line-strong); }
 @media (max-width: 1199px) { .cats__grid { --per: 5; } }
 @media (max-width: 899px) { .cats__grid { --per: 3.5; } }
+/* the Collections page's row (since 19 Nov): vertical cards like the home page's, the name on the card, round arrows
+   at the ends once there are more than fit; the All card shows the count in the logo's two-stroke circle */
+.colrow-wrap { position: relative; }
+.colrow { --per: 7.5; --g: 14px; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - (var(--per) - 1) * var(--g)) / var(--per)); gap: var(--g);
+  overflow-x: auto; scroll-snap-type: x proximity; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain; padding: 5px 5px 6px; margin: -5px -5px 0; }
+.colrow::before, .colrow::after { display: none; }
+.colrow.is-few { justify-content: center; }
+.colrow__item { position: relative; display: block; min-width: 0; max-width: none; border-radius: 14px; overflow: hidden; isolation: isolate; color: #FFFFFF; scroll-snap-align: start;
+  outline: 2px solid transparent; outline-offset: 3px; transition: outline-color .2s; }
+.colrow__media, .colrow__media.is-photo { display: block; aspect-ratio: 4 / 5; border-radius: inherit; background: #04454C; outline: 0; }
+.colrow__item[aria-current="true"] .colrow__media { outline-color: transparent; }
+.colrow__media.is-photo { background: #FFFFFF; }
+.colrow__media.is-photo img { object-fit: contain; padding: 8% 8% 32%; }
+.colrow__item::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 56%; z-index: 0; pointer-events: none;
+  background: linear-gradient(to top, rgba(1, 33, 37, .9) 0%, rgba(1, 33, 37, .62) 40%, rgba(1, 33, 37, 0) 100%); }
+.colrow__name, .colrow__item[aria-current="true"] .colrow__name { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: block; padding: .7rem .8rem .8rem; border: 0;
+  color: #FFFFFF; font: 300 clamp(.92rem, .84rem + .28vw, 1.05rem)/1.2 var(--font-display); letter-spacing: 0; text-transform: none; text-align: left; text-wrap: balance; }
+.colrow__name .cjk { letter-spacing: 0; font-size: .9em; }
+.colrow__item[aria-current="true"] { outline-color: var(--teal); }
+.colrow__item[aria-current="true"] .colrow__name::after { content: ""; display: block; width: 1.6rem; height: 2px; margin-top: .45rem; background: var(--amber); }
+.colrow__item:focus-visible { outline-color: var(--teal); }
+.colrow__all { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding-bottom: 26%; background: radial-gradient(120% 85% at 50% 36%, #1C8F99 0%, #026873 48%, #022C31 100%); color: #FFFFFF; }
+.colrow__ring { width: 58%; aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; border: 2px solid; border-color: var(--amber) var(--amber) rgba(169, 220, 221, .6) rgba(169, 220, 221, .6); transform: rotate(-45deg); }
+.colrow__ring b { transform: rotate(45deg); font: 300 clamp(1.5rem, 1.2rem + .9vw, 2.1rem)/1 var(--font-display); }
+.colrow__nav button { position: absolute; top: calc(50% - 22px); z-index: 2; width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%;
+  background: #FFFFFF; color: var(--ink); box-shadow: 0 6px 18px -8px rgba(1, 33, 37, .45); cursor: pointer; transition: opacity .2s; }
+.colrow__nav button:hover { color: var(--teal); border-color: var(--line-strong); }
+.colrow__nav button:disabled { opacity: 0; pointer-events: none; }
+.colrow__nav [data-colrow-step="-1"] { left: max(0px, calc(max(16px, var(--gutter)) - 20px)); }
+.colrow__nav [data-colrow-step="1"] { right: max(0px, calc(max(16px, var(--gutter)) - 20px)); }
+.colrow__nav .icon { width: 18px; height: 18px; }
+@media (max-width: 1199px) { .colrow { --per: 6; } }
+@media (max-width: 899px) { .colrow { --per: 4.6; } }
+@media (max-width: 699px) { .colrow { --per: 2.5; --g: 12px; } .colrow__nav { display: none; } }
 /* the same round corners wherever a collection cover shows */
 .colrow__media, .mm__media { border-radius: 14px; }
 @media (max-width: 699px) {
@@ -1444,6 +1478,16 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   .pdialog__info { padding: 22px 16px 0; gap: 1rem; }
   .pdialog__info .btn-row { position: sticky; bottom: 0; z-index: 2; width: calc(100% + 32px); margin: .5rem -16px 0; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--paper); border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) auto; }
 }
+/* the product window: the photo is shown whole in a square and the thumbnails sit in a row underneath, never over the
+   photo (a ruler's numbers along its foot stay readable) */
+.pdialog__media { display: grid; grid-template-rows: auto auto; align-content: start; min-height: 0; }
+.pdialog__media > img, .pdialog__media > video { grid-area: 1 / 1; width: 100%; height: auto; aspect-ratio: 1; }
+.pdialog__media > video[hidden] { display: none; }
+.pdialog__thumbs { position: static; grid-area: 2 / 1; display: flex; flex-wrap: nowrap; gap: 8px; padding: 10px; overflow-x: auto; scrollbar-width: none; border-top: 1px solid var(--line); background: var(--paper); }
+.pdialog__thumbs button, .pdialog__media.is-photo .pdialog__thumbs button { width: 56px; height: 56px; border: 1px solid var(--line-strong); background: #FFFFFF; color: var(--ink); }
+.pdialog__thumbs button[aria-pressed="true"], .pdialog__media.is-photo .pdialog__thumbs button[aria-pressed="true"] { border: 2px solid var(--amber); }
+.pdialog__thumbs img { object-fit: contain; }
+@media (max-width: 759px) { .pdialog__media { aspect-ratio: auto; min-height: 0; } .pdialog__thumbs button, .pdialog__media.is-photo .pdialog__thumbs button { width: 52px; height: 52px; } }
 
 /* footer: the logo teal, its lists folding away on phones */
 .footer { background: var(--teal); color: #FFFFFF; border-top: 0; }
@@ -1773,7 +1817,8 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     <div><p class="eyebrow" data-shop-eyebrow>Collections</p><h1 class="h1" data-shop-title>All pieces</h1></div>
     <p class="lede" data-shop-lede></p>
   </header>
-  <nav class="wrap colrow-wrap" aria-label="Collections" data-colrow-wrap hidden><div class="colrow" data-colrow></div></nav>
+  <nav class="wrap colrow-wrap" aria-label="Collections" data-colrow-wrap hidden><div class="colrow" data-colrow data-colrow-grid></div>
+    <div class="colrow__nav" data-colrow-nav hidden><button type="button" data-colrow-step="-1" aria-label="Previous collections"><svg class="icon" aria-hidden="true"><use href="#i-left"/></svg></button><button type="button" data-colrow-step="1" aria-label="Next collections"><svg class="icon" aria-hidden="true"><use href="#i-right"/></svg></button></div></nav>
   <section class="wrap" id="shop" aria-labelledby="shop-title" style="padding-bottom:var(--section)">
     <h2 class="visually-hidden" id="shop-title">The pieces</h2>
     <div class="toolbar">
@@ -2492,16 +2537,16 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     $('[data-colrow-wrap]').hidden = !cols.length;
     if (!cols.length) { $('[data-colrow]').innerHTML = ''; return; }
     const cur = shop.hl ? '' : F.col.size === 1 ? [...F.col][0] : F.col.size ? '' : 'all';
-    $('[data-colrow]').innerHTML = `<a class="colrow__item" href="#collection-all"${cur === 'all' ? ' aria-current="true"' : ''}><span class="colrow__media"><span class="colrow__all"><b>${tr('All')}</b><small>${tr(PRODUCTS.length === 1 ? '{n} piece' : '{n} pieces', { n: PRODUCTS.length })}</small></span></span><span class="colrow__name">${tr('All pieces')}</span></a>`
+    $('[data-colrow]').innerHTML = `<a class="colrow__item" href="#collection-all"${cur === 'all' ? ' aria-current="true"' : ''}><span class="colrow__media"><span class="colrow__all"><span class="colrow__ring" aria-hidden="true"><b>${PRODUCTS.length}</b></span></span></span><span class="colrow__name">${tr('All pieces')}</span><span class="visually-hidden">, ${esc(tr(PRODUCTS.length === 1 ? '{n} piece' : '{n} pieces', { n: PRODUCTS.length }))}</span></a>`
       + cols.map(c => { const pic = colCover(c); return `<a class="colrow__item" href="#collection-${esc(c.id)}"${cur === c.id ? ' aria-current="true"' : ''}><span class="colrow__media${pic.photo ? ' is-photo' : ''}">${pic.src ? `<img src="${esc(pic.src)}" alt="" loading="lazy">` : ''}</span><span class="colrow__name">${cjk(c.name)}</span></a>`; }).join('');
-    centreColrow();
+    syncRow('colrow', true); centreColrow();
   }
   // on a narrow screen the row scrolls sideways: bring the collection being shown into view
   function centreColrow() {
     const row = $('[data-colrow]'), el = $('[aria-current="true"]', row);
     if (!el || !row.clientWidth || row.scrollWidth <= row.clientWidth) return;
     const rr = row.getBoundingClientRect(), er = el.getBoundingClientRect();
-    row.scrollLeft += (er.left - rr.left) - (rr.width - er.width) / 2;
+    row.scrollTo({ left: row.scrollLeft + (er.left - rr.left) - (rr.width - er.width) / 2, behavior: 'instant' });   // no glide: the row may be redrawn meanwhile
   }
   function renderPills(head) {
     const main = head.main || [];
@@ -3289,7 +3334,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     const max = g.scrollWidth - g.clientWidth, [prev, next] = $$(`[data-${k}-step]`);
     prev.disabled = g.scrollLeft < 8; next.disabled = g.scrollLeft > max - 8;
     const w = Math.min(100, g.clientWidth / g.scrollWidth * 100), bar = $(`[data-${k}-bar]`);
-    bar.style.width = w + '%'; bar.style.left = (max > 0 ? g.scrollLeft / max * (100 - w) : 0) + '%';
+    if (bar) { bar.style.width = w + '%'; bar.style.left = (max > 0 ? g.scrollLeft / max * (100 - w) : 0) + '%'; }
   }
   const syncColhome = measure => syncRow('colhome', measure);
   function syncPcar() {
@@ -3580,7 +3625,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     $$('[data-sub-link]').forEach(a => { if (a.dataset.subLink === subKey) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     document.title = route === 'story' ? `${plain(STORY_BY[r.slug].title)} · Yi Xing` : route === 'collections' ? `${plain(shopHead().title)} · Yi Xing` : TITLES[route];
     if (route === 'e-brochure') renderReader();
-    if (route === 'collections' && changed) requestAnimationFrame(centreColrow);
+    if (route === 'collections' && changed) requestAnimationFrame(() => { syncRow('colrow', true); centreColrow(); });
     if (route === 'home' && changed) requestAnimationFrame(() => { syncPcar(); syncColhome(true); syncRow('cats', true); });
     if (route === 'collections' && searchFocus) { searchFocus = false; requestAnimationFrame(() => { const q = $('[data-shop-q]'); q.focus({ preventScroll: true }); q.scrollIntoView({ block: 'center' }); }); }
     syncFpill();
@@ -3640,8 +3685,8 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     }
     const pstep = t.closest('[data-pcar-step]');
     if (pstep) { const r = $('[data-pcar]'); r.scrollBy({ left: +pstep.dataset.pcarStep * r.clientWidth * .9, behavior: motionOK() ? 'smooth' : 'auto' }); return; }
-    const cstep = t.closest('[data-colhome-step], [data-cats-step]');
-    if (cstep) { const k = cstep.hasAttribute('data-cats-step') ? 'cats' : 'colhome', r = $(`[data-${k}-grid]`); r.scrollBy({ left: +cstep.getAttribute(`data-${k}-step`) * r.clientWidth * .9, behavior: motionOK() ? 'smooth' : 'auto' }); return; }
+    const cstep = t.closest('[data-colhome-step], [data-cats-step], [data-colrow-step]');
+    if (cstep) { const k = cstep.hasAttribute('data-cats-step') ? 'cats' : cstep.hasAttribute('data-colrow-step') ? 'colrow' : 'colhome', r = $(`[data-${k}-grid]`); r.scrollBy({ left: +cstep.getAttribute(`data-${k}-step`) * r.clientWidth * .8, behavior: motionOK() ? 'smooth' : 'auto' }); return; }
     const astep = t.closest('[data-announce-step]'); if (astep) { stepAnnounce(+astep.dataset.announceStep); startAnnounce(); return; }
     const thumb = t.closest('[data-pd-thumb]'); if (thumb) { showPdMedia(+thumb.dataset.pdThumb); return; }
     const mark = t.closest('[data-mark]'); if (mark) { mark.setAttribute('aria-pressed', mark.getAttribute('aria-pressed') !== 'true'); return; }
@@ -3788,7 +3833,8 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   window.addEventListener('resize', syncPcar);
   $('[data-colhome-grid]').addEventListener('scroll', () => syncColhome(false), { passive: true });
   $('[data-cats-grid]').addEventListener('scroll', () => syncRow('cats', false), { passive: true });
-  window.addEventListener('resize', () => { syncColhome(true); syncRow('cats', true); });
+  $('[data-colrow-grid]').addEventListener('scroll', () => syncRow('colrow', false), { passive: true });
+  window.addEventListener('resize', () => { syncColhome(true); syncRow('cats', true); syncRow('colrow', true); });
 
   /* ---------- search icon, footer folds, the floating Filter button ---------- */
   let searchFocus = false;
