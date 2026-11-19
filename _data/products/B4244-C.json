@@ -1,0 +1,38 @@
+{
+  "id": "B4244-C",
+  "name": "Little Star",
+  "name_ms": "Bintang Kecil",
+  "name_zh": "小星星",
+  "collection": "baby",
+  "kind": "Bracelet",
+  "parts": [
+    "Oval link chain",
+    "Diamond-cut star link",
+    "Star on an openwork flower charm"
+  ],
+  "parts_ms": [
+    "Rantai pautan bujur",
+    "Pautan bintang potongan berlian",
+    "Charm bintang atas bunga berlubang"
+  ],
+  "parts_zh": [
+    "椭圆链节手链",
+    "钻石切面星星链节",
+    "镂空花朵小星星吊饰"
+  ],
+  "gold": "Yellow 916 gold (1C)",
+  "gold_ms": "Emas 916 kuning (1C)",
+  "gold_zh": "黄色916金（1C）",
+  "weight": "5.41 g",
+  "price": "",
+  "description": "A polished star on an openwork flower charm, with a diamond-cut star link, on an oval link chain.",
+  "description_ms": "Bintang berkilat pada charm bunga berlubang, dengan pautan bintang potongan berlian, pada rantai pautan bujur.",
+  "description_zh": "镂空花朵吊饰上嵌一颗亮面小星星，配钻石切面星星链节，串在椭圆链节手链上。",
+  "images": [
+    "media/uploads/products/b4244-c-little-star-1.webp",
+    "media/uploads/products/b4244-c-little-star-2.webp"
+  ],
+  "video": "media/uploads/videos/b4244-c-little-star.mp4",
+  "order": 23,
+  "show": true
+}

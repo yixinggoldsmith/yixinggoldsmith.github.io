@@ -1,0 +1,38 @@
+{
+  "id": "B4244-A",
+  "name": "Honey Bee",
+  "name_ms": "Lebah Madu",
+  "name_zh": "小蜜蜂",
+  "collection": "baby",
+  "kind": "Bracelet",
+  "parts": [
+    "Oval link chain",
+    "Diamond-cut hexagon link",
+    "Bee on an openwork honeycomb charm"
+  ],
+  "parts_ms": [
+    "Rantai pautan bujur",
+    "Pautan heksagon potongan berlian",
+    "Charm lebah atas sarang lebah berlubang"
+  ],
+  "parts_zh": [
+    "椭圆链节手链",
+    "钻石切面六角链节",
+    "镂空蜂巢小蜜蜂吊饰"
+  ],
+  "gold": "Yellow 916 gold (1C)",
+  "gold_ms": "Emas 916 kuning (1C)",
+  "gold_zh": "黄色916金（1C）",
+  "weight": "5.35 g",
+  "price": "",
+  "description": "A bee resting on an openwork honeycomb charm, with a diamond-cut hexagon link to match, on an oval link chain.",
+  "description_ms": "Seekor lebah hinggap pada charm sarang lebah berlubang, dengan pautan heksagon potongan berlian yang sepadan, pada rantai pautan bujur.",
+  "description_zh": "镂空蜂巢吊饰上停着一只小蜜蜂，配同款钻石切面六角链节，串在椭圆链节手链上。",
+  "images": [
+    "media/uploads/products/b4244-a-honey-bee-1.webp",
+    "media/uploads/products/b4244-a-honey-bee-2.webp"
+  ],
+  "video": "media/uploads/videos/b4244-a-honey-bee.mp4",
+  "order": 21,
+  "show": true
+}

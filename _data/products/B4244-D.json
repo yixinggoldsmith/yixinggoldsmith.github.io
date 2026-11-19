@@ -1,0 +1,38 @@
+{
+  "id": "B4244-D",
+  "name": "Sweetheart",
+  "name_ms": "Buah Hati",
+  "name_zh": "心肝宝贝",
+  "collection": "baby",
+  "kind": "Bracelet",
+  "parts": [
+    "Oval link chain",
+    "Diamond-cut heart link",
+    "Heart on an openwork charm of little hearts"
+  ],
+  "parts_ms": [
+    "Rantai pautan bujur",
+    "Pautan hati potongan berlian",
+    "Charm hati atas hati-hati kecil berlubang"
+  ],
+  "parts_zh": [
+    "椭圆链节手链",
+    "钻石切面爱心链节",
+    "镂空小爱心吊饰"
+  ],
+  "gold": "Yellow 916 gold (1C)",
+  "gold_ms": "Emas 916 kuning (1C)",
+  "gold_zh": "黄色916金（1C）",
+  "weight": "5.53 g",
+  "price": "",
+  "description": "A polished heart on an openwork charm of little hearts, with a diamond-cut heart link, on an oval link chain.",
+  "description_ms": "Hati berkilat pada charm berlubang bercorak hati-hati kecil, dengan pautan hati potongan berlian, pada rantai pautan bujur.",
+  "description_zh": "镂空小爱心吊饰上嵌一颗亮面爱心，配钻石切面爱心链节，串在椭圆链节手链上。",
+  "images": [
+    "media/uploads/products/b4244-d-sweetheart-1.webp",
+    "media/uploads/products/b4244-d-sweetheart-2.webp"
+  ],
+  "video": "media/uploads/videos/b4244-d-sweetheart.mp4",
+  "order": 24,
+  "show": true
+}

@@ -1,0 +1,38 @@
+{
+  "id": "B4244-B",
+  "name": "Little Butterfly",
+  "name_ms": "Rama-rama Kecil",
+  "name_zh": "小蝴蝶",
+  "collection": "baby",
+  "kind": "Bracelet",
+  "parts": [
+    "Oval link chain",
+    "Diamond-cut butterfly link",
+    "Butterfly on an openwork flower charm"
+  ],
+  "parts_ms": [
+    "Rantai pautan bujur",
+    "Pautan rama-rama potongan berlian",
+    "Charm rama-rama atas bunga berlubang"
+  ],
+  "parts_zh": [
+    "椭圆链节手链",
+    "钻石切面蝴蝶链节",
+    "镂空花朵小蝴蝶吊饰"
+  ],
+  "gold": "Yellow 916 gold (1C)",
+  "gold_ms": "Emas 916 kuning (1C)",
+  "gold_zh": "黄色916金（1C）",
+  "weight": "5.41 g",
+  "price": "",
+  "description": "A butterfly at rest on an openwork flower charm, with a diamond-cut butterfly link, on an oval link chain.",
+  "description_ms": "Seekor rama-rama hinggap pada charm bunga berlubang, dengan pautan rama-rama potongan berlian, pada rantai pautan bujur.",
+  "description_zh": "镂空花朵吊饰上停着一只小蝴蝶，配钻石切面蝴蝶链节，串在椭圆链节手链上。",
+  "images": [
+    "media/uploads/products/b4244-b-little-butterfly-1.webp",
+    "media/uploads/products/b4244-b-little-butterfly-2.webp"
+  ],
+  "video": "media/uploads/videos/b4244-b-little-butterfly.mp4",
+  "order": 22,
+  "show": true
+}

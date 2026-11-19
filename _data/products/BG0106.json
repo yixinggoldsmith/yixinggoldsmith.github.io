@@ -1,0 +1,39 @@
+{
+  "id": "BG0106",
+  "name": "Little Bell",
+  "name_ms": "Loceng Kecil",
+  "name_zh": "小铃铛",
+  "collection": "baby",
+  "kind": "Bangle",
+  "parts": [
+    "Adjustable bangle",
+    "Two red enamel ruyi clouds",
+    "Gold bell"
+  ],
+  "parts_ms": [
+    "Gelang boleh laras",
+    "Dua awan ruyi enamel merah",
+    "Loceng emas"
+  ],
+  "parts_zh": [
+    "可调节手镯",
+    "两朵红色珐琅如意云",
+    "金铃铛"
+  ],
+  "gold": "Yellow 916 gold (1C), red enamel",
+  "gold_ms": "Emas 916 kuning (1C), enamel merah",
+  "gold_zh": "黄色916金（1C），红色珐琅",
+  "weight": "3.61 g",
+  "price": "",
+  "description": "An adjustable bangle for the smallest wrists, with two red enamel ruyi clouds and a gold bell that jingles softly.",
+  "description_ms": "Gelang boleh laras untuk pergelangan tangan yang paling kecil, dengan dua awan ruyi enamel merah dan loceng emas yang berdenting lembut.",
+  "description_zh": "为小小手腕设计的可调节手镯，缀两朵红色珐琅如意云和一颗轻轻作响的金铃铛。",
+  "images": [
+    "media/uploads/products/bg0106-little-bell-1.webp",
+    "media/uploads/products/bg0106-little-bell-2.webp",
+    "media/uploads/products/bg0106-little-bell-3.webp"
+  ],
+  "video": "media/uploads/videos/bg0106-little-bell.mp4",
+  "order": 20,
+  "show": true
+}
