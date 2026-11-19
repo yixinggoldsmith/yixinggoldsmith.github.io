@@ -1407,6 +1407,21 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
 @media (max-width: 1199px) { .colrow { --per: 6; } }
 @media (max-width: 899px) { .colrow { --per: 4.6; } }
 @media (max-width: 699px) { .colrow { --per: 2.5; --g: 12px; } .colrow__nav { display: none; } }
+/* the campaign cards in the Collections menu and the phone menu (vertical since 19 Nov): like the home page's cards,
+   a portrait cover with round corners and the campaign's name, headline and Shop now on it */
+.nav .mm a.mm__flink, .mnav__card { position: relative; display: block; padding: 0; overflow: hidden; isolation: isolate; border-radius: 16px; color: #FFFFFF; background: #04454C; }
+.mm__flink .mm__media, .mnav__card .mm__media { aspect-ratio: 4 / 5; border-radius: inherit; background: #04454C; }
+.mm__flink .mm__media.is-photo img, .mnav__card .mm__media.is-photo img { padding: 8% 8% 34%; }
+.mm__flink::after, .mnav__card::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 58%; z-index: 0; pointer-events: none;
+  background: linear-gradient(to top, rgba(1, 33, 37, .9) 0%, rgba(1, 33, 37, .62) 42%, rgba(1, 33, 37, 0) 100%); }
+.mm__ftext { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: grid; justify-items: start; gap: .4rem; padding: 1.1rem 1.15rem 1.2rem; text-align: left; }
+.mm__ftext .mm__fkick { margin: 0; color: var(--amber); }
+.mm__ftext .mm__fname, .mnav__card .mm__ftext .mm__fname { margin: 0; color: #FFFFFF; font: 300 clamp(1.2rem, 1.05rem + .4vw, 1.45rem)/1.2 var(--font-display); text-wrap: balance; }
+.mm__ftext .ulink, .mm__flink .mm__ftext .ulink, .mnav__card .mm__ftext .ulink { justify-self: start; margin-top: .35rem; color: #FFFFFF; border-bottom-color: var(--amber); }
+.mm__flink:hover .mm__ftext .ulink, .mnav__card:hover .mm__ftext .ulink { border-bottom-color: #FFFFFF; }
+.mnav__card:hover .mm__media img { transform: scale(1.03); }
+.mnav__cards { grid-auto-columns: 64%; }
+.mnav__cards.is-one { grid-auto-columns: 80%; }
 /* the same round corners wherever a collection cover shows */
 .colrow__media, .mm__media { border-radius: 14px; }
 @media (max-width: 699px) {
@@ -3431,7 +3446,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     const mmAll = `<a class="mm__all" href="#collection-all">${tr('All pieces')} (${PRODUCTS.length})</a>`;
     const feats = menuFeatures(cols), nf = feats.length;
     const featPic = f => `<span class="mm__media${f.pic.photo ? ' is-photo' : ''}">${f.pic.src ? `<img src="${esc(f.pic.src)}" alt="" loading="lazy" style="object-position:${f.pic.x} 50%">` : ''}</span>`;
-    const featText = f => `${f.kick ? `<span class="mm__fkick">${esc(f.kick)}</span>` : ''}<span class="mm__fname">${f.title}</span>${f.line ? `<span class="mm__fidea">${esc(f.line)}</span>` : ''}<span class="ulink">${esc(f.label)}</span>`;
+    const featText = f => `<span class="mm__ftext">${f.kick ? `<span class="mm__fkick">${esc(f.kick)}</span>` : ''}<span class="mm__fname">${f.title}</span><span class="ulink">${esc(f.label)}</span></span>`;
     $('[data-nav-collections]').innerHTML = `<div class="wrap mm${nf ? '' : ' mm--nofeat'}">`
       + (cols.length ? `<div class="mm__col"><p class="mm__label">${tr('Collections')}</p><div class="mm__list${cols.length > 5 ? ' mm__list--2' : ''}">${cols.map(c => mmLink('#collection-' + c.id, cjk(c.name), PRODUCTS.filter(p => p.cols.includes(c.id)).length)).join('')}</div>${TYPES.length ? '' : mmAll}</div>` : '')
       + (TYPES.length ? `<div class="mm__col"><p class="mm__label">${tr('Categories')}</p><div class="mm__list">${TYPES.map(t => mmLink('#type-' + t.id, esc(t.label), t.n)).join('')}</div>${mmAll}</div>` : '')
