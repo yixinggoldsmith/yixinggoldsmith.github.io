@@ -1,0 +1,12 @@
+{
+  "id": "baby",
+  "name": "Baby",
+  "name_ms": "Bayi",
+  "name_zh": "婴儿",
+  "catalogue": "Baby",
+  "idea": "",
+  "text": "",
+  "image": "media/uploads/images/collection-baby-cover-teal.webp",
+  "order": 12,
+  "show_on_home": true
+}
