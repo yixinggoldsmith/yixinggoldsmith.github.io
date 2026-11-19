@@ -1,0 +1,54 @@
+{
+  "title": "Baby 2027",
+  "title_ms": "Bayi 2027",
+  "title_zh": "2027 宝宝系列",
+  "slug": "baby-2027",
+  "active": true,
+  "start": "2026-11-19",
+  "end": "2027-12-31",
+  "announcements": [
+    {
+      "text": "Baby 2027: little bangles and charm bracelets in 916 gold",
+      "text_ms": "Bayi 2027: gelang kecil dan rantai tangan charm emas 916",
+      "text_zh": "2027 宝宝系列：916金宝宝手镯与吊饰手链",
+      "link_label": "Flip through the e-Brochure",
+      "link_label_ms": "Selak e-Brosur",
+      "link_label_zh": "翻阅电子目录",
+      "link": "#brochure-baby-2027"
+    }
+  ],
+  "hero": {
+    "media": "video",
+    "video": "media/uploads/videos/baby-2027-banner.mp4",
+    "image": "media/uploads/images/baby-2027-banner-poster.webp",
+    "mobile_image": "",
+    "title": "Little *treasures*",
+    "title_ms": "Permata *kecil*",
+    "title_zh": "小小*珍宝*",
+    "subtitle": "Bangles and charm bracelets in 916 gold, for their very first gold",
+    "subtitle_ms": "Gelang dan rantai tangan charm emas 916, untuk emas pertama si kecil",
+    "subtitle_zh": "916金手镯与吊饰手链，宝宝的第一份金饰",
+    "button_label": "Explore now",
+    "button_label_ms": "Terokai sekarang",
+    "button_label_zh": "立即探索",
+    "button_link": "#brochure-baby-2027",
+    "text": "light",
+    "focus": "centre"
+  },
+  "products": {
+    "title": "Little treasures",
+    "title_ms": "Permata kecil",
+    "title_zh": "小小珍宝",
+    "items": [
+      "BG0106",
+      "B4244-A",
+      "B4244-B",
+      "B4244-C",
+      "B4244-D",
+      "BG0139",
+      "BG0140"
+    ]
+  },
+  "promos": [],
+  "editorial": {}
+}
