@@ -16,11 +16,11 @@ const TOKEN_URL = 'https://github.com/settings/personal-access-tokens/new?name=Y
   + '&description=' + encodeURIComponent('Lets Yi Xing Studio save campaigns, products and media to the website.')
   + '&expires_in=none&contents=write';
 const BUILTIN_BROCHURES = [
-  { id: 'christmas', title: 'Christmas 2026', sub: 'Five new charms in 916 gold', pages: 14, cover: 'media/v4/xmas-cover.webp' },
+  { id: 'christmas', title: 'Christmas 2026', sub: 'Five new charms in 916 gold', pages: 13, cover: 'media/v4/xmas-cover.webp' },
   { id: 'cny-2027', title: 'Chinese New Year 2027', sub: 'Three goat pendants in 916 gold', pages: 10, cover: 'media/v4/cny-cover.webp' },
-  { id: 'baby-2027', title: 'Baby 2027', sub: 'Little bangles and charm bracelets in 916 gold', pages: 14, cover: 'media/v4/baby-cover.webp' },
+  { id: 'baby-2027', title: 'Baby 2027', sub: 'Little bangles and charm bracelets in 916 gold', pages: 13, cover: 'media/v4/baby-cover.webp' },
   { id: 'collection', title: 'The Collection 2026', sub: 'Thirteen designs in five collections', pages: 16, cover: 'media/v4/ed-flatlay.webp' },
-  { id: 'gift', title: 'The Gift Edit', sub: 'Six designs to give, tied by hand', pages: 8, cover: 'media/v4/yixing-box.webp' },
+  { id: 'gift', title: 'The Gift Edit', sub: 'Six designs to give, tied by hand', pages: 7, cover: 'media/v4/yixing-box.webp' },
   { id: 'library', title: 'The Bead Library', sub: 'Nineteen beads, pipes and links', pages: 8, cover: 'media/v4/ed-alphabet.webp' },
 ];
 const KINDS = ['campaigns', 'products', 'collections', 'editorial', 'brochures'];
