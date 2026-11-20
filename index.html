@@ -1257,15 +1257,18 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
 .mnav__card .mm__fidea { font-size: .8125rem; }
 .mnav__card .ulink { justify-self: start; margin-top: .2rem; }
 .icon-btn .icon { width: 22px; height: 22px; stroke-width: 1.3; }
-.hdr-search--m { display: none; }
+.hdr-search--m, .hdr-home { display: none; }
 @media (max-width: 899px) {
   .header__bar, .site-header.is-scrolled .header__bar { min-height: 56px; }
   .logo, .site-header.is-scrolled .logo { height: 22px; }
   .header__left, .header__right { gap: 0; }
   .icon-btn { min-width: 40px; }
-  .hdr-search--m { display: inline-flex; }
+  .hdr-search--m, .hdr-home { display: inline-flex; }
   .hdr-search--d { display: none; }
 }
+/* three icons left of the logo: a little tighter on narrow phones so they never touch it */
+@media (max-width: 379px) { .site-header .icon-btn { min-width: 37px; padding-inline: .3rem; } }
+@media (max-width: 339px) { .site-header .icon-btn { min-width: 33px; padding-inline: .2rem; } }
 
 /* phone menu: plain rows, as a list */
 .mmenu__top { min-height: 56px; border-bottom: 1px solid var(--line); margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); }
@@ -1616,6 +1619,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M4.5 19.5l1.2-3.9A8 8 0 1 1 8.6 18.4z"/><path d="M9.2 8.6c.2 2.9 2.7 5.6 5.9 6.1l1-1.3-1.8-1-1 .6a5 5 0 0 1-2.4-2.4l.6-1-1-1.8z"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13"/><path d="M3.8 6l8.2 6.6L20.2 6"/></symbol>
     <symbol id="i-building" viewBox="0 0 24 24"><path d="M5 20.5V4.5h10v16M15 9.5h4v11M3 20.5h18M8 8h4M8 11.5h4M8 15h4"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3.5 11.2L12 4l8.5 7.2"/><path d="M5.8 9.4v11.1h12.4V9.4"/><path d="M10 20.5V15h4v5.5"/></symbol>
     <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="15"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
     <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4.5 19.5l1.2-4.5L15.5 5.2a2.1 2.1 0 0 1 3 3L8.7 18z"/><path d="M13.5 7.2l3 3"/></symbol>
     <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 7h14M5 7l-2.5 6a2.8 2.8 0 0 0 5 0zM19 7l-2.5 6a2.8 2.8 0 0 0 5 0z"/></symbol>
@@ -1647,11 +1651,12 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
         <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
       </button>
       <button class="icon-btn hdr-search hdr-search--m" type="button" aria-label="Search the pieces" data-search-open><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></button>
+      <a class="icon-btn hdr-home" href="#home" data-route-link="home" data-home-link aria-label="Home"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg></a>
       <a class="util-link" href="#stores" data-route-link="stores"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>Visit us</a>
       <a class="util-link" href="#contact" data-route-link="contact"><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg>Contact us</a>
       <a class="util-link" href="#about" data-route-link="about"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg>About us</a>
     </div>
-    <a class="brand" href="#home" aria-label="Yi Xing, home">
+    <a class="brand" href="#home" data-home-link aria-label="Yi Xing, home">
       <svg class="logo" viewBox="0 0 807 231" role="img" aria-hidden="true"><use href="#logo" width="807" height="231"/></svg>
     </a>
     <div class="header__right">
@@ -1664,7 +1669,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     </div>
   </div>
   <nav class="wrap nav" aria-label="Main">
-    <a href="#home" data-route-link="home">Home</a>
+    <a href="#home" data-route-link="home" data-home-link>Home</a>
     <div class="nav__group nav__group--mega">
       <a href="#collection-all" data-route-link="collections">Collections</a>
       <div class="nav__menu nav__menu--mega" data-nav-collections></div>
@@ -2890,13 +2895,13 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
         'This Christmas, five new charms join our counters: four ornaments in openwork and diamond-cut 916 gold, and Santa in red and white enamel.',
         'Wear one on a fine chain, or ask us to add it to a bracelet. Every piece is weighed in front of you and priced at the day’s gold rate.'],
         toc: [[3, 'The four ornaments'], [4, '@P3843-A'], [5, '@P3843-B'], [6, '@P3843-C'], [7, '@P3843-D'],
-          [9, '@P4112'], [10, 'Two ways to wear him'], [11, 'Choose by weight'], [12, 'Gift wrapping'], [13, 'Our boutiques']] },
+          [9, '@P4112'], [10, 'Two ways to wear him'], [11, 'Choose by weight'], [12, 'Our boutiques']] },
       { t: 'ornaments', band: true },
       { t: 'xproduct', id: 'P3843-A' }, { t: 'xproduct', id: 'P3843-B' },
       { t: 'xproduct', id: 'P3843-C' }, { t: 'xproduct', id: 'P3843-D' },
       { t: 'xphoto', img: 'xmas-necklace', id: 'P4112', cap: '{ref} {name}, on a fine chain' }, { t: 'xproduct', id: 'P4112' },
       { t: 'xtwo' }, { t: 'xweights' },
-      { t: 'xwrap' }, { t: 'visit', band: true },
+      { t: 'visit', band: true },
       { t: 'back', band: true, xmas: true }
     ] },
     { id: 'cny-2027', title: 'Chinese New Year 2027', sub: 'Three goat pendants in 916 gold', cover: 'cny-cover', pages: [
@@ -2918,14 +2923,13 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
         'For a new arrival, a full-month celebration or a first birthday: five new pieces join our counters, made small and light for little wrists.',
         'An adjustable bangle with a gold bell, and four charm bracelets with a bee, a butterfly, a star and a heart. Every piece is weighed in front of you and priced at the day’s gold rate.'],
         toc: [[3, 'Four little charms'], [4, '@B4244-A'], [5, '@B4244-B'], [6, '@B4244-C'], [7, '@B4244-D'],
-          [9, '@BG0106'], [10, 'Bangles with beads'], [11, 'Choose by weight'], [12, 'Gift wrapping'], [13, 'Our boutiques']] },
+          [9, '@BG0106'], [10, 'Bangles with beads'], [11, 'Choose by weight'], [12, 'Our boutiques']] },
       { t: 'bmobile', baby: true },
       { t: 'xproduct', id: 'B4244-A', img: 'b-B4244-A' }, { t: 'xproduct', id: 'B4244-B', img: 'b-B4244-B' },
       { t: 'xproduct', id: 'B4244-C', img: 'b-B4244-C' }, { t: 'xproduct', id: 'B4244-D', img: 'b-B4244-D' },
       { t: 'xphoto', img: 'baby-bell', id: 'BG0106', cap: '{ref} {name}, with its gold bell' }, { t: 'xproduct', id: 'BG0106', img: 'b-BG0106' },
       { t: 'xpair', ids: ['BG0139', 'BG0140'] },
       { t: 'xweights', list: ['BG0106', 'BG0139', 'BG0140', 'B4244-A', 'B4244-B', 'B4244-C', 'B4244-D'], img: 'bt-', text: 'Gold is priced by weight, so the lighter the piece, the gentler the price. Weights are of the pieces photographed.' },
-      { t: 'xwrap', kicker: 'Wrapped as a gift', text: 'Every piece leaves the boutique in our teal box, tied with amber satin ribbon, with a card written for you. Both are complimentary.' },
       { t: 'visit', baby: true },
       { t: 'back', baby: true }
     ] },
@@ -2946,9 +2950,6 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     ] },
     { id: 'gift', title: 'The Gift Edit', sub: 'Six designs to give, tied by hand', cover: 'yixing-box', pages: [
       { t: 'cover', img: 'yixing-box', light: true, kicker: 'Festive 2026', title: 'The Gift Edit', sub: 'Six designs to give, tied by hand' },
-      { t: 'text', band: true, kicker: 'The Yi Xing box', title: 'Tied by hand in <em>amber</em>', text: [
-        'Every bracelet leaves our boutiques in a hinged teal box lined in ivory velvet, with our mark in gold foil inside the lid.',
-        'For gifts we tie it with amber satin ribbon and add a card written in the boutique. Both are complimentary.'] },
       { t: 'colB', kicker: 'To give', ids: ['3990', '4082'] }, { t: 'colB', kicker: 'To give', ids: ['4037', '4023'] },
       { t: 'colB', kicker: 'To give', ids: ['3947', '4047'] },
       { t: 'services' },
@@ -3130,7 +3131,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     const [l, r] = pagesOf(reader.v);
     reader.page = sp ? (l >= 0 ? l : r) : l;
     const book = $('[data-book]');
-    book.dataset.state = !sp ? 'single' : reader.v === 0 ? 'front' : reader.v === V - 1 ? 'back' : 'open';
+    book.dataset.state = !sp ? 'single' : reader.v === 0 ? 'front' : reader.v === V - 1 && b.pages.length % 2 === 0 ? 'back' : 'open';
     $('[data-spread]').innerHTML = sp
       ? `<div class="book__page book__page--l">${slot(b, l)}</div><div class="book__page book__page--r">${slot(b, r)}</div>`
       : `<div class="book__page book__page--r">${slot(b, l)}</div>`;
@@ -3165,7 +3166,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     const el = $('[data-spread]');
     el.innerHTML = `<div class="book__page book__page--l">${under[0]}</div><div class="book__page book__page--r">${under[1]}</div>
       <div class="leaf leaf--${dir > 0 ? 'next' : 'prev'}"><div class="leaf__face book__page--${dir > 0 ? 'r' : 'l'}">${front}</div><div class="leaf__face leaf__face--back book__page--${dir > 0 ? 'l' : 'r'}">${back}</div></div>`;
-    $('[data-book]').dataset.state = to === 0 ? 'front' : to === V - 1 ? 'back' : 'open';
+    $('[data-book]').dataset.state = to === 0 ? 'front' : to === V - 1 && b.pages.length % 2 === 0 ? 'back' : 'open';
     const leaf = $('.leaf', el);
     let done = false;
     const finish = () => { if (done) return; done = true; turning = false; reader.v = to; renderReader(); };
@@ -3712,6 +3713,8 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     const op = t.closest('[data-open-product]'); if (op) { openProduct(op.dataset.openProduct); return; }
     if (t.closest('[data-pdialog-close]')) { closeProduct(); return; }
 
+    const home = t.closest('[data-home-link]');
+    if (home && (!location.hash || location.hash === '#home')) { e.preventDefault(); closeMenu(); window.scrollTo({ top: 0, behavior: motionOK() ? 'smooth' : 'auto' }); return; }
     if (t.closest('[data-search-open]')) { openSearch(); return; }
     if (t.closest('[data-filters-open]')) { openFilters(); return; }
     if (t.closest('[data-filters-close]')) { closeFilters(); return; }
