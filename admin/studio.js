@@ -267,7 +267,7 @@ const GH = {
 // ------------------------------------------------------------------ content
 const KIND_DIR = { campaigns: '_data/campaigns', products: '_data/products', collections: '_data/collections', editorial: '_data/editorial', brochures: '_data/brochures' };
 const KEY_FIELD = { campaigns: 'slug', products: 'id', collections: 'id', editorial: 'slug', brochures: 'slug' };
-const pathFor = (kind, key) => (kind === 'home' ? '_data/home.json' : `${KIND_DIR[kind]}/${key}.json`);
+const pathFor = (kind, key) => (kind === 'home' ? '_data/home.json' : kind === 'rules' ? '_data/catalogue_rules.json' : `${KIND_DIR[kind]}/${key}.json`);
 const entries = kind => Object.entries(S.data[kind] || {}).map(([key, e]) => ({ key, ...e }));
 const values = kind => entries(kind).map(e => e.value);
 const byOrder = (a, b) => (Number(a.order ?? 999) - Number(b.order ?? 999)) || String(a.name || a.title || '').localeCompare(String(b.name || b.title || ''));
@@ -279,7 +279,7 @@ async function loadAll(onStep) {
   S.head = head;
   S.files = new Map(tree.tree.filter(e => e.type === 'blob').map(e => [e.path, { sha: e.sha, size: e.size || 0 }]));
   const dataPaths = [...S.files.keys()].filter(p => /^_data\/([a-z]+\/)?[^/]+\.json$/.test(p));
-  const data = { campaigns: {}, products: {}, collections: {}, editorial: {}, brochures: {}, home: null };
+  const data = { campaigns: {}, products: {}, collections: {}, editorial: {}, brochures: {}, home: null, rules: null };
   let n = 0;
   await pool(dataPaths, 8, async p => {
     const sha = S.files.get(p).sha;
@@ -287,10 +287,12 @@ async function loadAll(onStep) {
     try { value = JSON.parse(dec.decode(await GH.blob(sha))); } catch (e) { console.warn('Could not read', p, e); return; }
     onStep && onStep(`Loading content ${++n} of ${dataPaths.length}…`);
     if (p === '_data/home.json') { data.home = { path: p, sha, value }; return; }
+    if (p === '_data/catalogue_rules.json') { data.rules = { path: p, sha, value }; return; }
     const m = /^_data\/([a-z]+)\/([^/]+)\.json$/.exec(p);
     if (m && data[m[1]]) data[m[1]][m[2]] = { path: p, sha, value };
   });
   if (!data.home) data.home = { path: '_data/home.json', sha: null, value: {} };
+  if (!data.rules) data.rules = { path: '_data/catalogue_rules.json', sha: null, value: null };   // what the website shows (Products)
   S.data = data;
   refreshMedia();
 }
@@ -363,6 +365,7 @@ function siteHas(kind, key, value) {
   return site => {
     if (!site) return false;
     if (kind === 'home') return canon(site.home || {}) === canon(value);
+    if (kind === 'rules') return canon(site.catalogue_rules || {}) === canon(value);
     const group = site[kind] || {};
     const keyField = KEY_FIELD[kind];
     const found = Object.values(group).find(v => v && String(v[keyField]) === String(key));
@@ -1320,6 +1323,10 @@ function loadCatalogue(force = false) {
 const catalogueReady = () => Promise.race([loadCatalogue(), sleep(4000)]);
 
 const catProducts = () => (CAT.doc && Array.isArray(CAT.doc.products) ? CAT.doc.products : []);
+// a catalogue piece without photos doesn't replace a website-only piece of the same reference (the website keeps
+// showing the website-only one, with its photos)
+const catBare = p => !(p && Array.isArray(p.media) && p.media.length);
+const siteHasPiece = id => { const u = String(id ?? '').toUpperCase(); return !!u && values('products').some(x => String(x.id).toUpperCase() === u); };
 const catById = id => { const u = String(id ?? '').toUpperCase(); return u ? catProducts().find(p => String(p.id).toUpperCase() === u) || null : null; };
 const catName = p => String(p.name || '').trim() || `${p.type || 'Piece'} ${p.ref || p.id}`;
 const catFile = r => (r ? CAT_BASE + String(r).split('/').map(encodeURIComponent).join('/') : '');
@@ -1347,7 +1354,7 @@ const catColLink = name => `#collection-${(studioColFor(name) || {}).id || siteS
 
 // a product id saved in a campaign, a story or a brochure, as the website will show it
 function productRef(id) {
-  const cp = catById(id);
+  const cp0 = catById(id), cp = cp0 && catBare(cp0) && siteHasPiece(id) ? null : cp0;
   if (cp) return { id: String(cp.id), name: catName(cp), meta: [cp.ref, cp.type, catWeights(cp)].filter(Boolean).join(' · '), thumb: catThumb(cp), src: 'cat' };
   const sp = S.data.products && S.data.products[id] ? S.data.products[id].value : values('products').find(x => String(x.id) === String(id));
   if (sp) return { id: String(sp.id), name: sp.name || String(sp.id), meta: `${sp.id} · website-only${sp.show === false ? ' · hidden' : ''}`, img: sp.images && sp.images[0], src: 'site', hidden: sp.show === false };
@@ -1356,14 +1363,155 @@ function productRef(id) {
 const refImg = r => (r && r.thumb ? catImg(r.thumb) : r && r.img ? imgTag(r.img) : '');
 // everything a campaign, story or brochure can show: the catalogue's products, then the website-only pieces it doesn't have
 function pickable() {
-  const inCat = new Set(catProducts().map(p => String(p.id).toUpperCase()));
-  return catProducts().map(p => ({ id: String(p.id), name: catName(p), meta: [p.ref, p.type, catWeights(p)].filter(Boolean).join(' · '), thumb: catThumb(p), src: 'cat',
+  const cat = catProducts().filter(p => !(catBare(p) && siteHasPiece(p.id)));
+  const inCat = new Set(cat.map(p => String(p.id).toUpperCase()));
+  return cat.map(p => ({ id: String(p.id), name: catName(p), meta: [p.ref, p.type, catWeights(p)].filter(Boolean).join(' · '), thumb: catThumb(p), src: 'cat',
       hay: [catName(p), p.id, p.ref, p.type, ...(p.cols || []), ...(p.vs || []).map(v => v.code)].join(' ').toLowerCase() }))
     .concat(values('products').slice().sort(byOrder).filter(p => !inCat.has(String(p.id).toUpperCase())).map(p => ({
       id: String(p.id), name: p.name || String(p.id), meta: `${p.id} · website-only${p.show === false ? ' · hidden' : ''}`, img: p.images && p.images[0], src: 'site', hidden: p.show === false,
       hay: `${p.name} ${p.id} ${p.collection || ''}`.toLowerCase() })));
 }
 const productsOnSite = () => pickable().filter(x => !x.hidden).length;
+
+// ------------------------------------------------------------------ what the website shows
+// The catalogue has far more pieces than a website can list (over 36,000). Here the owner chooses how many of the
+// newest pieces each collection shows, and each category of pieces that are in no collection, and whether pieces
+// without photos may show. It is saved as _data/catalogue_rules.json; the catalogue PC (version 1.2.0 and later)
+// reads it from the website every few minutes and publishes only those pieces, so visitors download only what is
+// shown. Pieces that campaigns, stories and e-brochures use, and the ones listed under Always show, always stay.
+const RULES_PATH = '_data/catalogue_rules.json';
+const RULES_BASE = { max: null, photos: 'only' };   // until the owner chooses: every piece with photos
+const RULES_CAP = 2000;                              // the most the catalogue PC lists (its config.ini, [website] max_products)
+const rulesSaved = () => (S.data.rules && S.data.rules.value) || null;
+const ruleOf = (x, base = RULES_BASE) => {
+  const r = { ...base };
+  if (x && typeof x === 'object') {
+    if ('max' in x) r.max = x.max === null || x.max === '' || x.max === undefined || !isFinite(Number(x.max)) ? null : Math.max(0, Math.floor(Number(x.max)));
+    if (x.photos === 'any' || x.photos === 'only') r.photos = x.photos;
+  }
+  return r;
+};
+const nameKey = s => String(s || '').normalize('NFKC').replace(/\s+/g, ' ').trim().toLowerCase();
+const fmtN = n => Number(n || 0).toLocaleString('en-MY');
+const refList = t => [...new Set(String(t || '').split(/[\s,;]+/).map(x => x.trim().toUpperCase()).filter(Boolean))];
+// how many of a row's pieces the choice shows (as far as the catalogue's counts tell)
+const estimate = (row, rule) => (row.all == null ? null : Math.min(rule.max == null ? Infinity : rule.max, rule.photos === 'any' ? row.all : row.photos));
+
+// is the catalogue PC using the saved choice yet?
+function rulesState() {
+  const saved = rulesSaved(), doc = CAT.doc || {};
+  if (CAT.error && !CAT.at) return ['off', 'The catalogue can’t be reached just now'];
+  if (!saved) return ['live', 'Every piece with photos (nothing chosen yet)'];
+  if (!doc.rules) return ['soon', 'Saved · waiting for the catalogue PC’s update (version 1.2.0)'];
+  if ((doc.rules.updated || '') === (saved.updated || '')) return ['live', 'In use on the website'];
+  return ['soon', 'Saved · the catalogue PC applies it within about 15 minutes'];
+}
+function showingCard() {
+  const st = CAT.doc && CAT.doc.stats, saved = rulesSaved(), n = catProducts().length;
+  const line = st && st.all ? `${fmtN(st.shown != null ? st.shown : n)} of the ${fmtN(st.all)} pieces in the catalogue are on the website (${fmtN(st.photos)} have photos).`
+    : `${fmtN(n)} catalogue pieces are on the website.`;
+  return `<section class="card" style="margin-bottom:22px" data-showing-card><div class="card__head" style="flex-wrap:wrap"><div style="min-width:0">
+      <h2 class="card__title">What the website shows ${chip(rulesState())}</h2>
+      <p class="hint" style="margin-top:.35rem">${esc(line)} ${saved ? `Your choice was saved ${esc(saved.updated ? timeAgo(saved.updated) : '')}.` : 'Choose how many of the newest pieces each collection and category shows, with or without photos.'}</p></div>
+      <a class="btn btn--primary btn--sm" href="#showing">${ic('eye')}Choose what shows</a></div></section>`;
+}
+
+VIEWS.showing = async () => {
+  const saved = rulesSaved();
+  const doc = CAT.doc || {}, st = doc.stats || null;
+  const dflt = ruleOf(saved && saved.default);
+  // the rows: every collection and category the catalogue has (with its counts), then saved ones it no longer has
+  const rowsFrom = (stat, list, savedRows) => {
+    const rows = [], seen = new Set();
+    const add = (name, all, photos, shown) => { const k = nameKey(name); if (!k || seen.has(k)) return; seen.add(k); rows.push({ name: String(name), all, photos, shown }); };
+    (stat || []).forEach(x => add(x.name, x.all, x.photos, x.shown));
+    (list || []).forEach(x => add(x.name, null, null, x.count));
+    (savedRows || []).forEach(x => add(x && x.name, null, null, null));
+    const byKey = new Map((savedRows || []).filter(x => x && x.name).map(x => [nameKey(x.name), x]));
+    rows.forEach(r => { r.rule = ruleOf(byKey.get(nameKey(r.name)), dflt); r.wasSaved = byKey.has(nameKey(r.name)); });
+    return rows;
+  };
+  const cols = rowsFrom(st && st.collections, doc.collections, saved && saved.collections);
+  const cats = rowsFrom(st && st.categories, doc.types, saved && saved.categories)
+    .sort((a, b) => (b.all ?? -1) - (a.all ?? -1) || a.name.localeCompare(b.name));
+  const draft = { dflt: { ...dflt }, cols, cats, always: (saved && Array.isArray(saved.always) ? saved.always : []).join(', ') };
+  const ctl = (key, r) => `<div class="addrow" style="flex-wrap:nowrap;gap:.45rem">
+      <input class="input" style="width:6.5rem;min-height:38px" type="number" min="0" step="1" inputmode="numeric" placeholder="All" value="${r.max == null ? '' : r.max}" data-max="${key}" aria-label="How many of the newest pieces (empty for all)">
+      <select class="select" style="width:auto;min-height:38px" data-photos="${key}" aria-label="Photos"><option value="only"${r.photos === 'only' ? ' selected' : ''}>With photos only</option><option value="any"${r.photos === 'any' ? ' selected' : ''}>With or without photos</option></select></div>`;
+  const counts = r => (r.all == null ? `<span class="muted">${r.shown == null ? '—' : `${fmtN(r.shown)} on the website`}</span>`
+    : `${fmtN(r.all)} <span class="muted">· ${fmtN(r.photos)} with photos</span>`);
+  const table = (kind, rows, head) => rows.length ? `<div class="table-wrap"><table class="table rules-table"><thead><tr><th>${head}</th><th>In the catalogue</th><th>Show the newest</th><th>Will show</th></tr></thead><tbody>
+      ${rows.map((r, i) => `<tr><td><b>${esc(r.name)}</b></td><td class="small">${counts(r)}</td><td>${ctl(`${kind}:${i}`, r.rule)}</td><td class="small" data-est="${kind}:${i}"></td></tr>`).join('')}</tbody></table></div>`
+    : `<div class="card__body muted">None yet.</div>`;
+  shell('products', [['Products', '#products'], ['What the website shows', '']], `
+    <div class="page-head"><div><h1 class="page-title">What the website shows</h1>
+      <p class="page-sub">The catalogue has too many pieces to show them all, so choose here how many of the <b>newest</b> pieces (by listing date) each collection shows, and each category for the pieces that aren’t in a collection yet. Leave a number empty to show them all, or put 0 to show none. Pieces used in campaigns, stories and e-brochures always stay on the website.</p></div>
+      <div class="page-actions"><button type="button" class="btn" data-recheck>${ic('search')}Check the catalogue again</button><button type="button" class="btn btn--primary" data-save-rules disabled>${ic('check')}Save</button></div></div>
+    <div class="card card__body" role="status" style="margin-bottom:18px;display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center" data-rules-state>${chip(rulesState())}<span class="small" data-total></span></div>
+    ${CAT.error ? `<div class="card card__body" role="status" style="margin-bottom:18px;border-color:var(--warn,#b8860b)">${ic('alert')} ${esc(CAT.error)}</div>` : ''}
+    ${!st && !CAT.error ? `<div class="card card__body" role="status" style="margin-bottom:18px">${ic('alert')} The catalogue PC hasn’t sent its counts yet (it needs version 1.2.0), so only the pieces on the website now are counted. Your choice is saved all the same.</div>` : ''}
+    <section class="card" style="margin-bottom:18px"><div class="card__head" style="flex-wrap:wrap"><div><h2 class="card__title">For new collections and categories</h2><p class="hint">Used for any collection or category added to the sheet later.</p></div>
+      <div class="addrow">${ctl('d:0', draft.dflt)}<button type="button" class="btn btn--sm" data-apply-all>Use for every row</button></div></div></section>
+    <section class="card" style="margin-bottom:18px"><div class="card__head"><div><h2 class="card__title">Collections</h2><p class="hint">From the Collection 1–5 columns of the sheet. A piece in two collections counts in both.</p></div></div>${table('c', draft.cols, 'Collection')}</section>
+    <section class="card" style="margin-bottom:18px"><div class="card__head"><div><h2 class="card__title">Categories</h2><p class="hint">Pieces that aren’t in any collection yet, by product type. Pieces in a collection follow their collection above.</p></div></div>${table('t', draft.cats, 'Category')}</section>
+    <section class="card"><div class="card__head"><div><h2 class="card__title">Always show</h2><p class="hint">References that stay on the website whatever the numbers above, such as GR040, B4458. Separate them with commas or spaces. A piece marked “No” in the sheet’s Show on website column stays off.</p></div></div>
+      <div class="card__body"><textarea class="textarea input--mono" rows="2" data-always placeholder="GR040, B4458" aria-label="References always shown">${esc(draft.always)}</textarea><p class="hint" data-always-note style="margin-top:.5rem"></p></div></section>`);
+
+  const rowOf = key => { const [k, i] = key.split(':'); return k === 'd' ? draft.dflt : (k === 'c' ? draft.cols : draft.cats)[+i].rule; };
+  const draw = () => {
+    let total = 0, known = true;
+    [['c', draft.cols], ['t', draft.cats]].forEach(([k, rows]) => rows.forEach((r, i) => {
+      const e = estimate(r, r.rule), el = $(`[data-est="${k}:${i}"]`);
+      if (e == null) known = false; else total += e;
+      if (el) el.innerHTML = e == null ? `<span class="muted">${r.shown == null ? '—' : `${fmtN(r.shown)} now`}</span>` : `${fmtN(e)}${r.shown != null && r.shown !== e ? ` <span class="muted">(now ${fmtN(r.shown)})</span>` : ''}`;
+    }));
+    const always = refList(draft.always).length;
+    const sum = total + always;
+    $('[data-total]').innerHTML = known && (draft.cols.length || draft.cats.length)
+      ? `With these numbers the website lists about <b>${fmtN(sum)}</b> pieces${always ? ` (including ${always} always shown)` : ''}.${sum > RULES_CAP ? ` <span style="color:var(--danger)">That’s more than the ${fmtN(RULES_CAP)} a website list can hold: the catalogue PC keeps the newest ${fmtN(RULES_CAP)}.</span>` : ''}`
+      : 'The total shows once the catalogue PC sends its counts.';
+    const inCat = new Set(catProducts().map(p => String(p.id).toUpperCase()));
+    const missing = refList(draft.always).filter(x => !inCat.has(x));
+    $('[data-always-note]').textContent = missing.length ? `Not on the website yet: ${missing.join(', ')}. They appear after saving if the catalogue has them.` : '';
+  };
+  draw();
+  const btn = $('[data-save-rules]');
+  const dirty = () => { S.dirty = true; btn.disabled = false; draw(); };
+  $('#content').addEventListener('input', e => {
+    const t = e.target;
+    if (t.dataset.max) { const v = t.value.trim(); rowOf(t.dataset.max).max = v === '' ? null : Math.max(0, Math.floor(Number(v) || 0)); dirty(); }
+    else if (t.hasAttribute('data-always')) { draft.always = t.value; dirty(); }
+  });
+  $('#content').addEventListener('change', e => { const t = e.target; if (t.dataset.photos) { rowOf(t.dataset.photos).photos = t.value === 'any' ? 'any' : 'only'; dirty(); } });
+  $('[data-apply-all]').addEventListener('click', () => {
+    [...draft.cols, ...draft.cats].forEach(r => { r.rule = { ...draft.dflt }; });
+    $$('[data-max]').forEach(x => { if (x.dataset.max !== 'd:0') x.value = draft.dflt.max == null ? '' : draft.dflt.max; });
+    $$('[data-photos]').forEach(x => { if (x.dataset.photos !== 'd:0') x.value = draft.dflt.photos; });
+    dirty();
+  });
+  $('[data-recheck]').addEventListener('click', async e => { if (S.dirty && !(await ask('Check again?', 'Checking again shows the catalogue’s latest counts; your unsaved numbers are lost.', 'Check again', { cancel: 'Stay' }))) return; S.dirty = false; busy(e.currentTarget, true, 'Checking…'); await loadCatalogue(true); route(); });
+  btn.addEventListener('click', async () => {
+    const value = {
+      default: { ...draft.dflt },
+      collections: draft.cols.map(r => ({ name: r.name, ...r.rule })),
+      categories: draft.cats.map(r => ({ name: r.name, ...r.rule })),
+      always: refList(draft.always),
+      updated: new Date().toISOString(),
+    };
+    busy(btn, true, 'Saving…');
+    try {
+      const was = S.data.rules && S.data.rules.sha;
+      try {
+        const now = await GH.file(RULES_PATH);
+        if (now && was !== now.sha && !(await ask('Changed by someone else', 'Someone else saved what the website shows after you opened this page. Save your version over theirs?', 'Save mine', { danger: true }))) { busy(btn, false); return; }
+      } catch (e) { if (e.code === 'auth') throw e; }
+      const shown = value.collections.length + value.categories.length;
+      await commitEntry('rules', '', value, { message: `Website products: what the website shows (${shown} collections and categories${value.always.length ? `, ${value.always.length} always shown` : ''})` });
+      S.dirty = false;
+      route();
+    } catch (e) { handleError(e); busy(btn, false); }
+  });
+};
 
 // ------------------------------------------------------------------ campaigns: what the home page shows
 const isOn = c => c && (c.active === true || c.active === 'true');
@@ -1451,7 +1599,7 @@ VIEWS.products = async id => {
   const f = S.ui.pf || (S.ui.pf = { q: '', type: '', n: 60 });
   const types = (CAT.doc && CAT.doc.types) || [];
   if (f.type && !types.some(t => t.name === f.type)) f.type = '';
-  const inCat = new Set(catProducts().map(p => String(p.id).toUpperCase()));
+  const inCat = new Set(catProducts().filter(p => !catBare(p)).map(p => String(p.id).toUpperCase()));
   const site = values('products').slice().sort(byOrder);
   const hay = p => [catName(p), p.id, p.ref, p.type, ...(p.cols || []), ...(p.vs || []).map(v => v.code)].join(' ').toLowerCase();
   const draw = () => {
@@ -1459,15 +1607,16 @@ VIEWS.products = async id => {
     const list = catProducts().filter(p => (!f.type || p.type === f.type) && words.every(w => hay(p).includes(w)));
     $('[data-count]').textContent = CAT.error && !catProducts().length ? '' : `${list.length} of ${catProducts().length}`;
     $('[data-tiles]').innerHTML = list.length ? `<div class="tiles">${list.slice(0, f.n).map(p => `<a class="card tile" href="${esc(SITE)}#product-${encodeURIComponent(p.id)}" target="_blank" rel="noopener" title="Open on the website">
-      <div class="tile__media tile__media--photo">${catImg(catThumb(p), catName(p))}${(p.hl || []).includes('new') ? chip(['live', 'New']) : ''}</div>
+      <div class="tile__media tile__media--photo">${catThumb(p) ? catImg(catThumb(p), catName(p)) : `<span class="tile__ph">${ic('gem', 'icon--lg')}</span>`}${!(p.media || []).length ? chip(['off', 'No photo yet']) : (p.hl || []).includes('new') ? chip(['live', 'New']) : ''}</div>
       <div class="tile__body"><span class="tile__name">${esc(catName(p))}</span><span class="tile__meta">${esc([p.ref, p.vs && p.vs.length > 1 ? `${p.vs.length} variants` : '', catWeights(p)].filter(Boolean).join(' · '))}</span></div></a>`).join('')}</div>
       ${list.length > f.n ? `<div class="addrow" style="justify-content:center;margin-top:18px"><button type="button" class="btn" data-more>Show more (${list.length - f.n} more)</button></div>` : ''}`
-      : `<div class="card empty">${ic(CAT.error ? 'alert' : 'search')}<p>${CAT.error ? 'The catalogue can’t be reached just now.' : catProducts().length ? 'No products match.' : 'No catalogue products have photos yet.'}</p></div>`;
+      : `<div class="card empty">${ic(CAT.error ? 'alert' : 'search')}<p>${CAT.error ? 'The catalogue can’t be reached just now.' : catProducts().length ? 'No products match.' : 'No catalogue products are on the website yet.'}</p></div>`;
   };
   shell('products', [['Products', '#products']], `<div class="page-head"><div><h1 class="page-title">Products</h1>
-    <p class="page-sub">The website lists the products of the staff catalogue (the Google Sheet) that have photos or videos, with their variants. To change one, edit the sheet or the photo folder: the website follows within about 15 minutes. Prices, stock, teams and merchants never leave the catalogue.</p></div>
+    <p class="page-sub">The website lists products of the staff catalogue (the Google Sheet) with their variants: the ones chosen under What the website shows. To change one, edit the sheet or the photo folder: the website follows within about 15 minutes. Prices, stock, teams and merchants never leave the catalogue.</p></div>
     <div class="page-actions"><button type="button" class="btn" data-recheck>${ic('search')}Check the catalogue again</button></div></div>
     ${CAT.error ? `<div class="card card__body" role="status" style="margin-bottom:18px;border-color:var(--warn,#b8860b)">${ic('alert')} ${esc(CAT.error)}</div>` : ''}
+    ${showingCard()}
     <div class="toolbar"><div class="search">${ic('search')}<input class="input" type="search" placeholder="Search name, reference or code" value="${esc(f.q)}" data-q aria-label="Search the catalogue"></div>
       <div class="filters" role="group" aria-label="Category"><button type="button" class="filter" data-type="" aria-pressed="${!f.type}">All</button>${types.map(t => `<button type="button" class="filter" data-type="${esc(t.name)}" aria-pressed="${f.type === t.name}">${esc(pluralOf(t.name))} <span class="muted">${t.count}</span></button>`).join('')}</div>
       <span class="hint" data-count></span></div>
@@ -1490,7 +1639,7 @@ VIEWS.collections = async id => {
   const list = values('collections').slice().sort(byOrder);
   const catCols = (CAT.doc && CAT.doc.collections) || [];
   const catCount = c => catCols.filter(x => studioColFor(x.name) === c).reduce((n, x) => n + (x.count || 0), 0);
-  const count = c => values('products').filter(p => p.collection === c.id && p.show !== false && !catById(p.id)).length + catCount(c);
+  const count = c => values('products').filter(p => p.collection === c.id && p.show !== false && !(catById(p.id) && !catBare(catById(p.id)))).length + catCount(c);
   shell('collections', [['Collections', '#collections']], `<div class="page-head"><div><h1 class="page-title">Collections</h1>
     <p class="page-sub">Collections come from the Collection 1–5 columns of the catalogue sheet. Here each one gets a cover picture, a name and a few words. A collection is on the website while it has products.</p></div>
     <div class="page-actions"><a class="btn btn--primary" href="#collections/new">${ic('plus')}New collection</a></div></div>
@@ -1615,7 +1764,7 @@ function renderEditor() {
 }
 
 // ------------------------------------------------------------------ saving
-const LABEL = { campaigns: 'Campaign', products: 'Product', collections: 'Collection', editorial: 'Story', brochures: 'e-Brochure', home: 'Home page' };
+const LABEL = { campaigns: 'Campaign', products: 'Product', collections: 'Collection', editorial: 'Story', brochures: 'e-Brochure', home: 'Home page', rules: 'Website products' };
 const signature = () => `\n\nSaved in Yi Xing Studio by ${S.session.user.name || S.session.user.email}`;
 // write one entry (plus its new uploads and any other entries that change with it) in a single commit
 async function commitEntry(kind, key, value, { oldKey = null, also = [], message, onProgress } = {}) {
@@ -1628,9 +1777,9 @@ async function commitEntry(kind, key, value, { oldKey = null, also = [], message
   await GH.commit(changes, message + signature(), onProgress);
   const store = async (k, ky, v) => {
     const p = pathFor(k, ky), sha = await gitBlobSha(enc.encode(jsonFile(v)));
-    if (k === 'home') S.data.home = { path: p, sha, value: v }; else S.data[k][ky] = { path: p, sha, value: v };
+    if (k === 'home') S.data.home = { path: p, sha, value: v }; else if (k === 'rules') S.data.rules = { path: p, sha, value: v }; else S.data[k][ky] = { path: p, sha, value: v };
   };
-  if (oldKey != null && oldKey !== key && kind !== 'home') delete S.data[kind][oldKey];
+  if (oldKey != null && oldKey !== key && kind !== 'home' && kind !== 'rules') delete S.data[kind][oldKey];
   await store(kind, key, value);
   for (const o of also) await store(o.kind, o.key, o.value);
   settlePending(uploads.map(u => u.path));

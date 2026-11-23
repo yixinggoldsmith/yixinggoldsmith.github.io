@@ -438,3 +438,17 @@ img.is-photo { object-fit: contain !important; background: #FFFFFF; }
 .tr .input, .tr .textarea { min-height: 38px; padding: .4rem .7rem; font-size: .9rem; }
 .tr .textarea { min-height: 72px; }
 .tr .rt__area { min-height: 72px; }
+
+/* What the website shows: on a phone each collection or category is a small block (name and what it will show,
+   then the counts, then the two choices), so nothing has to scroll sideways */
+@media (max-width: 640px) {
+  .rules-table thead { display: none; }
+  .rules-table, .rules-table tbody { display: block; width: 100%; }
+  .rules-table tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  .rules-table tr:last-child { border-bottom: 0; }
+  .rules-table td { display: block; padding: 0; border: 0; min-width: 0; }
+  .rules-table td:nth-child(2), .rules-table td:nth-child(3) { grid-column: 1 / -1; }
+  .rules-table td:nth-child(4) { grid-column: 2; grid-row: 1; text-align: right; }
+  .rules-table td:nth-child(4)::before { content: "Will show "; color: var(--muted); }
+  .rules-table .addrow { flex-wrap: wrap !important; }
+}
