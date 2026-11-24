@@ -1376,17 +1376,22 @@ const productsOnSite = () => pickable().filter(x => !x.hidden).length;
 // ------------------------------------------------------------------ what the website shows
 // The catalogue has far more pieces than a website can list (over 36,000). Here the owner chooses, for each
 // collection and each category of pieces that are in no collection, how many pieces of each Best Selling Status
-// (Fast, no status, Non-moving) to show and whether pieces without photos may show; and how often the pieces take
+// (Fast, Moderate, Slow, Non-moving, no status) to show and whether pieces without photos may show; and how often the pieces take
 // turns (every week or every day), so that over time every piece has its turn. It is saved as
-// _data/catalogue_rules.json (version 2); the catalogue PC (version 1.3.0 and later) reads it from the website every
+// _data/catalogue_rules.json (version 3); the catalogue PC (version 1.3.1 and later) reads it from the website every
 // few minutes and publishes only those pieces, so visitors download only what is shown. The statuses themselves
 // and how many pieces have each stay on the catalogue PC (the website never sees them), so the counts here are
 // "up to". Pieces that campaigns, stories and e-brochures use, and the ones under Always show, always stay.
 const RULES_PATH = '_data/catalogue_rules.json';
 const RULES_CAP = 2000;                              // the most the catalogue PC lists (its config.ini, [website] max_products)
-const STATUSES = [['fast', 'Fast'], ['none', 'No status'], ['slow', 'Non-moving']];
-const RULES_BASE = { photos: 'only', fast: null, none: null, slow: null };   // until the owner chooses: every piece with photos
-const rulesSaved = () => (S.data.rules && S.data.rules.value) || null;
+const STATUSES = [['fast', 'Fast'], ['moderate', 'Moderate'], ['slow', 'Slow'], ['non', 'Non-moving'], ['none', 'No status']];
+const RULES_BASE = { photos: 'only', fast: null, moderate: null, slow: null, non: null, none: null };   // until the owner chooses: every piece with photos
+// A choice saved by the Studio of catalogue PC 1.3.0 (version 2) had three columns: its Non-moving ("slow") also
+// covered Slow pieces and its No status ("none") also Moderate ones, so it reads as the same numbers in the new columns
+// (the catalogue PC reads it the same way).
+const upgradeRow = x => (x && typeof x === 'object' ? { ...x, ...('slow' in x && !('non' in x) ? { non: x.slow } : {}), ...('none' in x && !('moderate' in x) ? { moderate: x.none } : {}) } : x);
+const upgradeRules = d => (d && d.v === 2 ? { ...d, default: upgradeRow(d.default), collections: (d.collections || []).map(upgradeRow), categories: (d.categories || []).map(upgradeRow) } : d);
+const rulesSaved = () => upgradeRules((S.data.rules && S.data.rules.value) || null);
 const quota = v => (v === null || v === undefined || v === '' || !isFinite(Number(v)) ? null : Math.max(0, Math.floor(Number(v))));
 const ruleOf = (x, base = RULES_BASE) => {
   const r = { ...base };
@@ -1414,7 +1419,7 @@ function rulesState() {
   const saved = rulesSaved(), doc = CAT.doc || {};
   if (CAT.error && !CAT.at) return ['off', 'The catalogue can’t be reached just now'];
   if (!saved) return ['live', 'Every piece with photos (nothing chosen yet)'];
-  if (!doc.rules || doc.rules.v !== 2) return ['soon', 'Saved · waiting for the catalogue PC’s update (version 1.3.0)'];
+  if (!doc.rules || !(doc.rules.v >= 3)) return ['soon', 'Saved · waiting for the catalogue PC’s update (version 1.3.1)'];
   if ((doc.rules.updated || '') === (saved.updated || '')) return ['live', 'In use on the website'];
   return ['soon', 'Saved · the catalogue PC applies it within about 15 minutes'];
 }
@@ -1462,13 +1467,13 @@ VIEWS.showing = async () => {
       <div class="page-actions"><button type="button" class="btn" data-recheck>${ic('search')}Check the catalogue again</button><button type="button" class="btn btn--primary" data-save-rules disabled>${ic('check')}Save</button></div></div>
     <div class="card card__body" role="status" style="margin-bottom:18px;display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center" data-rules-state>${chip(rulesState())}<span class="small" data-total></span></div>
     ${CAT.error ? `<div class="card card__body" role="status" style="margin-bottom:18px;border-color:var(--warn,#b8860b)">${ic('alert')} ${esc(CAT.error)}</div>` : ''}
-    ${!st && !CAT.error ? `<div class="card card__body" role="status" style="margin-bottom:18px">${ic('alert')} The catalogue PC hasn’t sent its counts yet (it needs version 1.3.0), so only the pieces on the website now are counted. Your choice is saved all the same.</div>` : ''}
+    ${!st && !CAT.error ? `<div class="card card__body" role="status" style="margin-bottom:18px">${ic('alert')} The catalogue PC hasn’t sent its counts yet (it needs version 1.3.1), so only the pieces on the website now are counted. Your choice is saved all the same.</div>` : ''}
     <section class="card" style="margin-bottom:18px"><div class="card__head" style="flex-wrap:wrap"><div style="min-width:0"><h2 class="card__title">Taking turns</h2>
       <p class="hint">How often the pieces change. Each time, the pieces that have been off the website longest come in, and newly listed pieces come first. Pieces with photos always come before pieces without, so as you add photos those pieces show first.</p></div>
       <select class="select" style="width:auto;min-height:38px" data-turns aria-label="Change the pieces">${Object.entries(TURNS).map(([k, l]) => `<option value="${k}"${draft.turns === k ? ' selected' : ''}>${l}</option>`).join('')}</select></div></section>
     <section class="card" style="margin-bottom:18px"><div class="card__head" style="flex-wrap:wrap"><div style="min-width:0"><h2 class="card__title">For new collections and categories</h2><p class="hint">Used for any collection or category added to the sheet later.</p></div>
       <div class="addrow qdefault">${photosSel('d:0', draft.dflt)}${STATUSES.map(([k, l]) => qBox('d:0', k, l, draft.dflt)).join('')}<button type="button" class="btn btn--sm" data-apply-all>Use for every row</button></div></div></section>
-    <section class="card" style="margin-bottom:18px"><div class="card__head"><div><h2 class="card__title">Collections</h2><p class="hint">From the Collection 1–5 columns of the sheet. A piece in two collections counts in both. The statuses come from the sheet’s Best Selling Status: Fast (or Yes, Hot…), Non-moving (or Slow moving…), and No status for an empty cell.</p></div></div>${table('c', draft.cols, 'Collection')}</section>
+    <section class="card" style="margin-bottom:18px"><div class="card__head"><div><h2 class="card__title">Collections</h2><p class="hint">From the Collection 1–5 columns of the sheet. A piece in two collections counts in both. The statuses come from the sheet’s Best Selling Status: Fast (or Fast moving, Yes, Hot…), Moderate (or Medium, Normal…), Slow (or Slow moving…), Non-moving (or Not moving, Dead stock…), and No status for an empty cell.</p></div></div>${table('c', draft.cols, 'Collection')}</section>
     <section class="card" style="margin-bottom:18px"><div class="card__head"><div><h2 class="card__title">Categories</h2><p class="hint">Pieces that aren’t in any collection yet, by product type. Pieces in a collection follow their collection above.</p></div></div>${table('t', draft.cats, 'Category')}</section>
     <section class="card"><div class="card__head"><div><h2 class="card__title">Always show</h2><p class="hint">References that stay on the website whatever the numbers above, such as GR040, B4458. Separate them with commas or spaces. A piece marked “No” in the sheet’s Show on website column stays off.</p></div></div>
       <div class="card__body"><textarea class="textarea input--mono" rows="2" data-always placeholder="GR040, B4458" aria-label="References always shown">${esc(draft.always)}</textarea><p class="hint" data-always-note style="margin-top:.5rem"></p></div></section>`);
@@ -1511,10 +1516,10 @@ VIEWS.showing = async () => {
     dirty();
   });
   $('[data-recheck]').addEventListener('click', async e => { if (S.dirty && !(await ask('Check again?', 'Checking again shows the catalogue’s latest counts; your unsaved numbers are lost.', 'Check again', { cancel: 'Stay' }))) return; S.dirty = false; busy(e.currentTarget, true, 'Checking…'); await loadCatalogue(true); route(); });
-  const rowValue = r => ({ photos: r.photos, fast: r.fast, none: r.none, slow: r.slow });
+  const rowValue = r => ({ photos: r.photos, ...Object.fromEntries(STATUSES.map(([k]) => [k, r[k]])) });
   btn.addEventListener('click', async () => {
     const value = {
-      v: 2,
+      v: 3,
       rotate: draft.turns,
       default: rowValue(draft.dflt),
       collections: draft.cols.map(r => ({ name: r.name, ...rowValue(r.rule) })),

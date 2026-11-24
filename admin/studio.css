@@ -444,11 +444,13 @@ img.is-photo { object-fit: contain !important; background: #FFFFFF; }
    small block: name and what it will show, the counts, the photos choice, then the three numbers side by side. */
 .qbox { display: grid; gap: .25rem; }
 .qbox span { display: none; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.qbox .input { width: 5.4rem; min-height: 38px; }
+.qbox .input { width: 4.6rem; min-height: 38px; }
 .qdefault { flex-wrap: wrap; align-items: flex-end; gap: .5rem .6rem; }
 .qdefault .qbox span { display: block; }
-.rules-table th.qcol, .rules-table td.qcol { padding-left: 6px; padding-right: 6px; }
-.rules-table td:first-child, .rules-table th:first-child { padding-right: 10px; }
+.rules-table th, .rules-table td { padding-left: 12px; padding-right: 12px; }
+.rules-table th:first-child, .rules-table td:first-child { padding-left: 22px; }
+.rules-table th:last-child, .rules-table td:last-child { padding-right: 22px; }
+.rules-table th.qcol, .rules-table td.qcol { padding-left: 5px; padding-right: 5px; }
 @media (max-width: 640px) {
   .rules-table thead { display: none; }
   .rules-table, .rules-table tbody { display: block; width: 100%; }
@@ -458,11 +460,11 @@ img.is-photo { object-fit: contain !important; background: #FFFFFF; }
   .rules-table td:nth-child(1) { grid-column: 1 / 3; }
   .rules-table td:nth-child(2), .rules-table td:nth-child(3) { grid-column: 1 / -1; }
   .rules-table td:nth-child(3) .select { width: 100% !important; }
-  .rules-table td:nth-child(7) { grid-column: 3; grid-row: 1; text-align: right; }
-  .rules-table td:nth-child(7)::before { content: "Will show "; color: var(--muted); }
+  .rules-table td:last-child { grid-column: 3; grid-row: 1; text-align: right; }
+  .rules-table td:last-child::before { content: "Will show "; color: var(--muted); }
   .rules-table .qbox span { display: block; }
   .rules-table .qbox .input { width: 100%; }
   .qdefault .select { flex: 1 1 100%; width: 100% !important; }
-  .qdefault .qbox { flex: 1 1 0; }
+  .qdefault .qbox { flex: 1 1 28%; }
   .qdefault .qbox .input { width: 100%; }
 }
