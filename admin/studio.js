@@ -1374,19 +1374,25 @@ function pickable() {
 const productsOnSite = () => pickable().filter(x => !x.hidden).length;
 
 // ------------------------------------------------------------------ what the website shows
-// The catalogue has far more pieces than a website can list (over 36,000). Here the owner chooses how many of the
-// newest pieces each collection shows, and each category of pieces that are in no collection, and whether pieces
-// without photos may show. It is saved as _data/catalogue_rules.json; the catalogue PC (version 1.2.0 and later)
-// reads it from the website every few minutes and publishes only those pieces, so visitors download only what is
-// shown. Pieces that campaigns, stories and e-brochures use, and the ones listed under Always show, always stay.
+// The catalogue has far more pieces than a website can list (over 36,000). Here the owner chooses, for each
+// collection and each category of pieces that are in no collection, how many pieces of each Best Selling Status
+// (Fast, no status, Non-moving) to show and whether pieces without photos may show; and how often the pieces take
+// turns (every week or every day), so that over time every piece has its turn. It is saved as
+// _data/catalogue_rules.json (version 2); the catalogue PC (version 1.3.0 and later) reads it from the website every
+// few minutes and publishes only those pieces, so visitors download only what is shown. The statuses themselves
+// and how many pieces have each stay on the catalogue PC (the website never sees them), so the counts here are
+// "up to". Pieces that campaigns, stories and e-brochures use, and the ones under Always show, always stay.
 const RULES_PATH = '_data/catalogue_rules.json';
-const RULES_BASE = { max: null, photos: 'only' };   // until the owner chooses: every piece with photos
 const RULES_CAP = 2000;                              // the most the catalogue PC lists (its config.ini, [website] max_products)
+const STATUSES = [['fast', 'Fast'], ['none', 'No status'], ['slow', 'Non-moving']];
+const RULES_BASE = { photos: 'only', fast: null, none: null, slow: null };   // until the owner chooses: every piece with photos
 const rulesSaved = () => (S.data.rules && S.data.rules.value) || null;
+const quota = v => (v === null || v === undefined || v === '' || !isFinite(Number(v)) ? null : Math.max(0, Math.floor(Number(v))));
 const ruleOf = (x, base = RULES_BASE) => {
   const r = { ...base };
   if (x && typeof x === 'object') {
-    if ('max' in x) r.max = x.max === null || x.max === '' || x.max === undefined || !isFinite(Number(x.max)) ? null : Math.max(0, Math.floor(Number(x.max)));
+    if (STATUSES.some(([k]) => k in x)) STATUSES.forEach(([k]) => { if (k in x) r[k] = quota(x[k]); });
+    else if ('max' in x) STATUSES.forEach(([k]) => { r[k] = quota(x.max); });   // a choice saved before the statuses
     if (x.photos === 'any' || x.photos === 'only') r.photos = x.photos;
   }
   return r;
@@ -1394,25 +1400,32 @@ const ruleOf = (x, base = RULES_BASE) => {
 const nameKey = s => String(s || '').normalize('NFKC').replace(/\s+/g, ' ').trim().toLowerCase();
 const fmtN = n => Number(n || 0).toLocaleString('en-MY');
 const refList = t => [...new Set(String(t || '').split(/[\s,;]+/).map(x => x.trim().toUpperCase()).filter(Boolean))];
-// how many of a row's pieces the choice shows (as far as the catalogue's counts tell)
-const estimate = (row, rule) => (row.all == null ? null : Math.min(rule.max == null ? Infinity : rule.max, rule.photos === 'any' ? row.all : row.photos));
+// at most how many of a row's pieces the choice shows (the numbers per status, as far as the row's counts allow)
+function estimate(row, rule) {
+  if (row.all == null) return null;
+  const total = rule.photos === 'any' ? row.all : row.photos;
+  const qs = STATUSES.map(([k]) => rule[k]);
+  return { n: qs.some(q => q == null) ? total : Math.min(total, qs.reduce((a, b) => a + b, 0)), exact: qs.every(q => q == null) };
+}
+const TURNS = { week: 'Every week (on Mondays)', day: 'Every day', off: 'Never: always the newest' };
 
 // is the catalogue PC using the saved choice yet?
 function rulesState() {
   const saved = rulesSaved(), doc = CAT.doc || {};
   if (CAT.error && !CAT.at) return ['off', 'The catalogue can’t be reached just now'];
   if (!saved) return ['live', 'Every piece with photos (nothing chosen yet)'];
-  if (!doc.rules) return ['soon', 'Saved · waiting for the catalogue PC’s update (version 1.2.0)'];
+  if (!doc.rules || doc.rules.v !== 2) return ['soon', 'Saved · waiting for the catalogue PC’s update (version 1.3.0)'];
   if ((doc.rules.updated || '') === (saved.updated || '')) return ['live', 'In use on the website'];
   return ['soon', 'Saved · the catalogue PC applies it within about 15 minutes'];
 }
 function showingCard() {
-  const st = CAT.doc && CAT.doc.stats, saved = rulesSaved(), n = catProducts().length;
+  const st = CAT.doc && CAT.doc.stats, saved = rulesSaved(), n = catProducts().length, since = CAT.doc && CAT.doc.rules && CAT.doc.rules.since;
   const line = st && st.all ? `${fmtN(st.shown != null ? st.shown : n)} of the ${fmtN(st.all)} pieces in the catalogue are on the website (${fmtN(st.photos)} have photos).`
     : `${fmtN(n)} catalogue pieces are on the website.`;
+  const turns = since && saved ? (CAT.doc.rules.turns === 'day' ? ' They take turns every day.' : ` They take turns every week; this week’s pieces since ${fmtDate(since)}.`) : '';
   return `<section class="card" style="margin-bottom:22px" data-showing-card><div class="card__head" style="flex-wrap:wrap"><div style="min-width:0">
       <h2 class="card__title">What the website shows ${chip(rulesState())}</h2>
-      <p class="hint" style="margin-top:.35rem">${esc(line)} ${saved ? `Your choice was saved ${esc(saved.updated ? timeAgo(saved.updated) : '')}.` : 'Choose how many of the newest pieces each collection and category shows, with or without photos.'}</p></div>
+      <p class="hint" style="margin-top:.35rem">${esc(line)}${esc(turns)} ${saved ? `Your choice was saved ${esc(saved.updated ? timeAgo(saved.updated) : '')}.` : 'Choose how many pieces of each Best Selling Status each collection and category shows, with or without photos; they take turns every week.'}</p></div>
       <a class="btn btn--primary btn--sm" href="#showing">${ic('eye')}Choose what shows</a></div></section>`;
 }
 
@@ -1428,47 +1441,51 @@ VIEWS.showing = async () => {
     (list || []).forEach(x => add(x.name, null, null, x.count));
     (savedRows || []).forEach(x => add(x && x.name, null, null, null));
     const byKey = new Map((savedRows || []).filter(x => x && x.name).map(x => [nameKey(x.name), x]));
-    rows.forEach(r => { r.rule = ruleOf(byKey.get(nameKey(r.name)), dflt); r.wasSaved = byKey.has(nameKey(r.name)); });
+    rows.forEach(r => { r.rule = ruleOf(byKey.get(nameKey(r.name)), dflt); });
     return rows;
   };
   const cols = rowsFrom(st && st.collections, doc.collections, saved && saved.collections);
   const cats = rowsFrom(st && st.categories, doc.types, saved && saved.categories)
     .sort((a, b) => (b.all ?? -1) - (a.all ?? -1) || a.name.localeCompare(b.name));
-  const draft = { dflt: { ...dflt }, cols, cats, always: (saved && Array.isArray(saved.always) ? saved.always : []).join(', ') };
-  const ctl = (key, r) => `<div class="addrow" style="flex-wrap:nowrap;gap:.45rem">
-      <input class="input" style="width:6.5rem;min-height:38px" type="number" min="0" step="1" inputmode="numeric" placeholder="All" value="${r.max == null ? '' : r.max}" data-max="${key}" aria-label="How many of the newest pieces (empty for all)">
-      <select class="select" style="width:auto;min-height:38px" data-photos="${key}" aria-label="Photos"><option value="only"${r.photos === 'only' ? ' selected' : ''}>With photos only</option><option value="any"${r.photos === 'any' ? ' selected' : ''}>With or without photos</option></select></div>`;
+  const turns = saved && TURNS[saved.rotate] ? saved.rotate : 'week';
+  const draft = { dflt: { ...dflt }, cols, cats, turns, always: (saved && Array.isArray(saved.always) ? saved.always : []).join(', ') };
+  const photosSel = (key, r) => `<select class="select" style="width:auto;min-height:38px" data-photos="${key}" aria-label="Photos"><option value="only"${r.photos === 'only' ? ' selected' : ''}>With photos only</option><option value="any"${r.photos === 'any' ? ' selected' : ''}>With or without photos</option></select>`;
+  const qBox = (key, k, label, r) => `<label class="qbox"><span>${label}</span><input class="input" type="number" min="0" step="1" inputmode="numeric" placeholder="All" value="${r[k] == null ? '' : r[k]}" data-q="${key}:${k}" aria-label="${label}: how many (empty for all)"></label>`;
   const counts = r => (r.all == null ? `<span class="muted">${r.shown == null ? '—' : `${fmtN(r.shown)} on the website`}</span>`
     : `${fmtN(r.all)} <span class="muted">· ${fmtN(r.photos)} with photos</span>`);
-  const table = (kind, rows, head) => rows.length ? `<div class="table-wrap"><table class="table rules-table"><thead><tr><th>${head}</th><th>In the catalogue</th><th>Show the newest</th><th>Will show</th></tr></thead><tbody>
-      ${rows.map((r, i) => `<tr><td><b>${esc(r.name)}</b></td><td class="small">${counts(r)}</td><td>${ctl(`${kind}:${i}`, r.rule)}</td><td class="small" data-est="${kind}:${i}"></td></tr>`).join('')}</tbody></table></div>`
+  const table = (kind, rows, head) => rows.length ? `<div class="table-wrap"><table class="table rules-table"><thead><tr><th>${head}</th><th>In the catalogue</th><th>Photos</th>${STATUSES.map(([, l]) => `<th class="qcol">${l}</th>`).join('')}<th>Will show</th></tr></thead><tbody>
+      ${rows.map((r, i) => `<tr><td><b>${esc(r.name)}</b></td><td class="small">${counts(r)}</td><td>${photosSel(`${kind}:${i}`, r.rule)}</td>${STATUSES.map(([k, l]) => `<td class="qcol">${qBox(`${kind}:${i}`, k, l, r.rule)}</td>`).join('')}<td class="small" data-est="${kind}:${i}"></td></tr>`).join('')}</tbody></table></div>`
     : `<div class="card__body muted">None yet.</div>`;
   shell('products', [['Products', '#products'], ['What the website shows', '']], `
     <div class="page-head"><div><h1 class="page-title">What the website shows</h1>
-      <p class="page-sub">The catalogue has too many pieces to show them all, so choose here how many of the <b>newest</b> pieces (by listing date) each collection shows, and each category for the pieces that aren’t in a collection yet. Leave a number empty to show them all, or put 0 to show none. Pieces used in campaigns, stories and e-brochures always stay on the website.</p></div>
+      <p class="page-sub">The catalogue has too many pieces to show them all at once. For each collection, and each category for the pieces that aren’t in a collection yet, choose how many pieces of each <b>Best Selling Status</b> to show: leave a number empty to show them all, or put 0 to show none. When a status has more pieces than its number, they <b>take turns</b>, so that over time every piece is on the website. Pieces used in campaigns, stories and e-brochures always stay.</p></div>
       <div class="page-actions"><button type="button" class="btn" data-recheck>${ic('search')}Check the catalogue again</button><button type="button" class="btn btn--primary" data-save-rules disabled>${ic('check')}Save</button></div></div>
     <div class="card card__body" role="status" style="margin-bottom:18px;display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center" data-rules-state>${chip(rulesState())}<span class="small" data-total></span></div>
     ${CAT.error ? `<div class="card card__body" role="status" style="margin-bottom:18px;border-color:var(--warn,#b8860b)">${ic('alert')} ${esc(CAT.error)}</div>` : ''}
-    ${!st && !CAT.error ? `<div class="card card__body" role="status" style="margin-bottom:18px">${ic('alert')} The catalogue PC hasn’t sent its counts yet (it needs version 1.2.0), so only the pieces on the website now are counted. Your choice is saved all the same.</div>` : ''}
-    <section class="card" style="margin-bottom:18px"><div class="card__head" style="flex-wrap:wrap"><div><h2 class="card__title">For new collections and categories</h2><p class="hint">Used for any collection or category added to the sheet later.</p></div>
-      <div class="addrow">${ctl('d:0', draft.dflt)}<button type="button" class="btn btn--sm" data-apply-all>Use for every row</button></div></div></section>
-    <section class="card" style="margin-bottom:18px"><div class="card__head"><div><h2 class="card__title">Collections</h2><p class="hint">From the Collection 1–5 columns of the sheet. A piece in two collections counts in both.</p></div></div>${table('c', draft.cols, 'Collection')}</section>
+    ${!st && !CAT.error ? `<div class="card card__body" role="status" style="margin-bottom:18px">${ic('alert')} The catalogue PC hasn’t sent its counts yet (it needs version 1.3.0), so only the pieces on the website now are counted. Your choice is saved all the same.</div>` : ''}
+    <section class="card" style="margin-bottom:18px"><div class="card__head" style="flex-wrap:wrap"><div style="min-width:0"><h2 class="card__title">Taking turns</h2>
+      <p class="hint">How often the pieces change. Each time, the pieces that have been off the website longest come in, and newly listed pieces come first. Pieces with photos always come before pieces without, so as you add photos those pieces show first.</p></div>
+      <select class="select" style="width:auto;min-height:38px" data-turns aria-label="Change the pieces">${Object.entries(TURNS).map(([k, l]) => `<option value="${k}"${draft.turns === k ? ' selected' : ''}>${l}</option>`).join('')}</select></div></section>
+    <section class="card" style="margin-bottom:18px"><div class="card__head" style="flex-wrap:wrap"><div style="min-width:0"><h2 class="card__title">For new collections and categories</h2><p class="hint">Used for any collection or category added to the sheet later.</p></div>
+      <div class="addrow qdefault">${photosSel('d:0', draft.dflt)}${STATUSES.map(([k, l]) => qBox('d:0', k, l, draft.dflt)).join('')}<button type="button" class="btn btn--sm" data-apply-all>Use for every row</button></div></div></section>
+    <section class="card" style="margin-bottom:18px"><div class="card__head"><div><h2 class="card__title">Collections</h2><p class="hint">From the Collection 1–5 columns of the sheet. A piece in two collections counts in both. The statuses come from the sheet’s Best Selling Status: Fast (or Yes, Hot…), Non-moving (or Slow moving…), and No status for an empty cell.</p></div></div>${table('c', draft.cols, 'Collection')}</section>
     <section class="card" style="margin-bottom:18px"><div class="card__head"><div><h2 class="card__title">Categories</h2><p class="hint">Pieces that aren’t in any collection yet, by product type. Pieces in a collection follow their collection above.</p></div></div>${table('t', draft.cats, 'Category')}</section>
     <section class="card"><div class="card__head"><div><h2 class="card__title">Always show</h2><p class="hint">References that stay on the website whatever the numbers above, such as GR040, B4458. Separate them with commas or spaces. A piece marked “No” in the sheet’s Show on website column stays off.</p></div></div>
       <div class="card__body"><textarea class="textarea input--mono" rows="2" data-always placeholder="GR040, B4458" aria-label="References always shown">${esc(draft.always)}</textarea><p class="hint" data-always-note style="margin-top:.5rem"></p></div></section>`);
 
   const rowOf = key => { const [k, i] = key.split(':'); return k === 'd' ? draft.dflt : (k === 'c' ? draft.cols : draft.cats)[+i].rule; };
   const draw = () => {
-    let total = 0, known = true;
+    let total = 0, known = true, exact = true;
     [['c', draft.cols], ['t', draft.cats]].forEach(([k, rows]) => rows.forEach((r, i) => {
       const e = estimate(r, r.rule), el = $(`[data-est="${k}:${i}"]`);
-      if (e == null) known = false; else total += e;
-      if (el) el.innerHTML = e == null ? `<span class="muted">${r.shown == null ? '—' : `${fmtN(r.shown)} now`}</span>` : `${fmtN(e)}${r.shown != null && r.shown !== e ? ` <span class="muted">(now ${fmtN(r.shown)})</span>` : ''}`;
+      if (e == null) known = false; else { total += e.n; exact = exact && e.exact; }
+      if (el) el.innerHTML = e == null ? `<span class="muted">${r.shown == null ? '—' : `${fmtN(r.shown)} now`}</span>`
+        : `${e.exact ? '' : '<span class="muted">up to</span> '}${fmtN(e.n)}${r.shown != null && r.shown !== e.n ? ` <span class="muted">(now ${fmtN(r.shown)})</span>` : ''}`;
     }));
     const always = refList(draft.always).length;
     const sum = total + always;
     $('[data-total]').innerHTML = known && (draft.cols.length || draft.cats.length)
-      ? `With these numbers the website lists about <b>${fmtN(sum)}</b> pieces${always ? ` (including ${always} always shown)` : ''}.${sum > RULES_CAP ? ` <span style="color:var(--danger)">That’s more than the ${fmtN(RULES_CAP)} a website list can hold: the catalogue PC keeps the newest ${fmtN(RULES_CAP)}.</span>` : ''}`
+      ? `With these numbers the website lists ${exact ? 'about' : 'up to'} <b>${fmtN(sum)}</b> pieces${always ? ` (including ${always} always shown)` : ''}${draft.turns === 'off' ? '' : `, taking turns ${draft.turns === 'day' ? 'every day' : 'every week'}`}.${sum > RULES_CAP ? ` <span style="color:var(--danger)">That could be more than the ${fmtN(RULES_CAP)} a website list can hold: the catalogue PC then keeps the newest ${fmtN(RULES_CAP)}.</span>` : ''}`
       : 'The total shows once the catalogue PC sends its counts.';
     const inCat = new Set(catProducts().map(p => String(p.id).toUpperCase()));
     const missing = refList(draft.always).filter(x => !inCat.has(x));
@@ -1479,22 +1496,29 @@ VIEWS.showing = async () => {
   const dirty = () => { S.dirty = true; btn.disabled = false; draw(); };
   $('#content').addEventListener('input', e => {
     const t = e.target;
-    if (t.dataset.max) { const v = t.value.trim(); rowOf(t.dataset.max).max = v === '' ? null : Math.max(0, Math.floor(Number(v) || 0)); dirty(); }
+    if (t.dataset.q) { const [k, i, s] = t.dataset.q.split(':'); rowOf(`${k}:${i}`)[s] = quota(t.value.trim()); dirty(); }
     else if (t.hasAttribute('data-always')) { draft.always = t.value; dirty(); }
   });
-  $('#content').addEventListener('change', e => { const t = e.target; if (t.dataset.photos) { rowOf(t.dataset.photos).photos = t.value === 'any' ? 'any' : 'only'; dirty(); } });
+  $('#content').addEventListener('change', e => {
+    const t = e.target;
+    if (t.dataset.photos) { rowOf(t.dataset.photos).photos = t.value === 'any' ? 'any' : 'only'; dirty(); }
+    else if (t.hasAttribute('data-turns')) { draft.turns = TURNS[t.value] ? t.value : 'week'; dirty(); }
+  });
   $('[data-apply-all]').addEventListener('click', () => {
     [...draft.cols, ...draft.cats].forEach(r => { r.rule = { ...draft.dflt }; });
-    $$('[data-max]').forEach(x => { if (x.dataset.max !== 'd:0') x.value = draft.dflt.max == null ? '' : draft.dflt.max; });
+    $$('[data-q]').forEach(x => { const [k, , s] = x.dataset.q.split(':'); if (k !== 'd') x.value = draft.dflt[s] == null ? '' : draft.dflt[s]; });
     $$('[data-photos]').forEach(x => { if (x.dataset.photos !== 'd:0') x.value = draft.dflt.photos; });
     dirty();
   });
   $('[data-recheck]').addEventListener('click', async e => { if (S.dirty && !(await ask('Check again?', 'Checking again shows the catalogue’s latest counts; your unsaved numbers are lost.', 'Check again', { cancel: 'Stay' }))) return; S.dirty = false; busy(e.currentTarget, true, 'Checking…'); await loadCatalogue(true); route(); });
+  const rowValue = r => ({ photos: r.photos, fast: r.fast, none: r.none, slow: r.slow });
   btn.addEventListener('click', async () => {
     const value = {
-      default: { ...draft.dflt },
-      collections: draft.cols.map(r => ({ name: r.name, ...r.rule })),
-      categories: draft.cats.map(r => ({ name: r.name, ...r.rule })),
+      v: 2,
+      rotate: draft.turns,
+      default: rowValue(draft.dflt),
+      collections: draft.cols.map(r => ({ name: r.name, ...rowValue(r.rule) })),
+      categories: draft.cats.map(r => ({ name: r.name, ...rowValue(r.rule) })),
       always: refList(draft.always),
       updated: new Date().toISOString(),
     };
@@ -1505,8 +1529,8 @@ VIEWS.showing = async () => {
         const now = await GH.file(RULES_PATH);
         if (now && was !== now.sha && !(await ask('Changed by someone else', 'Someone else saved what the website shows after you opened this page. Save your version over theirs?', 'Save mine', { danger: true }))) { busy(btn, false); return; }
       } catch (e) { if (e.code === 'auth') throw e; }
-      const shown = value.collections.length + value.categories.length;
-      await commitEntry('rules', '', value, { message: `Website products: what the website shows (${shown} collections and categories${value.always.length ? `, ${value.always.length} always shown` : ''})` });
+      const n = value.collections.length + value.categories.length;
+      await commitEntry('rules', '', value, { message: `Website products: what the website shows (${n} collections and categories, taking turns ${value.rotate === 'off' ? 'never' : value.rotate === 'day' ? 'every day' : 'every week'}${value.always.length ? `, ${value.always.length} always shown` : ''})` });
       S.dirty = false;
       route();
     } catch (e) { handleError(e); busy(btn, false); }
