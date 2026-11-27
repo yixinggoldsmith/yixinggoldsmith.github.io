@@ -3950,6 +3950,9 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     return TITLES[h] ? { page: h, key: h } : null;
   }
   let current = null, pendingScroll = null, firstShow = true;
+  // the address's hash as written: browsers keep letters such as 吉祥 percent-encoded there
+  // (#collection-auspicious-%E5%90%89%E7%A5%A5-zodiac-horoscope), while the pages' own names keep them as they are
+  const hashNow = () => { const h = location.hash.slice(1); try { return decodeURIComponent(h); } catch (e) { return h; } };
   function show(hash) {
     const r = resolve(hash) || resolve('home');
     const route = r.page;
@@ -3992,7 +3995,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     if (r.product) requestAnimationFrame(() => openProduct(r.product));
   }
   window.addEventListener('hashchange', () => {
-    const h = location.hash.slice(1);
+    const h = hashNow();
     if (!h || resolve(h)) show(h || 'home');
   });
 
@@ -4072,7 +4075,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     if (a.dataset.lookEnquire) { const ms = a.dataset.lookEnquire.split(' ').map(id => BY_ID[id]).filter(Boolean); if (ms.length) { setType('general'); prefill(tr('I’m interested in these pieces: {list}.', { list: ms.map(x => `${x.ref} ${x.name}`).join(tr(', ')) })); } }
     if (a.dataset.scroll) pendingScroll = a.dataset.scroll;
     else if (route === 'contact' && (a.dataset.enquiry || a.dataset.message || a.hasAttribute('data-pd-enquire') || a.hasAttribute('data-enquire-saved') || a.dataset.setEnquire || a.dataset.lookEnquire)) pendingScroll = 'enquiry';
-    if (location.hash === '#' + hash) { e.preventDefault(); current = null; show(hash); }
+    if (hashNow() === hash) { e.preventDefault(); current = null; show(hash); }
   });
 
   /* ---------- menu & drawer ---------- */
@@ -4189,7 +4192,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     renderProductParts(); renderShop();
     if (current === 'e-brochure') renderReader();
     // a link straight to a catalogue piece, category or collection waited for the list
-    const h = location.hash.slice(1);
+    const h = hashNow();
     if (waitingHash && h === waitingHash && resolve(h)) { waitingHash = ''; current = null; show(h); }
   }
   function loadCatalogue(retry) {
@@ -4229,7 +4232,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
   let searchFocus = false;
   function openSearch() {
     searchFocus = true;
-    if (current && document.body.dataset.route === 'collections') { current = null; show(location.hash.slice(1) || 'collection-all'); return; }
+    if (current && document.body.dataset.route === 'collections') { current = null; show(hashNow() || 'collection-all'); return; }
     if (location.hash === '#collection-all') { current = null; show('collection-all'); } else location.hash = '#collection-all';
   }
   const footMQ = window.matchMedia ? window.matchMedia('(max-width: 699px)') : { matches: false };
@@ -4252,7 +4255,7 @@ body[data-route="home"] .site-header:not(.is-scrolled):not(:hover):not(:focus-wi
     document.body.appendChild(pill);
   }
   renderHome(); renderShop(); renderEditorial(); renderShelf(); syncType(); syncSaved();
-  { const h = (location.hash || '#home').slice(1); if (!resolve(h)) waitingHash = h; show(h); }
+  { const h = hashNow() || 'home'; if (!resolve(h)) waitingHash = h; show(h); }
   loadCatalogue();
 })();
 </script>
