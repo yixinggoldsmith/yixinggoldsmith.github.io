@@ -50,5 +50,12 @@
     ]
   },
   "promos": [],
-  "editorial": {}
+  "editorial": {},
+  "tile": {
+    "image": "media/uploads/images/tile-baby-little-bell.webp",
+    "button_label": "Explore little treasures",
+    "button_label_ms": "Terokai permata kecil",
+    "button_label_zh": "探索小小珍宝",
+    "button_link": "#collection-baby"
+  }
 }

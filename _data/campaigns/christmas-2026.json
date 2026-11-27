@@ -107,5 +107,12 @@
     "link_label": "Read the story",
     "link_label_ms": "Baca cerita",
     "link_label_zh": "阅读故事"
+  },
+  "tile": {
+    "image": "media/uploads/images/tile-christmas-santa-necklace.webp",
+    "button_label": "Explore Christmas gifts",
+    "button_label_ms": "Terokai hadiah Krismas",
+    "button_label_zh": "探索圣诞礼物",
+    "button_link": "#collection-christmas"
   }
 }

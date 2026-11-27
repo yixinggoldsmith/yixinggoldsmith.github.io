@@ -46,5 +46,12 @@
     ]
   },
   "promos": [],
-  "editorial": {}
+  "editorial": {},
+  "tile": {
+    "image": "media/uploads/images/tile-cny-fortune-goat.webp",
+    "button_label": "Explore the Year of the Goat",
+    "button_label_ms": "Terokai Tahun Kambing",
+    "button_label_zh": "探索羊年系列",
+    "button_link": "#collection-cny-2027"
+  }
 }
