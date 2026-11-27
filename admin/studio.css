@@ -468,3 +468,12 @@ img.is-photo { object-fit: contain !important; background: #FFFFFF; }
   .qdefault .qbox { flex: 1 1 28%; }
   .qdefault .qbox .input { width: 100%; }
 }
+
+/* ticks: the pages a tile between products shows on */
+.checks { display: grid; gap: 14px; }
+.checks__group { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-wrap: wrap; gap: 6px 8px; }
+.checks__group legend { float: left; width: 100%; padding: 0 0 6px; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.checks__item { display: inline-flex; align-items: center; gap: 7px; min-height: 34px; padding: 0 .8rem 0 .6rem; border: 1px solid var(--line-2); border-radius: 999px; background: var(--panel); cursor: pointer; font-size: .86rem; color: var(--ink); }
+.checks__item input { margin: 0; accent-color: var(--accent); }
+.checks__item:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-text); }
+.checks__item:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }

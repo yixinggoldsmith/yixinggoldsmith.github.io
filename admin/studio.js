@@ -23,7 +23,7 @@ const BUILTIN_BROCHURES = [
   { id: 'gift', title: 'The Gift Edit', sub: 'Six designs to give, tied by hand', pages: 7, cover: 'media/v4/yixing-box.webp' },
   { id: 'library', title: 'The Bead Library', sub: 'Nineteen beads, pipes and links', pages: 8, cover: 'media/v4/ed-alphabet.webp' },
 ];
-const KINDS = ['campaigns', 'products', 'collections', 'editorial', 'brochures'];
+const KINDS = ['campaigns', 'products', 'collections', 'editorial', 'brochures', 'tiles'];
 
 // ------------------------------------------------------------------ helpers
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -265,8 +265,8 @@ const GH = {
 };
 
 // ------------------------------------------------------------------ content
-const KIND_DIR = { campaigns: '_data/campaigns', products: '_data/products', collections: '_data/collections', editorial: '_data/editorial', brochures: '_data/brochures' };
-const KEY_FIELD = { campaigns: 'slug', products: 'id', collections: 'id', editorial: 'slug', brochures: 'slug' };
+const KIND_DIR = { campaigns: '_data/campaigns', products: '_data/products', collections: '_data/collections', editorial: '_data/editorial', brochures: '_data/brochures', tiles: '_data/tiles' };
+const KEY_FIELD = { campaigns: 'slug', products: 'id', collections: 'id', editorial: 'slug', brochures: 'slug', tiles: 'id' };
 const pathFor = (kind, key) => (kind === 'home' ? '_data/home.json' : kind === 'rules' ? '_data/catalogue_rules.json' : `${KIND_DIR[kind]}/${key}.json`);
 const entries = kind => Object.entries(S.data[kind] || {}).map(([key, e]) => ({ key, ...e }));
 const values = kind => entries(kind).map(e => e.value);
@@ -279,7 +279,7 @@ async function loadAll(onStep) {
   S.head = head;
   S.files = new Map(tree.tree.filter(e => e.type === 'blob').map(e => [e.path, { sha: e.sha, size: e.size || 0 }]));
   const dataPaths = [...S.files.keys()].filter(p => /^_data\/([a-z]+\/)?[^/]+\.json$/.test(p));
-  const data = { campaigns: {}, products: {}, collections: {}, editorial: {}, brochures: {}, home: null, rules: null };
+  const data = { campaigns: {}, products: {}, collections: {}, editorial: {}, brochures: {}, tiles: {}, home: null, rules: null };
   let n = 0;
   await pool(dataPaths, 8, async p => {
     const sha = S.files.get(p).sha;
@@ -323,6 +323,7 @@ function titleOf(kind, v) {
   if (!v) return '';
   if (kind === 'products') return `${v.name || v.id} (${v.id})`;
   if (kind === 'collections') return v.name || v.id;
+  if (kind === 'tiles') return v.name || v.id;
   if (kind === 'editorial') return plain(v.title) || v.slug;
   return plain(v.title) || v.slug || '';
 }
@@ -436,6 +437,7 @@ const NAV = [
   { id: 'campaigns', label: 'Campaigns', icon: 'flag', count: () => entries('campaigns').length },
   { id: 'products', label: 'Products', icon: 'gem', count: () => productsOnSite() },
   { id: 'collections', label: 'Collections', icon: 'grid', count: () => entries('collections').length },
+  { id: 'tiles', label: 'Tiles between products', icon: 'tiles', count: () => liveTiles().length },
   { id: 'brochures', label: 'e-Brochures', icon: 'book', count: () => entries('brochures').length + BUILTIN_BROCHURES.length },
   { id: 'editorial', label: 'Editorial', icon: 'pen', count: () => entries('editorial').length },
   { id: 'home', label: 'Home page', icon: 'layout' },
@@ -590,6 +592,7 @@ function fieldHTML(f, path, v) {
       control = `<select class="select" id="${id}" data-bind="${path}" data-kind="text" ${desc}><option value="">No story</option>${stories.map(s => `<option value="${esc(s.slug)}" ${String(v) === String(s.slug) ? 'selected' : ''}>${esc(plain(s.title))}</option>`).join('')}</select>`; break;
     }
     case 'link': control = linkHTML(path, v, id); break;
+    case 'checks': control = checksHTML(f, path, v); break;
     case 'richtext': control = rtHTML(path, v, id); break;
     case 'image': control = imageHTML(f, path, v); break;
     case 'video': control = videoHTML(f, path, v); break;
@@ -635,6 +638,17 @@ function linkHTML(path, v, id) {
     </select>
     <input class="input input--mono" type="text" data-bind="${path}" data-kind="text" value="${esc(val)}" placeholder="https://… or #page" ${custom ? '' : 'hidden'} aria-label="Link address">
   </div>`;
+}
+
+// ---- ticks: several choices out of groups (the pages a tile shows on); saved as a list of the values ticked
+function checksHTML(f, path, v) {
+  const groups = typeof f.options === 'function' ? f.options() : (f.options || []);
+  const sel = new Set((Array.isArray(v) ? v : []).map(String));
+  const known = new Set(groups.flatMap(([, items]) => items.map(([x]) => String(x))));
+  const gone = [...sel].filter(x => !known.has(x));
+  const box = (x, l, on) => `<label class="checks__item"><input type="checkbox" value="${esc(x)}" ${on ? 'checked' : ''}><span>${esc(l)}</span></label>`;
+  return `<div class="checks" data-checks="${path}">${groups.filter(g => g[1].length).map(([g, items]) => `<fieldset class="checks__group"><legend>${esc(g)}</legend>${items.map(([x, l]) => box(x, l, sel.has(String(x)))).join('')}</fieldset>`).join('')}
+    ${gone.length ? `<fieldset class="checks__group"><legend>Not on the website now</legend>${gone.map(x => box(x, x, true)).join('')}</fieldset>` : ''}</div>`;
 }
 
 // ---- rich text (bold, italic, links, lists)
@@ -953,6 +967,8 @@ function bindEditor(root) {
   });
   root.addEventListener('change', async e => {
     const el = e.target;
+    const ck = el.type === 'checkbox' && el.closest('[data-checks]');
+    if (ck) { setAt(S.draft.value, ck.dataset.checks, $$('input[type=checkbox]', ck).filter(x => x.checked).map(x => x.value)); updateSummary(el); return markDirty(); }
     if (el.dataset.link) {
       const path = el.dataset.link, input = el.parentElement.querySelector('[data-bind]');
       S.ui.customLinks = S.ui.customLinks || new Set();
@@ -1135,6 +1151,32 @@ const ANNOUNCEMENTS = { type: 'list', max: 6, addLabel: 'Add a message', summary
   { key: 'link', label: 'Link', type: 'link', half: true },
 ] };
 
+// tiles between products: a picture with one button among the products of the Collections page (the 5th square,
+// then every 7th), as on tiffany.com. Each live campaign has one; more can be made under Tiles between products.
+const TILE_FOCUS = { key: 'focus', label: 'Keep in view', type: 'segmented', options: [['left', 'Left'], ['centre', 'Centre'], ['right', 'Right']], default: 'centre', half: true, hint: 'The tile is a little narrower than the picture on most screens; this part stays in view.' };
+const TILE_VIDEO_HINT = 'A few seconds, no sound, portrait or square, ideally under 5 MB. It plays while the tile is on screen; the picture shows until then, and for visitors who prefer less motion.';
+const tileOn = v => v.show !== 'off';
+const CAMPAIGN_TILE = [
+  { key: 'show', label: 'Tile between products', type: 'segmented', options: [['on', 'Show'], ['off', 'Don’t show']], default: 'on', half: true },
+  { ...TILE_FOCUS, showIf: tileOn },
+  { key: 'image', label: 'Picture', type: 'image', folder: 'images', max: [1350, 1700], ratio: '4/5', showIf: tileOn, hint: 'Portrait 4:5, 1080 × 1350: a close-up, or the piece being worn. Leave empty to use the cover of the collection most of the carousel’s pieces are in.' },
+  { key: 'video', label: 'Video (optional)', type: 'video', folder: 'videos', showIf: tileOn, hint: TILE_VIDEO_HINT },
+  { key: 'button_label', label: 'Button text', type: 'text', half: true, placeholder: 'Explore Christmas gifts', showIf: tileOn, hint: 'Leave empty for “Explore” and the campaign’s name.' },
+  { key: 'button_link', label: 'Button link', type: 'link', half: true, showIf: tileOn, hint: 'Leave empty to open that collection.' },
+];
+// the pages of the Collections page a tile can be on (named as their links: collection-all, collection-baby, type-rings…)
+function shopPages() {
+  // collections with pieces on the website (website-only pieces, or catalogue products under their sheet name)
+  const catCols = (CAT.doc && CAT.doc.collections) || [];
+  const pieces = c => values('products').some(p => p.collection === c.id && p.show !== false) || catCols.some(x => (x.count || 0) > 0 && studioColFor(x.name) === c);
+  return [
+    ['Pages', [['collection-all', 'All pieces'], ['promotion', 'Promotion'], ['new-arrival', 'New arrival'], ['best-selling', 'Best Selling']]],
+    ['Collections', values('collections').slice().sort(byOrder).filter(pieces).map(c => [`collection-${c.id}`, c.name || c.id])
+      .concat(((CAT.doc && CAT.doc.collections) || []).filter(c => !studioColFor(c.name)).map(c => [catColLink(c.name).slice(1), `${c.name} (catalogue)`]))],
+    ['Categories', ((CAT.doc && CAT.doc.types) || []).map(t => [typeLink(t.name).slice(1), pluralOf(t.name)])],
+  ];
+}
+
 const SCHEMAS = {
   campaigns: {
     label: 'Campaign', plural: 'Campaigns', key: 'slug',
@@ -1154,6 +1196,7 @@ const SCHEMAS = {
         { key: 'products.title', label: 'Heading', type: 'text', placeholder: 'Christmas 2026' },
         { key: 'products.items', label: 'Products, in order', type: 'products' },
       ] },
+      { title: 'Tile between products', hint: 'While the campaign is live, a picture with a button sits among the products on the Collections page: the 5th square, then every 7th, with any other tiles. It doesn’t show on the page it links to.', fields: [{ key: 'tile', type: 'group', fields: CAMPAIGN_TILE }] },
       // (the Promo tiles under the carousel became Shop by collection, set under Collections; a campaign keeps its old tiles in its file)
       { title: 'Editorial feature', hint: 'Text beside a large picture, linking to a story.', fields: [
         { key: 'editorial.story', label: 'Story', type: 'story' },
@@ -1264,6 +1307,39 @@ const SCHEMAS = {
       ] },
     ],
     validate: v => (!(v.pages || []).length ? { pages: 'Add at least one page.' } : {}),
+  },
+  tiles: {
+    label: 'Tile', plural: 'Tiles between products', key: 'id',
+    blank: () => ({ name: '', id: '', show: true, image: '', video: '', focus: 'centre', button_label: '', opens: 'link', button_link: '', look: [], where: 'all', pages: [], order: '', start: '', end: '' }),
+    sections: [
+      { title: 'Tile', fields: [
+        { key: 'name', label: 'Name', type: 'text', required: true, tr: false, placeholder: 'Goat pendants, worn', hint: 'For finding it here; it isn’t shown on the website.' },
+        { key: 'id', label: 'Short name', type: 'slug', required: true, hint: 'Used for the file. Lowercase letters, numbers and hyphens.' },
+      ] },
+      { title: 'Picture', hint: 'The tile takes one square among the products, as tall as the cards beside it.', fields: [
+        { key: 'image', label: 'Picture', type: 'image', folder: 'images', max: [1350, 1700], ratio: '4/5', required: true, hint: 'Portrait 4:5, 1080 × 1350. Pieces being worn, or a close-up, stand out best among the product photos.' },
+        { key: 'video', label: 'Video (optional)', type: 'video', folder: 'videos', hint: TILE_VIDEO_HINT },
+        TILE_FOCUS,
+      ] },
+      { title: 'Button', fields: [
+        { key: 'button_label', label: 'Button text', type: 'text', placeholder: 'Shop the look', hint: 'A few words, in capitals on the website. Leave empty for “Shop the look” or “Explore now”.' },
+        { key: 'opens', label: 'When someone taps it', type: 'segmented', options: [['link', 'Open a page'], ['look', 'Show the pieces in the picture']], default: 'link' },
+        { key: 'button_link', label: 'Page it opens', type: 'link', showIf: v => v.opens !== 'look', hint: 'A collection, a category, an e-brochure, a story, a piece or a web address.' },
+        { key: 'look', label: 'Pieces in the picture', type: 'products', showIf: v => v.opens === 'look', hint: 'They open in a list beside the page (Shop the look), each with its product window. A piece no longer on the website is left out.' },
+      ] },
+      { title: 'Where and when', fields: [
+        { key: 'where', label: 'Pages', type: 'segmented', options: [['all', 'Every page of the shop'], ['some', 'Only these pages']], default: 'all', hint: 'All pieces, each collection, each category and the highlights. A tile never shows on the page it opens.' },
+        { key: 'pages', label: 'Show it on', type: 'checks', options: shopPages, showIf: v => v.where === 'some' },
+        { key: 'show', label: 'Show on the website', type: 'toggle', half: true },
+        { key: 'order', label: 'Order', type: 'number', half: true, hint: '1 comes first. Leave empty to come after the live campaigns’ tiles.' },
+        { key: 'start', label: 'From', type: 'date', half: true, hint: 'Optional.' },
+        { key: 'end', label: 'Until', type: 'date', half: true, hint: 'Optional.' },
+      ] },
+    ],
+    validate: v => Object.assign({},
+      v.start && v.end && v.end < v.start ? { end: 'The end date is before the start date.' } : {},
+      v.opens === 'look' ? (!(v.look || []).length ? { look: 'Add the pieces in the picture.' } : {}) : (!String(v.button_link || '').trim() ? { button_link: 'Choose the page it opens.' } : {}),
+      v.where === 'some' && !(v.pages || []).length ? { pages: 'Tick at least one page.' } : {}),
   },
   home: {
     label: 'Home page', plural: 'Home page', key: null,
@@ -1616,7 +1692,7 @@ VIEWS.campaigns = async id => {
   const list = values('campaigns').sort((a, b) => order(a) - order(b) || (order(a) === 0 ? byCampaign(a, b) : String(b.start || '').localeCompare(String(a.start || ''))));
   listPage('campaigns', {
     crumbs: [['Campaigns', '#campaigns']], title: 'Campaigns', newLabel: 'New campaign',
-    sub: 'A campaign is a season’s home page: banner, announcement bar, product carousel, promo tiles and an editorial feature. Switch one on and give it dates, and it appears by itself. Several can be live together: their banners take turns.',
+    sub: 'A campaign is a season’s home page: banner, announcement bar, product carousel and an editorial feature, plus a tile between the products of the Collections page. Switch one on and give it dates, and it appears by itself. Several can be live together: their banners take turns.',
     tiles: list.length ? `<div class="tiles tiles--wide">${list.map(c => `<a class="card tile" href="#campaigns/${encodeURIComponent(c.slug)}">
       <div class="tile__media tile__media--wide">${heroThumb(c.hero)}${chip(campaignStatus(c))}</div>
       <div class="tile__body"><span class="tile__name">${esc(plain(c.title) || c.slug)}</span><span class="tile__meta">${esc(dates(c))}</span></div></a>`).join('')}</div>` : '',
@@ -1691,6 +1767,51 @@ VIEWS.editorial = async id => {
     empty: `${ic('pen')}<p>No stories yet.</p>`,
   });
 };
+// ------------------------------------------------------------------ tiles between products (Collections page)
+// on the website today: the Studio's tiles switched on and within their dates, and every live campaign's (unless switched off)
+const tileLive = t => t && t.show !== false && t.show !== 'false' && (!t.start || String(t.start) <= todayMY()) && (!t.end || String(t.end) >= todayMY());
+const campaignTileOn = c => !(c.tile && c.tile.show === 'off');
+function liveTiles() { return [...liveCampaigns().filter(campaignTileOn), ...values('tiles').filter(tileLive)]; }
+const byTile = (a, b) => (hasOrd(b) - hasOrd(a)) || (hasOrd(a) && hasOrd(b) && Number(a.order) - Number(b.order)) || String(a.name || a.id).localeCompare(String(b.name || b.id));
+function tileStatus(t) {
+  const d = todayMY();
+  if (t.show === false || t.show === 'false') return ['hidden', 'Switched off'];
+  if (t.start && String(t.start) > d) return ['soon', 'Starts ' + fmtDate(t.start)];
+  if (t.end && String(t.end) < d) return ['off', 'Ended ' + fmtDate(t.end)];
+  return ['live', 'On the website'];
+}
+// the name of the page a link opens, as the link menus call it
+function linkName(l) {
+  l = String(l || '').trim();
+  for (const [, items] of linkGroups()) { const f = items.find(([x]) => x === l); if (f) return f[1]; }
+  return l;
+}
+VIEWS.tiles = async id => {
+  if (id) return editEntry('tiles', id);
+  const own = values('tiles').slice().sort(byTile), on = own.filter(tileLive);
+  const shown = [...on.filter(hasOrd).map(t => ['tile', t]), ...liveCampaigns().filter(campaignTileOn).map(c => ['campaign', c]), ...on.filter(t => !hasOrd(t)).map(t => ['tile', t])];
+  const others = [...own.filter(t => !tileLive(t)).map(t => ['tile', t]), ...liveCampaigns().filter(c => !campaignTileOn(c)).map(c => ['campaign', c])];
+  const tcard = ([k, v], i) => {
+    if (k === 'campaign') {
+      const t = v.tile || {}, pic = t.image ? imgTag(t.image, plain(v.title)) : heroThumb(v.hero);
+      const words = t.button_label || `Explore ${plain(v.title)}`;
+      return `<a class="card tile" href="#campaigns/${encodeURIComponent(v.slug)}" title="Edit in the campaign">
+        <div class="tile__media">${pic}${chip(campaignTileOn(v) ? ['live', i != null ? `Tile ${i + 1} of ${shown.length}` : 'On the website'] : ['off', 'Not shown'])}</div>
+        <div class="tile__body"><span class="tile__name">${esc(plain(v.title))} <span class="muted small">· campaign</span></span><span class="tile__meta">${esc(words)} → ${esc(t.button_link ? linkName(t.button_link) : 'its collection')}${t.image ? '' : ' · picture: the collection’s cover'}</span></div></a>`;
+    }
+    const st = tileStatus(v);
+    return `<a class="card tile" href="#tiles/${encodeURIComponent(v.id)}">
+      <div class="tile__media">${v.image ? imgTag(v.image, v.name) : `<span class="tile__ph">${ic('tiles', 'icon--lg')}</span>`}${chip(st[0] === 'live' && i != null ? ['live', `Tile ${i + 1} of ${shown.length}`] : st)}${v.video ? `<span class="chip chip--off" style="left:auto;right:10px">${ic('video')}Video</span>` : ''}</div>
+      <div class="tile__body"><span class="tile__name">${esc(v.name || v.id)}</span><span class="tile__meta">${esc(v.button_label || (v.opens === 'look' ? 'Shop the look' : 'Explore now'))} → ${esc(v.opens === 'look' ? `${(v.look || []).length} pieces in the picture` : linkName(v.button_link))} · ${esc(v.where === 'some' ? `${(v.pages || []).length} ${(v.pages || []).length === 1 ? 'page' : 'pages'}` : 'every page')}</span></div></a>`;
+  };
+  listPage('tiles', {
+    crumbs: [['Tiles between products', '#tiles']], title: 'Tiles between products', newLabel: 'New tile',
+    sub: 'Pictures with one button among the products on the Collections page, as on tiffany.com: the 5th square, then every 7th. They show while a visitor browses a page as it opens (nothing searched or filtered, in its usual order), never count as pieces, and never show on the page they open. Each live campaign has one, set in the campaign; add your own here: a picture that opens a page, or a “Shop the look” picture that lists the pieces in it.',
+    tiles: (shown.length ? `<h2 class="card__title" style="margin:0 0 12px">In this order on the website</h2><div class="tiles" style="margin-bottom:28px">${shown.map(tcard).join('')}</div>` : '')
+      + (others.length ? `<h2 class="card__title" style="margin:0 0 12px">Not on the website now</h2><div class="tiles">${others.map(x => tcard(x, null)).join('')}</div>` : ''),
+    empty: `${ic('tiles')}<p>No tiles are on the website now: no campaign is live, and none has been made here.</p><a class="btn btn--primary" href="#tiles/new">${ic('plus')}New tile</a>`,
+  });
+};
 VIEWS.brochures = async id => {
   if (id) return editEntry('brochures', id);
   const home = S.data.home.value;
@@ -1728,7 +1849,12 @@ function editEntry(kind, id) {
   if (isNew) {
     const copyOf = new URLSearchParams(id.split('?')[1] || '').get('copy');
     value = schema.blank();
-    if (copyOf && S.data[kind][copyOf]) { value = clone(S.data[kind][copyOf].value); value.title = value.title ? `${plain(value.title)} copy` : ''; value[schema.key] = slugify(value.title); if (kind === 'campaigns') value.active = false; }
+    if (copyOf && S.data[kind][copyOf]) {
+      value = clone(S.data[kind][copyOf].value);
+      if (kind === 'tiles') { value.name = value.name ? `${value.name} copy` : ''; value.id = slugify(value.name); value.show = false; }
+      else { value.title = value.title ? `${plain(value.title)} copy` : ''; value[schema.key] = slugify(value.title); }
+      if (kind === 'campaigns') value.active = false;
+    }
     // “Add a cover” beside a collection of the catalogue: a collection linked to it, named as in the sheet
     const fromCat = kind === 'collections' ? new URLSearchParams(id.split('?')[1] || '').get('catalogue') : '';
     if (fromCat) { value.name = fromCat; value.catalogue = fromCat; let k = slugify(fromCat) || 'collection'; for (let i = 2; S.data.collections[k]; i++) k = `${slugify(fromCat) || 'collection'}-${i}`; value.id = k; }
@@ -1740,7 +1866,7 @@ function editEntry(kind, id) {
   }
   S.draft = { kind, key, isNew, value, loadedSha, errors: {} };
   S.ui = { schema, sum: new Map(), open: new Set(), customLinks: new Set(),
-    autoKey: isNew ? { from: kind === 'products' ? 'name' : 'title', to: schema.key, make: kind === 'products' ? (() => getAt(S.draft.value, 'id')) : slugify, touched: kind === 'products' } : null };
+    autoKey: isNew ? { from: kind === 'products' || kind === 'tiles' ? 'name' : 'title', to: schema.key, make: kind === 'products' ? (() => getAt(S.draft.value, 'id')) : slugify, touched: kind === 'products' } : null };
   if (kind === 'editorial' && isNew) S.ui.open.add('body.0');
   S.ui.render = () => renderEditor();
   renderEditor();
@@ -1759,6 +1885,7 @@ function siteLinkFor(d) {
   if (d.kind === 'editorial') return SITE + '#story-' + encodeURIComponent(d.key);
   if (d.kind === 'brochures') return SITE + '#brochure-' + encodeURIComponent(d.key);
   if (d.kind === 'collections') return SITE + '#collection-' + encodeURIComponent(d.key);
+  if (d.kind === 'tiles') return SITE + '#collection-all';
   return SITE;
 }
 function renderEditor() {
@@ -1776,7 +1903,7 @@ function renderEditor() {
       <div class="editor__main">${schema.sections.map(sec => `<section class="card section"><div class="section__head"><div><h2 class="section__title">${esc(sec.title)}</h2>${sec.hint ? `<p class="section__hint">${esc(sec.hint)}</p>` : ''}</div></div>
         <div class="section__body">${fieldsHTML(sec.fields, '', d.value)}</div></section>`).join('')}
         ${!d.isNew && d.kind !== 'home' ? `<section class="card card__body"><h2 class="card__title">Danger zone</h2><p class="hint" style="margin:.3rem 0 .8rem">Deleting removes it from the website. Its pictures stay in the media library.</p>
-          <div class="page-actions">${['campaigns', 'brochures', 'editorial'].includes(d.kind) ? `<a class="btn" href="#${d.kind}/new?copy=${encodeURIComponent(d.key)}">${ic('copy')}Duplicate</a>` : ''}<button type="button" class="btn btn--danger" data-delete>${ic('trash')}Delete ${esc(schema.label.toLowerCase())}</button></div></section>` : ''}
+          <div class="page-actions">${['campaigns', 'brochures', 'editorial', 'tiles'].includes(d.kind) ? `<a class="btn" href="#${d.kind}/new?copy=${encodeURIComponent(d.key)}">${ic('copy')}Duplicate</a>` : ''}<button type="button" class="btn btn--danger" data-delete>${ic('trash')}Delete ${esc(schema.label.toLowerCase())}</button></div></section>` : ''}
       </div>
       <aside class="editor__side"><div class="card savebox">${saveState}${saveBtn('btn--block btn--wide')}
         <div class="progress" hidden data-progress><i></i></div>
@@ -1793,7 +1920,7 @@ function renderEditor() {
 }
 
 // ------------------------------------------------------------------ saving
-const LABEL = { campaigns: 'Campaign', products: 'Product', collections: 'Collection', editorial: 'Story', brochures: 'e-Brochure', home: 'Home page', rules: 'Website products' };
+const LABEL = { campaigns: 'Campaign', products: 'Product', collections: 'Collection', editorial: 'Story', brochures: 'e-Brochure', tiles: 'Tile between products', home: 'Home page', rules: 'Website products' };
 const signature = () => `\n\nSaved in Yi Xing Studio by ${S.session.user.name || S.session.user.email}`;
 // write one entry (plus its new uploads and any other entries that change with it) in a single commit
 async function commitEntry(kind, key, value, { oldKey = null, also = [], message, onProgress } = {}) {
@@ -1873,7 +2000,9 @@ function renameRefs(kind, oldKey, newKey) {
       if (k === 'campaigns' && nv.products && Array.isArray(nv.products.items)) nv.products.items = nv.products.items.map(x => (String(x) === oldKey ? newKey : x));
       if (k === 'editorial' && Array.isArray(nv.body)) nv.body.forEach(b => { if (b && b.type === 'products' && Array.isArray(b.items)) b.items = b.items.map(x => (String(x) === oldKey ? newKey : x)); });
       if (k === 'brochures' && Array.isArray(nv.pages)) nv.pages.forEach(pg => { if (pg && String(pg.product) === oldKey) pg.product = newKey; });
+      if (k === 'tiles' && Array.isArray(nv.look)) nv.look = nv.look.map(x => (String(x) === oldKey ? newKey : x));
     }
+    if (kind === 'collections' && k === 'tiles' && Array.isArray(nv.pages)) nv.pages = nv.pages.map(x => (x === 'collection-' + oldKey ? 'collection-' + newKey : x));
     if (kind === 'editorial' && k === 'campaigns' && nv.editorial && nv.editorial.story === oldKey) nv.editorial.story = newKey;
     if (kind === 'collections' && k === 'products' && nv.collection === oldKey) nv.collection = newKey;
     if (canon(nv) !== before) changed.push({ kind: k, key: ky, value: nv });
@@ -1892,6 +2021,7 @@ function removeRefs(kind, key) {
       if (k === 'campaigns' && nv.products && Array.isArray(nv.products.items)) nv.products.items = nv.products.items.filter(x => String(x) !== key);
       if (k === 'editorial' && Array.isArray(nv.body)) nv.body.forEach(b => { if (b && b.type === 'products' && Array.isArray(b.items)) b.items = b.items.filter(x => String(x) !== key); });
       if (k === 'brochures' && Array.isArray(nv.pages)) nv.pages.forEach(pg => { if (pg && String(pg.product) === key) delete pg.product; });
+      if (k === 'tiles' && Array.isArray(nv.look)) nv.look = nv.look.filter(x => String(x) !== key);
     }
     if (kind === 'editorial' && k === 'campaigns' && nv.editorial && nv.editorial.story === key) delete nv.editorial.story;
     if (canon(nv) !== before) changed.push({ kind: k, key: e.key, value: nv });
